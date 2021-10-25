@@ -21,16 +21,9 @@
 
     <EditText
         android:id="@+id/departmentSearchBar"
+        style="@style/SearchBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/edittext_background"
-        android:drawableStart="@drawable/ic_search"
-        android:drawablePadding="6dp"
-        android:hint="Szukaj..."
-        android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/departmentsTitle" />
@@ -40,10 +33,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="40dp"
-        tools:listitem="@layout/item_department"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/departmentSearchBar" />
+        app:layout_constraintTop_toBottomOf="@+id/departmentSearchBar"
+        tools:listitem="@layout/item_department" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
