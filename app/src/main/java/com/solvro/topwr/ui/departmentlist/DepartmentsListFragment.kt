@@ -1,4 +1,4 @@
-package com.solvro.topwr.ui
+package com.solvro.topwr.ui.departmentlist
 
 import android.os.Bundle
 import android.view.LayoutInflater
