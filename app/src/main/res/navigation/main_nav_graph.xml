@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.solvro.topwr.ui.fragments.home_page.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/home_fragment">
+        <action
+            android:id="@+id/action_homeFragment_to_departmentsFragment"
+            app:destination="@id/departmentsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_departmentsDetailsFragment"
+            app:destination="@id/departmentsDetailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_scienceClubsFragment"
+            app:destination="@id/scienceClubsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_scienceClubsDetailsFragment"
+            app:destination="@id/scienceClubsDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.solvro.topwr.ui.fragments.map_page.MapFragment"
+        android:label="map_fragment"
+        tools:layout="@layout/map_fragment" />
+    <fragment
+        android:id="@+id/departmentsFragment"
+        android:name="com.solvro.topwr.ui.fragments.departments_page.DepartmentsFragment"
+        android:label="departments_fragment"
+        tools:layout="@layout/departments_fragment" >
+        <action
+            android:id="@+id/action_departmentsFragment_to_departmentsDetailsFragment"
+            app:destination="@id/departmentsDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/scienceClubsFragment"
+        android:name="com.solvro.topwr.ui.fragments.science_clubs_page.ScienceClubsFragment"
+        android:label="science_clubs_fragment"
+        tools:layout="@layout/science_clubs_fragment" >
+        <action
+            android:id="@+id/action_scienceClubsFragment_to_scienceClubsDetailsFragment"
+            app:destination="@id/scienceClubsDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/faqFragment"
+        android:name="com.solvro.topwr.ui.fragments.faq_page.FaqFragment"
+        android:label="faq_fragment"
+        tools:layout="@layout/faq_fragment" />
+
+    <fragment
+        android:id="@+id/departmentsDetailsFragment"
+        android:name="com.solvro.topwr.ui.fragments.departments_details_page.DepartmentsDetailsFragment"
+        android:label="departments_details_fragment"
+        tools:layout="@layout/departments_details_fragment" />
+    <fragment
+        android:id="@+id/scienceClubsDetailsFragment"
+        android:name="com.solvro.topwr.ui.fragments.science_clubs_details.ScienceClubsDetailsFragment"
+        android:label="science_clubs_details_fragment"
+        tools:layout="@layout/science_clubs_details_fragment" />
+</navigation>
