@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/ic_home"
+        android:icon="@drawable/ic_home"
+        android:title="Home"/>
+    <item
+        android:id="@+id/ic_compass"
+        android:icon="@drawable/ic_compass"
+        android:title="Compass"/>
+    <item
+        android:id="@+id/ic_list"
+        android:icon="@drawable/ic_list"
+        android:title="List"/>
+    <item
+        android:id="@+id/ic_rocket"
+        android:icon="@drawable/ic_rocket"
+        android:title="Rocket"/>
+    <item
+        android:id="@+id/ic_info"
+        android:icon="@drawable/ic_info"
+        android:title="Info"/>
+</menu>
