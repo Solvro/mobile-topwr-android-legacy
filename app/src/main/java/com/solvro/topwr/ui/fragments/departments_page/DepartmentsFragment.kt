@@ -1,32 +1,44 @@
 package com.solvro.topwr.ui.fragments.departments_page
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.solvro.topwr.R
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.solvro.topwr.databinding.DepartmentsFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DepartmentsFragment : Fragment() {
 
     companion object {
         fun newInstance() = DepartmentsFragment()
     }
 
-    private lateinit var viewModel: DepartmentsViewModel
+    private lateinit var binding: DepartmentsFragmentBinding
+    private val viewModel: DepartmentsViewModel by viewModels()
+    private lateinit var adapter: DepartmentsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.departments_fragment, container, false)
+        binding = DepartmentsFragmentBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(DepartmentsViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupRecyclerView()
     }
+
+    private fun setupRecyclerView() {
+        adapter = DepartmentsAdapter()
+        binding.departmentRecyclerView.adapter = adapter
+        binding.departmentRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+    }
+
 
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DepartmentCardView">
+        <attr name="gradientStart" format="reference"/>
+        <attr name="gradientEnd" format="reference"/>
+        <attr name="departmentAcronym" format="string"/>
+        <attr name="departmentName" format="string"/>
+        <attr name="logo" format="reference"/>
+    </declare-styleable>
+</resources>

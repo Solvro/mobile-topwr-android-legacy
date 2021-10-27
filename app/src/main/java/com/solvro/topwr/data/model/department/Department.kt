@@ -1,6 +1,6 @@
 package com.solvro.topwr.data.model.department
 
-data class Faculty(
+data class Department(
     val id: String,
     val name: String,
     val code: String,
