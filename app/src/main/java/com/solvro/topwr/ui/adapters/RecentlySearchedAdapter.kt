@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.solvro.topwr.R
 import com.solvro.topwr.data.model.department.DepartmentItem
 import com.solvro.topwr.databinding.RecentlySearchedItemBinding
@@ -25,15 +26,21 @@ class RecentlySearchedAdapter(
         val recentlySearchedItemImage = binding.recentlySearchedItemImage
         val recentlySearchedItemTextView = binding.recentlySearchedItemTextView
         fun bind() {
+            val options: RequestOptions = RequestOptions()
+                .centerCrop()
             recentlySearchedItemTextView.text = departments[adapterPosition].code
             when (departments[adapterPosition].code) {
-                "W-1" -> Glide.with(recentlySearchedItemImage).load(R.drawable.recently_searched_item)
+                "W-1" -> Glide.with(recentlySearchedItemImage)
+                    .load(R.drawable.recently_searched_item).apply(options)
                     .into(recentlySearchedItemImage)
-                "W-2" -> Glide.with(recentlySearchedItemImage).load(R.drawable.recently_searched_item)
+                "W-2" -> Glide.with(recentlySearchedItemImage)
+                    .load(R.drawable.recently_searched_item).apply(options)
                     .into(recentlySearchedItemImage)
-                "W-3" -> Glide.with(recentlySearchedItemImage).load(R.drawable.recently_searched_item)
+                "W-3" -> Glide.with(recentlySearchedItemImage)
+                    .load(R.drawable.recently_searched_item).apply(options)
                     .into(recentlySearchedItemImage)
-                "W-4" -> Glide.with(recentlySearchedItemImage).load(R.drawable.recently_searched_item)
+                "W-4" -> Glide.with(recentlySearchedItemImage)
+                    .load(R.drawable.recently_searched_item).apply(options)
                     .into(recentlySearchedItemImage)
             }
         }
@@ -43,7 +50,8 @@ class RecentlySearchedAdapter(
         val binding = RecentlySearchedItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
-            false)
+            false
+        )
         return RecentlySearchedViewHolder(binding)
     }
 
