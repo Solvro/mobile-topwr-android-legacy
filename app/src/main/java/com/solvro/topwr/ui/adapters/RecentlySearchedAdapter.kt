@@ -11,8 +11,8 @@ import com.solvro.topwr.databinding.RecentlySearchedItemBinding
 class RecentlySearchedAdapter(
     private val departments: List<DepartmentItem>,
     private val onClick: (DepartmentItem) -> Unit
-) : RecyclerView.Adapter<RecentlySearchedAdapter.DepartmentsViewHolder>() {
-    inner class DepartmentsViewHolder(binding: RecentlySearchedItemBinding) :
+) : RecyclerView.Adapter<RecentlySearchedAdapter.RecentlySearchedViewHolder>() {
+    inner class RecentlySearchedViewHolder(binding: RecentlySearchedItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -39,15 +39,15 @@ class RecentlySearchedAdapter(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DepartmentsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecentlySearchedViewHolder {
         val binding = RecentlySearchedItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false)
-        return DepartmentsViewHolder(binding)
+        return RecentlySearchedViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: DepartmentsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecentlySearchedViewHolder, position: Int) {
         holder.bind()
     }
 
