@@ -1,32 +1,47 @@
 package com.solvro.topwr.ui.fragments.science_clubs_page
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.solvro.topwr.R
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.solvro.topwr.databinding.ScienceClubsFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ScienceClubsFragment : Fragment() {
 
     companion object {
         fun newInstance() = ScienceClubsFragment()
     }
 
-    private lateinit var viewModel: ScienceClubsViewModel
+    private val viewModel: ScienceClubsViewModel by viewModels()
+    private lateinit var binding: ScienceClubsFragmentBinding
+    private lateinit var adapter: ScienceClubsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.science_clubs_fragment, container, false)
+    ): View {
+        binding = ScienceClubsFragmentBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ScienceClubsViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupRecyclerView()
+    }
+
+    private fun setupRecyclerView() {
+        this.adapter = ScienceClubsAdapter()
+        binding.apply {
+            scienceClubsRecyclerView.apply {
+                adapter = this@ScienceClubsFragment.adapter
+                layoutManager = LinearLayoutManager(requireContext())
+            }
+        }
     }
 
 }
