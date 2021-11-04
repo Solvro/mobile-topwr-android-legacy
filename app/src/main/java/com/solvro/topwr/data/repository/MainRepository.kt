@@ -6,6 +6,7 @@ import com.solvro.topwr.data.model.departments.Departments
 import com.solvro.topwr.data.model.departments.ScientificCircle
 import com.solvro.topwr.data.model.endDate.EndDate
 import com.solvro.topwr.data.model.maps.Maps
+import com.solvro.topwr.data.model.notices.Notices
 import com.solvro.topwr.data.model.scientificCircles.ScientificCircles
 import com.solvro.topwr.data.remote.RemoteDataSource
 import com.solvro.topwr.utils.Resource
@@ -25,4 +26,6 @@ class MainRepository @Inject constructor(
     fun getScientificCircles() : LiveData<Resource<List<ScientificCircles>>> = liveData { emit(remoteDataSource.getScientificCircles()) }
 
     fun getMaps() : LiveData<Resource<List<Maps>>> = liveData { emit(remoteDataSource.getMaps()) }
+
+    fun getNotices() : LiveData<Resource<List<Notices>>> = liveData { emit(remoteDataSource.getNotices()) }
 }

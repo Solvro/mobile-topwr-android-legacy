@@ -4,6 +4,7 @@ import com.solvro.topwr.data.model.departments.Departments
 import com.solvro.topwr.data.model.departments.ScientificCircle
 import com.solvro.topwr.data.model.endDate.EndDate
 import com.solvro.topwr.data.model.maps.Maps
+import com.solvro.topwr.data.model.notices.Notices
 import com.solvro.topwr.data.model.scientificCircles.ScientificCircles
 import com.solvro.topwr.utils.Resource
 import javax.inject.Inject
@@ -22,4 +23,6 @@ class RemoteDataSource @Inject constructor(
     suspend fun getScientificCircles() : Resource<List<ScientificCircles>> = getResult { service.getScientificCircles() }
 
     suspend fun getMaps() : Resource<List<Maps>> = getResult { service.getMaps() }
+
+    suspend fun getNotices() : Resource<List<Notices>> = getResult { service.getNotices() }
 }
