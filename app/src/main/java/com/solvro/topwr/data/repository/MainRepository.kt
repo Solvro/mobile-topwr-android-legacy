@@ -3,7 +3,9 @@ package com.solvro.topwr.data.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.solvro.topwr.data.model.departments.Departments
+import com.solvro.topwr.data.model.departments.ScientificCircle
 import com.solvro.topwr.data.model.endDate.EndDate
+import com.solvro.topwr.data.model.scientificCircles.ScientificCircles
 import com.solvro.topwr.data.remote.RemoteDataSource
 import com.solvro.topwr.utils.Resource
 import javax.inject.Inject
@@ -18,4 +20,6 @@ class MainRepository @Inject constructor(
     //get list of departments
     // @return LiveData<Resource<List<Departments>>> with departments
     fun getDepartments() : LiveData<Resource<List<Departments>>> = liveData { emit(remoteDataSource.getDepartments()) }
+
+    fun getScientificCircles() : LiveData<Resource<List<ScientificCircles>>> = liveData { emit(remoteDataSource.getScientificCircles()) }
 }
