@@ -1,6 +1,7 @@
 package com.solvro.topwr.ui.fragments.departments_page
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +33,10 @@ class DepartmentsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+        viewModel.endDate.observe(viewLifecycleOwner){endDate->
+            endDate.message?.let { Log.i("tagiii", it) }
+            endDate.data?.EndDate?.let { Log.i("tagiii1", it) }
+        }
     }
 
     private fun setupRecyclerView() {

@@ -9,5 +9,5 @@ import javax.inject.Inject
 class DepartmentsViewModel @Inject constructor(
     private val repository: MainRepository
 ) : ViewModel() {
-
+val endDate = repository.getEndDate()
 }
