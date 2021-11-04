@@ -2,6 +2,7 @@ package com.solvro.topwr.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import com.solvro.topwr.data.model.departments.Departments
 import com.solvro.topwr.data.model.endDate.EndDate
 import com.solvro.topwr.data.remote.RemoteDataSource
 import com.solvro.topwr.utils.Resource
@@ -13,4 +14,8 @@ class MainRepository @Inject constructor(
     //get Academic end of year date
     // @return LiveData<Resource<EndDate>> with End Date info
     fun getEndDate() : LiveData<Resource<EndDate>> = liveData { emit(remoteDataSource.getEndDate()) }
+
+    //get list of departments
+    // @return LiveData<Resource<List<Departments>>> with departments
+    fun getDepartments() : LiveData<Resource<List<Departments>>> = liveData { emit(remoteDataSource.getDepartments()) }
 }
