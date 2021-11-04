@@ -2,18 +2,14 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/VerticalListCardView"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="24dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginEnd="24dp"
-    android:layout_marginBottom="8dp"
-    app:cardCornerRadius="8dp">
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#f7f7f8">
+        android:background="@color/science_club_item_bg">
 
         <TextView
             android:id="@+id/scienceClubItemName"
@@ -22,7 +18,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/rubik_medium"
-            android:textColor="#291241"
+            android:textColor="@color/header_text_black"
             android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/scienceClubItemImage"
@@ -32,11 +28,7 @@
 
         <ImageView
             android:id="@+id/scienceClubItemImage"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
+            style="@style/ScienceClubItemImageView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
