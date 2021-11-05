@@ -24,41 +24,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewDay" />
 
-            <ImageView
-                android:id="@+id/imageViewThirdNumberDate"
-                android:layout_width="28dp"
-                android:layout_height="0dp"
-                android:layout_marginBottom="20dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/rectanglewhite"
-                app:layout_constraintBottom_toBottomOf="@+id/imageViewEndDate"
-                app:layout_constraintStart_toEndOf="@+id/imageViewSecondNumberDate"
-                app:layout_constraintTop_toTopOf="@+id/imageViewEndDate" />
-
-            <ImageView
-                android:id="@+id/imageViewFirstNumberDate"
-                android:layout_width="28dp"
-                android:layout_height="0dp"
-                android:layout_marginBottom="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/rectanglewhite"
-                app:layout_constraintBottom_toBottomOf="@+id/imageViewEndDate"
-                app:layout_constraintStart_toStartOf="@+id/imageViewEndDate"
-                app:layout_constraintTop_toTopOf="@+id/imageViewEndDate" />
-
-            <ImageView
-                android:id="@+id/imageViewSecondNumberDate"
-                android:layout_width="28dp"
-                android:layout_height="0dp"
-                android:layout_marginBottom="20dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/rectanglewhite"
-                app:layout_constraintBottom_toBottomOf="@+id/imageViewEndDate"
-                app:layout_constraintStart_toEndOf="@+id/imageViewFirstNumberDate"
-                app:layout_constraintTop_toTopOf="@+id/imageViewEndDate" />
 
             <TextView
                 android:id="@+id/textView"
@@ -97,7 +62,7 @@
                 android:text="@string/days"
                 android:textColor="@color/white"
                 android:textSize="17sp"
-                app:layout_constraintStart_toEndOf="@+id/imageViewThirdNumberDate"
+                app:layout_constraintStart_toEndOf="@+id/textViewNumber3"
                 app:layout_constraintTop_toTopOf="@+id/imageViewEndDate" />
 
             <TextView
@@ -110,7 +75,7 @@
                 android:text="@string/until_exam"
                 android:textColor="@color/white"
                 android:textSize="15sp"
-                app:layout_constraintStart_toEndOf="@+id/imageViewThirdNumberDate"
+                app:layout_constraintStart_toEndOf="@+id/textViewNumber3"
                 app:layout_constraintTop_toBottomOf="@+id/textViewDays" />
 
 
@@ -120,12 +85,14 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/rubik"
                 android:text="1"
+                android:padding="11dp"
+                android:layout_marginStart="19dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/rectanglewhite"
                 android:textColor="@color/lightblack"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageViewFirstNumberDate"
-                app:layout_constraintEnd_toEndOf="@+id/imageViewFirstNumberDate"
-                app:layout_constraintStart_toStartOf="@+id/imageViewFirstNumberDate"
-                app:layout_constraintTop_toTopOf="@+id/imageViewFirstNumberDate" />
+                app:layout_constraintStart_toStartOf="@+id/imageViewEndDate"
+                app:layout_constraintTop_toTopOf="@+id/imageViewEndDate"/>
 
             <TextView
                 android:id="@+id/textViewNumber2"
@@ -133,12 +100,14 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/rubik"
                 android:text="0"
+                android:padding="11dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="20dp"
                 android:textColor="@color/lightblack"
+                android:background="@drawable/rectanglewhite"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageViewSecondNumberDate"
-                app:layout_constraintEnd_toEndOf="@+id/imageViewSecondNumberDate"
-                app:layout_constraintStart_toStartOf="@+id/imageViewSecondNumberDate"
-                app:layout_constraintTop_toTopOf="@+id/imageViewSecondNumberDate" />
+                app:layout_constraintStart_toEndOf="@id/textViewNumber1"
+                app:layout_constraintTop_toTopOf="@+id/imageViewEndDate"/>
 
             <TextView
                 android:id="@+id/textViewNumber3"
@@ -146,12 +115,14 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/rubik"
                 android:text="0"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="5dp"
                 android:textColor="@color/lightblack"
+                android:background="@drawable/rectanglewhite"
+                android:padding="11dp"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageViewThirdNumberDate"
-                app:layout_constraintEnd_toEndOf="@+id/imageViewThirdNumberDate"
-                app:layout_constraintStart_toStartOf="@+id/imageViewThirdNumberDate"
-                app:layout_constraintTop_toTopOf="@+id/imageViewThirdNumberDate" />
+                app:layout_constraintTop_toTopOf="@+id/imageViewEndDate"
+                app:layout_constraintStart_toEndOf="@id/textViewNumber2"/>
 
 
             <TextView
