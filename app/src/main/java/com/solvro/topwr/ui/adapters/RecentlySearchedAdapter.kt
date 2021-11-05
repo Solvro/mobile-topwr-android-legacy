@@ -23,8 +23,8 @@ class RecentlySearchedAdapter(
             }
         }
 
-        val recentlySearchedItemImage = binding.recentlySearchedItemImage
-        val recentlySearchedItemTextView = binding.recentlySearchedItemTextView
+        private val recentlySearchedItemImage = binding.recentlySearchedItemImage
+        private val recentlySearchedItemTextView = binding.recentlySearchedItemTextView
         fun bind() {
             val options: RequestOptions = RequestOptions()
                 .centerCrop()

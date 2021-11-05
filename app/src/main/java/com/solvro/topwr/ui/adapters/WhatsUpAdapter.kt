@@ -16,10 +16,10 @@ private val onClick: (DepartmentItem) -> Unit): RecyclerView.Adapter<WhatsUpAdap
                 onClick(departments[adapterPosition])
             }
         }
-        val whatsupItemImage = binding.whatsUpImageView
-        val whatsUpDate = binding.dateTextView
-        val whatsUpTitle = binding.titleTextView
-        val whatsUpDescription = binding.descriptionTextView
+        private val whatsupItemImage = binding.whatsUpImageView
+        private val whatsUpDate = binding.dateTextView
+        private val whatsUpTitle = binding.titleTextView
+        private val whatsUpDescription = binding.descriptionTextView
         fun bind(){
 
         }

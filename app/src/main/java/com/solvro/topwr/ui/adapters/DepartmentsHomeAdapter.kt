@@ -20,9 +20,9 @@ class DepartmentsHomeAdapter(private val departments: List<DepartmentItem>,
             }
         }
 
-        val departmentsItemImage = binding.departmentsItemImage
-        val departmentsIdItemTextView = binding.departmentsItemIdTextView
-        val departmentsNameTextView = binding.departmentsItemNameTextView
+        private val departmentsItemImage = binding.departmentsItemImage
+        private val departmentsIdItemTextView = binding.departmentsItemIdTextView
+        private val departmentsNameTextView = binding.departmentsItemNameTextView
         fun bind() {
             departmentsNameTextView.text = departments[adapterPosition].name
             departmentsIdItemTextView.text = departments[adapterPosition].code
