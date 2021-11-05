@@ -1,6 +1,6 @@
-package com.solvro.topwr.data.model.scientificCircles
+package com.solvro.topwr.data.model.scienceClubs
 
-data class Large(
+data class Medium(
     val ext: String?,
     val hash: String?,
     val height: Int?,

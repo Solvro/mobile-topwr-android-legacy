@@ -1,8 +1,8 @@
-package com.solvro.topwr.data.model.scientificCircles
+package com.solvro.topwr.data.model.scienceClubs
 
 import com.solvro.topwr.data.model.departments.Departments
 
-data class ScientificCircles(
+data class ScienceClubs(
     val Contact: List<Contact>?,
     val Description: String?,
     val Name: String?,

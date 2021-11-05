@@ -1,4 +1,4 @@
-package com.solvro.topwr.data.model.scientificCircles
+package com.solvro.topwr.data.model.scienceClubs
 
 data class ProviderMetadata(
     val public_id: String?,

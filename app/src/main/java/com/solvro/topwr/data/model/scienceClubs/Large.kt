@@ -1,6 +1,6 @@
-package com.solvro.topwr.data.model.scientificCircles
+package com.solvro.topwr.data.model.scienceClubs
 
-data class Thumbnail(
+data class Large(
     val ext: String?,
     val hash: String?,
     val height: Int?,

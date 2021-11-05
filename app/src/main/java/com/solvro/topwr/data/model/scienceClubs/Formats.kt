@@ -1,4 +1,4 @@
-package com.solvro.topwr.data.model.scientificCircles
+package com.solvro.topwr.data.model.scienceClubs
 
 data class Formats(
     val large: Large?,

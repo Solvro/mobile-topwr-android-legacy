@@ -1,11 +1,10 @@
 package com.solvro.topwr.data.remote
 
 import com.solvro.topwr.data.model.departments.Departments
-import com.solvro.topwr.data.model.departments.ScientificCircle
 import com.solvro.topwr.data.model.endDate.EndDate
 import com.solvro.topwr.data.model.maps.Maps
 import com.solvro.topwr.data.model.notices.Notices
-import com.solvro.topwr.data.model.scientificCircles.ScientificCircles
+import com.solvro.topwr.data.model.scienceClubs.ScienceClubs
 import retrofit2.Response
 import retrofit2.http.GET
 
@@ -26,7 +25,7 @@ interface ToPwrService {
     suspend fun getDepartments(): Response<List<Departments>>
 
     @GET("scientific-circles")
-    suspend fun getScientificCircles() : Response<List<ScientificCircles>>
+    suspend fun getScientificCircles() : Response<List<ScienceClubs>>
 
     @GET("maps")
     suspend fun getMaps() : Response<List<Maps>>

@@ -33,10 +33,6 @@ class DepartmentsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-        viewModel.endDate.observe(viewLifecycleOwner){endDate->
-            endDate.message?.let { Log.i("tagiii", it) }
-            endDate.data?.EndDate?.let { Log.i("tagiii1", it) }
-        }
     }
 
     private fun setupRecyclerView() {
