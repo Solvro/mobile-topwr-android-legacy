@@ -3,7 +3,9 @@ package com.solvro.topwr.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.solvro.topwr.R
 import com.solvro.topwr.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,5 +25,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun initNavigation() {
         navController = findNavController(R.id.fragment_nav_host)
+        binding.bottomNavigation.setupWithNavController(navController)
     }
 }
