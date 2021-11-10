@@ -81,7 +81,7 @@
 
             <TextView
                 android:id="@+id/textViewNumber1"
-                android:layout_width="wrap_content"
+                android:layout_width="31dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/rubik"
                 android:text="1"
@@ -96,10 +96,10 @@
 
             <TextView
                 android:id="@+id/textViewNumber2"
-                android:layout_width="wrap_content"
+                android:layout_width="31dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/rubik"
-                android:text="0"
+                android:text="9"
                 android:padding="11dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="20dp"
@@ -111,7 +111,7 @@
 
             <TextView
                 android:id="@+id/textViewNumber3"
-                android:layout_width="wrap_content"
+                android:layout_width="31dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/rubik"
                 android:text="0"
