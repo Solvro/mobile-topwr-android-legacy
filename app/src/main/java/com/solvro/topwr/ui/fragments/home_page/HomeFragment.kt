@@ -1,5 +1,6 @@
 package com.solvro.topwr.ui.fragments.home_page
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -34,6 +35,7 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.recentlySearchRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -52,6 +54,12 @@ class HomeFragment : Fragment() {
         binding.departmentsRecyclerView.adapter =
             DepartmentsHomeAdapter(list) { chosenDepartment ->
                 Toast.makeText(context, chosenDepartment.code, Toast.LENGTH_SHORT).show()
+            }
+
+            viewModel.endDate.observe(viewLifecycleOwner){
+                binding.textViewNumber1.text = it[0]+""
+                binding.textViewNumber2.text = it[1]+""
+                binding.textViewNumber3.text = it[2]+""
             }
     }
 

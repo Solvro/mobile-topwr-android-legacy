@@ -16,7 +16,7 @@ class MainRepository @Inject constructor(
 ) {
     //get Academic end of year date
     // @return LiveData<Resource<EndDate>> with End Date info
-    fun getEndDate() : LiveData<Resource<EndDate>> = liveData { emit(remoteDataSource.getEndDate()) }
+    suspend fun getEndDate() : Resource<EndDate> = remoteDataSource.getEndDate()
 
     //get list of departments
     // @return LiveData<Resource<List<Departments>>> with departments
