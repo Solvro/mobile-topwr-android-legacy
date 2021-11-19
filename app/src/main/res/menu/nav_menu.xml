@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_home"
+        android:title=""/>
+
+    <item
+        android:id="@+id/mapFragment"
+        android:icon="@drawable/ic_compass"
+        android:title=""/>
+    <item
+        android:id="@+id/departmentsFragment"
+        android:icon="@drawable/ic_list"
+        android:title="" />
+    <item
+        android:id="@+id/scienceClubsFragment"
+        android:icon="@drawable/ic_rocket"
+        android:title=""/>
+    <item
+        android:id="@+id/faqFragment"
+        android:icon="@drawable/ic_info"
+        android:title="" />
+</menu>
