@@ -33,7 +33,7 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("SetTextI18n")
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.buildingsRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -46,14 +46,18 @@ class HomeFragment : Fragment() {
             DepartmentItem("3", "Wydział Informatyki", "W-4", "")
         )
 
+        viewmodelHandler()
+    }
 
+    @SuppressLint("SetTextI18n")
+    private fun viewmodelHandler() {
         //livedata for end date and bind data
-            viewModel.endDate.observe(viewLifecycleOwner){
-                binding.textViewNumber1.text = it[0]+""
-                binding.textViewNumber2.text = it[1]+""
-                binding.textViewNumber3.text = it[2]+""
-            }
-        viewModel.departments.observe(viewLifecycleOwner){
+        viewModel.endDate.observe(viewLifecycleOwner) {
+            binding.textViewNumber1.text = it[0] + ""
+            binding.textViewNumber2.text = it[1] + ""
+            binding.textViewNumber3.text = it[2] + ""
+        }
+        viewModel.departments.observe(viewLifecycleOwner) {
             binding.departmentsRecyclerView.adapter =
                 it.data?.let { it1 ->
                     DepartmentsHomeAdapter(it1) { chosenDepartment ->
@@ -61,7 +65,7 @@ class HomeFragment : Fragment() {
                     }
                 }
         }
-        viewModel.buildings.observe(viewLifecycleOwner){buildings ->
+        viewModel.buildings.observe(viewLifecycleOwner) { buildings ->
             binding.buildingsRecyclerView.adapter =
                 buildings.data?.let {
                     BuildingsAdapter(it) { chosenBuilding ->
@@ -70,6 +74,5 @@ class HomeFragment : Fragment() {
                 }
         }
     }
-
 
 }
