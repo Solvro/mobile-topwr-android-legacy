@@ -45,10 +45,7 @@ class HomeFragment : Fragment() {
             DepartmentItem("2", "Wydział lfgd", "W-3", ""),
             DepartmentItem("3", "Wydział Informatyki", "W-4", "")
         )
-        binding.buildingsRecyclerView.adapter =
-            BuildingsAdapter(list) { chosenBuilding ->
-                Toast.makeText(context, chosenBuilding.code, Toast.LENGTH_SHORT).show()
-            }
+
 
         //livedata for end date and bind data
             viewModel.endDate.observe(viewLifecycleOwner){
@@ -61,6 +58,14 @@ class HomeFragment : Fragment() {
                 it.data?.let { it1 ->
                     DepartmentsHomeAdapter(it1) { chosenDepartment ->
                         Toast.makeText(context, chosenDepartment.Code, Toast.LENGTH_SHORT).show()
+                    }
+                }
+        }
+        viewModel.buildings.observe(viewLifecycleOwner){buildings ->
+            binding.buildingsRecyclerView.adapter =
+                buildings.data?.let {
+                    BuildingsAdapter(it) { chosenBuilding ->
+                        Toast.makeText(context, chosenBuilding.Code, Toast.LENGTH_SHORT).show()
                     }
                 }
         }

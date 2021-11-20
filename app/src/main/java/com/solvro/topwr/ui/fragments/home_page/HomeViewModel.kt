@@ -17,6 +17,7 @@ class HomeViewModel @Inject constructor(val repository: MainRepository) : ViewMo
     val endDate: LiveData<String>
         get() = _endDate
     val departments = repository.getDepartments()
+    val buildings = repository.getMaps()
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
