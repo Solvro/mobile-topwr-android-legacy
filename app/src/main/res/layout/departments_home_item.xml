@@ -14,7 +14,7 @@
             android:id="@+id/departmentsItemImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/ic_w1_bg"
+            android:src="@drawable/ic_w1_bg"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

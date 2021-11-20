@@ -6,11 +6,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.solvro.topwr.R
 import com.solvro.topwr.data.model.department.DepartmentItem
+import com.solvro.topwr.data.model.departments.Departments
 import com.solvro.topwr.databinding.DepartmentsHomeItemBinding
 
 
-class DepartmentsHomeAdapter(private val departments: List<DepartmentItem>,
-                             private val onClick: (DepartmentItem) -> Unit): RecyclerView.Adapter<DepartmentsHomeAdapter.DepartmentsViewHolder>() {
+class DepartmentsHomeAdapter(private val departments: List<Departments>,
+                             private val onClick: (Departments) -> Unit): RecyclerView.Adapter<DepartmentsHomeAdapter.DepartmentsViewHolder>() {
     inner class DepartmentsViewHolder (binding: DepartmentsHomeItemBinding) :
         RecyclerView.ViewHolder(binding.root){
         init {
@@ -24,16 +25,16 @@ class DepartmentsHomeAdapter(private val departments: List<DepartmentItem>,
         private val departmentsIdItemTextView = binding.departmentsItemIdTextView
         private val departmentsNameTextView = binding.departmentsItemNameTextView
         fun bind() {
-            departmentsNameTextView.text = departments[adapterPosition].name
-            departmentsIdItemTextView.text = departments[adapterPosition].code
-            when (departments[adapterPosition].code) {
-                "W-1" -> Glide.with(departmentsItemImage).load(R.drawable.ic_w1_bg)
+            departmentsNameTextView.text = departments[adapterPosition].Name
+            departmentsIdItemTextView.text = departments[adapterPosition].Code
+            when (departments[adapterPosition].Code) {
+                "W1" -> Glide.with(departmentsItemImage).load(R.drawable.ic_w1_bg)
                     .into(departmentsItemImage)
-                "W-2" -> Glide.with(departmentsItemImage).load(R.drawable.ic_w2_bg)
+                "W2" -> Glide.with(departmentsItemImage).load(R.drawable.ic_w2_bg)
                     .into(departmentsItemImage)
-                "W-3" -> Glide.with(departmentsItemImage).load(R.drawable.ic_w3_bg)
+                "W3" -> Glide.with(departmentsItemImage).load(R.drawable.ic_w3_bg)
                     .into(departmentsItemImage)
-                "W-4" -> Glide.with(departmentsItemImage).load(R.drawable.ic_w4_bg)
+                "W4" -> Glide.with(departmentsItemImage).load(R.drawable.ic_w4_bg)
                     .into(departmentsItemImage)
             }
         }

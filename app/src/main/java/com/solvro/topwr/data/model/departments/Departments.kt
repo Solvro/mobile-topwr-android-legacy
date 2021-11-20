@@ -5,7 +5,7 @@ data class Departments(
     val Code: String?,
     val Description: String?,
     val FieldOfStudy: List<FieldOfStudy>?,
-    val Logo: Any?,
+    val Logo: Logo?,
     val Name: String?,
     val Photo: Photo?,
     val SocialMedia: List<SocialMedia>?,

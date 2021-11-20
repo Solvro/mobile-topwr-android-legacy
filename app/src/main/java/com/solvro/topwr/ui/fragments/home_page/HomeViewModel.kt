@@ -16,6 +16,7 @@ class HomeViewModel @Inject constructor(val repository: MainRepository) : ViewMo
     private var _endDate = MutableLiveData<String>()
     val endDate: LiveData<String>
         get() = _endDate
+    val departments = repository.getDepartments()
 
     init {
         viewModelScope.launch(Dispatchers.IO) {

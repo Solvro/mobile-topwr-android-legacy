@@ -51,16 +51,21 @@ class HomeFragment : Fragment() {
             RecentlySearchedAdapter(list) { chosenDepartment ->
                 Toast.makeText(context, chosenDepartment.code, Toast.LENGTH_SHORT).show()
             }
-        binding.departmentsRecyclerView.adapter =
-            DepartmentsHomeAdapter(list) { chosenDepartment ->
-                Toast.makeText(context, chosenDepartment.code, Toast.LENGTH_SHORT).show()
-            }
 
+        //livedata for end date and bind data
             viewModel.endDate.observe(viewLifecycleOwner){
                 binding.textViewNumber1.text = it[0]+""
                 binding.textViewNumber2.text = it[1]+""
                 binding.textViewNumber3.text = it[2]+""
             }
+        viewModel.departments.observe(viewLifecycleOwner){
+            binding.departmentsRecyclerView.adapter =
+                it.data?.let { it1 ->
+                    DepartmentsHomeAdapter(it1) { chosenDepartment ->
+                        Toast.makeText(context, chosenDepartment.Code, Toast.LENGTH_SHORT).show()
+                    }
+                }
+        }
     }
 
 
