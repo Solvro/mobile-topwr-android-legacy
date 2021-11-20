@@ -39,13 +39,6 @@ class HomeFragment : Fragment() {
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.departmentsRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        val list: List<DepartmentItem> = listOf(
-            DepartmentItem("0", "Wydział Architektury", "W-1", ""),
-            DepartmentItem("1", "Wydział Budownictwa", "W-2", ""),
-            DepartmentItem("2", "Wydział lfgd", "W-3", ""),
-            DepartmentItem("3", "Wydział Informatyki", "W-4", "")
-        )
-
         viewmodelHandler()
     }
 
