@@ -124,13 +124,13 @@
 
 
             <TextView
-                android:id="@+id/textViewRecentlySearched"
+                android:id="@+id/textViewBuildings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/rubik_medium"
-                android:text="@string/recently_searched"
+                android:text="@string/buildings"
                 android:textColor="@color/lightblack"
                 android:textSize="17sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -159,7 +159,7 @@
                 android:textColor="@color/lightblack"
                 android:textSize="17sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recentlySearchRecyclerView" />
+                app:layout_constraintTop_toBottomOf="@+id/buildingsRecyclerView" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -171,7 +171,7 @@
                 android:textColor="@color/detailsMainScreen"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recentlySearchRecyclerView" />
+                app:layout_constraintTop_toBottomOf="@+id/buildingsRecyclerView" />
 
             <TextView
                 android:id="@+id/textViewWhatsUp"
@@ -187,12 +187,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/departmentsRecyclerView" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recentlySearchRecyclerView"
+                android:id="@+id/buildingsRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
-                app:layout_constraintTop_toBottomOf="@+id/textViewRecentlySearched" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewBuildings" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/departmentsRecyclerView"

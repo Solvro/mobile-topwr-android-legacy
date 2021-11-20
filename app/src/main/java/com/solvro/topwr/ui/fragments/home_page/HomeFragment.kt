@@ -1,7 +1,6 @@
 package com.solvro.topwr.ui.fragments.home_page
 
 import android.annotation.SuppressLint
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,11 +9,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.solvro.topwr.R
 import com.solvro.topwr.data.model.department.DepartmentItem
 import com.solvro.topwr.databinding.HomeFragmentBinding
 import com.solvro.topwr.ui.adapters.DepartmentsHomeAdapter
-import com.solvro.topwr.ui.adapters.RecentlySearchedAdapter
+import com.solvro.topwr.ui.adapters.BuildingsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,7 +35,7 @@ class HomeFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.recentlySearchRecyclerView.layoutManager =
+        binding.buildingsRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.departmentsRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -47,9 +45,9 @@ class HomeFragment : Fragment() {
             DepartmentItem("2", "Wydział lfgd", "W-3", ""),
             DepartmentItem("3", "Wydział Informatyki", "W-4", "")
         )
-        binding.recentlySearchRecyclerView.adapter =
-            RecentlySearchedAdapter(list) { chosenDepartment ->
-                Toast.makeText(context, chosenDepartment.code, Toast.LENGTH_SHORT).show()
+        binding.buildingsRecyclerView.adapter =
+            BuildingsAdapter(list) { chosenBuilding ->
+                Toast.makeText(context, chosenBuilding.code, Toast.LENGTH_SHORT).show()
             }
 
         //livedata for end date and bind data
