@@ -4,6 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.CenterInside
+import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.solvro.topwr.R
 import com.solvro.topwr.data.model.notices.Notices
@@ -27,8 +30,14 @@ class WhatsUpAdapter(
         private val whatsUpTitle = binding.titleTextView
         private val whatsUpDescription = binding.descriptionTextView
         fun bind() {
-            val options: RequestOptions = RequestOptions()
-                .centerCrop()
+            val options: RequestOptions = RequestOptions().centerCrop().transform(
+                CenterCrop(),
+                GranularRoundedCorners (8F,
+                8F,
+                0F,
+                0F
+            )
+            )
             Glide.with(whatsupItemImage).load(notices[adapterPosition].Photo?.url)
                 .apply(options)
                 .into(whatsupItemImage)
