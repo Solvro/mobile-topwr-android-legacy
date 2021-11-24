@@ -186,12 +186,36 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/departmentsRecyclerView" />
 
+            <TextView
+                android:id="@+id/textViewScienceClubs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/rubik_medium"
+                android:text="@string/ko_a_naukowe"
+                android:textColor="@color/lightblack"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/whatsUpRecyclerView" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="13dp"
+                android:fontFamily="@font/rubik"
+                android:text="@string/list"
+                android:textColor="@color/detailsMainScreen"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/whatsUpRecyclerView" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/buildingsRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="4dp"
                 app:layout_constraintTop_toBottomOf="@+id/textViewBuildings" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -210,6 +234,13 @@
                 android:layout_marginTop="12dp"
                 app:layout_constraintTop_toBottomOf="@+id/textViewWhatsUp" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/scienceClubsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="12dp"
+                app:layout_constraintTop_toBottomOf="@+id/textViewScienceClubs" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
