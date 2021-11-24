@@ -22,7 +22,7 @@ class MainRepository @Inject constructor(
     // @return LiveData<Resource<List<Departments>>> with departments
     fun getDepartments() : LiveData<Resource<List<Departments>>> = liveData { emit(remoteDataSource.getDepartments()) }
 
-    fun getScientificCircles() : LiveData<Resource<List<ScienceClubs>>> = liveData { emit(remoteDataSource.getScientificCircles()) }
+    fun getScienceClubs() : LiveData<Resource<List<ScienceClubs>>> = liveData { emit(remoteDataSource.getScientificCircles()) }
 
     fun getMaps() : LiveData<Resource<List<Maps>>> = liveData { emit(remoteDataSource.getMaps()) }
 

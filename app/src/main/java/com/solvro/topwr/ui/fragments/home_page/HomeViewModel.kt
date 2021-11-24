@@ -1,6 +1,5 @@
 package com.solvro.topwr.ui.fragments.home_page
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.solvro.topwr.data.repository.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,6 +18,7 @@ class HomeViewModel @Inject constructor(val repository: MainRepository) : ViewMo
     val departments = repository.getDepartments()
     val buildings = repository.getMaps()
     val notices = repository.getNotices()
+    val scienceClubs = repository.getScienceClubs()
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -40,6 +40,4 @@ class HomeViewModel @Inject constructor(val repository: MainRepository) : ViewMo
         }
         _endDate.postValue(daysString)
     }
-
-
 }

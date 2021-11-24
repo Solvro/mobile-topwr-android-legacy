@@ -5,13 +5,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     app:cardCornerRadius="8dp"
-    android:backgroundTint="@color/grey">
+    android:backgroundTint="@color/grey"
+    android:layout_margin="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ImageView
+            android:id="@+id/scienceClubsImageView"
             android:layout_width="48dp"
             android:layout_height="50dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -21,9 +23,11 @@
             tools:src="@color/black"/>
 
         <TextView
+            android:id="@+id/scienceClubsTextView"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/rubik_medium"
+            android:textSize="15sp"
             android:textColor="@color/detailsMainScreen"
             tools:text="KN Ochrony Dziedzictwa Przemysłowego"
             android:layout_marginStart="10dp"

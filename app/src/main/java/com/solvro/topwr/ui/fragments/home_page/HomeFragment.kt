@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.solvro.topwr.databinding.HomeFragmentBinding
 import com.solvro.topwr.ui.adapters.DepartmentsHomeAdapter
 import com.solvro.topwr.ui.adapters.BuildingsAdapter
+import com.solvro.topwr.ui.adapters.ScienceClubsAdapter
 import com.solvro.topwr.ui.adapters.WhatsUpAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -41,6 +42,8 @@ class HomeFragment : Fragment() {
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.whatsUpRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.scienceClubsRecyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         viewmodelHandler()
     }
 
@@ -69,11 +72,20 @@ class HomeFragment : Fragment() {
                 }
         }
         viewModel.notices.observe(viewLifecycleOwner) {
-            binding.whatsUpRecyclerView.adapter = it.data?.let {
-                    notices -> WhatsUpAdapter(notices){ chosenItem ->
-                Toast.makeText(context,chosenItem.Title,Toast.LENGTH_SHORT).show()
+            binding.whatsUpRecyclerView.adapter = it.data?.let { notices ->
+                WhatsUpAdapter(notices) { chosenItem ->
+                    Toast.makeText(context, chosenItem.Title, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        viewModel.scienceClubs.observe(viewLifecycleOwner){
+            binding.scienceClubsRecyclerView.adapter = it.data?.let { scienceCLubs->
+                ScienceClubsAdapter(scienceCLubs){ scienceClubItem ->
+                    Toast.makeText(context, scienceClubItem.Name, Toast.LENGTH_SHORT).show()
 
-            } }
+                }
+            }
+
         }
     }
 
