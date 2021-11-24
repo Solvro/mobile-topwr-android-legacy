@@ -9,10 +9,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.solvro.topwr.data.model.department.DepartmentItem
 import com.solvro.topwr.databinding.HomeFragmentBinding
 import com.solvro.topwr.ui.adapters.DepartmentsHomeAdapter
 import com.solvro.topwr.ui.adapters.BuildingsAdapter
+import com.solvro.topwr.ui.adapters.WhatsUpAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -38,6 +38,8 @@ class HomeFragment : Fragment() {
         binding.buildingsRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.departmentsRecyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.whatsUpRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         viewmodelHandler()
     }
@@ -65,6 +67,13 @@ class HomeFragment : Fragment() {
                         Toast.makeText(context, chosenBuilding.Code, Toast.LENGTH_SHORT).show()
                     }
                 }
+        }
+        viewModel.notices.observe(viewLifecycleOwner) {
+            binding.whatsUpRecyclerView.adapter = it.data?.let {
+                    notices -> WhatsUpAdapter(notices){ chosenItem ->
+                Toast.makeText(context,chosenItem.Title,Toast.LENGTH_SHORT).show()
+
+            } }
         }
     }
 
