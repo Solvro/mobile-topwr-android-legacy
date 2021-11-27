@@ -9,9 +9,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+import kotlin.math.abs
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(val repository: MainRepository) : ViewModel() {
+class HomeViewModel @Inject constructor(private val repository: MainRepository) : ViewModel() {
     private var _endDate = MutableLiveData<String>()
     val endDate: LiveData<String>
         get() = _endDate
@@ -30,13 +31,13 @@ class HomeViewModel @Inject constructor(val repository: MainRepository) : ViewMo
         val dateObj = repository.getEndDate()
         val date = SimpleDateFormat("yyyy-MM-dd", Locale.ROOT).parse(dateObj.data?.EndDate!!)
         val curr_date = Calendar.getInstance().time
-        val diff = Math.abs(date.time - curr_date.time)
+        val diff = abs(date.time - curr_date.time)
         val days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)
         var daysString = ""
-        if (days < 100) {
-            daysString += "0" + days.toString()
+        daysString += if (days < 100) {
+            "0" + days.toString()
         } else {
-            daysString += days.toString()
+            days.toString()
         }
         _endDate.postValue(daysString)
     }
