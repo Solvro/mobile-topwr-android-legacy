@@ -9,6 +9,10 @@ import com.bumptech.glide.Glide
 import com.solvro.topwr.R
 import com.solvro.topwr.data.model.departments.Departments
 import com.solvro.topwr.databinding.DepartmentsHomeItemBinding
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.RequestOptions.bitmapTransform
 
 
 class DepartmentsHomeAdapter(private val departments: List<Departments>,
@@ -25,9 +29,8 @@ class DepartmentsHomeAdapter(private val departments: List<Departments>,
         private val departmentsItemImage = binding.departmentsItemImage
         private val departmentsIdItemTextView = binding.departmentsItemIdTextView
         private val departmentsNameTextView = binding.departmentsItemNameTextView
+        private val departmentsLogo = binding.departmentsLogoItemImage
         fun bind() {
-            departmentsNameTextView.text = departments[adapterPosition].Name
-            departmentsIdItemTextView.text = departments[adapterPosition].Code
             val gradientDrawable = GradientDrawable(
                 GradientDrawable.Orientation.BR_TL,
                 intArrayOf(
@@ -37,6 +40,12 @@ class DepartmentsHomeAdapter(private val departments: List<Departments>,
             gradientDrawable.cornerRadius = 0f;
             Glide.with(departmentsItemImage).load(gradientDrawable)
                 .into(departmentsItemImage)
+            Glide.with(departmentsLogo).load(departments[adapterPosition].Logo?.url)
+                .into(departmentsLogo)
+
+            departmentsNameTextView.text = departments[adapterPosition].Name
+            departmentsIdItemTextView.text = departments[adapterPosition].Code
+
 //            when (departments[adapterPosition].Code) {
 //                "W1" -> Glide.with(departmentsItemImage).load(gradientDrawable)
 //                    .into(departmentsItemImage)
