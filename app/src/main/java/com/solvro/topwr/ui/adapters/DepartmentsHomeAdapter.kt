@@ -15,10 +15,12 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.RequestOptions.bitmapTransform
 
 
-class DepartmentsHomeAdapter(private val departments: List<Departments>,
-                             private val onClick: (Departments) -> Unit): RecyclerView.Adapter<DepartmentsHomeAdapter.DepartmentsViewHolder>() {
-    inner class DepartmentsViewHolder (binding: DepartmentsHomeItemBinding) :
-        RecyclerView.ViewHolder(binding.root){
+class DepartmentsHomeAdapter(
+    private val departments: List<Departments>,
+    private val onClick: (Departments) -> Unit
+) : RecyclerView.Adapter<DepartmentsHomeAdapter.DepartmentsViewHolder>() {
+    inner class DepartmentsViewHolder(binding: DepartmentsHomeItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         init {
             //set OnCLickListener and send data with function
             binding.root.setOnClickListener {
@@ -35,7 +37,8 @@ class DepartmentsHomeAdapter(private val departments: List<Departments>,
                 GradientDrawable.Orientation.BR_TL,
                 intArrayOf(
                     Color.parseColor(departments[adapterPosition].Color?.GradientFirst),
-                    Color.parseColor(departments[adapterPosition].Color?.GradientSecond))
+                    Color.parseColor(departments[adapterPosition].Color?.GradientSecond)
+                )
             );
             gradientDrawable.cornerRadius = 0f;
             Glide.with(departmentsItemImage).load(gradientDrawable)
@@ -46,16 +49,6 @@ class DepartmentsHomeAdapter(private val departments: List<Departments>,
             departmentsNameTextView.text = departments[adapterPosition].Name
             departmentsIdItemTextView.text = departments[adapterPosition].Code
 
-//            when (departments[adapterPosition].Code) {
-//                "W1" -> Glide.with(departmentsItemImage).load(gradientDrawable)
-//                    .into(departmentsItemImage)
-//                "W2" -> Glide.with(departmentsItemImage).load(R.drawable.ic_w2_bg)
-//                    .into(departmentsItemImage)
-//                "W3" -> Glide.with(departmentsItemImage).load(R.drawable.ic_w3_bg)
-//                    .into(departmentsItemImage)
-//                "W4" -> Glide.with(departmentsItemImage).load(R.drawable.ic_w4_bg)
-//                    .into(departmentsItemImage)
-//            }
         }
 
     }
@@ -64,7 +57,8 @@ class DepartmentsHomeAdapter(private val departments: List<Departments>,
         val binding = DepartmentsHomeItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
-            false)
+            false
+        )
         return DepartmentsViewHolder(binding)
     }
 
