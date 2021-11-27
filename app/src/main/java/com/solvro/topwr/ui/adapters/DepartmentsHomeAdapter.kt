@@ -1,5 +1,7 @@
 package com.solvro.topwr.ui.adapters
 
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -26,16 +28,25 @@ class DepartmentsHomeAdapter(private val departments: List<Departments>,
         fun bind() {
             departmentsNameTextView.text = departments[adapterPosition].Name
             departmentsIdItemTextView.text = departments[adapterPosition].Code
-            when (departments[adapterPosition].Code) {
-                "W1" -> Glide.with(departmentsItemImage).load(R.drawable.ic_w1_bg)
-                    .into(departmentsItemImage)
-                "W2" -> Glide.with(departmentsItemImage).load(R.drawable.ic_w2_bg)
-                    .into(departmentsItemImage)
-                "W3" -> Glide.with(departmentsItemImage).load(R.drawable.ic_w3_bg)
-                    .into(departmentsItemImage)
-                "W4" -> Glide.with(departmentsItemImage).load(R.drawable.ic_w4_bg)
-                    .into(departmentsItemImage)
-            }
+            val gradientDrawable = GradientDrawable(
+                GradientDrawable.Orientation.BR_TL,
+                intArrayOf(
+                    Color.parseColor(departments[adapterPosition].Color?.GradientFirst),
+                    Color.parseColor(departments[adapterPosition].Color?.GradientSecond))
+            );
+            gradientDrawable.cornerRadius = 0f;
+            Glide.with(departmentsItemImage).load(gradientDrawable)
+                .into(departmentsItemImage)
+//            when (departments[adapterPosition].Code) {
+//                "W1" -> Glide.with(departmentsItemImage).load(gradientDrawable)
+//                    .into(departmentsItemImage)
+//                "W2" -> Glide.with(departmentsItemImage).load(R.drawable.ic_w2_bg)
+//                    .into(departmentsItemImage)
+//                "W3" -> Glide.with(departmentsItemImage).load(R.drawable.ic_w3_bg)
+//                    .into(departmentsItemImage)
+//                "W4" -> Glide.with(departmentsItemImage).load(R.drawable.ic_w4_bg)
+//                    .into(departmentsItemImage)
+//            }
         }
 
     }
