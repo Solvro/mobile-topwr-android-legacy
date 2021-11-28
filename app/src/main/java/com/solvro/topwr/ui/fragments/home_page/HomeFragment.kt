@@ -2,6 +2,7 @@ package com.solvro.topwr.ui.fragments.home_page
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -72,6 +73,8 @@ class HomeFragment : Fragment() {
                 }
         }
         viewModel.notices.observe(viewLifecycleOwner) {
+            it.message?.let { it1 -> Log.i("testy", it1) }
+            Log.i("status", it.status.toString())
             binding.whatsUpRecyclerView.adapter = it.data?.let { notices ->
                 WhatsUpAdapter(notices) { chosenItem ->
                     Toast.makeText(context, chosenItem.Title, Toast.LENGTH_SHORT).show()

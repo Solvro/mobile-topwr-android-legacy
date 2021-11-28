@@ -2,247 +2,258 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.fragments.home_page.HomeFragment" android:layout_height="match_parent" android:layout_width="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.home_page.HomeFragment">
 
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+<ImageView
+    android:id="@+id/logo"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/ic_logo"
+    android:layout_marginStart="25dp"
+    android:layout_marginTop="24dp"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/rubik"
+            android:text="@string/home_screen_greeting"
+            android:textColor="@color/lightblack"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logo" />
+
+
+        <TextView
+            android:id="@+id/textViewDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/rubik_medium"
+            android:text="w Parzysty Piątek!"
+            android:textColor="@color/lightblack"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <ImageView
+            android:id="@+id/imageViewEndDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="19dp"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/ic_rectangle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDay" />
+
+        <TextView
+            android:id="@+id/textViewDays"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/rubik_medium"
+            android:text="@string/days"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            app:layout_constraintStart_toEndOf="@+id/textViewNumber3"
+            app:layout_constraintTop_toTopOf="@+id/imageViewEndDate" />
+
+        <TextView
+            android:id="@+id/textViewExams"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="1dp"
+            android:fontFamily="@font/rubik"
+            android:text="@string/until_exam"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@+id/textViewNumber3"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDays" />
+
+
+        <TextView
+            android:id="@+id/textViewNumber1"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rectanglewhite"
+            android:fontFamily="@font/rubik"
+            android:padding="11dp"
+            android:text="1"
+            android:textColor="@color/lightblack"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/imageViewEndDate"
+            app:layout_constraintTop_toTopOf="@+id/imageViewEndDate" />
+
+        <TextView
+            android:id="@+id/textViewNumber2"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rectanglewhite"
+            android:fontFamily="@font/rubik"
+            android:padding="11dp"
+            android:text="9"
+            android:textColor="@color/lightblack"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/textViewNumber1"
+            app:layout_constraintTop_toTopOf="@+id/imageViewEndDate" />
+
+        <TextView
+            android:id="@+id/textViewNumber3"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rectanglewhite"
+            android:fontFamily="@font/rubik"
+            android:padding="11dp"
+            android:text="0"
+            android:textColor="@color/lightblack"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/textViewNumber2"
+            app:layout_constraintTop_toTopOf="@+id/imageViewEndDate" />
+
+
+        <TextView
+            android:id="@+id/textViewBuildings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/rubik_medium"
+            android:text="@string/buildings"
+            android:textColor="@color/lightblack"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewEndDate" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="13dp"
+            android:fontFamily="@font/rubik"
+            android:text="@string/map_button"
+            android:textColor="@color/detailsMainScreen"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewEndDate" />
+
+        <TextView
+            android:id="@+id/textViewDepartments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/rubik_medium"
+            android:text="@string/departments"
+            android:textColor="@color/lightblack"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buildingsRecyclerView" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="13dp"
+            android:fontFamily="@font/rubik"
+            android:text="@string/list"
+            android:textColor="@color/detailsMainScreen"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buildingsRecyclerView" />
+
+        <TextView
+            android:id="@+id/textViewWhatsUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/rubik_medium"
+            android:text="@string/whats_up"
+            android:textColor="@color/lightblack"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/departmentsRecyclerView" />
+
+        <TextView
+            android:id="@+id/textViewScienceClubs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/rubik_medium"
+            android:text="@string/ko_a_naukowe"
+            android:textColor="@color/lightblack"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/whatsUpRecyclerView" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="13dp"
+            android:fontFamily="@font/rubik"
+            android:text="@string/list"
+            android:textColor="@color/detailsMainScreen"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/whatsUpRecyclerView" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/buildingsRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintTop_toBottomOf="@+id/textViewBuildings" />
 
-            <ImageView
-                android:id="@+id/imageViewEndDate"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="19dp"
-                android:layout_marginStart="19dp"
-                android:layout_marginTop="25dp"
-                android:background="@drawable/ic_rectangle"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewDay" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/departmentsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDepartments" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/whatsUpRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@+id/textViewWhatsUp" />
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="30dp"
-                android:fontFamily="@font/rubik"
-                android:text="@string/home_screen_greeting"
-                android:textColor="@color/lightblack"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textViewDay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/rubik_medium"
-                android:text="w Parzysty Piątek!"
-                android:textColor="@color/lightblack"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/scienceClubsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@+id/textViewScienceClubs" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            <TextView
-                android:id="@+id/textViewDays"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/rubik_medium"
-                android:text="@string/days"
-                android:textColor="@color/white"
-                android:textSize="17sp"
-                app:layout_constraintStart_toEndOf="@+id/textViewNumber3"
-                app:layout_constraintTop_toTopOf="@+id/imageViewEndDate" />
-
-            <TextView
-                android:id="@+id/textViewExams"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="1dp"
-                android:fontFamily="@font/rubik"
-                android:text="@string/until_exam"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                app:layout_constraintStart_toEndOf="@+id/textViewNumber3"
-                app:layout_constraintTop_toBottomOf="@+id/textViewDays" />
-
-
-            <TextView
-                android:id="@+id/textViewNumber1"
-                android:layout_width="35dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/rubik"
-                android:text="1"
-                android:padding="11dp"
-                android:layout_marginStart="19dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/rectanglewhite"
-                android:textColor="@color/lightblack"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/imageViewEndDate"
-                app:layout_constraintTop_toTopOf="@+id/imageViewEndDate"/>
-
-            <TextView
-                android:id="@+id/textViewNumber2"
-                android:layout_width="35dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/rubik"
-                android:text="9"
-                android:padding="11dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="20dp"
-                android:textColor="@color/lightblack"
-                android:background="@drawable/rectanglewhite"
-                android:textSize="20sp"
-                app:layout_constraintStart_toEndOf="@id/textViewNumber1"
-                app:layout_constraintTop_toTopOf="@+id/imageViewEndDate"/>
-
-            <TextView
-                android:id="@+id/textViewNumber3"
-                android:layout_width="35dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/rubik"
-                android:text="0"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="5dp"
-                android:textColor="@color/lightblack"
-                android:background="@drawable/rectanglewhite"
-                android:padding="11dp"
-                android:textSize="20sp"
-                app:layout_constraintTop_toTopOf="@+id/imageViewEndDate"
-                app:layout_constraintStart_toEndOf="@id/textViewNumber2"/>
-
-
-            <TextView
-                android:id="@+id/textViewBuildings"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/rubik_medium"
-                android:text="@string/buildings"
-                android:textColor="@color/lightblack"
-                android:textSize="17sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageViewEndDate" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="13dp"
-                android:fontFamily="@font/rubik"
-                android:text="@string/map_button"
-                android:textColor="@color/detailsMainScreen"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageViewEndDate" />
-
-            <TextView
-                android:id="@+id/textViewDepartments"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/rubik_medium"
-                android:text="@string/departments"
-                android:textColor="@color/lightblack"
-                android:textSize="17sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/buildingsRecyclerView" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="13dp"
-                android:fontFamily="@font/rubik"
-                android:text="@string/list"
-                android:textColor="@color/detailsMainScreen"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/buildingsRecyclerView" />
-
-            <TextView
-                android:id="@+id/textViewWhatsUp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/rubik_medium"
-                android:text="@string/whats_up"
-                android:textColor="@color/lightblack"
-                android:textSize="17sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/departmentsRecyclerView" />
-
-            <TextView
-                android:id="@+id/textViewScienceClubs"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/rubik_medium"
-                android:text="@string/ko_a_naukowe"
-                android:textColor="@color/lightblack"
-                android:textSize="17sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/whatsUpRecyclerView" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="13dp"
-                android:fontFamily="@font/rubik"
-                android:text="@string/list"
-                android:textColor="@color/detailsMainScreen"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/whatsUpRecyclerView" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/buildingsRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="4dp"
-                app:layout_constraintTop_toBottomOf="@+id/textViewBuildings" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/departmentsRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="5dp"
-                app:layout_constraintTop_toBottomOf="@+id/textViewDepartments" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/whatsUpRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="12dp"
-                app:layout_constraintTop_toBottomOf="@+id/textViewWhatsUp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/scienceClubsRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="12dp"
-                app:layout_constraintTop_toBottomOf="@+id/textViewScienceClubs" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    </ScrollView>
+</ScrollView>

@@ -29,16 +29,19 @@ class HomeViewModel @Inject constructor(private val repository: MainRepository) 
 
     private suspend fun getEndDate() {
         val dateObj = repository.getEndDate()
-        val date = SimpleDateFormat("yyyy-MM-dd", Locale.ROOT).parse(dateObj.data?.EndDate!!)
-        val curr_date = Calendar.getInstance().time
-        val diff = abs(date.time - curr_date.time)
-        val days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)
-        var daysString = ""
-        daysString += if (days < 100) {
-            "0" + days.toString()
-        } else {
-            days.toString()
+        if (dateObj.data?.EndDate != null) {
+            val date = SimpleDateFormat("yyyy-MM-dd", Locale.ROOT).parse(dateObj.data.EndDate)
+            val curr_date = Calendar.getInstance().time
+            val diff = abs(date.time - curr_date.time)
+            val days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)
+            var daysString = ""
+            daysString += if (days < 100) {
+                "0" + days.toString()
+            } else {
+                days.toString()
+            }
+            _endDate.postValue(daysString)
         }
-        _endDate.postValue(daysString)
+
     }
 }
