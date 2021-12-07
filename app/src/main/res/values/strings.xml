@@ -14,4 +14,15 @@
     <string name="list"><![CDATA[Lista >]]></string>
     <string name="whats_up">Co słychać</string>
     <string name="ko_a_naukowe">Koła Naukowe</string>
+    <string name="Monday">Poniedziałek</string>
+    <string name="Tuesday">Wtorek</string>
+    <string name="Wednesday">Środę</string>
+    <string name="Thursday">Czwartek</string>
+    <string name="Friday">Piątek</string>
+    <string name="Saturday">Sobotę</string>
+    <string name="Sunday">Niedzielę</string>
+    <string name="Even">w Parzysty</string>
+    <string name="Even_f">w Parzystą</string>
+    <string name="Odd">w Nieparzysty</string>
+    <string name="Odd_f">w Nieparzystą</string>
 </resources>

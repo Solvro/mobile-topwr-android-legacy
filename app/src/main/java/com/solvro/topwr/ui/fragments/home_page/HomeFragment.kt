@@ -10,12 +10,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.solvro.topwr.R
 import com.solvro.topwr.databinding.HomeFragmentBinding
 import com.solvro.topwr.ui.adapters.DepartmentsHomeAdapter
 import com.solvro.topwr.ui.adapters.BuildingsAdapter
 import com.solvro.topwr.ui.adapters.ScienceClubsAdapter
 import com.solvro.topwr.ui.adapters.WhatsUpAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -50,6 +52,7 @@ class HomeFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun viewmodelHandler() {
+
         //livedata for end date and bind data
         viewModel.endDate.observe(viewLifecycleOwner) {
             binding.textViewNumber1.text = it[0] + ""
@@ -81,15 +84,62 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-        viewModel.scienceClubs.observe(viewLifecycleOwner){
-            binding.scienceClubsRecyclerView.adapter = it.data?.let { scienceCLubs->
-                ScienceClubsAdapter(scienceCLubs){ scienceClubItem ->
+        viewModel.scienceClubs.observe(viewLifecycleOwner) {
+            binding.scienceClubsRecyclerView.adapter = it.data?.let { scienceCLubs ->
+                ScienceClubsAdapter(scienceCLubs) { scienceClubItem ->
                     Toast.makeText(context, scienceClubItem.Name, Toast.LENGTH_SHORT).show()
 
                 }
             }
+        }
+        viewModel.getDayOfWeek().observe(viewLifecycleOwner) { date ->
+            when (date.day) {
+                Calendar.SUNDAY -> {
+                    if (date.even) binding.textViewDay.text =
+                        getString(R.string.Even_f) + " " + getString(R.string.Sunday)
+                    else binding.textViewDay.text =
+                        getString(R.string.Odd_f) + " " + getString(R.string.Sunday)
+                }
+                Calendar.MONDAY -> {
+                    if (date.even) binding.textViewDay.text =
+                        getString(R.string.Even) + " " + getString(R.string.Monday)
+                    else binding.textViewDay.text =
+                        getString(R.string.Odd) + " " + getString(R.string.Monday)
+                }
+                Calendar.TUESDAY -> {
+                    if (date.even) binding.textViewDay.text =
+                        getString(R.string.Even) + " " +  getString(R.string.Tuesday)
+                    else binding.textViewDay.text =
+                        getString(R.string.Odd) + " " + getString(R.string.Tuesday)
+                }
+                Calendar.WEDNESDAY -> {
+                    if (date.even) binding.textViewDay.text =
+                        getString(R.string.Even_f) + " " + getString(R.string.Wednesday)
+                    else binding.textViewDay.text =
+                        getString(R.string.Odd_f) + " " + getString(R.string.Wednesday)
+                }
+                Calendar.THURSDAY -> {
+                    if (date.even) binding.textViewDay.text =
+                        getString(R.string.Even) + " " + getString(R.string.Thursday)
+                    else binding.textViewDay.text =
+                        getString(R.string.Odd) + " " + getString(R.string.Thursday)
+                }
+                Calendar.FRIDAY -> {
+                    if (date.even) binding.textViewDay.text =
+                        getString(R.string.Even) + " " + getString(R.string.Friday)
+                    else binding.textViewDay.text =
+                        getString(R.string.Odd) + " " + getString(R.string.Friday)
+                }
+                Calendar.SATURDAY -> {
+                    if (date.even) binding.textViewDay.text =
+                        getString(R.string.Even_f) + " " + getString(R.string.Saturday)
+                    else binding.textViewDay.text =
+                        getString(R.string.Odd_f) + " " + getString(R.string.Saturday)
+                }
+            }
 
         }
+
     }
 
 }

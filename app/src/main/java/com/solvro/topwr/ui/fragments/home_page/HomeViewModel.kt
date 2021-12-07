@@ -1,6 +1,8 @@
 package com.solvro.topwr.ui.fragments.home_page
 
+import android.util.Log
 import androidx.lifecycle.*
+import com.solvro.topwr.data.model.date.Date
 import com.solvro.topwr.data.repository.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +22,9 @@ class HomeViewModel @Inject constructor(private val repository: MainRepository) 
     val buildings = repository.getMaps()
     val notices = repository.getNotices()
     val scienceClubs = repository.getScienceClubs()
+//    private var _dayOfWeek = MutableLiveData<Int>()
+//    val dayOfWeek: LiveData<Int>
+//        get() = _dayOfWeek
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -42,6 +47,16 @@ class HomeViewModel @Inject constructor(private val repository: MainRepository) 
             }
             _endDate.postValue(daysString)
         }
+    }
 
+    fun getDayOfWeek(): LiveData<Date> {
+        val calendar = Calendar.getInstance()
+        val day = calendar[Calendar.DAY_OF_WEEK]
+        val week = calendar.get(Calendar.WEEK_OF_YEAR) +1
+        Log.i("Week", week.toString())
+        val date = Date(day,week%2==0)
+        return liveData {
+            emit(date)
+        }
     }
 }
