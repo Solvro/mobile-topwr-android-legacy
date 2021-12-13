@@ -41,7 +41,8 @@ class WhatsUpAdapter(
             Glide.with(whatsupItemImage).load(notices[adapterPosition].Photo?.url)
                 .apply(options)
                 .into(whatsupItemImage)
-            whatsUpDate.text = notices[adapterPosition].created_at
+            val dateArray: List<String> = notices[adapterPosition].created_at?.split("-") ?: listOf("2021","10","10")
+            whatsUpDate.text = dateArray[2].substring(0,2) + "." + dateArray[1] + "." + dateArray[0]
             whatsUpTitle.text = notices[adapterPosition].Title
             whatsUpDescription.text = notices[adapterPosition].Description
         }
