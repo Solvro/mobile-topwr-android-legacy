@@ -22,9 +22,7 @@ class HomeViewModel @Inject constructor(private val repository: MainRepository) 
     val buildings = repository.getMaps()
     val notices = repository.getNotices()
     val scienceClubs = repository.getScienceClubs()
-//    private var _dayOfWeek = MutableLiveData<Int>()
-//    val dayOfWeek: LiveData<Int>
-//        get() = _dayOfWeek
+
 
     init {
         viewModelScope.launch(Dispatchers.IO) {

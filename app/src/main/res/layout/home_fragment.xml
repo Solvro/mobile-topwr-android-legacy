@@ -145,7 +145,7 @@
             android:textColor="@color/lightblack"
             android:textSize="17sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewEndDate" />
+            app:layout_constraintTop_toBottomOf="@+id/whatsUpRecyclerView" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -157,7 +157,7 @@
             android:textColor="@color/detailsMainScreen"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewEndDate" />
+            app:layout_constraintTop_toBottomOf="@+id/whatsUpRecyclerView" />
 
         <TextView
             android:id="@+id/textViewDepartments"
@@ -170,9 +170,10 @@
             android:textColor="@color/lightblack"
             android:textSize="17sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buildingsRecyclerView" />
+            app:layout_constraintTop_toBottomOf="@+id/scienceClubsRecyclerView" />
 
         <TextView
+            android:id="@+id/scienceClubListTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
@@ -189,13 +190,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/rubik_medium"
             android:text="@string/whats_up"
             android:textColor="@color/lightblack"
             android:textSize="17sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/departmentsRecyclerView" />
+            app:layout_constraintTop_toBottomOf="@+id/imageViewEndDate" />
 
         <TextView
             android:id="@+id/textViewScienceClubs"
@@ -208,9 +209,10 @@
             android:textColor="@color/lightblack"
             android:textSize="17sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/whatsUpRecyclerView" />
+            app:layout_constraintTop_toBottomOf="@+id/buildingsRecyclerView" />
 
         <TextView
+            android:id="@+id/departmentsListTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
@@ -220,7 +222,7 @@
             android:textColor="@color/detailsMainScreen"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/whatsUpRecyclerView" />
+            app:layout_constraintTop_toBottomOf="@+id/scienceClubsRecyclerView" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/buildingsRecyclerView"
