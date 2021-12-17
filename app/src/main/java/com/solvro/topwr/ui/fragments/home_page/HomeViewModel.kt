@@ -22,11 +22,15 @@ class HomeViewModel @Inject constructor(private val repository: MainRepository) 
     val buildings = repository.getMaps()
     val notices = repository.getNotices()
     val scienceClubs = repository.getScienceClubs()
+    private var _dateWeek = MutableLiveData<Date>()
+    val dateWeek: LiveData<Date>
+        get() = _dateWeek
 
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
             getEndDate()
+            getDayOfWeek()
         }
     }
 
@@ -47,14 +51,41 @@ class HomeViewModel @Inject constructor(private val repository: MainRepository) 
         }
     }
 
-    fun getDayOfWeek(): LiveData<Date> {
+    suspend fun getDayOfWeek() {
+       val exceptionObj =  repository.getWeekDayException()
+        if(exceptionObj.data != null && exceptionObj.data.Weekday != null){
+            for (weekDay in exceptionObj.data.Weekday){
+                //val date = SimpleDateFormat("yyyy-MM-dd", Locale.ROOT).parse(weekDay.Date!!)
+                val curr_date = SimpleDateFormat("yyyy-MM-dd", Locale.ROOT).format(java.util.Date())
+                if(weekDay.Date.equals(curr_date))
+                {
+                    var dayOfWeek = 0
+                    when(weekDay.DayOfTheWeek){
+                        "Mon" -> dayOfWeek = Calendar.MONDAY
+                        "Tue" -> dayOfWeek = Calendar.TUESDAY
+                        "Wed" -> dayOfWeek = Calendar.WEDNESDAY
+                        "Thu" -> dayOfWeek = Calendar.THURSDAY
+                        "Fri" -> dayOfWeek = Calendar.FRIDAY
+                    }
+                    var parity :Boolean = true
+                    when(weekDay.Parity){
+                        "Odd" -> parity = false
+                        "Even" -> parity = true
+                    }
+                    _dateWeek.postValue(Date(dayOfWeek,parity))
+                }
+                else
+                    getDayOfWeekRegular()
+            }
+        }
+    }
+
+    fun getDayOfWeekRegular() {
         val calendar = Calendar.getInstance()
         val day = calendar[Calendar.DAY_OF_WEEK]
         val week = calendar.get(Calendar.WEEK_OF_YEAR) +1
         Log.i("Week", week.toString())
         val date = Date(day,week%2==0)
-        return liveData {
-            emit(date)
-        }
+        _dateWeek.postValue(date)
     }
 }

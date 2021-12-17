@@ -92,7 +92,7 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-        viewModel.getDayOfWeek().observe(viewLifecycleOwner) { date ->
+        viewModel.dateWeek.observe(viewLifecycleOwner) { date ->
             when (date.day) {
                 Calendar.SUNDAY -> {
                     if (date.even) binding.textViewDay.text =
