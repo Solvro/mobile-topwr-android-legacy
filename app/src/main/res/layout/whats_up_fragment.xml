@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.whats_up_page.WhatsUpFragment">
+
+
+    <TextView
+        android:id="@+id/backToMainBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="48dp"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/ic_back"
+        android:fontFamily="@font/rubik_medium"
+        android:textColor="@color/red"
+        android:textSize="13sp"
+        android:gravity="center"
+        android:drawablePadding="6dp"
+        tools:text="@string/back_to_main" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/backToMainBtn"
+        android:layout_marginTop="20dp">
+
+        <RelativeLayout
+            android:id="@+id/whatsUpInformationContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/whatsUpImageView"
+                android:layout_width="match_parent"
+                android:layout_height="278dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:scaleType="centerCrop"
+                />
+
+            <TextView
+                android:id="@+id/whatsUpDate"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_below="@id/whatsUpImageView"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/rectanglegray"
+                android:fontFamily="@font/rubik"
+                tools:text="12.10.2021"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/whatsUpTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/whatsUpDate"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/whatsUpNewsTitle"
+                android:fontFamily="@font/rubik_medium"
+                tools:text="Wybitnie uzdolnieni na PWr. Praca z nimi to przyjemność!"
+                />
+
+            <TextView
+                android:id="@+id/whatsUpNewsDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/whatsUpTitle"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="18dp"
+                tools:text="Na Politechnice Wrocławskiej działa program przeznaczony dla studentów, którzy mają wyjątkowe zdolności naukowe. Już od pierwszego roku mogą oni liczyć m.in. na indywidualną pomoc tutora i stypendium naukowe. Wszystko po to, aby jeszcze bardziej rozwijać się w wybranej przez siebie dziedzinie nauki.
+
+Z programu „Wybitnie uzdolnieni na Politechnice Wrocławskiej” od początku jego istnienia, czyli od 2013 roku, skorzystało już ponad 600 młodych ludzi. Wśród nich jest Jakub Pawłowski, który studiuje inżynierię kwantową na Wydziale Podstawowych Problemów Techniki. Jako wybitny absolwent II LO w Świdnicy trafił pod opiekę naukową prof. Katarzyny Weron. "
+                />
+
+
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+
+
+</RelativeLayout>
