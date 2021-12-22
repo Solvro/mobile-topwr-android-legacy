@@ -14,5 +14,6 @@ class SpaceItemDecoration(private val spaceWidth: Int = 0, private val spaceHeig
     ) {
         super.getItemOffsets(outRect, view, parent, state)
         outRect.right = spaceWidth
+        outRect.bottom = spaceHeight
     }
 }
