@@ -1,13 +1,235 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".ui.fragments.home_page.HomeFragment">
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageViewEndDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="19dp"
+                android:layout_marginStart="19dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/ic_rectangle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewDay" />
+
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="116dp"
+                android:fontFamily="@font/rubik"
+                android:text="@string/home_screen_greeting"
+                android:textColor="@color/lightblack"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/textViewDay"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/rubik_medium"
+                android:text="w Parzysty Piątek!"
+                android:textColor="@color/lightblack"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+
+            <TextView
+                android:id="@+id/textViewDays"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/rubik_medium"
+                android:text="@string/days"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                app:layout_constraintStart_toEndOf="@+id/textViewNumber3"
+                app:layout_constraintTop_toTopOf="@+id/imageViewEndDate" />
+
+            <TextView
+                android:id="@+id/textViewExams"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="1dp"
+                android:fontFamily="@font/rubik"
+                android:text="@string/until_exam"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                app:layout_constraintStart_toEndOf="@+id/textViewNumber3"
+                app:layout_constraintTop_toBottomOf="@+id/textViewDays" />
+
+
+            <TextView
+                android:id="@+id/textViewNumber1"
+                android:layout_width="31dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/rubik"
+                android:text="1"
+                android:padding="10dp"
+                android:layout_marginStart="19dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/rectanglewhite"
+                android:textColor="@color/lightblack"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/imageViewEndDate"
+                app:layout_constraintTop_toTopOf="@+id/imageViewEndDate"/>
+
+            <TextView
+                android:id="@+id/textViewNumber2"
+                android:layout_width="31dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/rubik"
+                android:text="9"
+                android:padding="10dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/lightblack"
+                android:background="@drawable/rectanglewhite"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@id/textViewNumber1"
+                app:layout_constraintTop_toTopOf="@+id/imageViewEndDate"/>
+
+            <TextView
+                android:id="@+id/textViewNumber3"
+                android:layout_width="31dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/rubik"
+                android:text="0"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="5dp"
+                android:textColor="@color/lightblack"
+                android:background="@drawable/rectanglewhite"
+                android:padding="10dp"
+                android:textSize="20sp"
+                app:layout_constraintTop_toTopOf="@+id/imageViewEndDate"
+                app:layout_constraintStart_toEndOf="@id/textViewNumber2"/>
+
+
+            <TextView
+                android:id="@+id/textViewRecentlySearched"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/rubik_medium"
+                android:text="@string/recently_searched"
+                android:textColor="@color/lightblack"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewEndDate" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="13dp"
+                android:fontFamily="@font/rubik"
+                android:text="@string/map_button"
+                android:textColor="@color/detailsMainScreen"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewEndDate" />
+
+            <TextView
+                android:id="@+id/textViewDepartments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/rubik_medium"
+                android:text="@string/departments"
+                android:textColor="@color/lightblack"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recentlySearchRecyclerView" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="13dp"
+                android:fontFamily="@font/rubik"
+                android:text="@string/list"
+                android:textColor="@color/detailsMainScreen"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recentlySearchRecyclerView" />
+
+            <TextView
+                android:id="@+id/textViewWhatsUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/rubik_medium"
+                android:text="@string/whats_up"
+                android:textColor="@color/lightblack"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/departmentsRecyclerView" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recentlySearchRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/textViewRecentlySearched" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/departmentsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintTop_toBottomOf="@+id/textViewDepartments" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/whatsUpRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintTop_toBottomOf="@+id/textViewWhatsUp" />
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/logo_color"
+                app:layout_constraintBottom_toTopOf="@+id/textView"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.511"
+                app:srcCompat="@drawable/color_selector_ic" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.solvro.topwr.ui.fragments.home_page.HomeViewModel" />
+    </data>
+</layout>

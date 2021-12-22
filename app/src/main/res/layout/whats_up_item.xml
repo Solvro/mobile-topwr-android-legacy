@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/whatsUpImageView"
+        android:layout_width="320dp"
+        android:layout_height="180dp"
+        android:background="@color/lightblack" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/grey"
+        android:orientation="vertical"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:id="@+id/dateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="12.10.2021"
+            android:textColor="@color/dateColor"
+            android:textSize="11sp"
+            android:fontFamily="@font/rubik"
+            android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Radio Luz rekrutuje i zmienia ramówkę"
+            android:fontFamily="@font/rubik_medium"
+            android:textColor="@color/lightblack"
+            android:textSize="15sp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"/>
+        <TextView
+            android:id="@+id/descriptionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="Akademickie Radio Luz gra już w jesiennej ramówce. W programie znalazły się nowe audycje muzyczne i programy publicystyczne. Rozgłośnia poszukuje też osób, które chciałyby zostać radiowcami."
+            android:textColor="@color/whatsNewDescription"
+            android:textSize="13sp"
+            android:fontFamily="@font/rubik"
+            android:layout_marginTop="5dp"/>
+        <TextView
+            android:id="@+id/moreButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Zobacz Więcej"
+            android:background="@drawable/rectanglered"
+            android:textColor="@color/white"
+            android:padding="10dp"
+            android:fontFamily="@font/rubik"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp" />
+
+    </LinearLayout>
+</LinearLayout>
