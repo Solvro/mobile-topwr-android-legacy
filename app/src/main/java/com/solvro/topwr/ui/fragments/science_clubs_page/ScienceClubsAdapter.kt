@@ -29,7 +29,6 @@ class ScienceClubsAdapter : RecyclerView.Adapter<ScienceClubsAdapter.ViewHolder>
                     .with(root.context)
                     .load("https://picsum.photos/200")
                     .apply(RequestOptions().override(100, 100)) //change to 100x100px img
-                    .apply(RequestOptions.bitmapTransform(RoundedCorners(10)))
                     .into(scienceClubItemImage)
             }
         }
