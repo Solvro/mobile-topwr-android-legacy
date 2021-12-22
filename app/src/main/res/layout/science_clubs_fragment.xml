@@ -37,12 +37,22 @@
         app:layout_constraintTop_toBottomOf="@+id/scienceClubsTitle" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/scienceClubsCategoriesRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/scienceClubsSearchBar"
+        app:layout_constraintStart_toStartOf="@+id/scienceClubsSearchBar"
+        app:layout_constraintTop_toBottomOf="@+id/scienceClubsSearchBar"
+        tools:listitem="@layout/item_category" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/scienceClubsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scienceClubsSearchBar"
+        app:layout_constraintTop_toBottomOf="@+id/scienceClubsCategoriesRecyclerView"
         tools:listitem="@layout/item_science_club" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
