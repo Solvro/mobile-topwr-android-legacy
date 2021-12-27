@@ -205,7 +205,7 @@
             android:layout_marginStart="25dp"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/rubik_medium"
-            android:text="@string/ko_a_naukowe"
+            android:text="@string/science_clubs"
             android:textColor="@color/lightblack"
             android:textSize="17sp"
             app:layout_constraintStart_toStartOf="parent"
