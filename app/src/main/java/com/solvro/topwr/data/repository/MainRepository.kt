@@ -17,17 +17,22 @@ class MainRepository @Inject constructor(
 ) {
     //get Academic end of year date
     // @return LiveData<Resource<EndDate>> with End Date info
-    suspend fun getEndDate() : Resource<EndDate> = remoteDataSource.getEndDate()
+    fun getEndDate(): LiveData<Resource<EndDate>> =
+        liveData { emit(remoteDataSource.getEndDate()) }
 
     //get list of departments
     // @return LiveData<Resource<List<Departments>>> with departments
-    fun getDepartments() : LiveData<Resource<List<Departments>>> = liveData { emit(remoteDataSource.getDepartments()) }
+    fun getDepartments(): LiveData<Resource<List<Departments>>> =
+        liveData { emit(remoteDataSource.getDepartments()) }
 
-    fun getScienceClubs() : LiveData<Resource<List<ScienceClubs>>> = liveData { emit(remoteDataSource.getScientificCircles()) }
+    fun getScienceClubs(): LiveData<Resource<List<ScienceClubs>>> =
+        liveData { emit(remoteDataSource.getScientificCircles()) }
 
-    fun getMaps() : LiveData<Resource<List<Maps>>> = liveData { emit(remoteDataSource.getMaps()) }
+    fun getMaps(): LiveData<Resource<List<Maps>>> = liveData { emit(remoteDataSource.getMaps()) }
 
-    fun getNotices() : LiveData<Resource<List<Notices>>> = liveData { emit(remoteDataSource.getNotices()) }
+    fun getNotices(): LiveData<Resource<List<Notices>>> =
+        liveData { emit(remoteDataSource.getNotices()) }
 
-    suspend fun getWeekDayException() : Resource<WeekDayException> = remoteDataSource.getWeekDayException()
+    suspend fun getWeekDayException(): Resource<WeekDayException> =
+        remoteDataSource.getWeekDayException()
 }

@@ -55,9 +55,16 @@ class HomeFragment : Fragment() {
 
         //livedata for end date and bind data
         viewModel.endDate.observe(viewLifecycleOwner) {
-            binding.textViewNumber1.text = it[0] + ""
-            binding.textViewNumber2.text = it[1] + ""
-            binding.textViewNumber3.text = it[2] + ""
+            if (it.length == 3){
+                binding.textViewNumber1.text = it[0] + ""
+                binding.textViewNumber2.text = it[1] + ""
+                binding.textViewNumber3.text = it[2] + ""
+            }else{
+                binding.textViewNumber1.text = "0"
+                binding.textViewNumber2.text = "0"
+                binding.textViewNumber3.text = "0"
+            }
+
         }
         viewModel.departments.observe(viewLifecycleOwner) {
             binding.departmentsRecyclerView.adapter =
@@ -108,7 +115,7 @@ class HomeFragment : Fragment() {
                 }
                 Calendar.TUESDAY -> {
                     if (date.even) binding.textViewDay.text =
-                        getString(R.string.Even) + " " +  getString(R.string.Tuesday)
+                        getString(R.string.Even) + " " + getString(R.string.Tuesday)
                     else binding.textViewDay.text =
                         getString(R.string.Odd) + " " + getString(R.string.Tuesday)
                 }
