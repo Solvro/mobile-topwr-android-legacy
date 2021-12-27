@@ -33,6 +33,7 @@ class MainRepository @Inject constructor(
     fun getNotices(): LiveData<Resource<List<Notices>>> =
         liveData { emit(remoteDataSource.getNotices()) }
 
-    suspend fun getWeekDayException(): Resource<WeekDayException> =
-        remoteDataSource.getWeekDayException()
+    fun getWeekDayException(): LiveData<Resource<WeekDayException>> = liveData {
+        emit(remoteDataSource.getWeekDayException())
+    }
 }
