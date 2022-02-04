@@ -1,6 +1,9 @@
-package com.solvro.topwr.data.model.maps
+package com.solvro.topwr.data.model.scienceClubs
 
-data class Photo(
+import com.solvro.topwr.data.model.common.Formats
+import com.solvro.topwr.data.model.common.ProviderMetadata
+
+data class BackgroundPhoto(
     val alternativeText: String?,
     val caption: String?,
     val created_at: String?,
