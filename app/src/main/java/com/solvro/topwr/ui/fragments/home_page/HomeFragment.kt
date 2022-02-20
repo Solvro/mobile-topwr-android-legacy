@@ -46,15 +46,6 @@ class HomeFragment : Fragment() {
             DepartmentItem("2", "Wydział lfgd", "W-3", ""),
             DepartmentItem("3", "Wydział Informatyki", "W-4", "")
         )
-        viewModel.departments.observe(viewLifecycleOwner){
-            it.data?.get(0)?.let { it1 -> Log.i("tag", it1.toString()) }
-        }
-        viewModel.maps.observe(viewLifecycleOwner){
-            it.data?.get(0)?.let { it1 -> Log.i("tag", it1.toString()) }
-        }
-        viewModel.scienceClubs.observe(viewLifecycleOwner){
-            Log.i("tag", it.data?.get(0).toString())
-        }
         binding.recentlySearchRecyclerView.adapter =
             RecentlySearchedAdapter(list) { chosenDepartment ->
                 Toast.makeText(context, chosenDepartment.code, Toast.LENGTH_SHORT).show()
