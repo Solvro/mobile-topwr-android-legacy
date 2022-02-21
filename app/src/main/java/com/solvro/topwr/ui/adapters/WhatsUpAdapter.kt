@@ -3,25 +3,48 @@ package com.solvro.topwr.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.solvro.topwr.data.model.department.DepartmentItem
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.CenterInside
+import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners
+import com.bumptech.glide.request.RequestOptions
+import com.solvro.topwr.R
+import com.solvro.topwr.data.model.notices.Notices
 import com.solvro.topwr.databinding.WhatsUpItemBinding
 
-class WhatsUpAdapter (private val departments: List<DepartmentItem>,
-private val onClick: (DepartmentItem) -> Unit): RecyclerView.Adapter<WhatsUpAdapter.ViewHolder>() {
-    inner class ViewHolder(binding: WhatsUpItemBinding):
+class WhatsUpAdapter(
+    private val notices: List<Notices>,
+    private val onClick: (Notices) -> Unit
+) : RecyclerView.Adapter<WhatsUpAdapter.ViewHolder>() {
+    inner class ViewHolder(binding: WhatsUpItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         init {
             //set OnCLickListener and send data with function
-            binding.root.setOnClickListener {
-                onClick(departments[adapterPosition])
+            binding.moreButton.setOnClickListener {
+                onClick(notices[adapterPosition])
             }
         }
+
         private val whatsupItemImage = binding.whatsUpImageView
         private val whatsUpDate = binding.dateTextView
         private val whatsUpTitle = binding.titleTextView
         private val whatsUpDescription = binding.descriptionTextView
-        fun bind(){
-
+        fun bind() {
+            val options: RequestOptions = RequestOptions().centerCrop().transform(
+                CenterCrop(),
+                GranularRoundedCorners (8F,
+                8F,
+                0F,
+                0F
+            )
+            )
+            Glide.with(whatsupItemImage).load(notices[adapterPosition].photo?.url)
+                .apply(options)
+                .into(whatsupItemImage)
+            val dateArray: List<String>? = notices[adapterPosition].created_at?.split("-")
+            whatsUpDate.text = dateArray?.get(2)?.substring(0,2) + "." + (dateArray?.get(1)) + "." + (dateArray?.get(0))
+            whatsUpTitle.text = notices[adapterPosition].title
+            whatsUpDescription.text = notices[adapterPosition].description
         }
     }
 
@@ -29,7 +52,8 @@ private val onClick: (DepartmentItem) -> Unit): RecyclerView.Adapter<WhatsUpAdap
         val binding = WhatsUpItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
-            false)
+            false
+        )
         return ViewHolder(binding)
     }
 
@@ -37,6 +61,6 @@ private val onClick: (DepartmentItem) -> Unit): RecyclerView.Adapter<WhatsUpAdap
         holder.bind()
     }
 
-    override fun getItemCount(): Int = departments.size
+    override fun getItemCount(): Int = notices.size
 
 }
