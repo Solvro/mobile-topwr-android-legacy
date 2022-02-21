@@ -28,9 +28,9 @@ class BuildingsAdapter(
         fun bind() {
             val options: RequestOptions = RequestOptions()
                 .centerCrop()
-            buildingItemTextView.text = buildings[adapterPosition].Code
+            buildingItemTextView.text = buildings[adapterPosition].code
             Glide.with(buildingItemImage)
-                .load(buildings[adapterPosition].Photo?.url).apply(options)
+                .load(buildings[adapterPosition].photo?.url).apply(options)
                 .into(buildingItemImage)
         }
     }

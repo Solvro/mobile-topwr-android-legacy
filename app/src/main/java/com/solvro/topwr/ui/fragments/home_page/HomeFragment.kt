@@ -70,7 +70,7 @@ class HomeFragment : Fragment() {
             binding.departmentsRecyclerView.adapter =
                 it.data?.let { it1 ->
                     DepartmentsHomeAdapter(it1) { chosenDepartment ->
-                        Toast.makeText(context, chosenDepartment.Code, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, chosenDepartment.code, Toast.LENGTH_SHORT).show()
                     }
                 }
         }
@@ -78,7 +78,7 @@ class HomeFragment : Fragment() {
             binding.buildingsRecyclerView.adapter =
                 buildings.data?.let {
                     BuildingsAdapter(it) { chosenBuilding ->
-                        Toast.makeText(context, chosenBuilding.Code, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, chosenBuilding.code, Toast.LENGTH_SHORT).show()
                     }
                 }
         }
@@ -87,14 +87,14 @@ class HomeFragment : Fragment() {
             Log.i("status", it.status.toString())
             binding.whatsUpRecyclerView.adapter = it.data?.let { notices ->
                 WhatsUpAdapter(notices) { chosenItem ->
-                    Toast.makeText(context, chosenItem.Title, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, chosenItem.title, Toast.LENGTH_SHORT).show()
                 }
             }
         }
         viewModel.scienceClubs.observe(viewLifecycleOwner) {
             binding.scienceClubsRecyclerView.adapter = it.data?.let { scienceCLubs ->
                 ScienceClubsAdapter(scienceCLubs) { scienceClubItem ->
-                    Toast.makeText(context, scienceClubItem.Name, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, scienceClubItem.name, Toast.LENGTH_SHORT).show()
 
                 }
             }

@@ -26,9 +26,9 @@ class ScienceClubsAdapter(
         private val scienceClubsTextView = binding.scienceClubsTextView
 
         fun bind() {
-            Glide.with(scienceClubsItemImage).load(scienceClubs[adapterPosition].Photo?.url)
+            Glide.with(scienceClubsItemImage).load(scienceClubs[adapterPosition].photo?.url)
                 .into(scienceClubsItemImage)
-            scienceClubsTextView.text = scienceClubs[adapterPosition].Name
+            scienceClubsTextView.text = scienceClubs[adapterPosition].name
 
         }
     }

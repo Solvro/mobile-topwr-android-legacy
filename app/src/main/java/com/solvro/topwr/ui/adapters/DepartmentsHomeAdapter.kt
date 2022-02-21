@@ -36,18 +36,18 @@ class DepartmentsHomeAdapter(
             val gradientDrawable = GradientDrawable(
                 GradientDrawable.Orientation.BR_TL,
                 intArrayOf(
-                    Color.parseColor(departments[adapterPosition].Color?.GradientFirst),
-                    Color.parseColor(departments[adapterPosition].Color?.GradientSecond)
+                    Color.parseColor(departments[adapterPosition].color?.gradientFirst),
+                    Color.parseColor(departments[adapterPosition].color?.gradientSecond)
                 )
             );
             gradientDrawable.cornerRadius = 0f;
             Glide.with(departmentsItemImage).load(gradientDrawable)
                 .into(departmentsItemImage)
-            Glide.with(departmentsLogo).load(departments[adapterPosition].Logo?.url)
+            Glide.with(departmentsLogo).load(departments[adapterPosition].logo?.url)
                 .into(departmentsLogo)
 
-            departmentsNameTextView.text = departments[adapterPosition].Name
-            departmentsIdItemTextView.text = departments[adapterPosition].Code
+            departmentsNameTextView.text = departments[adapterPosition].name
+            departmentsIdItemTextView.text = departments[adapterPosition].code
 
         }
 

@@ -38,13 +38,13 @@ class WhatsUpAdapter(
                 0F
             )
             )
-            Glide.with(whatsupItemImage).load(notices[adapterPosition].Photo?.url)
+            Glide.with(whatsupItemImage).load(notices[adapterPosition].photo?.url)
                 .apply(options)
                 .into(whatsupItemImage)
             val dateArray: List<String>? = notices[adapterPosition].created_at?.split("-")
             whatsUpDate.text = dateArray?.get(2)?.substring(0,2) + "." + (dateArray?.get(1)) + "." + (dateArray?.get(0))
-            whatsUpTitle.text = notices[adapterPosition].Title
-            whatsUpDescription.text = notices[adapterPosition].Description
+            whatsUpTitle.text = notices[adapterPosition].title
+            whatsUpDescription.text = notices[adapterPosition].description
         }
     }
 
