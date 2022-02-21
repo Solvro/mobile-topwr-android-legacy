@@ -1,10 +1,12 @@
 package com.solvro.topwr.data.model.departments
 
+import com.solvro.topwr.data.model.common.Formats
+import com.solvro.topwr.data.model.common.ProviderMetadata
 
 data class Logo(
     val alternativeText: String?,
     val caption: String?,
-    val createdAt: String?,
+    val created_at: String?,
     val ext: String?,
     val formats: Formats?,
     val hash: String?,
@@ -14,9 +16,9 @@ data class Logo(
     val name: String?,
     val previewUrl: Any?,
     val provider: String?,
-    val providerMetadata: ProviderMetadata?,
+    val provider_metadata: ProviderMetadata?,
     val size: Double?,
-    val updatedAt: String?,
+    val updated_at: String?,
     val url: String?,
     val width: Int?
 )

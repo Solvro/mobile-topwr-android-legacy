@@ -1,11 +1,13 @@
 package com.solvro.topwr.data.model.departments
 
+import com.solvro.topwr.data.model.common.ProviderMetadata
+
 data class Icon(
     val alternativeText: String?,
     val caption: String?,
     val created_at: String?,
     val ext: String?,
-    val formats: Formats?,
+    val formats: Any?,
     val hash: String?,
     val height: Int?,
     val id: Int?,

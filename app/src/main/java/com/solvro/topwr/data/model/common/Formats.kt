@@ -1,4 +1,4 @@
-package com.solvro.topwr.data.model.notices
+package com.solvro.topwr.data.model.common
 
 data class Formats(
     val large: Large?,
