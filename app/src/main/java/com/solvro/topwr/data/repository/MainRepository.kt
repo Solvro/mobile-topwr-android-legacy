@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.solvro.topwr.data.model.departments.Departments
 import com.solvro.topwr.data.model.endDate.EndDate
+import com.solvro.topwr.data.model.endDate.WeekDayException
 import com.solvro.topwr.data.model.maps.Maps
 import com.solvro.topwr.data.model.notices.Notices
 import com.solvro.topwr.data.model.scienceClubs.ScienceClubs
@@ -16,15 +17,23 @@ class MainRepository @Inject constructor(
 ) {
     //get Academic end of year date
     // @return LiveData<Resource<EndDate>> with End Date info
-    fun getEndDate() : LiveData<Resource<EndDate>> = liveData { emit(remoteDataSource.getEndDate()) }
+    fun getEndDate(): LiveData<Resource<EndDate>> =
+        liveData { emit(remoteDataSource.getEndDate()) }
 
     //get list of departments
     // @return LiveData<Resource<List<Departments>>> with departments
-    fun getDepartments() : LiveData<Resource<List<Departments>>> = liveData { emit(remoteDataSource.getDepartments()) }
+    fun getDepartments(): LiveData<Resource<List<Departments>>> =
+        liveData { emit(remoteDataSource.getDepartments()) }
 
-    fun getScientificCircles() : LiveData<Resource<List<ScienceClubs>>> = liveData { emit(remoteDataSource.getScientificCircles()) }
+    fun getScienceClubs(): LiveData<Resource<List<ScienceClubs>>> =
+        liveData { emit(remoteDataSource.getScientificCircles()) }
 
-    fun getMaps() : LiveData<Resource<List<Maps>>> = liveData { emit(remoteDataSource.getMaps()) }
+    fun getMaps(): LiveData<Resource<List<Maps>>> = liveData { emit(remoteDataSource.getMaps()) }
 
-    fun getNotices() : LiveData<Resource<List<Notices>>> = liveData { emit(remoteDataSource.getNotices()) }
+    fun getNotices(): LiveData<Resource<List<Notices>>> =
+        liveData { emit(remoteDataSource.getNotices()) }
+
+    fun getWeekDayException(): LiveData<Resource<WeekDayException>> = liveData {
+        emit(remoteDataSource.getWeekDayException())
+    }
 }
