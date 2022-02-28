@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">ToPWr</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="departments">Wydziały</string>
     <string name="empty"/>
     <string name="search_hint">Szukaj…</string>
@@ -12,4 +10,8 @@
     <string name="map_button"><![CDATA[Mapa >]]></string>
     <string name="list"><![CDATA[Lista >]]></string>
     <string name="whats_up">Co słychać</string>
+    <string name="contact">Kontakt</string>
+    <string name="about_us">O nas</string>
+    <string name="science_circles">Koła naukowe</string>
+    <string name="no_data">Brak danyych</string>
 </resources>
