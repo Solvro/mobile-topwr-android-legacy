@@ -12,5 +12,5 @@
     <string name="map_button"><![CDATA[Mapa >]]></string>
     <string name="list"><![CDATA[Lista >]]></string>
     <string name="whats_up">Co słychać</string>
-    <string name="back_to_main">Strona główna</string>
+    <string name="main_page">Strona główna</string>
 </resources>

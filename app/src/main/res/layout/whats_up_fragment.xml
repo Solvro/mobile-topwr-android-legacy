@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,7 +11,6 @@
         android:id="@+id/backToMainBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="25dp"
         android:layout_marginTop="48dp"
@@ -21,14 +20,19 @@
         android:gravity="center"
         android:textColor="@color/red"
         android:textSize="13sp"
-        tools:text="@string/back_to_main"
-        app:drawableLeftCompat="@drawable/ic_back" />
+        app:drawableLeftCompat="@drawable/ic_back"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/main_page" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/backToMainBtn"
-        android:layout_marginTop="20dp">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/backToMainBtn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="20dp"
+        >
 
         <RelativeLayout
             android:id="@+id/whatsUpInformationContainer"
@@ -81,14 +85,6 @@
                 tools:text="Na Politechnice Wrocławskiej działa program przeznaczony dla studentów, którzy mają wyjątkowe zdolności naukowe. Już od pierwszego roku mogą oni liczyć m.in. na indywidualną pomoc tutora i stypendium naukowe. Wszystko po to, aby jeszcze bardziej rozwijać się w wybranej przez siebie dziedzinie nauki.
 
 Z programu „Wybitnie uzdolnieni na Politechnice Wrocławskiej” od początku jego istnienia, czyli od 2013 roku, skorzystało już ponad 600 młodych ludzi. Wśród nich jest Jakub Pawłowski, który studiuje inżynierię kwantową na Wydziale Podstawowych Problemów Techniki. Jako wybitny absolwent II LO w Świdnicy trafił pod opiekę naukową prof. Katarzyny Weron. " />
-
-
-
         </RelativeLayout>
-
-
     </ScrollView>
-
-
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
