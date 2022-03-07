@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_homeFragment_to_scienceClubsDetailsFragment"
             app:destination="@id/scienceClubsDetailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_whatsUpFragment"
+            app:destination="@id/whatsUpFragment" />
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
@@ -62,4 +65,16 @@
         android:name="com.solvro.topwr.ui.fragments.science_clubs_details.ScienceClubsDetailsFragment"
         android:label="science_clubs_details_fragment"
         tools:layout="@layout/science_clubs_details_fragment" />
+    <fragment
+        android:id="@+id/whatsUpFragment"
+        android:name="com.solvro.topwr.ui.fragments.whats_up_page.WhatsUpFragment"
+        android:label="WhatsUpFragment"
+        tools:layout="@layout/whats_up_fragment">
+        <!--
+        <argument
+            android:name="notice"
+            app:argType="com.solvro.topwr.data.model.notices.Notices"
+            />
+            -->
+    </fragment>
 </navigation>
