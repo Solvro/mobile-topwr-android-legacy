@@ -1,6 +1,7 @@
 package com.solvro.topwr.data.model.notices
 
 import com.solvro.topwr.data.model.common.Photo
+import java.io.Serializable
 
 data class Notices(
     val created_at: String?,
@@ -14,4 +15,4 @@ data class Notices(
     val published_at: String?,
     val title: String?,
     val updated_at: String?
-)
+): Serializable

@@ -1,5 +1,7 @@
 package com.solvro.topwr.data.model.common
 
+import java.io.Serializable
+
 data class Photo(
     val alternativeText: String?,
     val caption: String?,
@@ -18,4 +20,4 @@ data class Photo(
     val updated_at: String?,
     val url: String?,
     val width: Int?
-)
+): Serializable

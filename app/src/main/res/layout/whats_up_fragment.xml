@@ -23,7 +23,7 @@
         app:drawableLeftCompat="@drawable/ic_back"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/main_page" />
+        android:text="@string/main_page" />
 
     <ScrollView
         android:layout_width="match_parent"

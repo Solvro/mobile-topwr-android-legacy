@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.solvro.topwr.R
 import com.solvro.topwr.databinding.HomeFragmentBinding
@@ -87,7 +88,12 @@ class HomeFragment : Fragment() {
             Log.i("status", it.status.toString())
             binding.whatsUpRecyclerView.adapter = it.data?.let { notices ->
                 WhatsUpAdapter(notices) { chosenItem ->
-                    Toast.makeText(context, chosenItem.title, Toast.LENGTH_SHORT).show()
+
+                    val action = HomeFragmentDirections.actionHomeFragmentToWhatsUpFragment(chosenItem)
+
+                    findNavController().navigate(action)
+
+                    //Toast.makeText(context, chosenItem.title, Toast.LENGTH_SHORT).show()
                 }
             }
         }
