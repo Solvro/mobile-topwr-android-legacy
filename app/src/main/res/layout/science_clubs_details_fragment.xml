@@ -58,7 +58,8 @@
                 android:id="@+id/logoImage"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                tools:src="@drawable/icon_tmp" />
+                tools:src="@drawable/icon_tmp"
+                />
 
         </com.google.android.material.card.MaterialCardView>
 

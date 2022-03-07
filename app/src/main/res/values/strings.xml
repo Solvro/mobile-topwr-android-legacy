@@ -13,6 +13,11 @@
     <string name="map_button"><![CDATA[Mapa >]]></string>
     <string name="list"><![CDATA[Lista >]]></string>
     <string name="whats_up">Co słychać</string>
+    <string name="contact">Kontakt</string>
+    <string name="about_us">O nas</string>
+    <string name="science_circles">Koła naukowe</string>
+    <string name="no_data">Brak danyych</string>
+
     <string name="science_clubs">Koła Naukowe</string>
     <string name="Monday">Poniedziałek</string>
     <string name="Tuesday">Wtorek</string>
@@ -26,5 +31,5 @@
     <string name="Odd">w Nieparzysty</string>
     <string name="Odd_f">w Nieparzystą</string>
     <string name="read_more">Czytaj dalej</string>
-    <string name="main_page">Strona główna</string>
+
 </resources>
