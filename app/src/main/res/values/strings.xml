@@ -26,4 +26,9 @@
     <string name="Odd">w Nieparzysty</string>
     <string name="Odd_f">w Nieparzystą</string>
     <string name="read_more">Czytaj dalej</string>
+
+    <string name="main_page">Strona główna</string>
+    <string name="deanery">Dziekanat:</string>
+    <string name="courses_of_study">Kierunki</string>
+    
 </resources>
