@@ -1,6 +1,8 @@
-package com.solvro.topwr.data.model.notices
+package com.solvro.topwr.data.model.common
 
-data class Small(
+import com.solvro.topwr.data.model.common.ProviderMetadata
+
+data class Thumbnail(
     val ext: String?,
     val hash: String?,
     val height: Int?,

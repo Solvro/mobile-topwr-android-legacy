@@ -1,6 +1,8 @@
-package com.solvro.topwr.data.model.departments
+package com.solvro.topwr.data.model.common
 
-data class Medium(
+import com.solvro.topwr.data.model.common.ProviderMetadata
+
+data class Small(
     val ext: String?,
     val hash: String?,
     val height: Int?,
