@@ -45,6 +45,7 @@ class HomeViewModel @Inject constructor(private val repository: MainRepository) 
         if(exceptionObj.data != null && exceptionObj.data.Weekday != null){
             for (weekDay in exceptionObj.data.Weekday){
                 val curr_date = SimpleDateFormat("yyyy-MM-dd", Locale.ROOT).format(Date())
+                Log.e("day","${weekDay.DayOfTheWeek} day")
                 if(weekDay.Date.equals(curr_date))
                 {
                     var dayOfWeek = 0
@@ -61,19 +62,25 @@ class HomeViewModel @Inject constructor(private val repository: MainRepository) 
                         "Even" -> parity = true
                     }
                     date = Date(dayOfWeek,parity)
+                    Log.i("day","$dayOfWeek day of week")
                 }
                 else{
-                    val calendar = Calendar.getInstance()
-                    val day = calendar[Calendar.DAY_OF_WEEK]
-                    val week = calendar.get(Calendar.WEEK_OF_YEAR) +1
-                    Log.i("Week", week.toString())
-                    date = Date(day,week%2==0)
-
+                    date = getCurrentDate()
                 }
             }
+        } else{
+            date = getCurrentDate()
         }
             liveData { emit(date) }
+    }
 
+    private fun getCurrentDate(): Date{
+        val calendar = Calendar.getInstance()
+        val day = calendar[Calendar.DAY_OF_WEEK]
+        Log.i("day","$day day of week else")
+        val week = calendar.get(Calendar.WEEK_OF_YEAR) +1
+        Log.i("Week", week.toString())
+        return Date(day,week%2==0)
     }
 
 }
