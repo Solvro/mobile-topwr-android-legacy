@@ -12,4 +12,5 @@
     <string name="map_button"><![CDATA[Mapa >]]></string>
     <string name="list"><![CDATA[Lista >]]></string>
     <string name="whats_up">Co słychać</string>
+    <string name="faq">Przewodnik</string>
 </resources>
