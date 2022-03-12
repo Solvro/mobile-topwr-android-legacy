@@ -44,7 +44,7 @@ class HomeViewModel @Inject constructor(private val repository: MainRepository) 
         var date = Date(0,false)
         if(exceptionObj.data != null && exceptionObj.data.Weekday != null){
             for (weekDay in exceptionObj.data.Weekday){
-                val curr_date = SimpleDateFormat("yyyy-MM-dd", Locale.ROOT).format(java.util.Date())
+                val curr_date = SimpleDateFormat("yyyy-MM-dd", Locale.ROOT).format(Date())
                 if(weekDay.Date.equals(curr_date))
                 {
                     var dayOfWeek = 0

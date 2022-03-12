@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.solvro.topwr.data.model.departments.Departments
 import com.solvro.topwr.data.model.endDate.EndDate
+import com.solvro.topwr.data.model.info.Infos
 import com.solvro.topwr.data.model.endDate.WeekDayException
 import com.solvro.topwr.data.model.maps.Maps
 import com.solvro.topwr.data.model.notices.Notices
@@ -36,4 +37,6 @@ class MainRepository @Inject constructor(
     fun getWeekDayException(): LiveData<Resource<WeekDayException>> = liveData {
         emit(remoteDataSource.getWeekDayException())
     }
+
+    fun getInfos(): LiveData<Resource<List<Infos>>> = liveData { emit(remoteDataSource.getInfos()) }
 }
