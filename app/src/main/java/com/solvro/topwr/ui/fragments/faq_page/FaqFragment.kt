@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.solvro.topwr.databinding.FaqFragmentBinding
+import com.solvro.topwr.ui.adapters.FaqAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -27,8 +29,16 @@ class FaqFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.infos.observe(viewLifecycleOwner){
 
+        binding.recyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+        viewModel.infos.observe(viewLifecycleOwner){
+            binding.recyclerView.adapter = it.data?.let { infos ->
+                FaqAdapter(infos){
+
+                }
+            }
         }
     }
 
