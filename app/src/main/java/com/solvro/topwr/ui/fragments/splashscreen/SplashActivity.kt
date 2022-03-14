@@ -1,9 +1,8 @@
 package com.solvro.topwr.ui.fragments.splashscreen
 
-import android.animation.ValueAnimator
+import android.animation.Animator
 import android.content.Intent
 import android.os.Bundle
-import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
@@ -22,24 +21,36 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_splash)
-        animateLogo()
+        startAnim()
         fakeLongLastingBackgroundTask {
             navigateToMain()
         }
     }
 
-    private fun animateLogo() {
-        ValueAnimator.ofFloat(0.8f, 1f).apply {
-            duration = 1200
-            repeatCount = ValueAnimator.INFINITE
-            repeatMode = ValueAnimator.REVERSE
-            interpolator = AccelerateDecelerateInterpolator()
-            addUpdateListener {
-                binding.logoImageView.scaleX = animatedValue as Float
-                binding.logoImageView.scaleY = animatedValue as Float
+    private fun startAnim() {
+        binding.splashAnim.addAnimatorListener(object : Animator.AnimatorListener {
+            override fun onAnimationStart(p0: Animator?) {
+
             }
-            start()
-        }
+
+            override fun onAnimationEnd(animator: Animator) {
+                lifecycleScope.launch {
+                    withContext(Dispatchers.Main){
+                        binding.splashAnim.pauseAnimation()
+                        withContext(Dispatchers.Default){
+                            delay(500)
+                        }
+                        binding.splashAnim.playAnimation()
+                    }
+                }
+            }
+
+            override fun onAnimationCancel(p0: Animator?) {
+            }
+
+            override fun onAnimationRepeat(p0: Animator?) {
+            }
+        })
     }
 
     private fun navigateToMain() {
@@ -51,7 +62,7 @@ class SplashActivity : AppCompatActivity() {
     //TODO: To refactor
     private fun fakeLongLastingBackgroundTask(onComplete: () -> Unit) {
         lifecycleScope.launch {
-            withContext(Dispatchers.IO) { delay(2000) }
+            withContext(Dispatchers.IO) { delay(10000) }
             onComplete.invoke()
         }
     }
