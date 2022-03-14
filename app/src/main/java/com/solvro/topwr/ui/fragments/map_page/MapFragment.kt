@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.MapsInitializer
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
 import com.solvro.topwr.R
 import com.solvro.topwr.databinding.MapFragmentBinding
 
@@ -35,7 +37,9 @@ class MapFragment : Fragment() {
         MapsInitializer.initialize(requireContext().applicationContext)
         val mapFragment = childFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync {}
+        mapFragment.getMapAsync {
+            it.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(51.1087, 17.0591), 17f))
+        }
     }
 
     companion object {
