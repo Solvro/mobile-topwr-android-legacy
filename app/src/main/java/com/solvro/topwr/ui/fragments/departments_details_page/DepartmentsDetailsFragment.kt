@@ -6,27 +6,41 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.solvro.topwr.R
+import com.solvro.topwr.databinding.DepartmentsDetailsFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DepartmentsDetailsFragment : Fragment() {
 
     companion object {
         fun newInstance() = DepartmentsDetailsFragment()
     }
 
-    private lateinit var viewModel: DepartmentsDetailsViewModel
+    private lateinit var binding: DepartmentsDetailsFragmentBinding
+    private val viewModel: DepartmentsDetailsViewModel by viewModels()
+
+    //what will be passed by navargs?
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.departments_details_fragment, container, false)
+        binding = DepartmentsDetailsFragmentBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(DepartmentsDetailsViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.contactPhoneRecyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
+    }
+
+    private fun viewsInitiation() {
+        //TODO Adapters and other stuff
     }
 
 }
