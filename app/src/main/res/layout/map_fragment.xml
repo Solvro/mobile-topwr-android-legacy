@@ -18,6 +18,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <include layout="@layout/map_bottom_sheet" />
+        <include
+            android:id="@+id/map_bottom_sheet"
+            layout="@layout/map_bottom_sheet" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
