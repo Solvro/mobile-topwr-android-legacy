@@ -17,4 +17,10 @@ class MapViewModel @Inject constructor(
     private val _buildings = repository.getMaps()
     val buildings: LiveData<Resource<List<Building>>> get() = _buildings
 
+    private val _selectedBuilding = MutableLiveData<Building>()
+    val selectedBuilding: LiveData<Building> get() = _selectedBuilding
+
+    fun selectBuilding(building: Building) {
+        _selectedBuilding.postValue(building)
+    }
 }
