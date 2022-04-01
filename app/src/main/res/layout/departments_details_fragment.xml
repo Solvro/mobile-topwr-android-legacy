@@ -30,15 +30,15 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/main_page" />
 
-        <ImageView
-            android:id="@+id/tmpMapPlaceholder"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/departmentMap"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="254dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/backToMainDepartmentBtn"
             android:layout_marginTop="20dp"
-            tools:src = "@color/red"
             />
 
         <com.google.android.material.card.MaterialCardView
@@ -47,10 +47,10 @@
             android:layout_height="wrap_content"
             android:shape="ring"
             app:cardCornerRadius="100dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tmpMapPlaceholder"
+            app:layout_constraintBottom_toBottomOf="@+id/departmentMap"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tmpMapPlaceholder">
+            app:layout_constraintTop_toBottomOf="@+id/departmentMap">
 
             <ImageView
                 android:id="@+id/departmentDetailFragmentLogo"
