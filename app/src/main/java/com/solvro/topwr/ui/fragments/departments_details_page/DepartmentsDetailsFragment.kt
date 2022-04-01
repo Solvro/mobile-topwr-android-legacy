@@ -1,5 +1,7 @@
 package com.solvro.topwr.ui.fragments.departments_details_page
 
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -54,8 +56,15 @@ class DepartmentsDetailsFragment : Fragment() {
 
             //Brak numeru pokoju np: pokój 21 (tak jak jest w Figmie) ??
             //Brak numerów telefonów ??
+            val gradientFirst = Color.parseColor(departmentInfo?.color?.gradientFirst)
+            val gradientSecond = Color.parseColor(departmentInfo?.color?.gradientSecond)
 
+            val gradient = GradientDrawable(
+                GradientDrawable.Orientation.LEFT_RIGHT,
+                intArrayOf(gradientFirst, gradientSecond)
+                )
 
+            departmentDetailFragmentLogo.background = gradient
         }
 
         setupMap()

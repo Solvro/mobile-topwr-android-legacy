@@ -2,6 +2,7 @@ package com.solvro.topwr.data.model.departments
 
 import com.solvro.topwr.data.model.common.Formats
 import com.solvro.topwr.data.model.common.ProviderMetadata
+import java.io.Serializable
 
 data class Logo(
     val alternativeText: String?,
@@ -21,4 +22,4 @@ data class Logo(
     val updated_at: String?,
     val url: String?,
     val width: Int?
-)
+):Serializable
