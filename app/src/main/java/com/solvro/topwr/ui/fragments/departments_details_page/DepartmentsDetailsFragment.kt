@@ -19,6 +19,7 @@ import com.google.android.gms.maps.model.*
 import com.solvro.topwr.R
 import com.solvro.topwr.data.model.departments.Departments
 import com.solvro.topwr.databinding.DepartmentsDetailsFragmentBinding
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -53,6 +54,11 @@ class DepartmentsDetailsFragment : Fragment() {
         setupView()
 
         setupMap()
+
+        //action_departmentsDetailsFragment_to_scienceClubsFragment
+
+        val action = DepartmentsDetailsFragmentDirections.actionDepartmentsDetailsFragmentToScienceClubsFragment()
+        findNavController().navigate(action)
 
     }
 
