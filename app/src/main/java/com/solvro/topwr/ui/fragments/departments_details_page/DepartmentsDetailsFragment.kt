@@ -1,6 +1,5 @@
 package com.solvro.topwr.ui.fragments.departments_details_page
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,9 +12,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapsInitializer
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import com.solvro.topwr.R
 import com.solvro.topwr.data.model.departments.Departments
 import com.solvro.topwr.databinding.DepartmentsDetailsFragmentBinding
@@ -52,8 +49,13 @@ class DepartmentsDetailsFragment : Fragment() {
 
         binding.apply {
             departmentName.text = departmentInfo?.name
-            departmentPosition.text = departmentInfo?.addres
-            departmentDetailBuildingTextView.text = departmentInfo?.locale
+            departmentPosition.text = "${getString(R.string.PWR_name)}\n${departmentInfo?.addres?.replace(",", "\n")}"
+            departmentDetailBuildingTextView.text = "${getString(R.string.building)} ${departmentInfo?.code} "
+
+            //Brak numeru pokoju np: pokój 21 (tak jak jest w Figmie) ??
+            //Brak numerów telefonów ??
+
+
         }
 
         setupMap()
@@ -74,10 +76,12 @@ class DepartmentsDetailsFragment : Fragment() {
                     position,17f
                 )
             )
+
             map?.addMarker(
                 MarkerOptions()
                     .position(position)
                     .title(departmentInfo?.name)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_marker_1))
             )?.showInfoWindow()
         }
     }

@@ -30,5 +30,9 @@
     <string name="main_page">Strona główna</string>
     <string name="deanery">Dziekanat:</string>
     <string name="courses_of_study">Kierunki</string>
-    
+
+    <string name="PWR_name">Politechnika Wrocławska</string>
+    <string name="building">Budynek </string>
+
+
 </resources>
