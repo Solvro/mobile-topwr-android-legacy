@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapsInitializer
@@ -49,26 +50,38 @@ class DepartmentsDetailsFragment : Fragment() {
 
         departmentInfo = args.departmentInfo;
 
+        setupView()
+
+        setupMap()
+
+    }
+
+    private fun setupView(){
+
         binding.apply {
             departmentName.text = departmentInfo?.name
             departmentPosition.text = "${getString(R.string.PWR_name)}\n${departmentInfo?.addres?.replace(",", "\n")}"
             departmentDetailBuildingTextView.text = "${getString(R.string.building)} ${departmentInfo?.code} "
 
+            //Albo nie widzę gdzie to jest, albo:
             //Brak numeru pokoju np: pokój 21 (tak jak jest w Figmie) ??
             //Brak numerów telefonów ??
+
+            Glide.with(binding.root.context)
+                .load(departmentInfo?.logo?.url)
+                .centerCrop()
+                .into(departmentDetailFragmentLogo)
+
             val gradientFirst = Color.parseColor(departmentInfo?.color?.gradientFirst)
             val gradientSecond = Color.parseColor(departmentInfo?.color?.gradientSecond)
 
             val gradient = GradientDrawable(
                 GradientDrawable.Orientation.LEFT_RIGHT,
                 intArrayOf(gradientFirst, gradientSecond)
-                )
+            )
 
             departmentDetailFragmentLogo.background = gradient
         }
-
-        setupMap()
-
     }
 
     private fun setupMap(){
@@ -95,5 +108,16 @@ class DepartmentsDetailsFragment : Fragment() {
         }
     }
 
+    private fun setupPhoneNumbers(){
+
+    }
+
+    private fun setupFieldsOfStudy(){
+
+    }
+
+    private fun setupScientificCircles(){
+        
+    }
 
 }
