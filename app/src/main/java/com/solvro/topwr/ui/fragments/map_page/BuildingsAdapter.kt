@@ -71,7 +71,7 @@ class BuildingsAdapter(
         }.sortedBy { it.building.code })
     }
 
-    fun setSelectedBuilding(building: Building) {
+    fun setSelectedBuilding(building: Building?) {
         selectedBuilding = building
         val itemsSorted =
             currentList.map { BuildingItemList(it.building, it.building == selectedBuilding) }

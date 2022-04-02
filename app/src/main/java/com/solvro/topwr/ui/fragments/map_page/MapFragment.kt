@@ -100,25 +100,28 @@ class MapFragment : Fragment() {
     private fun setupRecyclerView() {
         val rw = binding.mapBottomSheet.buildingsRecyclerView
         adapter = BuildingsAdapter { building ->
-            viewModel.selectBuilding(building)
+            if (BottomSheetBehavior.from(binding.mapBottomSheet.root).state
+                == BottomSheetBehavior.STATE_EXPANDED)
+                viewModel.selectBuilding(building)
         }
         rw.adapter = adapter
         rw.layoutManager = LinearLayoutManager(requireContext())
     }
 
-    private fun setBuildingMarker(building: Building) {
+    private fun setBuildingMarker(building: Building?) {
+        currentMarker?.remove()
+        if (building == null) return
+
         val newLocation = LatLng(
             building.latitude,
             building.longitude
         )
-
         val cameraPosition = CameraPosition.Builder()
             .target(newLocation)
             .zoom(Constants.DEFAULT_CAMERA_ZOOM)
             .build()
         map?.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
 
-        currentMarker?.remove()
         currentMarker = map?.addMarker(
             MarkerOptions()
                 .position(newLocation)
