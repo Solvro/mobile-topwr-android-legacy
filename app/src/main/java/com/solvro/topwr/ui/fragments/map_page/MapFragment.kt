@@ -17,11 +17,13 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.solvro.topwr.R
 import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.databinding.MapFragmentBinding
 import com.solvro.topwr.utils.Constants
 import com.solvro.topwr.utils.Resource
+import com.solvro.topwr.utils.toPx
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -69,6 +71,13 @@ class MapFragment : Fragment() {
             selectedBuilding.observe(viewLifecycleOwner) {
                 setBuildingMarker(it)
                 adapter.setSelectedBuilding(it)
+                BottomSheetBehavior.from(binding.mapBottomSheet.root).apply {
+                    peekHeight = if (it == null) {
+                        140.toPx
+                    } else 280.toPx
+                    state =
+                        BottomSheetBehavior.STATE_COLLAPSED
+                }
             }
         }
     }
