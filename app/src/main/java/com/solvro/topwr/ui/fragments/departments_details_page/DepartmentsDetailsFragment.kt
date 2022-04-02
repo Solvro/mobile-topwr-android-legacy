@@ -20,6 +20,8 @@ import com.solvro.topwr.R
 import com.solvro.topwr.data.model.departments.Departments
 import com.solvro.topwr.databinding.DepartmentsDetailsFragmentBinding
 import androidx.navigation.fragment.findNavController
+import com.solvro.topwr.ui.adapters.FieldsOfStudyAdapter
+import com.solvro.topwr.ui.adapters.ScienceClubsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,6 +37,10 @@ class DepartmentsDetailsFragment : Fragment() {
 
     private var map: GoogleMap? = null
     private var departmentInfo: Departments? = null
+
+    private lateinit var scienceClubsAdapter: ScienceClubsAdapter
+    private lateinit var fieldsOfStudyAdapter: FieldsOfStudyAdapter
+    private lateinit var phoneAdapter: FieldsOfStudyAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,14 +58,9 @@ class DepartmentsDetailsFragment : Fragment() {
         departmentInfo = args.departmentInfo;
 
         setupView()
-
         setupMap()
-
-        //action_departmentsDetailsFragment_to_scienceClubsFragment
-
-        val action = DepartmentsDetailsFragmentDirections.actionDepartmentsDetailsFragmentToScienceClubsFragment()
-        findNavController().navigate(action)
-
+        setupPhoneNumbers()
+        setupFieldsOfStudy()
     }
 
     private fun setupView(){
@@ -116,14 +117,44 @@ class DepartmentsDetailsFragment : Fragment() {
 
     private fun setupPhoneNumbers(){
 
+        //where phone numbers?
+        //departmentInfo?.
+
+        binding.contactPhoneRecyclerView.apply {
+            adapter = phoneAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+
     }
 
     private fun setupFieldsOfStudy(){
 
+        departmentInfo?.fieldsOfStudy?.let {
+            fieldsOfStudyAdapter = FieldsOfStudyAdapter(it)
+        }
+
+        binding.coursesOfStudyRecyclerView.apply {
+            adapter = fieldsOfStudyAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+
     }
 
     private fun setupScientificCircles(){
-        
+
+        binding.scienceClubListTextView.setOnClickListener {
+            val action = DepartmentsDetailsFragmentDirections.actionDepartmentsDetailsFragmentToScienceClubsFragment()
+            findNavController().navigate(action)
+        }
+
+        //TODO("add science club adapter)
+
+        binding.scienceClubsOfDepartmentRecyclerView.apply {
+            adapter = scienceClubsAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+
+
     }
 
 }
