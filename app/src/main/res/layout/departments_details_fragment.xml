@@ -30,9 +30,9 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/main_page" />
 
-        <androidx.fragment.app.FragmentContainerView
+        <ImageView
             android:id="@+id/departmentMap"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
+
             android:layout_width="match_parent"
             android:layout_height="254dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -45,7 +45,7 @@
             android:id="@+id/departmentDetailFragmentLogoCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:shape="ring"
+            android:shape="oval"
             app:cardCornerRadius="100dp"
             app:layout_constraintBottom_toBottomOf="@+id/departmentMap"
             app:layout_constraintEnd_toEndOf="parent"
@@ -224,6 +224,7 @@
             android:text="@string/list"
             android:textColor="@color/red"
             android:textSize="13sp"
+            android:clickable="true"
             app:layout_constraintBottom_toBottomOf="@+id/listOfScienceClubs"
             app:layout_constraintEnd_toEndOf="parent" />
 

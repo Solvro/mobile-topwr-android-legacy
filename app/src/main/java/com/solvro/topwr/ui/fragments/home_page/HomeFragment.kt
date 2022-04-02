@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.solvro.topwr.R
 import com.solvro.topwr.databinding.HomeFragmentBinding
@@ -70,7 +71,8 @@ class HomeFragment : Fragment() {
             binding.departmentsRecyclerView.adapter =
                 it.data?.let { it1 ->
                     DepartmentsHomeAdapter(it1) { chosenDepartment ->
-                        Toast.makeText(context, chosenDepartment.code, Toast.LENGTH_SHORT).show()
+                        val action = HomeFragmentDirections.actionHomeFragmentToDepartmentsDetailsFragment(chosenDepartment)
+                        findNavController().navigate(action)
                     }
                 }
         }

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,7 +21,9 @@ import com.solvro.topwr.R
 import com.solvro.topwr.data.model.departments.Departments
 import com.solvro.topwr.databinding.DepartmentsDetailsFragmentBinding
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.solvro.topwr.ui.adapters.FieldsOfStudyAdapter
+import com.solvro.topwr.ui.adapters.PhoneAdapter
 import com.solvro.topwr.ui.adapters.ScienceClubsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -40,7 +43,7 @@ class DepartmentsDetailsFragment : Fragment() {
 
     private lateinit var scienceClubsAdapter: ScienceClubsAdapter
     private lateinit var fieldsOfStudyAdapter: FieldsOfStudyAdapter
-    private lateinit var phoneAdapter: FieldsOfStudyAdapter
+    private lateinit var phoneAdapter: PhoneAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,8 +55,6 @@ class DepartmentsDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.contactPhoneRecyclerView.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
         departmentInfo = args.departmentInfo;
 
@@ -61,6 +62,7 @@ class DepartmentsDetailsFragment : Fragment() {
         setupMap()
         setupPhoneNumbers()
         setupFieldsOfStudy()
+        setupScientificCircles()
     }
 
     private fun setupView(){
@@ -74,11 +76,6 @@ class DepartmentsDetailsFragment : Fragment() {
             //Brak numeru pokoju np: pokój 21 (tak jak jest w Figmie) ??
             //Brak numerów telefonów ??
 
-            Glide.with(binding.root.context)
-                .load(departmentInfo?.logo?.url)
-                .centerCrop()
-                .into(departmentDetailFragmentLogo)
-
             val gradientFirst = Color.parseColor(departmentInfo?.color?.gradientFirst)
             val gradientSecond = Color.parseColor(departmentInfo?.color?.gradientSecond)
 
@@ -88,10 +85,18 @@ class DepartmentsDetailsFragment : Fragment() {
             )
 
             departmentDetailFragmentLogo.background = gradient
+
+            Glide.with(binding.root.context)
+                .load(departmentInfo?.logo?.url)
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                .into(departmentDetailFragmentLogo)
+
         }
     }
 
     private fun setupMap(){
+
+        /*
         MapsInitializer.initialize(requireContext().applicationContext)
         val mapFragment = childFragmentManager
             .findFragmentById(R.id.departmentMap) as SupportMapFragment
@@ -112,13 +117,17 @@ class DepartmentsDetailsFragment : Fragment() {
                     .title(departmentInfo?.name)
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_marker_1))
             )?.showInfoWindow()
-        }
+        }*/
     }
 
     private fun setupPhoneNumbers(){
 
         //where phone numbers?
         //departmentInfo?.
+
+        phoneAdapter = PhoneAdapter(listOf()){
+            phoneNumber -> null
+        }
 
         binding.contactPhoneRecyclerView.apply {
             adapter = phoneAdapter
@@ -147,14 +156,28 @@ class DepartmentsDetailsFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        //TODO("add science club adapter)
+        viewModel.scienceClubs.observe(viewLifecycleOwner){
+            it?.data.let { scienceClubs ->
+                scienceClubs?.let {
+                    scienceClubsAdapter = ScienceClubsAdapter(scienceClubs) { scienceClubItem ->
+                        Toast.makeText(context, scienceClubItem.name, Toast.LENGTH_SHORT).show()
+                        //TODO("Navigate to specific club")
+                    }
 
-        binding.scienceClubsOfDepartmentRecyclerView.apply {
-            adapter = scienceClubsAdapter
-            layoutManager = LinearLayoutManager(requireContext())
+                    binding.scienceClubsOfDepartmentRecyclerView.apply {
+                        adapter = scienceClubsAdapter
+                        layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                    }
+
+                }
+            }
         }
 
 
+
+
     }
+
+
 
 }
