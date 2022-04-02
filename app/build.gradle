@@ -4,11 +4,15 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id "androidx.navigation.safeargs"
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
+
+    def secretProperties = new Properties()
+    secretProperties.load(new FileInputStream(rootProject.file("secret.properties")))
 
     defaultConfig {
         applicationId "com.solvro.topwr"
@@ -21,6 +25,9 @@ android {
     }
 
     buildTypes {
+        all {
+            resValue("string", "google_maps_key", secretProperties['MAPS_API_KEY'])
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'

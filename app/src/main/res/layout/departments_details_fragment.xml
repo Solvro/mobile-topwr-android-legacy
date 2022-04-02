@@ -31,9 +31,9 @@
             android:text="@string/departments"
  />
 
-        <ImageView
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/departmentMap"
-
+            android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="254dp"
             app:layout_constraintEnd_toEndOf="parent"

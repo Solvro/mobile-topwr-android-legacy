@@ -95,7 +95,7 @@ class DepartmentsDetailsFragment : Fragment() {
 
     private fun setupMap(){
 
-        /*
+
         MapsInitializer.initialize(requireContext().applicationContext)
         val mapFragment = childFragmentManager
             .findFragmentById(R.id.departmentMap) as SupportMapFragment
@@ -116,7 +116,7 @@ class DepartmentsDetailsFragment : Fragment() {
                     .title(departmentInfo?.name)
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_marker_1))
             )?.showInfoWindow()
-        }*/
+        }
     }
 
     private fun setupPhoneNumbers(){
