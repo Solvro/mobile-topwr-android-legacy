@@ -28,7 +28,8 @@
             app:drawableLeftCompat="@drawable/ic_back"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/main_page" />
+            android:text="@string/departments"
+ />
 
         <ImageView
             android:id="@+id/departmentMap"
@@ -46,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:shape="ring"
-            app:cardCornerRadius="70dp"
+            app:cardCornerRadius="80dp"
             app:layout_constraintBottom_toBottomOf="@+id/departmentMap"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -168,6 +169,7 @@
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
                 android:layout_marginBottom="24dp"
+                android:layout_marginTop="8dp"
                 android:nestedScrollingEnabled="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -193,7 +195,6 @@
             android:id="@+id/coursesOfStudyRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
             app:layout_constraintEnd_toEndOf="parent"

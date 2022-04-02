@@ -69,7 +69,7 @@ class DepartmentsDetailsFragment : Fragment() {
 
         binding.apply {
             departmentName.text = departmentInfo?.name
-            departmentPosition.text = "${getString(R.string.PWR_name)}\n${departmentInfo?.addres?.replace(",", "\n")}"
+            departmentPosition.text = "${getString(R.string.PWR_name)}\n${departmentInfo?.addres?.replace(",", "")}"
             departmentDetailBuildingTextView.text = "${getString(R.string.building)} ${departmentInfo?.code} "
 
             //Albo nie widzę gdzie to jest, albo:
@@ -125,7 +125,7 @@ class DepartmentsDetailsFragment : Fragment() {
         //where phone numbers?
         //departmentInfo?.
 
-        phoneAdapter = PhoneAdapter(listOf()){
+        phoneAdapter = PhoneAdapter(listOf("(+48) 71 320 62 30", "(+48) 71 320 62 30")){
             phoneNumber -> null
         }
 
