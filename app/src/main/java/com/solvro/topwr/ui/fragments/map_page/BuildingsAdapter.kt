@@ -1,9 +1,10 @@
 package com.solvro.topwr.ui.fragments.map_page
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.solvro.topwr.R
@@ -12,17 +13,17 @@ import com.solvro.topwr.databinding.ItemBuildingBinding
 
 class BuildingsAdapter(
     private val onItemClick: (Building) -> Unit
-) : RecyclerView.Adapter<BuildingsAdapter.ViewHolder>() {
+) : ListAdapter<BuildingItemList, BuildingsAdapter.ViewHolder>(BuildingsDiffCallback()) {
 
-    private val buildings: MutableList<Building> = mutableListOf()
     private var selectedBuilding: Building? = null
 
     inner class ViewHolder(private val binding: ItemBuildingBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(building: Building) {
+        fun bind(buildingItem: BuildingItemList) {
             binding.apply {
                 val context = root.context
-                val isSelected = building == selectedBuilding
+                val building = buildingItem.building
+                val isSelected = buildingItem.isSelected
                 root.setOnClickListener { onItemClick(building) }
                 buildingLayout.background = if (isSelected)
                     ContextCompat.getDrawable(context, R.drawable.gradient_background)
@@ -59,19 +60,42 @@ class BuildingsAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(buildings[position])
+        holder.bind(getItem(position))
     }
 
-    override fun getItemCount(): Int = buildings.size
+    override fun getItemCount(): Int = currentList.size
 
-    fun addData(items: List<Building>) {
-        buildings.clear()
-        buildings.addAll(items)
-        notifyDataSetChanged()
+    fun addItems(items: List<Building>) {
+        submitList(items.map {
+            BuildingItemList(it, it == selectedBuilding)
+        }.sortedBy { it.building.code })
     }
 
     fun setSelectedBuilding(building: Building) {
         selectedBuilding = building
-        notifyDataSetChanged()
+        val itemsSorted =
+            currentList.map { BuildingItemList(it.building, it.building == selectedBuilding) }
+                .sortedWith(
+                    compareBy<BuildingItemList> {
+                        !it.isSelected
+                    }.thenBy {
+                        it.building.code
+                    }
+                )
+        submitList(itemsSorted)
     }
 }
+
+class BuildingsDiffCallback : DiffUtil.ItemCallback<BuildingItemList>() {
+    override fun areItemsTheSame(oldItem: BuildingItemList, newItem: BuildingItemList): Boolean =
+        oldItem.building.id == newItem.building.id
+
+
+    override fun areContentsTheSame(oldItem: BuildingItemList, newItem: BuildingItemList): Boolean =
+        oldItem.building == newItem.building && oldItem.isSelected == newItem.isSelected
+}
+
+data class BuildingItemList(
+    val building: Building,
+    val isSelected: Boolean
+)

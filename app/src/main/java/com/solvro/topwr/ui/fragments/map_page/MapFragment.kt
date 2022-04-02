@@ -53,7 +53,7 @@ class MapFragment : Fragment() {
             buildings.observe(viewLifecycleOwner) {
                 when (it.status) {
                     Resource.Status.SUCCESS -> {
-                        it.data?.let { data -> adapter.addData(data) }
+                        it.data?.let { data -> adapter.addItems(data) }
                     }
                     Resource.Status.LOADING -> {}
                     Resource.Status.ERROR -> {
