@@ -88,7 +88,6 @@ class DepartmentsDetailsFragment : Fragment() {
 
             Glide.with(binding.root.context)
                 .load(departmentInfo?.logo?.url)
-                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .into(departmentDetailFragmentLogo)
 
         }

@@ -46,7 +46,7 @@
             android:id="@+id/departmentDetailFragmentLogoCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:shape="ring"
+            android:shape="oval"
             app:cardCornerRadius="80dp"
             app:layout_constraintBottom_toBottomOf="@+id/departmentMap"
             app:layout_constraintEnd_toEndOf="parent"
