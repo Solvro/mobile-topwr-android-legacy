@@ -76,19 +76,19 @@ class DepartmentsDetailsFragment : Fragment() {
             //Brak numeru pokoju np: pokój 21 (tak jak jest w Figmie) ??
             //Brak numerów telefonów ??
 
+            Glide.with(binding.root.context)
+                .load(departmentInfo?.logo?.url)
+                .into(departmentDetailFragmentLogo)
+
             val gradientFirst = Color.parseColor(departmentInfo?.color?.gradientFirst)
             val gradientSecond = Color.parseColor(departmentInfo?.color?.gradientSecond)
 
             val gradient = GradientDrawable(
                 GradientDrawable.Orientation.LEFT_RIGHT,
-                intArrayOf(gradientFirst, gradientSecond)
+                intArrayOf(gradientSecond, gradientFirst)
             )
 
             departmentDetailFragmentLogo.background = gradient
-
-            Glide.with(binding.root.context)
-                .load(departmentInfo?.logo?.url)
-                .into(departmentDetailFragmentLogo)
 
         }
     }
@@ -158,7 +158,15 @@ class DepartmentsDetailsFragment : Fragment() {
         viewModel.scienceClubs.observe(viewLifecycleOwner){
             it?.data.let { scienceClubs ->
                 scienceClubs?.let {
-                    scienceClubsAdapter = ScienceClubsAdapter(scienceClubs) { scienceClubItem ->
+                    scienceClubsAdapter = ScienceClubsAdapter(scienceClubs.filter { scienceClubs ->
+
+                        if (scienceClubs.id != null){
+                            departmentInfo?.scientificCircles?.contains(scienceClubs.id) == true
+                        }else{
+                            false
+                        }
+
+                    }) { scienceClubItem ->
                         Toast.makeText(context, scienceClubItem.name, Toast.LENGTH_SHORT).show()
                         //TODO("Navigate to specific club")
                     }

@@ -46,8 +46,8 @@
             android:id="@+id/departmentDetailFragmentLogoCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:shape="oval"
-            app:cardCornerRadius="80dp"
+            android:shape="ring"
+            app:cardCornerRadius="60dp"
             app:layout_constraintBottom_toBottomOf="@+id/departmentMap"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -57,6 +57,8 @@
                 android:id="@+id/departmentDetailFragmentLogo"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
+                android:scaleType="centerInside"
+                android:padding="28dp"
                 />
 
         </com.google.android.material.card.MaterialCardView>
