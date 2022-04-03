@@ -1,5 +1,6 @@
 package com.solvro.topwr.ui.fragments.departments_details_page
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
@@ -26,6 +27,10 @@ import com.solvro.topwr.ui.adapters.FieldsOfStudyAdapter
 import com.solvro.topwr.ui.adapters.PhoneAdapter
 import com.solvro.topwr.ui.adapters.ScienceClubsAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import android.view.MotionEvent
+
+
+
 
 @AndroidEntryPoint
 class DepartmentsDetailsFragment : Fragment() {
@@ -59,6 +64,7 @@ class DepartmentsDetailsFragment : Fragment() {
         departmentInfo = args.departmentInfo;
 
         setupView()
+        allowMapToMove()
         setupMap()
         setupPhoneNumbers()
         setupFieldsOfStudy()
@@ -90,15 +96,40 @@ class DepartmentsDetailsFragment : Fragment() {
 
             departmentDetailFragmentLogo.background = gradient
 
+
+
+        }
+    }
+
+    /*This function allow user to move map vertically, even though we are in scrollview*/
+    @SuppressLint("ClickableViewAccessibility")
+    private fun allowMapToMove(){
+        binding.transparentMapOverlapping.setOnTouchListener { v, event ->
+            return@setOnTouchListener when(event.action){
+                MotionEvent.ACTION_DOWN -> {
+                    binding.root.requestDisallowInterceptTouchEvent(true)
+                    false
+                }
+                MotionEvent.ACTION_UP -> {
+                    binding.root.requestDisallowInterceptTouchEvent(false)
+                    true
+                }
+                MotionEvent.ACTION_MOVE -> {
+                    binding.root.requestDisallowInterceptTouchEvent(true)
+                    false
+                }
+                else -> true
+            }
         }
     }
 
     private fun setupMap(){
 
-
         MapsInitializer.initialize(requireContext().applicationContext)
         val mapFragment = childFragmentManager
             .findFragmentById(R.id.departmentMap) as SupportMapFragment
+
+        //val marker = BitmapDescriptorFactory.fromResource(R.drawable.ic_map_marker_1)
 
         mapFragment.getMapAsync {
             map = it
@@ -114,8 +145,8 @@ class DepartmentsDetailsFragment : Fragment() {
                 MarkerOptions()
                     .position(position)
                     .title(departmentInfo?.name)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_marker_1))
-            )?.showInfoWindow()
+            )
+
         }
     }
 

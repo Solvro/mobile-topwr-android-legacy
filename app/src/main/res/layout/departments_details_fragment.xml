@@ -36,11 +36,22 @@
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="254dp"
+            android:nestedScrollingEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/backToMainDepartmentBtn"
             android:layout_marginTop="20dp"
             />
+
+        <ImageView
+            android:id="@+id/transparentMapOverlapping"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:src="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/departmentMap"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/departmentMap" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/departmentDetailFragmentLogoCard"
