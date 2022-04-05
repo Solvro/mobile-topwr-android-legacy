@@ -1,52 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/bottomMapSheet"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/bottom_sheet_background"
-    android:paddingBottom="32dp"
-    app:behavior_hideable="false"
-    app:behavior_peekHeight="140dp"
-    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+<layout>
 
-    <ImageView
-        android:layout_marginTop="16dp"
-        android:layout_width="40dp"
-        android:layout_height="4dp"
-        android:src="@drawable/sheet_handle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <TextView
-        android:id="@+id/bottomSheetTitle"
-        style="@style/ListTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="51dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/buildings" />
+        <variable
+            name="viewModel"
+            type="com.solvro.topwr.ui.fragments.map_page.MapViewModel" />
+    </data>
 
-    <EditText
-        android:id="@+id/buildingsSearchBar"
-        style="@style/SearchBar"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/bottomMapSheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bottomSheetTitle" />
+        android:background="@drawable/bottom_sheet_background"
+        android:paddingBottom="32dp"
+        app:behavior_hideable="false"
+        app:behavior_peekHeight="140dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/buildingsRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buildingsSearchBar" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="4dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/sheet_handle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/bottomSheetTitle"
+            style="@style/ListTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="51dp"
+            android:text="@string/buildings"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/buildingsSearchBar"
+            style="@style/SearchBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:text="@={viewModel.searchText}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bottomSheetTitle" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/buildingsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buildingsSearchBar" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

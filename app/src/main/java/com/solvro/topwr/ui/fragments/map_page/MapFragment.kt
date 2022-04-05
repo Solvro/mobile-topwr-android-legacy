@@ -43,16 +43,21 @@ class MapFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.map_fragment, container, false)
-        bottomSheet = BottomSheetBehavior.from(binding.mapBottomSheet.root)
+        bottomSheet = BottomSheetBehavior.from(binding.mapBottomSheet.bottomMapSheet)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        bindViewModel()
         setupRecyclerView()
         setupMaps()
         setObservers()
         setListeners()
+    }
+
+    private fun bindViewModel() {
+        binding.viewModel = viewModel
     }
 
     private fun setupMaps() {
@@ -107,6 +112,9 @@ class MapFragment : Fragment() {
                     } else 280.toPx
                 }
                 setBottomSheetState(false)
+            }
+            searchText.observe(viewLifecycleOwner) {
+                adapter.searchText = it
             }
         }
     }

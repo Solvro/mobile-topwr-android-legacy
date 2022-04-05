@@ -15,7 +15,24 @@ class BuildingsAdapter(
     private val onItemClick: (Building) -> Unit
 ) : ListAdapter<BuildingItemList, BuildingsAdapter.ViewHolder>(BuildingsDiffCallback()) {
 
+    private var buildings = listOf<BuildingItemList>()
     private var selectedBuilding: Building? = null
+    var searchText: String = ""
+        set(value) {
+            field = value.lowercase()
+            submitList(
+                if (field.isNotBlank()) buildings.filter {
+                    it.building.code.lowercase().contains(
+                        field
+                    ) || it.building.name.lowercase().contains(
+                        field
+                    ) || it.building.addres.lowercase().contains(
+                        field
+                    )
+                }.sortWithCodeAndIsSelected()
+                else buildings
+            )
+        }
 
     inner class ViewHolder(private val binding: ItemBuildingBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -66,22 +83,18 @@ class BuildingsAdapter(
     override fun getItemCount(): Int = currentList.size
 
     fun addItems(items: List<Building>) {
-        submitList(items.map {
+        val sorted = items.map {
             BuildingItemList(it, it == selectedBuilding)
-        }.sortedBy { it.building.code })
+        }.sortWithCodeAndIsSelected()
+        buildings = sorted
+        submitList(sorted)
     }
 
     fun setSelectedBuilding(building: Building?) {
         selectedBuilding = building
         val itemsSorted =
             currentList.map { BuildingItemList(it.building, it.building == selectedBuilding) }
-                .sortedWith(
-                    compareBy<BuildingItemList> {
-                        !it.isSelected
-                    }.thenBy {
-                        it.building.code
-                    }
-                )
+                .sortWithCodeAndIsSelected()
         submitList(itemsSorted)
     }
 }
@@ -99,3 +112,13 @@ data class BuildingItemList(
     val building: Building,
     val isSelected: Boolean
 )
+
+fun List<BuildingItemList>.sortWithCodeAndIsSelected(): List<BuildingItemList> {
+    return this.sortedWith(
+        compareBy<BuildingItemList> {
+            !it.isSelected
+        }.thenBy {
+            it.building.code
+        }
+    )
+}
