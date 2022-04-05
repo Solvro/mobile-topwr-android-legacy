@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -34,12 +36,14 @@ class MapFragment : Fragment() {
     private lateinit var adapter: BuildingsAdapter
     private var map: GoogleMap? = null
     private var currentMarker: Marker? = null
+    private lateinit var bottomSheet: BottomSheetBehavior<ConstraintLayout>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.map_fragment, container, false)
+        bottomSheet = BottomSheetBehavior.from(binding.mapBottomSheet.root)
         return binding.root
     }
 
@@ -48,6 +52,32 @@ class MapFragment : Fragment() {
         setupRecyclerView()
         setupMaps()
         setObservers()
+        setListeners()
+    }
+
+    private fun setupMaps() {
+        MapsInitializer.initialize(requireContext().applicationContext)
+        val mapFragment = childFragmentManager
+            .findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync {
+            map = it
+            it.moveCamera(
+                CameraUpdateFactory.newLatLngZoom(
+                    LatLng(Constants.DEFAULT_MAP_LATITUDE, Constants.DEFAULT_MAP_LONGITUDE),
+                    Constants.DEFAULT_CAMERA_ZOOM
+                )
+            )
+        }
+    }
+
+    private fun setupRecyclerView() {
+        val rw = binding.mapBottomSheet.buildingsRecyclerView
+        adapter = BuildingsAdapter { building ->
+            if (bottomSheet.state == BottomSheetBehavior.STATE_EXPANDED)
+                viewModel.selectBuilding(building)
+        }
+        rw.adapter = adapter
+        rw.layoutManager = LinearLayoutManager(requireContext())
     }
 
     private fun setObservers() {
@@ -71,41 +101,27 @@ class MapFragment : Fragment() {
             selectedBuilding.observe(viewLifecycleOwner) {
                 setBuildingMarker(it)
                 adapter.setSelectedBuilding(it)
-                BottomSheetBehavior.from(binding.mapBottomSheet.root).apply {
+                bottomSheet.apply {
                     peekHeight = if (it == null) {
                         140.toPx
                     } else 280.toPx
-                    state =
-                        BottomSheetBehavior.STATE_COLLAPSED
                 }
+                setBottomSheetState(false)
             }
         }
     }
 
-    private fun setupMaps() {
-        MapsInitializer.initialize(requireContext().applicationContext)
-        val mapFragment = childFragmentManager
-            .findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync {
-            map = it
-            it.moveCamera(
-                CameraUpdateFactory.newLatLngZoom(
-                    LatLng(Constants.DEFAULT_MAP_LATITUDE, Constants.DEFAULT_MAP_LONGITUDE),
-                    Constants.DEFAULT_CAMERA_ZOOM
-                )
-            )
+    private fun setListeners() {
+        binding.mapBottomSheet.buildingsSearchBar.doOnTextChanged { _, _, _, _ ->
+            setBottomSheetState(isExpanded = true)
         }
     }
 
-    private fun setupRecyclerView() {
-        val rw = binding.mapBottomSheet.buildingsRecyclerView
-        adapter = BuildingsAdapter { building ->
-            if (BottomSheetBehavior.from(binding.mapBottomSheet.root).state
-                == BottomSheetBehavior.STATE_EXPANDED)
-                viewModel.selectBuilding(building)
+    private fun setBottomSheetState(isExpanded: Boolean) {
+        bottomSheet.apply {
+            state =
+                if (isExpanded) BottomSheetBehavior.STATE_EXPANDED else BottomSheetBehavior.STATE_COLLAPSED
         }
-        rw.adapter = adapter
-        rw.layoutManager = LinearLayoutManager(requireContext())
     }
 
     private fun setBuildingMarker(building: Building?) {
