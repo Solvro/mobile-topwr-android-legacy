@@ -78,8 +78,7 @@ class MapFragment : Fragment() {
     private fun setupRecyclerView() {
         val rw = binding.mapBottomSheet.buildingsRecyclerView
         adapter = BuildingsAdapter { building ->
-            if (bottomSheet.state == BottomSheetBehavior.STATE_EXPANDED)
-                viewModel.selectBuilding(building)
+            viewModel.selectBuilding(building)
         }
         rw.adapter = adapter
         rw.layoutManager = LinearLayoutManager(requireContext())
@@ -106,11 +105,10 @@ class MapFragment : Fragment() {
             selectedBuilding.observe(viewLifecycleOwner) {
                 setBuildingMarker(it)
                 adapter.setSelectedBuilding(it)
-                bottomSheet.apply {
-                    peekHeight = if (it == null) {
-                        140.toPx
-                    } else 280.toPx
-                }
+                setBottomSheetState(true)
+                bottomSheet.peekHeight = if (it == null) {
+                    140.toPx
+                } else 280.toPx
                 setBottomSheetState(false)
             }
             searchText.observe(viewLifecycleOwner) {
