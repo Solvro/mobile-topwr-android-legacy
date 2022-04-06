@@ -40,4 +40,4 @@ build
 *~
 *.swp
 
-secret.properties
+app/secret.properties
