@@ -2,6 +2,7 @@ package com.solvro.topwr.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import com.solvro.topwr.data.local.DataStoreSource
 import com.solvro.topwr.data.model.departments.Departments
 import com.solvro.topwr.data.model.endDate.EndDate
 import com.solvro.topwr.data.model.maps.Building
@@ -12,7 +13,8 @@ import com.solvro.topwr.utils.Resource
 import javax.inject.Inject
 
 class MainRepository @Inject constructor(
-    private val remoteDataSource: RemoteDataSource
+    private val remoteDataSource: RemoteDataSource,
+    private val dataStoreSource: DataStoreSource
 ) {
     //get Academic end of year date
     // @return LiveData<Resource<EndDate>> with End Date info
@@ -31,4 +33,10 @@ class MainRepository @Inject constructor(
 
     fun getNotices(): LiveData<Resource<List<Notices>>> =
         liveData { emit(remoteDataSource.getNotices()) }
+
+    fun addIdToBuildingsSearchHistory(id: Int) {
+        dataStoreSource.addToBuildingsSearchHistory(id)
+    }
+
+    fun getBuildingsSearchHistory() = dataStoreSource.getBuildingsSearchHistory()
 }

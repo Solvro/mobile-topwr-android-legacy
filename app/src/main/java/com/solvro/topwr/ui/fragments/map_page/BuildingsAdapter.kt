@@ -17,6 +17,7 @@ class BuildingsAdapter(
 
     private var buildings = listOf<BuildingItemList>()
     private var selectedBuilding: Building? = null
+    private var searchHistory: List<Int> = listOf()
     var searchText: String = ""
         set(value) {
             field = value.lowercase()
@@ -29,7 +30,7 @@ class BuildingsAdapter(
                     ) || it.building.addres.lowercase().contains(
                         field
                     )
-                }.sortWithCodeAndIsSelected()
+                }
                 else buildings
             )
         }
@@ -83,19 +84,51 @@ class BuildingsAdapter(
     override fun getItemCount(): Int = currentList.size
 
     fun addItems(items: List<Building>) {
-        val sorted = items.map {
+        val sorted = sortItems(items.map {
             BuildingItemList(it, it == selectedBuilding)
-        }.sortWithCodeAndIsSelected()
+        })
         buildings = sorted
         submitList(sorted)
     }
 
     fun setSelectedBuilding(building: Building?) {
         selectedBuilding = building
-        val itemsSorted =
-            currentList.map { BuildingItemList(it.building, it.building == selectedBuilding) }
-                .sortWithCodeAndIsSelected()
-        submitList(itemsSorted)
+        val sorted =
+            sortItems(currentList.map {
+                BuildingItemList(
+                    it.building,
+                    it.building == selectedBuilding
+                )
+            })
+
+        submitList(sorted)
+    }
+
+    fun setSearchHistory(searchHistory: List<Int>) {
+        this.searchHistory = searchHistory
+        val sorted =
+            sortItems(currentList.map {
+                BuildingItemList(
+                    it.building,
+                    it.building == selectedBuilding
+                )
+            })
+        submitList(sorted)
+    }
+
+    private fun sortItems(items: List<BuildingItemList>): List<BuildingItemList> {
+        val selectedItems = items.filter { it.isSelected }
+        val searchHistoryItems = items.filter {
+            searchHistory.contains(it.building.id) && !selectedItems.contains(it)
+        }.sortedByDescending {
+            searchHistory.indexOf(it.building.id)
+        }
+        val restItems =
+            items.filter { !selectedItems.contains(it) && !searchHistoryItems.contains(it) }
+                .sortedBy { it.building.code }
+
+        return selectedItems.plus(searchHistoryItems)
+            .plus(restItems)
     }
 }
 
@@ -112,13 +145,3 @@ data class BuildingItemList(
     val building: Building,
     val isSelected: Boolean
 )
-
-fun List<BuildingItemList>.sortWithCodeAndIsSelected(): List<BuildingItemList> {
-    return this.sortedWith(
-        compareBy<BuildingItemList> {
-            !it.isSelected
-        }.thenBy {
-            it.building.code
-        }
-    )
-}

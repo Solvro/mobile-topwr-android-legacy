@@ -1,6 +1,5 @@
 package com.solvro.topwr.ui.fragments.map_page
 
-import androidx.databinding.Bindable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MapViewModel @Inject constructor(
-    repository: MainRepository
+    private val repository: MainRepository
 ) : ViewModel() {
 
     private val _buildings = repository.getMaps()
@@ -21,9 +20,14 @@ class MapViewModel @Inject constructor(
     private val _selectedBuilding = MutableLiveData<Building?>(null)
     val selectedBuilding: LiveData<Building?> get() = _selectedBuilding
 
+    private val _searchHistory = MutableLiveData<List<Int>>(repository.getBuildingsSearchHistory())
+    val searchHistory: LiveData<List<Int>> get() = _searchHistory
+
     var searchText = MutableLiveData("")
 
     fun selectBuilding(building: Building) {
         _selectedBuilding.postValue(if (building != selectedBuilding.value) building else null)
+        repository.addIdToBuildingsSearchHistory(building.id)
+        _searchHistory.postValue(repository.getBuildingsSearchHistory())
     }
 }

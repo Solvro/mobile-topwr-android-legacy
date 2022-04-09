@@ -16,7 +16,7 @@ android {
     defaultConfig {
         applicationId "com.solvro.topwr"
         minSdkVersion 24
-        targetSdkVersion 31
+        targetSdkVersion 32
         versionCode 1
         versionName "1.0"
 
@@ -25,6 +25,7 @@ android {
 
     buildTypes {
         all {
+            manifestPlaceholders.MAPS_API_KEY = secretProperties['MAPS_API_KEY']
             resValue("string", "google_maps_key", secretProperties['MAPS_API_KEY'])
         }
         release {
@@ -114,6 +115,9 @@ dependencies {
 
     // Timber
     implementation 'com.jakewharton.timber:timber:5.0.1'
+
+    // DataStore
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
 
 }
 

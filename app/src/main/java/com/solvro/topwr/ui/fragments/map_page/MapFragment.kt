@@ -114,6 +114,9 @@ class MapFragment : Fragment() {
             searchText.observe(viewLifecycleOwner) {
                 adapter.searchText = it
             }
+            searchHistory.observe(viewLifecycleOwner) {
+                adapter.setSearchHistory(it)
+            }
         }
     }
 
