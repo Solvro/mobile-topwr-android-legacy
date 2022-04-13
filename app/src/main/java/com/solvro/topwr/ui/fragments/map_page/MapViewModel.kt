@@ -20,7 +20,7 @@ class MapViewModel @Inject constructor(
     private val _selectedBuilding = MutableLiveData<Building?>(null)
     val selectedBuilding: LiveData<Building?> get() = _selectedBuilding
 
-    private val _searchHistory = MutableLiveData<List<Int>>(repository.getBuildingsSearchHistory())
+    private val _searchHistory = MutableLiveData(repository.getBuildingsSearchHistory())
     val searchHistory: LiveData<List<Int>> get() = _searchHistory
 
     var searchText = MutableLiveData("")
@@ -28,6 +28,8 @@ class MapViewModel @Inject constructor(
     fun selectBuilding(building: Building) {
         _selectedBuilding.postValue(if (building != selectedBuilding.value) building else null)
         repository.addIdToBuildingsSearchHistory(building.id)
+
+        //refresh search history
         _searchHistory.postValue(repository.getBuildingsSearchHistory())
     }
 }

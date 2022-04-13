@@ -11,6 +11,11 @@ import com.solvro.topwr.R
 import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.databinding.ItemBuildingBinding
 
+data class BuildingItemList(
+    val building: Building,
+    val isSelected: Boolean
+)
+
 class BuildingsAdapter(
     private val onItemClick: (Building) -> Unit
 ) : ListAdapter<BuildingItemList, BuildingsAdapter.ViewHolder>(BuildingsDiffCallback()) {
@@ -42,10 +47,13 @@ class BuildingsAdapter(
                 val context = root.context
                 val building = buildingItem.building
                 val isSelected = buildingItem.isSelected
+
                 root.setOnClickListener { onItemClick(building) }
+
                 buildingLayout.background = if (isSelected)
                     ContextCompat.getDrawable(context, R.drawable.gradient_background)
                 else ContextCompat.getDrawable(context, R.color.grey)
+
                 buildingCodeName.apply {
                     setTextColor(
                         if (!isSelected) context.getColor(R.color.text_black) else context.getColor(
@@ -55,6 +63,7 @@ class BuildingsAdapter(
                     text =
                         context.getString(R.string.building_name, building.code)
                 }
+
                 buildingAddress.apply {
                     setTextColor(
                         if (!isSelected) context.getColor(R.color.text_black2) else context.getColor(
@@ -63,6 +72,7 @@ class BuildingsAdapter(
                     )
                     text = building.addres
                 }
+
                 Glide.with(binding.root.context)
                     .load(building.photo.url)
                     .centerCrop()
@@ -140,8 +150,3 @@ class BuildingsDiffCallback : DiffUtil.ItemCallback<BuildingItemList>() {
     override fun areContentsTheSame(oldItem: BuildingItemList, newItem: BuildingItemList): Boolean =
         oldItem.building == newItem.building && oldItem.isSelected == newItem.isSelected
 }
-
-data class BuildingItemList(
-    val building: Building,
-    val isSelected: Boolean
-)
