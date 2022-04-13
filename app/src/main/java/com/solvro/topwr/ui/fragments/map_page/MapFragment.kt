@@ -87,11 +87,11 @@ class MapFragment : Fragment() {
     private fun setObservers() {
         viewModel.apply {
             buildings.observe(viewLifecycleOwner) {
+                setBottomSheetLoadingView(it.status == Resource.Status.LOADING)
                 when (it.status) {
                     Resource.Status.SUCCESS -> {
                         it.data?.let { data -> adapter.addItems(data) }
                     }
-                    Resource.Status.LOADING -> {}
                     Resource.Status.ERROR -> {
                         Toast.makeText(
                             requireContext(),
@@ -117,6 +117,13 @@ class MapFragment : Fragment() {
             searchHistory.observe(viewLifecycleOwner) {
                 adapter.setSearchHistory(it)
             }
+        }
+    }
+
+    private fun setBottomSheetLoadingView(isLoading: Boolean) {
+        binding.mapBottomSheet.apply {
+            bottomMapSheetProgressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+            buildingsRecyclerView.visibility = if (!isLoading) View.VISIBLE else View.GONE
         }
     }
 
