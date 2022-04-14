@@ -1,6 +1,6 @@
-package com.solvro.topwr.data.model.departments
+package com.solvro.topwr.data.model.common
 
-data class Medium(
+data class Large(
     val ext: String?,
     val hash: String?,
     val height: Int?,

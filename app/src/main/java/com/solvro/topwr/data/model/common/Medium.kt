@@ -1,6 +1,6 @@
-package com.solvro.topwr.data.model.notices
+package com.solvro.topwr.data.model.common
 
-data class Small(
+data class Medium(
     val ext: String?,
     val hash: String?,
     val height: Int?,
