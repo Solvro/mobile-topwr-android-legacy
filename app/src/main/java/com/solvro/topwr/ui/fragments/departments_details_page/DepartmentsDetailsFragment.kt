@@ -74,6 +74,11 @@ class DepartmentsDetailsFragment : Fragment() {
     private fun setupView(){
 
         binding.apply {
+
+            backToMainDepartmentBtn.setOnClickListener {
+                findNavController().navigateUp()
+            }
+
             departmentName.text = departmentInfo?.name
             departmentPosition.text = "${getString(R.string.PWR_name)}\n${departmentInfo?.addres?.replace(",", "")}"
             departmentDetailBuildingTextView.text = "${getString(R.string.building)} ${departmentInfo?.code} "
