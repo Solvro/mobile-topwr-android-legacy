@@ -5,13 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.solvro.topwr.R
-import com.solvro.topwr.data.model.maps.Maps
+import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.databinding.BuildingsItemBinding
 
 class BuildingsAdapter(
-    private val buildings: List<Maps>,
-    private val onClick: (Maps) -> Unit
+    private val buildings: List<Building>,
+    private val onClick: (Building) -> Unit
 ) : RecyclerView.Adapter<BuildingsAdapter.RecentlySearchedViewHolder>() {
     inner class RecentlySearchedViewHolder(binding: BuildingsItemBinding) :
         RecyclerView.ViewHolder(binding.root) {

@@ -1,5 +1,7 @@
 package com.solvro.topwr.data.model.maps
 
+import com.solvro.topwr.data.model.common.Photo
+
 data class Building(
     val addres: String,
     val code: String,

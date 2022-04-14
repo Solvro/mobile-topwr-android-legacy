@@ -13,7 +13,7 @@ data class Photo(
     val name: String,
     val previewUrl: Any,
     val provider: String,
-    val provider_metadata: ProviderMetadataX,
+    val provider_metadata: ProviderMetadata,
     val size: Double,
     val updated_at: String,
     val url: String,
