@@ -27,7 +27,9 @@ class MapViewModel @Inject constructor(
 
     fun selectBuilding(building: Building) {
         _selectedBuilding.postValue(if (building != selectedBuilding.value) building else null)
-        repository.addIdToBuildingsSearchHistory(building.id)
+        building.id?.let {
+            repository.addIdToBuildingsSearchHistory(it)
+        }
 
         //refresh search history
         _searchHistory.postValue(repository.getBuildingsSearchHistory())

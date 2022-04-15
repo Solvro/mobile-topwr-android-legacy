@@ -28,13 +28,13 @@ class BuildingsAdapter(
             field = value.lowercase()
             submitList(
                 if (field.isNotBlank()) buildings.filter {
-                    it.building.code.lowercase().contains(
+                    it.building.code?.lowercase()?.contains(
                         field
-                    ) || it.building.name.lowercase().contains(
+                    ) ?: false || it.building.name?.lowercase()?.contains(
                         field
-                    ) || it.building.addres.lowercase().contains(
+                    ) ?: false || it.building.addres?.lowercase()?.contains(
                         field
-                    )
+                    ) ?: false
                 }
                 else buildings
             )
@@ -74,7 +74,7 @@ class BuildingsAdapter(
                 }
 
                 Glide.with(binding.root.context)
-                    .load(building.photo.url)
+                    .load(building.photo?.url)
                     .centerCrop()
                     .into(buildingImageView)
             }

@@ -144,22 +144,24 @@ class MapFragment : Fragment() {
         currentMarker?.remove()
         if (building == null) return
 
-        val newLocation = LatLng(
-            building.latitude,
-            building.longitude
-        )
-        val cameraPosition = CameraPosition.Builder()
-            .target(newLocation)
-            .zoom(Constants.DEFAULT_CAMERA_ZOOM)
-            .build()
-        map?.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+        if (building.latitude != null && building.longitude != null) {
+            val newLocation = LatLng(
+                building.latitude,
+                building.longitude
+            )
+            val cameraPosition = CameraPosition.Builder()
+                .target(newLocation)
+                .zoom(Constants.DEFAULT_CAMERA_ZOOM)
+                .build()
+            map?.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
 
-        currentMarker = map?.addMarker(
-            MarkerOptions()
-                .position(newLocation)
-                .title(building.name)
-        )
-        currentMarker?.showInfoWindow()
+            currentMarker = map?.addMarker(
+                MarkerOptions()
+                    .position(newLocation)
+                    .title(building.name)
+            )
+            currentMarker?.showInfoWindow()
+        }
     }
 
     companion object {
