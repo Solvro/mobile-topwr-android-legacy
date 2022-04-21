@@ -76,12 +76,13 @@ class MapFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        val rw = binding.mapBottomSheet.buildingsRecyclerView
         adapter = BuildingsAdapter { building ->
             viewModel.selectBuilding(building)
         }
-        rw.adapter = adapter
-        rw.layoutManager = LinearLayoutManager(requireContext())
+        binding.mapBottomSheet.buildingsRecyclerView.apply {
+            adapter = this@MapFragment.adapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
     }
 
     private fun setObservers() {
@@ -89,26 +90,24 @@ class MapFragment : Fragment() {
             buildings.observe(viewLifecycleOwner) {
                 setBottomSheetLoadingView(it.status == Resource.Status.LOADING)
                 when (it.status) {
-                    Resource.Status.SUCCESS -> {
-                        it.data?.let { data -> adapter.addItems(data) }
-                    }
-                    Resource.Status.ERROR -> {
-                        Toast.makeText(
-                            requireContext(),
-                            requireContext().getString(R.string.data_error),
-                            Toast.LENGTH_LONG
-                        )
-                            .show()
-                    }
+                    Resource.Status.SUCCESS -> it.data?.let { data -> adapter.addItems(data) }
+
+                    Resource.Status.ERROR -> Toast.makeText(
+                        requireContext(),
+                        requireContext().getString(R.string.data_error),
+                        Toast.LENGTH_LONG
+                    )
+                        .show()
                 }
             }
+
             selectedBuilding.observe(viewLifecycleOwner) {
                 setBuildingMarker(it)
                 adapter.setSelectedBuilding(it)
                 setBottomSheetState(true)
                 bottomSheet.peekHeight = if (it == null) {
-                    140.toPx
-                } else 280.toPx
+                    BOTTOM_SHEET_PEEK_HEIGHT_COLLAPSED
+                } else BOTTOM_SHEET_PEEK_HEIGHT_EXTENDED
                 setBottomSheetState(false)
             }
             searchText.observe(viewLifecycleOwner) {
@@ -166,5 +165,7 @@ class MapFragment : Fragment() {
 
     companion object {
         fun newInstance() = MapFragment()
+        val BOTTOM_SHEET_PEEK_HEIGHT_COLLAPSED = 140.toPx
+        val BOTTOM_SHEET_PEEK_HEIGHT_EXTENDED = 280.toPx
     }
 }

@@ -27,16 +27,7 @@ class BuildingsAdapter(
         set(value) {
             field = value.lowercase()
             submitList(
-                if (field.isNotBlank()) buildings.filter {
-                    it.building.code?.lowercase()?.contains(
-                        field
-                    ) ?: false || it.building.name?.lowercase()?.contains(
-                        field
-                    ) ?: false || it.building.addres?.lowercase()?.contains(
-                        field
-                    ) ?: false
-                }
-                else buildings
+                getFilteredItemsWithText(field)
             )
         }
 
@@ -56,9 +47,9 @@ class BuildingsAdapter(
 
                 buildingCodeName.apply {
                     setTextColor(
-                        if (!isSelected) context.getColor(R.color.text_black) else context.getColor(
+                        if (isSelected) context.getColor(
                             R.color.white
-                        )
+                        ) else context.getColor(R.color.text_black)
                     )
                     text =
                         context.getString(R.string.building_name, building.code)
@@ -66,9 +57,9 @@ class BuildingsAdapter(
 
                 buildingAddress.apply {
                     setTextColor(
-                        if (!isSelected) context.getColor(R.color.text_black2) else context.getColor(
+                        if (isSelected) context.getColor(
                             R.color.white
-                        )
+                        ) else context.getColor(R.color.text_black2)
                     )
                     text = building.addres
                 }
@@ -139,6 +130,19 @@ class BuildingsAdapter(
 
         return selectedItems.plus(searchHistoryItems)
             .plus(restItems)
+    }
+
+    private fun getFilteredItemsWithText(text: String): List<BuildingItemList> {
+        return if (text.isNotBlank()) buildings.filter {
+            it.building.code?.lowercase()?.contains(
+                text
+            ) ?: false || it.building.name?.lowercase()?.contains(
+                text
+            ) ?: false || it.building.addres?.lowercase()?.contains(
+                text
+            ) ?: false
+        }
+        else buildings
     }
 }
 
