@@ -13,6 +13,8 @@
     <string name="map_button"><![CDATA[Mapa >]]></string>
     <string name="list"><![CDATA[Lista >]]></string>
     <string name="whats_up">Co słychać</string>
+    <string name="building_name">Budynek %1$s</string>
+    <string name="data_error">Błąd wczytywania danych</string>
     <string name="science_clubs">Koła Naukowe</string>
     <string name="Monday">Poniedziałek</string>
     <string name="Tuesday">Wtorek</string>

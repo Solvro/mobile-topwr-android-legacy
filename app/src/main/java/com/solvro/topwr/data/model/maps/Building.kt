@@ -2,7 +2,7 @@ package com.solvro.topwr.data.model.maps
 
 import com.solvro.topwr.data.model.common.Photo
 
-data class Maps(
+data class Building(
     val addres: String?,
     val code: String?,
     val created_at: String?,
