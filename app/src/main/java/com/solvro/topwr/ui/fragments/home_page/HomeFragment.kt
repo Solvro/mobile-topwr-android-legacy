@@ -71,7 +71,7 @@ class HomeFragment : Fragment() {
             binding.departmentsRecyclerView.adapter =
                 it.data?.let { it1 ->
                     DepartmentsHomeAdapter(it1) { chosenDepartment ->
-                        val action = HomeFragmentDirections.actionHomeFragmentToDepartmentsDetailsFragment(chosenDepartment)
+                        val action = HomeFragmentDirections.actionHomeFragmentToDepartmentsDetailsFragment(chosenDepartment, HomeFragment::class.java.name)
                         findNavController().navigate(action)
                     }
                 }

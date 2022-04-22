@@ -65,6 +65,9 @@
         <action
             android:id="@+id/action_departmentsDetailsFragment_to_scienceClubsFragment"
             app:destination="@id/scienceClubsFragment" />
+        <argument
+            android:name="prevFragment"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/scienceClubsDetailsFragment"

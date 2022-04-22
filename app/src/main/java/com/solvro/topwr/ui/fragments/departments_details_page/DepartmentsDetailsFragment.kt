@@ -1,7 +1,10 @@
 package com.solvro.topwr.ui.fragments.departments_details_page
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -28,8 +31,12 @@ import com.solvro.topwr.ui.adapters.PhoneAdapter
 import com.solvro.topwr.ui.adapters.ScienceClubsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import android.view.MotionEvent
-
-
+import androidx.annotation.DrawableRes
+import androidx.core.content.res.ResourcesCompat.getDrawable
+import com.solvro.topwr.ui.fragments.departments_page.DepartmentsFragment
+import com.solvro.topwr.ui.fragments.home_page.HomeFragment
+import com.solvro.topwr.ui.fragments.science_clubs_details.ScienceClubsDetailsFragment
+import com.solvro.topwr.ui.fragments.science_clubs_page.ScienceClubsFragment
 
 
 @AndroidEntryPoint
@@ -78,6 +85,21 @@ class DepartmentsDetailsFragment : Fragment() {
             backToMainDepartmentBtn.setOnClickListener {
                 findNavController().navigateUp()
             }
+
+            //when navigating add prevFragment arg to get custom backBtn name
+            when(args.prevFragment) {
+                HomeFragment::class.java.name ->
+                    getString(R.string.main_page)
+                DepartmentsFragment::class.java.name ->
+                    getString(R.string.departments)
+                ScienceClubsFragment::class.java.name ->
+                    getString(R.string.science_clubs)
+                else ->
+                    args.prevFragment
+                /*Science club details can be example here.
+                            Button should look like:  < KN Solvro */
+            }.also { backToMainDepartmentBtn.text = it }
+
 
             departmentName.text = departmentInfo?.name
             departmentPosition.text = "${getString(R.string.PWR_name)}\n${departmentInfo?.addres?.replace(",", "")}"
@@ -130,11 +152,9 @@ class DepartmentsDetailsFragment : Fragment() {
 
     private fun setupMap(){
 
-        MapsInitializer.initialize(requireContext().applicationContext)
+        MapsInitializer.initialize(requireContext().applicationContext, )
         val mapFragment = childFragmentManager
             .findFragmentById(R.id.departmentMap) as SupportMapFragment
-
-        //val marker = BitmapDescriptorFactory.fromResource(R.drawable.ic_map_marker_1)
 
         mapFragment.getMapAsync {
             map = it
@@ -150,9 +170,11 @@ class DepartmentsDetailsFragment : Fragment() {
                 MarkerOptions()
                     .position(position)
                     .title(departmentInfo?.name)
+                    .icon(vectorToBitmap(R.drawable.ic_map_marker_1))
             )
 
         }
+
     }
 
     private fun setupPhoneNumbers(){
@@ -222,5 +244,18 @@ class DepartmentsDetailsFragment : Fragment() {
     }
 
 
+    private fun vectorToBitmap(@DrawableRes id : Int): BitmapDescriptor {
+
+        val vector: Drawable? = getDrawable(resources, id, null)
+        if (vector == null) {
+            return BitmapDescriptorFactory.defaultMarker()
+        }
+        val bitmap = Bitmap.createBitmap(vector.intrinsicWidth,
+            vector.intrinsicHeight, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        vector.setBounds(0, 0, canvas.width, canvas.height)
+        vector.draw(canvas)
+        return BitmapDescriptorFactory.fromBitmap(bitmap)
+    }
 
 }
