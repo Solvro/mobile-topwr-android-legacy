@@ -48,11 +48,7 @@ class DepartmentsDetailsFragment : Fragment() {
 
     private lateinit var binding: DepartmentsDetailsFragmentBinding
     private val viewModel: DepartmentsDetailsViewModel by viewModels()
-    private val args: DepartmentsDetailsFragmentArgs by navArgs()
-
     private var map: GoogleMap? = null
-    private var departmentInfo: Departments? = null
-
     private lateinit var scienceClubsAdapter: ScienceClubsAdapter
     private lateinit var fieldsOfStudyAdapter: FieldsOfStudyAdapter
     private lateinit var phoneAdapter: PhoneAdapter
@@ -67,9 +63,6 @@ class DepartmentsDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        departmentInfo = args.departmentInfo;
-
         setupView()
         allowMapToMove()
         setupMap()
@@ -87,44 +80,43 @@ class DepartmentsDetailsFragment : Fragment() {
             }
 
             //when navigating add prevFragment arg to get custom backBtn name
-            when(args.prevFragment) {
-                HomeFragment::class.java.name ->
-                    getString(R.string.main_page)
-                DepartmentsFragment::class.java.name ->
-                    getString(R.string.departments)
-                ScienceClubsFragment::class.java.name ->
-                    getString(R.string.science_clubs)
-                else ->
-                    args.prevFragment
-                /*Science club details can be example here.
-                            Button should look like:  < KN Solvro */
-            }.also { backToMainDepartmentBtn.text = it }
+            viewModel.prevFragment.observe(viewLifecycleOwner) {
+                prevFragment ->
+                when(prevFragment) {
+                    HomeFragment::class.java.name ->
+                        getString(R.string.main_page)
+                    DepartmentsFragment::class.java.name ->
+                        getString(R.string.departments)
+                    ScienceClubsFragment::class.java.name ->
+                        getString(R.string.science_clubs)
+                    else ->
+                        prevFragment
+                    /*Science club details can be example here.
+                                Button should look like:  < KN Solvro */
+                }.also { backToMainDepartmentBtn.text = it }
+            }
 
+            viewModel.departments.observe(viewLifecycleOwner){
 
-            departmentName.text = departmentInfo?.name
-            departmentPosition.text = "${getString(R.string.PWR_name)}\n${departmentInfo?.addres?.replace(",", "")}"
-            departmentDetailBuildingTextView.text = "${getString(R.string.building)} ${departmentInfo?.code} "
+                if (it != null) {
+                    departmentName.text = it.name
+                    departmentPosition.text = "${getString(R.string.PWR_name)}\n${it.addres?.replace(",", "")}"
+                    departmentDetailBuildingTextView.text = "${getString(R.string.building)} ${it.code} "
 
-            //Albo nie widzę gdzie to jest, albo:
-            //Brak numeru pokoju np: pokój 21 (tak jak jest w Figmie) ??
-            //Brak numerów telefonów ??
+                    Glide.with(binding.root.context)
+                        .load(it.logo?.url)
+                        .into(departmentDetailFragmentLogo)
+                    val gradientFirst = Color.parseColor(it.color?.gradientFirst)
+                    val gradientSecond = Color.parseColor(it.color?.gradientSecond)
+                    val gradient = GradientDrawable(
+                        GradientDrawable.Orientation.LEFT_RIGHT,
+                        intArrayOf(gradientSecond, gradientFirst)
+                    )
+                    departmentDetailFragmentLogo.background = gradient
 
-            Glide.with(binding.root.context)
-                .load(departmentInfo?.logo?.url)
-                .into(departmentDetailFragmentLogo)
+                }
 
-            val gradientFirst = Color.parseColor(departmentInfo?.color?.gradientFirst)
-            val gradientSecond = Color.parseColor(departmentInfo?.color?.gradientSecond)
-
-            val gradient = GradientDrawable(
-                GradientDrawable.Orientation.LEFT_RIGHT,
-                intArrayOf(gradientSecond, gradientFirst)
-            )
-
-            departmentDetailFragmentLogo.background = gradient
-
-
-
+            }
         }
     }
 
@@ -151,59 +143,66 @@ class DepartmentsDetailsFragment : Fragment() {
     }
 
     private fun setupMap(){
-
         MapsInitializer.initialize(requireContext().applicationContext, )
         val mapFragment = childFragmentManager
             .findFragmentById(R.id.departmentMap) as SupportMapFragment
 
         mapFragment.getMapAsync {
             map = it
-            val position = LatLng(departmentInfo?.latitude!!, departmentInfo?.longitude!!)
+            viewModel.departments.observe(viewLifecycleOwner) { departments ->
+                val position = LatLng(departments?.latitude!!, departments?.longitude!!)
 
-            map?.moveCamera(
-                CameraUpdateFactory.newLatLngZoom(
-                    position,17f
+                map?.moveCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        position,17f
+                    )
                 )
-            )
-
-            map?.addMarker(
-                MarkerOptions()
-                    .position(position)
-                    .title(departmentInfo?.name)
-                    .icon(vectorToBitmap(R.drawable.ic_map_marker_1))
-            )
-
+                map?.addMarker(
+                    MarkerOptions()
+                        .position(position)
+                        .title(departments?.name)
+                        .icon(vectorToBitmap(R.drawable.ic_map_marker_1))
+                )
+            }
         }
-
     }
 
     private fun setupPhoneNumbers(){
+        viewModel.departments.observe(viewLifecycleOwner){ departments ->
+            val phones = mutableListOf<String>()
+            departments?.infoSection?.forEach {
+                infoSection ->
+                infoSection.info?.forEach {
+                    if(it.type == "PhoneNumber"){
+                        it.value?.let { number -> phones.add(number) }
+                    }
+                }
+            }
 
-        //where phone numbers?
-        //departmentInfo?.
+            phoneAdapter = PhoneAdapter(phones){
+                    phoneNumber -> null
+            }
 
-        phoneAdapter = PhoneAdapter(listOf("(+48) 71 320 62 30", "(+48) 71 320 62 30")){
-            phoneNumber -> null
+            binding.contactPhoneRecyclerView.apply {
+                adapter = phoneAdapter
+                layoutManager = LinearLayoutManager(requireContext())
+            }
         }
-
-        binding.contactPhoneRecyclerView.apply {
-            adapter = phoneAdapter
-            layoutManager = LinearLayoutManager(requireContext())
-        }
-
     }
 
     private fun setupFieldsOfStudy(){
+        fieldsOfStudyAdapter = FieldsOfStudyAdapter(mutableListOf())
 
-        departmentInfo?.fieldsOfStudy?.let {
-            fieldsOfStudyAdapter = FieldsOfStudyAdapter(it)
+        viewModel.departments.observe(viewLifecycleOwner) {
+            it?.fieldsOfStudy?.let { fieldsOfStudy ->
+                fieldsOfStudyAdapter.updateList(fieldsOfStudy)
+            }
         }
 
         binding.coursesOfStudyRecyclerView.apply {
             adapter = fieldsOfStudyAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
-
     }
 
     private fun setupScientificCircles(){
@@ -217,30 +216,22 @@ class DepartmentsDetailsFragment : Fragment() {
             it?.data.let { scienceClubs ->
                 scienceClubs?.let {
                     scienceClubsAdapter = ScienceClubsAdapter(scienceClubs.filter { scienceClubs ->
-
                         if (scienceClubs.id != null){
-                            departmentInfo?.scientificCircles?.contains(scienceClubs.id) == true
+                            viewModel.departments.value?.scientificCircles?.contains(scienceClubs.id) == true
                         }else{
                             false
                         }
-
                     }) { scienceClubItem ->
                         Toast.makeText(context, scienceClubItem.name, Toast.LENGTH_SHORT).show()
                         //TODO("Navigate to specific club")
                     }
-
                     binding.scienceClubsOfDepartmentRecyclerView.apply {
                         adapter = scienceClubsAdapter
                         layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                     }
-
                 }
             }
         }
-
-
-
-
     }
 
 

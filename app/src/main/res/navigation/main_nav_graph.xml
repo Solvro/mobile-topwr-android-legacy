@@ -61,7 +61,9 @@
         tools:layout="@layout/departments_details_fragment" >
         <argument
             android:name="department_info"
-            app:argType="com.solvro.topwr.data.model.departments.Departments" />
+            app:argType="com.solvro.topwr.data.model.departments.Departments"
+            app:nullable="true"
+            android:defaultValue="@null" />
         <action
             android:id="@+id/action_departmentsDetailsFragment_to_scienceClubsFragment"
             app:destination="@id/scienceClubsFragment" />

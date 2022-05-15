@@ -8,7 +8,7 @@ import com.solvro.topwr.data.model.departments.FieldsOfStudy
 import com.solvro.topwr.databinding.FieldOfStudyItemBinding
 
 class FieldsOfStudyAdapter(
-    private val fieldOfStudy: List<FieldsOfStudy>
+    private val fieldOfStudy: MutableList<FieldsOfStudy>
 ) : RecyclerView.Adapter<FieldsOfStudyAdapter.ViewHolder>() {
 
     inner class ViewHolder(binding: FieldOfStudyItemBinding) :
@@ -35,5 +35,11 @@ class FieldsOfStudyAdapter(
     }
 
     override fun getItemCount(): Int = fieldOfStudy.size
+
+    fun updateList(newList: List<FieldsOfStudy>){
+        fieldOfStudy.clear()
+        fieldOfStudy.addAll(newList)
+        notifyDataSetChanged()
+    }
 
 }
