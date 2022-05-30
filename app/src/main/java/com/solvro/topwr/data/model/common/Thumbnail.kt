@@ -1,7 +1,5 @@
 package com.solvro.topwr.data.model.common
 
-import com.solvro.topwr.data.model.common.ProviderMetadata
-
 data class Thumbnail(
     val ext: String?,
     val hash: String?,
