@@ -13,7 +13,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -22,10 +21,8 @@ import com.google.android.gms.maps.MapsInitializer
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.solvro.topwr.R
-import com.solvro.topwr.data.model.departments.Departments
 import com.solvro.topwr.databinding.DepartmentsDetailsFragmentBinding
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.solvro.topwr.ui.adapters.FieldsOfStudyAdapter
 import com.solvro.topwr.ui.adapters.PhoneAdapter
 import com.solvro.topwr.ui.adapters.ScienceClubsAdapter
@@ -35,9 +32,7 @@ import androidx.annotation.DrawableRes
 import androidx.core.content.res.ResourcesCompat.getDrawable
 import com.solvro.topwr.ui.fragments.departments_page.DepartmentsFragment
 import com.solvro.topwr.ui.fragments.home_page.HomeFragment
-import com.solvro.topwr.ui.fragments.science_clubs_details.ScienceClubsDetailsFragment
 import com.solvro.topwr.ui.fragments.science_clubs_page.ScienceClubsFragment
-
 
 @AndroidEntryPoint
 class DepartmentsDetailsFragment : Fragment() {
@@ -56,7 +51,7 @@ class DepartmentsDetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DepartmentsDetailsFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -100,8 +95,8 @@ class DepartmentsDetailsFragment : Fragment() {
 
                 if (it != null) {
                     departmentName.text = it.name
-                    departmentPosition.text = "${getString(R.string.PWR_name)}\n${it.addres?.replace(",", "")}"
-                    departmentDetailBuildingTextView.text = "${getString(R.string.building)} ${it.code} "
+                    departmentPosition.text = getString(R.string.department_position, it.addres?.replace(",", "") )
+                    departmentDetailBuildingTextView.text = getString(R.string.department_detail_building, it.code)
 
                     Glide.with(binding.root.context)
                         .load(it.logo?.url)
@@ -113,9 +108,7 @@ class DepartmentsDetailsFragment : Fragment() {
                         intArrayOf(gradientSecond, gradientFirst)
                     )
                     departmentDetailFragmentLogo.background = gradient
-
                 }
-
             }
         }
     }
@@ -179,9 +172,7 @@ class DepartmentsDetailsFragment : Fragment() {
                 }
             }
 
-            phoneAdapter = PhoneAdapter(phones){
-                    phoneNumber -> null
-            }
+            phoneAdapter = PhoneAdapter(phones)
 
             binding.contactPhoneRecyclerView.apply {
                 adapter = phoneAdapter
@@ -237,10 +228,8 @@ class DepartmentsDetailsFragment : Fragment() {
 
     private fun vectorToBitmap(@DrawableRes id : Int): BitmapDescriptor {
 
-        val vector: Drawable? = getDrawable(resources, id, null)
-        if (vector == null) {
-            return BitmapDescriptorFactory.defaultMarker()
-        }
+        val vector: Drawable = getDrawable(resources, id, null) ?: return BitmapDescriptorFactory.defaultMarker()
+
         val bitmap = Bitmap.createBitmap(vector.intrinsicWidth,
             vector.intrinsicHeight, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)

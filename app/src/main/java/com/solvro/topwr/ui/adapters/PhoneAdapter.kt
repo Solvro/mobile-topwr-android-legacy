@@ -1,7 +1,5 @@
 package com.solvro.topwr.ui.adapters
 
-import android.content.Intent
-import android.net.Uri
 import android.text.method.LinkMovementMethod
 import android.text.util.Linkify
 import android.view.LayoutInflater
@@ -11,14 +9,12 @@ import com.solvro.topwr.databinding.PhoneItemBinding
 
 class PhoneAdapter(
     private val phoneNumbers: List<String>,
-    private val onClick: (String) -> Unit
+    private val onClick: (String) -> Unit = {}
 ) : RecyclerView.Adapter<PhoneAdapter.PhoneNumbersViewHolder>() {
 
     inner class PhoneNumbersViewHolder(binding: PhoneItemBinding): RecyclerView.ViewHolder(binding.root){
-
         private val phoneIcon = binding.phoneIcon
         private val phoneNumberText = binding.phoneNumber
-
 
         fun bind(){
             phoneNumberText.autoLinkMask = Linkify.PHONE_NUMBERS
@@ -28,9 +24,7 @@ class PhoneAdapter(
             phoneIcon.setOnClickListener {
                 onClick(phoneNumbers[adapterPosition])
             }
-
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhoneNumbersViewHolder {
@@ -47,6 +41,4 @@ class PhoneAdapter(
     }
 
     override fun getItemCount(): Int = phoneNumbers.size
-
-
 }
