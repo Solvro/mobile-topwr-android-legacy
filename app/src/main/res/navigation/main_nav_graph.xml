@@ -70,11 +70,9 @@
         android:name="com.solvro.topwr.ui.fragments.whats_up_page.WhatsUpFragment"
         android:label="WhatsUpFragment"
         tools:layout="@layout/whats_up_fragment">
-        <!--
         <argument
             android:name="notice"
             app:argType="com.solvro.topwr.data.model.notices.Notices"
             />
-            -->
     </fragment>
 </navigation>
