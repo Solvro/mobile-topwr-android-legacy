@@ -1,4 +1,4 @@
-package com.solvro.topwr.data.model.departments
+package com.solvro.topwr.data.model.common
 
 data class Thumbnail(
     val ext: String?,

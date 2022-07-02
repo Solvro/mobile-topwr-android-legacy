@@ -5,6 +5,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import com.solvro.topwr.data.local.DataStoreSource
 import com.solvro.topwr.data.remote.RemoteDataSource
 import com.solvro.topwr.data.remote.ToPwrService
 import com.solvro.topwr.data.repository.MainRepository
@@ -42,14 +43,15 @@ object AppModule {
         .build()
 
     @Provides
-    fun provideMoshi():Moshi = Moshi.Builder().build()
+    fun provideMoshi(): Moshi = Moshi.Builder().build()
 
     @Provides
     fun provideOkHttpClient(): OkHttpClient = OkHttpClient.Builder().build()
 
     //provide toPwrService
     @Provides
-    fun provideToPwrService(retrofit: Retrofit): ToPwrService = retrofit.create(ToPwrService::class.java)
+    fun provideToPwrService(retrofit: Retrofit): ToPwrService =
+        retrofit.create(ToPwrService::class.java)
 
 
     @Provides
@@ -57,7 +59,11 @@ object AppModule {
 
     //provides instance of MainRepository
     @Provides
-    fun provideMainRepository(remoteDataSource: RemoteDataSource): MainRepository = MainRepository(remoteDataSource)
+    fun provideMainRepository(
+        remoteDataSource: RemoteDataSource,
+        dataStoreSource: DataStoreSource
+    ): MainRepository =
+        MainRepository(remoteDataSource, dataStoreSource)
 
     @Singleton
     @Provides

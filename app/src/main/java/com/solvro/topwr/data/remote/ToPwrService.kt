@@ -2,6 +2,8 @@ package com.solvro.topwr.data.remote
 
 import com.solvro.topwr.data.model.departments.Departments
 import com.solvro.topwr.data.model.endDate.EndDate
+import com.solvro.topwr.data.model.endDate.WeekDayException
+import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.data.model.maps.Maps
 import com.solvro.topwr.data.model.notices.Notices
 import com.solvro.topwr.data.model.scienceClubs.ScienceClubs
@@ -25,11 +27,14 @@ interface ToPwrService {
     suspend fun getDepartments(): Response<List<Departments>>
 
     @GET("scientific-circles")
-    suspend fun getScientificCircles() : Response<List<ScienceClubs>>
+    suspend fun getScientificCircles(): Response<List<ScienceClubs>>
 
     @GET("maps")
-    suspend fun getMaps() : Response<List<Maps>>
+    suspend fun getMaps(): Response<List<Building>>
 
     @GET("notices")
-    suspend fun getNotices() : Response<List<Notices>>
+    suspend fun getNotices(): Response<List<Notices>>
+
+    @GET("week-day-exceptions")
+    suspend fun getWeekDayException(): Response<WeekDayException>
 }
