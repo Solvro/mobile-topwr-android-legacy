@@ -1,11 +1,13 @@
 package com.solvro.topwr.ui.fragments.departments_details_page
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -172,7 +174,12 @@ class DepartmentsDetailsFragment : Fragment() {
                 }
             }
 
-            phoneAdapter = PhoneAdapter(phones)
+            phoneAdapter = PhoneAdapter(phones) { phoneNumber ->
+                Intent(Intent.ACTION_DIAL).let {
+                    it.data = Uri.parse("tel:+48${phoneNumber.replace(" ", "")}")
+                    startActivity(it)
+                }
+            }
 
             binding.contactPhoneRecyclerView.apply {
                 adapter = phoneAdapter
