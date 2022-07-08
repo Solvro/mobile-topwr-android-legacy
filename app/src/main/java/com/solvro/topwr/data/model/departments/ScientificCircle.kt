@@ -1,5 +1,7 @@
 package com.solvro.topwr.data.model.departments
 
+import com.solvro.topwr.data.model.common.Photo
+
 data class ScientificCircle(
     val Contact: List<Contact>?,
     val Description: String?,

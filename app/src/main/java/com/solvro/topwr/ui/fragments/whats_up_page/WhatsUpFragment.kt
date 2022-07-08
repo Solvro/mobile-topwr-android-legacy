@@ -40,11 +40,11 @@ class WhatsUpFragment : Fragment(R.layout.whats_up_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         val notice = args.notice;
-        glide.load(notice.Photo?.url).into(binding.whatsUpImageView)
+        glide.load(notice.photo?.url).into(binding.whatsUpImageView)
 
         binding.apply {
-            whatsUpTitle.text = notice.Title
-            whatsUpNewsDescription.text = notice.Description
+            whatsUpTitle.text = notice.title
+            whatsUpNewsDescription.text = notice.description
             whatsUpDate.text = notice.published_at
 
             backToMainBtn.setOnClickListener {

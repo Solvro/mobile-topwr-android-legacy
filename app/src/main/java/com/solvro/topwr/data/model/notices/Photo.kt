@@ -2,7 +2,7 @@ package com.solvro.topwr.data.model.notices
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import kotlinx.android.parcel.RawValue
+import kotlinx.parcelize.RawValue
 
 @Parcelize
 data class Photo(

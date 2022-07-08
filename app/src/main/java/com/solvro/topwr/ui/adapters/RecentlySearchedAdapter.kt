@@ -7,13 +7,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.solvro.topwr.R
 import com.solvro.topwr.data.model.department.DepartmentItem
-import com.solvro.topwr.databinding.RecentlySearchedItemBinding
+import com.solvro.topwr.databinding.BuildingsItemBinding
 
 class RecentlySearchedAdapter(
     private val departments: List<DepartmentItem>,
     private val onClick: (DepartmentItem) -> Unit
 ) : RecyclerView.Adapter<RecentlySearchedAdapter.RecentlySearchedViewHolder>() {
-    inner class RecentlySearchedViewHolder(binding: RecentlySearchedItemBinding) :
+    inner class RecentlySearchedViewHolder(binding: BuildingsItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -23,8 +23,8 @@ class RecentlySearchedAdapter(
             }
         }
 
-        private val recentlySearchedItemImage = binding.recentlySearchedItemImage
-        private val recentlySearchedItemTextView = binding.recentlySearchedItemTextView
+        private val recentlySearchedItemImage = binding.buildingItemImage
+        private val recentlySearchedItemTextView = binding.buildingItemTextView
         fun bind() {
             val options: RequestOptions = RequestOptions()
                 .centerCrop()
@@ -47,7 +47,7 @@ class RecentlySearchedAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecentlySearchedViewHolder {
-        val binding = RecentlySearchedItemBinding.inflate(
+        val binding = BuildingsItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
