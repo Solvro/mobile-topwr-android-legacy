@@ -43,10 +43,13 @@
             android:id="@+id/descriptionTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxWidth="400dp"
             android:layout_marginStart="10dp"
             android:text="Akademickie Radio Luz gra już w jesiennej ramówce. W programie znalazły się nowe audycje muzyczne i programy publicystyczne. Rozgłośnia poszukuje też osób, które chciałyby zostać radiowcami."
             android:textColor="@color/whatsNewDescription"
             android:textSize="13sp"
+            android:maxLines="6"
+            android:ellipsize="end"
             android:fontFamily="@font/rubik"
             android:layout_marginTop="5dp"/>
         <TextView
