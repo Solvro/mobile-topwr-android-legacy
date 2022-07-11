@@ -26,7 +26,6 @@ class WhatsUpFragment : Fragment(R.layout.whats_up_fragment) {
 
     private lateinit var binding: WhatsUpFragmentBinding
     private val viewModel: WhatsUpViewModel by viewModels()
-    private val args: WhatsUpFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,13 +38,13 @@ class WhatsUpFragment : Fragment(R.layout.whats_up_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val notice = args.notice;
-        glide.load(notice.photo?.url).into(binding.whatsUpImageView)
+        val notice = viewModel.notice.value
+        glide.load(notice?.photo?.url).into(binding.whatsUpImageView)
 
         binding.apply {
-            whatsUpTitle.text = notice.title
-            whatsUpNewsDescription.text = notice.description
-            whatsUpDate.text = notice.published_at
+            whatsUpTitle.text = notice?.title
+            whatsUpNewsDescription.text = notice?.description
+            whatsUpDate.text = notice?.published_at
 
             backToMainBtn.setOnClickListener {
                 findNavController().navigateUp()
