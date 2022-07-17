@@ -4,21 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.solvro.topwr.data.model.scienceclub.ScienceClub
 import com.solvro.topwr.databinding.ItemScienceClubBinding
 
 class ScienceClubsAdapter : RecyclerView.Adapter<ScienceClubsAdapter.ViewHolder>() {
 
-    //TODO: Fetch data from network
-    val data = ArrayList<ScienceClub>(
-        listOf(ScienceClub("1", "KN Solvro", "", "", "", "", listOf("")),
-            ScienceClub("2", "SKN Gospodarki Przestrzennej", "", "", "", "", listOf("")),
-            ScienceClub("3", "KN Projektantów Chemicznych “Consilium”", "", "", "", "", listOf("")),
-            ScienceClub("4", "KN SISK", "", "", "", "", listOf("")))
-
-    )
+    val data = ArrayList<ScienceClub>()
 
     inner class ViewHolder(private val binding: ItemScienceClubBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -43,4 +35,10 @@ class ScienceClubsAdapter : RecyclerView.Adapter<ScienceClubsAdapter.ViewHolder>
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(data[position])
 
     override fun getItemCount(): Int = data.size
+
+    fun setData(scienceClubs: List<ScienceClub>){
+        data.clear()
+        data.addAll(scienceClubs)
+        notifyDataSetChanged()
+    }
 }
