@@ -1,19 +1,20 @@
-package com.solvro.topwr.data.model.scienceClubs
+package com.solvro.topwr.data.model.maps
 
 import com.solvro.topwr.data.model.common.Photo
 
-data class ScienceClubs(
-    val backgroundPhoto: BackgroundPhoto?,
+data class Building(
+    val addres: String?,
+    val code: String?,
     val created_at: String?,
-    val department: Int?,
     val description: String?,
     val id: Int?,
     val infoSection: List<Any>?,
+    val latitude: Double?,
     val locale: String?,
     val localizations: List<Any>?,
+    val longitude: Double?,
     val name: String?,
     val photo: Photo?,
     val published_at: String?,
-    val tags: List<Any>?,
     val updated_at: String?
 )
