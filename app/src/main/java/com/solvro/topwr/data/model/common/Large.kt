@@ -1,5 +1,7 @@
 package com.solvro.topwr.data.model.common
 
+import java.io.Serializable
+
 data class Large(
     val ext: String?,
     val hash: String?,
@@ -11,4 +13,4 @@ data class Large(
     val size: Double?,
     val url: String?,
     val width: Int?
-)
+): Serializable
