@@ -13,6 +13,11 @@
     <color name="dateColor">#632E405A</color>
     <color name="whatsNewDescription">#2E405A</color>
     <color name="red">#DB2B10</color>
+    <color name="header_text_black">#291241</color>
+    <color name="regular_text_gray">@color/gray</color>
+    <color name="science_club_item_bg">@color/grey</color>
+    <color name="gray">#969FAC</color>
+    <color name="science_club_category_checked">@color/red</color>
     <color name="text_black">#37313C</color>
     <color name="text_black2">#2E405A</color>
     <color name="icon_red">#E43D32</color>

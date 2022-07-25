@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="isChecked"
+            type="boolean" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/scienceClubCategoryNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@{isChecked ? @drawable/category_checked_background : @drawable/category_background}"
+            android:fontFamily="@font/rubik"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:textColor="@{isChecked ? @color/white : @color/regular_text_gray}"
+            android:textSize="12sp"
+            tools:background="@drawable/category_background"
+            tools:text="Test Category"
+            tools:textColor="@color/regular_text_gray" />
+    </LinearLayout>
+</layout>
