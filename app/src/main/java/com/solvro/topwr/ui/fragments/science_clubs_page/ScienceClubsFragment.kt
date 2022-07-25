@@ -23,6 +23,7 @@ ScienceClubsFragment : Fragment() {
     private val viewModel: ScienceClubsViewModel by viewModels()
     private lateinit var binding: ScienceClubsFragmentBinding
     private lateinit var scienceClubsAdapter: ScienceClubsAdapter
+    private lateinit var categoriesAdapter: ScienceClubsCategoriesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,8 +53,13 @@ ScienceClubsFragment : Fragment() {
     }
 
     private fun setObservers() {
-        viewModel.scienceClubs.observe(viewLifecycleOwner) {
-            scienceClubsAdapter.setData(it)
+        viewModel.apply{
+            scienceClubs.observe(viewLifecycleOwner) {
+                scienceClubsAdapter.setData(it)
+            }
+            categoriesState.observe(viewLifecycleOwner) {
+                categoriesAdapter.setData(it.allCategories, it.selectedCategories)
+            }
         }
     }
 
@@ -68,8 +74,11 @@ ScienceClubsFragment : Fragment() {
     }
 
     private fun setupCategoryRecyclerView() {
+        categoriesAdapter = ScienceClubsCategoriesAdapter {
+            viewModel.toggleCategory(it)
+        }
         binding.scienceClubsCategoriesRecyclerView.apply {
-            adapter = ScienceClubsCategoriesAdapter()
+            adapter = categoriesAdapter
             layoutManager = LinearLayoutManager(requireContext()).apply {
                 orientation = LinearLayoutManager.HORIZONTAL
             }

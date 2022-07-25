@@ -6,27 +6,28 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.solvro.topwr.R
 import com.solvro.topwr.databinding.ItemCategoryBinding
-import kotlin.random.Random
 
-class ScienceClubsCategoriesAdapter :
+class ScienceClubsCategoriesAdapter(
+    private val onItemClick: (String) -> Unit
+) :
     RecyclerView.Adapter<ScienceClubsCategoriesAdapter.ViewHolder>() {
 
     // TODO: Remove fake categories
-    private val data = ArrayList<String>(
-        listOf(
-            "Techologia",
-            "Budownictwo",
-            "Programowanie",
-            "Druk 3D",
-            "Motoryzacja"
-        )
-    )
+    private val categories = ArrayList<String>()
+    private val selected = ArrayList<String>()
 
     inner class ViewHolder(private val binding: ItemCategoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
-            binding.scienceClubCategoryNameTextView.text = data[position]
-            binding.isChecked = Random.nextBoolean()
+            categories[position].let { categoryName ->
+                binding.apply {
+                    scienceClubCategoryNameTextView.text = categoryName
+                    isChecked = selected.contains(categoryName)
+                    root.setOnClickListener {
+                        onItemClick(categoryName)
+                    }
+                }
+            }
         }
     }
 
@@ -39,6 +40,14 @@ class ScienceClubsCategoriesAdapter :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(position)
 
-    override fun getItemCount(): Int = data.size
+    override fun getItemCount(): Int = categories.size
+
+    fun setData(categories: List<String>, selectedCategories: List<String>) {
+        this.categories.clear()
+        this.categories.addAll(categories)
+        this.selected.clear()
+        this.selected.addAll(selectedCategories)
+        notifyDataSetChanged()
+    }
 
 }
