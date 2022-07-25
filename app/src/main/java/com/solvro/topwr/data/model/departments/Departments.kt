@@ -1,5 +1,7 @@
 package com.solvro.topwr.data.model.departments
 
+import java.io.Serializable
+
 data class Departments(
     val addres: String?,
     val code: String?,
@@ -19,4 +21,4 @@ data class Departments(
     val scientificCircles: List<Int>?,
     val updated_at: String?,
     val website: String?
-)
+): Serializable
