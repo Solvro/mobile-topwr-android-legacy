@@ -1,6 +1,7 @@
 package com.solvro.topwr.data.model.common
 
 import com.solvro.topwr.data.model.common.ProviderMetadata
+import java.io.Serializable
 
 data class Small(
     val ext: String?,
@@ -13,4 +14,4 @@ data class Small(
     val size: Double?,
     val url: String?,
     val width: Int?
-)
+): Serializable
