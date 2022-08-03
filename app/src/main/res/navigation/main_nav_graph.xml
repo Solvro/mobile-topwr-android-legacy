@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/scienceClubsFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -35,7 +35,9 @@
         tools:layout="@layout/departments_fragment" >
         <action
             android:id="@+id/action_departmentsFragment_to_departmentsDetailsFragment"
-            app:destination="@id/departmentsDetailsFragment" />
+            app:destination="@id/departmentsDetailsFragment"
+
+            />
     </fragment>
     <fragment
         android:id="@+id/scienceClubsFragment"
@@ -56,7 +58,19 @@
         android:id="@+id/departmentsDetailsFragment"
         android:name="com.solvro.topwr.ui.fragments.departments_details_page.DepartmentsDetailsFragment"
         android:label="departments_details_fragment"
-        tools:layout="@layout/departments_details_fragment" />
+        tools:layout="@layout/departments_details_fragment" >
+        <argument
+            android:name="department_info"
+            app:argType="com.solvro.topwr.data.model.departments.Departments"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_departmentsDetailsFragment_to_scienceClubsFragment"
+            app:destination="@id/scienceClubsFragment" />
+        <argument
+            android:name="prevFragment"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/scienceClubsDetailsFragment"
         android:name="com.solvro.topwr.ui.fragments.science_clubs_details.ScienceClubsDetailsFragment"

@@ -1,11 +1,14 @@
 package com.solvro.topwr.data.model.departments
 
+import com.solvro.topwr.data.model.common.ProviderMetadata
+import java.io.Serializable
+
 data class Icon(
     val alternativeText: String?,
     val caption: String?,
     val created_at: String?,
     val ext: String?,
-    val formats: Formats?,
+    val formats: Any?,
     val hash: String?,
     val height: Int?,
     val id: Int?,
@@ -18,4 +21,4 @@ data class Icon(
     val updated_at: String?,
     val url: String?,
     val width: Int?
-)
+) : Serializable
