@@ -22,9 +22,6 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_splash)
         startAnim()
-        fakeLongLastingBackgroundTask {
-            navigateToMain()
-        }
     }
 
     private fun startAnim() {
@@ -35,9 +32,10 @@ class SplashActivity : AppCompatActivity() {
 
             override fun onAnimationEnd(animator: Animator) {
                 lifecycleScope.launch {
-                    withContext(Dispatchers.Main){
+                    navigateToMain()
+                    withContext(Dispatchers.Main) {
                         binding.splashAnim.pauseAnimation()
-                        withContext(Dispatchers.Default){
+                        withContext(Dispatchers.Default) {
                             delay(500)
                         }
                         binding.splashAnim.playAnimation()
@@ -58,14 +56,4 @@ class SplashActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
-
-    //TODO: To refactor
-    private fun fakeLongLastingBackgroundTask(onComplete: () -> Unit) {
-        lifecycleScope.launch {
-            withContext(Dispatchers.IO) { delay(10000) }
-            onComplete.invoke()
-        }
-    }
-
-
 }
