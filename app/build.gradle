@@ -121,6 +121,9 @@ dependencies {
     // DataStore
     implementation "androidx.datastore:datastore-preferences:1.0.0"
 
+    // Android ThreeTenBP
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.4.0'
+
 }
 
 kapt {

@@ -1,4 +1,4 @@
-package com.solvro.topwr.data.model.common
+package com.solvro.topwr.data.model.notices
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -16,11 +16,11 @@ data class Photo(
     val id: Int?,
     val mime: String?,
     val name: String?,
-    val previewUrl: @RawValue Any?,
+    val previewUrl: @RawValue Any? = null,
     val provider: String?,
     val provider_metadata: ProviderMetadata?,
     val size: Double?,
     val updated_at: String?,
     val url: String?,
     val width: Int?
-) : Parcelable
+): Parcelable

@@ -1,20 +1,12 @@
 package com.solvro.topwr.data.model.departments
 
-import java.io.Serializable
-
 class Color(
     gradientFirst: String?,
     gradientSecond: String?,
     val id: Int?
-) : Serializable {
-
-    val gradientFirst: String
+) {
+    val gradientFirst: String? = gradientFirst
         get() = "#$field"
-    val gradientSecond: String
+    val gradientSecond: String? = gradientSecond
         get() = "#$field"
-
-    init {
-        this.gradientFirst = gradientFirst ?: ""
-        this.gradientSecond = gradientSecond ?: ""
-    }
 }

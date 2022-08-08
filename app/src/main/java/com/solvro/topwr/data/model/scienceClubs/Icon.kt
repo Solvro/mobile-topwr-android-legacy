@@ -1,11 +1,6 @@
-package com.solvro.topwr.data.model.common
+package com.solvro.topwr.data.model.scienceClubs
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-import kotlinx.parcelize.RawValue
-
-@Parcelize
-data class Photo(
+data class Icon(
     val alternativeText: String?,
     val caption: String?,
     val created_at: String?,
@@ -16,11 +11,11 @@ data class Photo(
     val id: Int?,
     val mime: String?,
     val name: String?,
-    val previewUrl: @RawValue Any?,
+    val previewUrl: Any?,
     val provider: String?,
     val provider_metadata: ProviderMetadata?,
     val size: Double?,
     val updated_at: String?,
     val url: String?,
     val width: Int?
-) : Parcelable
+)
