@@ -1,4 +1,4 @@
-package com.solvro.topwr.data.model.common
+package com.solvro.topwr.data.model.notices
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -9,4 +9,4 @@ data class Formats(
     val medium: Medium?,
     val small: Small?,
     val thumbnail: Thumbnail?
-) : Parcelable
+): Parcelable
