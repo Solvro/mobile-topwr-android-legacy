@@ -1,5 +1,10 @@
 package com.solvro.topwr.di
 
+import android.content.Context
+import com.bumptech.glide.Glide
+import com.bumptech.glide.Priority
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.solvro.topwr.data.local.DataStoreSource
 import com.solvro.topwr.data.remote.RemoteDataSource
 import com.solvro.topwr.data.remote.ToPwrService
@@ -8,6 +13,7 @@ import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -58,4 +64,16 @@ object AppModule {
         dataStoreSource: DataStoreSource
     ): MainRepository =
         MainRepository(remoteDataSource, dataStoreSource)
+
+    @Singleton
+    @Provides
+    fun provideGlideInstance(
+        @ApplicationContext context: Context
+    ) = Glide.with(context).setDefaultRequestOptions(
+        RequestOptions()
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+            //.placeholder()
+            //.error()
+            .priority(Priority.NORMAL)
+    )
 }

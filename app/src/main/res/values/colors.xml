@@ -20,5 +20,7 @@
     <color name="science_club_category_checked">@color/red</color>
     <color name="text_black">#37313C</color>
     <color name="text_black2">#2E405A</color>
+    <color name="whatsUpNewsTitle">#293241</color>
+
     <color name="icon_red">#E43D32</color>
 </resources>
