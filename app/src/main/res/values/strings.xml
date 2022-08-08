@@ -5,6 +5,7 @@
     <string name="departments">Wydziały</string>
     <string name="empty"/>
     <string name="search_hint">Szukaj…</string>
+    <string name="science_clubs">Koła naukowe</string>
     <string name="home_screen_greeting">Cześć, miło Cię widzieć</string>
     <string name="days">dni</string>
     <string name="until_exam">do rozpoczęcia sesji</string>
@@ -15,7 +16,6 @@
     <string name="whats_up">Co słychać</string>
     <string name="building_name">Budynek %1$s</string>
     <string name="data_error">Błąd wczytywania danych</string>
-    <string name="science_clubs">Koła Naukowe</string>
     <string name="Monday">Poniedziałek</string>
     <string name="Tuesday">Wtorek</string>
     <string name="Wednesday">Środę</string>
@@ -28,6 +28,10 @@
     <string name="Odd">w Nieparzysty</string>
     <string name="Odd_f">w Nieparzystą</string>
     <string name="read_more">Czytaj dalej</string>
-
     <string name="main_page">Strona główna</string>
+    <string name="deanery">Dziekanat:</string>
+    <string name="courses_of_study">Kierunki</string>
+    <string name="department_position">Politechnika Wrocławska\n%1$s</string>
+    <string name="department_detail_building">Budynek %1$s </string>
+
 </resources>
