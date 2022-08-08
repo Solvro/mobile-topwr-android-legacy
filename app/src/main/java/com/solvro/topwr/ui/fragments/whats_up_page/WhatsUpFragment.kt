@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.RequestManager
 import com.solvro.topwr.R
 import com.solvro.topwr.databinding.WhatsUpFragmentBinding
@@ -17,7 +16,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class WhatsUpFragment : Fragment(R.layout.whats_up_fragment) {
 
-    companion object{
+    companion object {
         fun newInstance() = WhatsUpFragment()
     }
 
@@ -44,7 +43,7 @@ class WhatsUpFragment : Fragment(R.layout.whats_up_fragment) {
         binding.apply {
             whatsUpTitle.text = notice?.title
             whatsUpNewsDescription.text = notice?.description
-            whatsUpDate.text = notice?.published_at
+            whatsUpDate.text = notice?.getFormattedTime()
 
             backToMainBtn.setOnClickListener {
                 findNavController().navigateUp()
