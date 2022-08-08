@@ -3,15 +3,22 @@ package com.solvro.topwr.ui.fragments.science_clubs_page
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.solvro.topwr.data.model.scienceclub.ScienceClub
+import com.solvro.topwr.data.model.scienceClubs.ScienceClub
+import com.solvro.topwr.data.repository.MainRepository
+import com.solvro.topwr.utils.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class ScienceClubsViewModel : ViewModel() {
+@HiltViewModel
+class ScienceClubsViewModel @Inject constructor(
+    private val repository: MainRepository
+) : ViewModel() {
     private var scienceClubsAll = listOf<ScienceClub>()
 
     private var textFilter = ""
 
-    private val _scienceClubs = MutableLiveData<List<ScienceClub>>()
-    val scienceClubs: LiveData<List<ScienceClub>> = _scienceClubs
+    private val _scienceClubs = repository.getScienceClubs()
+    val scienceClubs: LiveData<Resource<List<ScienceClub>>> = _scienceClubs
 
     private val _categoriesState = MutableLiveData<CategoriesState>()
     val categoriesState: LiveData<CategoriesState> = _categoriesState
@@ -25,21 +32,15 @@ class ScienceClubsViewModel : ViewModel() {
             "Motoryzacja"
         )
         _categoriesState.value = CategoriesState(allCategories = categoriesMock)
-        val scienceClubMock = listOf(
-            ScienceClub("1", "KN Solvro", "", "", "", "", listOf("")),
-            ScienceClub("2", "SKN Gospodarki Przestrzennej", "", "", "", "", listOf("")),
-            ScienceClub("3", "KN Projektantów Chemicznych “Consilium”", "", "", "", "", listOf("")),
-            ScienceClub("4", "KN SISK", "", "", "", "", listOf(""))
-        )
+        val scienceClubMock = listOf<ScienceClub>()
         scienceClubsAll = scienceClubMock
-        _scienceClubs.value = scienceClubsAll
     }
 
     fun setTextFilter(text: String) {
         textFilter = text
-        _scienceClubs.value = scienceClubsAll.filter {
-            it.name.lowercase().contains(textFilter)
-        }
+//        _scienceClubs.value = scienceClubsAll.filter {
+//            it.name?.lowercase()?.contains(textFilter) ?: false
+//        }
     }
 
     fun toggleCategory(categoryName: String) {
@@ -61,7 +62,7 @@ class ScienceClubsViewModel : ViewModel() {
         setCategoriesFilter()
     }
 
-    private fun setCategoriesFilter(){
+    private fun setCategoriesFilter() {
         //TODO: Filter by category
     }
 

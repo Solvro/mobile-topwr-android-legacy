@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.solvro.topwr.data.model.scienceclub.ScienceClub
+import com.solvro.topwr.data.model.scienceClubs.ScienceClub
 import com.solvro.topwr.databinding.ItemScienceClubBinding
 
 class ScienceClubsAdapter : RecyclerView.Adapter<ScienceClubsAdapter.ViewHolder>() {
@@ -19,7 +19,7 @@ class ScienceClubsAdapter : RecyclerView.Adapter<ScienceClubsAdapter.ViewHolder>
                 scienceClubItemName.text = item.name
                 Glide
                     .with(root.context)
-                    .load("https://picsum.photos/200")
+                    .load(item.photo?.url)
                     .apply(RequestOptions().override(100, 100)) //change to 100x100px img
                     .into(scienceClubItemImage)
             }

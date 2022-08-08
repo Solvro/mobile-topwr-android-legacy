@@ -2,7 +2,7 @@ package com.solvro.topwr.data.model.scienceClubs
 
 import com.solvro.topwr.data.model.common.Photo
 
-data class ScienceClubs(
+data class ScienceClub(
     val backgroundPhoto: BackgroundPhoto?,
     val created_at: String?,
     val department: Int?,

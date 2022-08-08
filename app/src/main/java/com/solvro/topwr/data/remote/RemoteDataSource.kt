@@ -5,7 +5,7 @@ import com.solvro.topwr.data.model.endDate.EndDate
 import com.solvro.topwr.data.model.endDate.WeekDayException
 import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.data.model.notices.Notices
-import com.solvro.topwr.data.model.scienceClubs.ScienceClubs
+import com.solvro.topwr.data.model.scienceClubs.ScienceClub
 import com.solvro.topwr.utils.Resource
 import javax.inject.Inject
 
@@ -21,7 +21,7 @@ class RemoteDataSource @Inject constructor(
     suspend fun getDepartments(): Resource<List<Departments>> =
         getResult { service.getDepartments() }
 
-    suspend fun getScientificCircles(): Resource<List<ScienceClubs>> =
+    suspend fun getScientificCircles(): Resource<List<ScienceClub>> =
         getResult { service.getScientificCircles() }
 
     suspend fun getMaps(): Resource<List<Building>> = getResult { service.getMaps() }
