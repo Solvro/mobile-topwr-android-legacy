@@ -1,10 +1,10 @@
 package com.solvro.topwr.utils
 
+import android.content.res.Resources
 import android.graphics.Rect
+import android.util.TypedValue
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import android.content.res.Resources
-import android.util.TypedValue
 
 class SpaceItemDecoration(private val spaceWidth: Int = 0, private val spaceHeight: Int = 0) :
     RecyclerView.ItemDecoration() {
@@ -19,6 +19,7 @@ class SpaceItemDecoration(private val spaceWidth: Int = 0, private val spaceHeig
         outRect.bottom = spaceHeight
     }
 }
+
 val Int.toPx
     get() = TypedValue.applyDimension(
         TypedValue.COMPLEX_UNIT_DIP,

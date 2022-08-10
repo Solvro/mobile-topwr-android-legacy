@@ -55,7 +55,7 @@ ScienceClubsFragment : Fragment() {
     private fun setObservers() {
         viewModel.apply{
             scienceClubs.observe(viewLifecycleOwner) {
-                scienceClubsAdapter.setData(it)
+                scienceClubsAdapter.setData(it.data ?: listOf())
             }
             categoriesState.observe(viewLifecycleOwner) {
                 categoriesAdapter.setData(it.allCategories, it.selectedCategories)

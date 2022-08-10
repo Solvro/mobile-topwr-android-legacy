@@ -3,20 +3,30 @@ package com.solvro.topwr.ui.fragments.science_clubs_page
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.solvro.topwr.data.model.scienceclub.ScienceClub
+import androidx.lifecycle.viewModelScope
+import com.solvro.topwr.data.model.scienceClub.ScienceClub
+import com.solvro.topwr.data.repository.MainRepository
+import com.solvro.topwr.utils.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ScienceClubsViewModel : ViewModel() {
-    private var scienceClubsAll = listOf<ScienceClub>()
+@HiltViewModel
+class ScienceClubsViewModel @Inject constructor(
+    private val repository: MainRepository
+) : ViewModel() {
 
-    private var textFilter = ""
+    private val _scienceClubs by lazy {
+        MutableLiveData<Resource<List<ScienceClub>>>()
+            .also {
+                getScienceClubs(it)
+            }
+    }
+    val scienceClubs: LiveData<Resource<List<ScienceClub>>> by lazy {
+        _scienceClubs
+    }
 
-    private val _scienceClubs = MutableLiveData<List<ScienceClub>>()
-    val scienceClubs: LiveData<List<ScienceClub>> = _scienceClubs
-
-    private val _categoriesState = MutableLiveData<CategoriesState>()
-    val categoriesState: LiveData<CategoriesState> = _categoriesState
-
-    init {
+    private val _categoriesState by lazy {
         val categoriesMock = listOf(
             "Techologia",
             "Budownictwo",
@@ -24,22 +34,21 @@ class ScienceClubsViewModel : ViewModel() {
             "Druk 3D",
             "Motoryzacja"
         )
-        _categoriesState.value = CategoriesState(allCategories = categoriesMock)
-        val scienceClubMock = listOf(
-            ScienceClub("1", "KN Solvro", "", "", "", "", listOf("")),
-            ScienceClub("2", "SKN Gospodarki Przestrzennej", "", "", "", "", listOf("")),
-            ScienceClub("3", "KN Projektantów Chemicznych “Consilium”", "", "", "", "", listOf("")),
-            ScienceClub("4", "KN SISK", "", "", "", "", listOf(""))
-        )
-        scienceClubsAll = scienceClubMock
-        _scienceClubs.value = scienceClubsAll
+        MutableLiveData(CategoriesState(allCategories = categoriesMock))
+    }
+    val categoriesState: LiveData<CategoriesState> by lazy {
+        _categoriesState
+    }
+
+    private fun getScienceClubs(scienceClubsLiveData: MutableLiveData<Resource<List<ScienceClub>>>) {
+        viewModelScope.launch {
+            val result = repository.getScienceClubs()
+            scienceClubsLiveData.postValue(result)
+        }
     }
 
     fun setTextFilter(text: String) {
-        textFilter = text
-        _scienceClubs.value = scienceClubsAll.filter {
-            it.name.lowercase().contains(textFilter)
-        }
+        // add text filter
     }
 
     fun toggleCategory(categoryName: String) {
@@ -61,7 +70,7 @@ class ScienceClubsViewModel : ViewModel() {
         setCategoriesFilter()
     }
 
-    private fun setCategoriesFilter(){
+    private fun setCategoriesFilter() {
         //TODO: Filter by category
     }
 

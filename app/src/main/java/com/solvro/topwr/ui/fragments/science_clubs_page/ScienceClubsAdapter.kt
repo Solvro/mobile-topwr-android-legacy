@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.solvro.topwr.data.model.scienceclub.ScienceClub
+import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.databinding.ItemScienceClubBinding
 
 class ScienceClubsAdapter : RecyclerView.Adapter<ScienceClubsAdapter.ViewHolder>() {
