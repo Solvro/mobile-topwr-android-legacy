@@ -18,7 +18,7 @@ class ScienceClubPagingSource(
 //            val anchorPage = state.closestPageToPosition(anchorPosition)
 //            anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
 //        }
-        return 1
+        return 0
 
     }
 
@@ -33,9 +33,7 @@ class ScienceClubPagingSource(
         )
 
         val nextPageNumber =
-            if ((allResultsCount?.div(resultPerPage)
-                    ?: (getLastPageNumber() + 1)) <= getLastPageNumber()
-            ) currentPageNumber + 1 else null
+            if (currentPageNumber < getLastPageNumber()) currentPageNumber + 1 else null
 
         return LoadResult.Page(
             data = response.data ?: listOf(),
