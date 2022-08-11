@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.data.repository.MainRepository
 import com.solvro.topwr.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,12 +19,15 @@ class ScienceClubsViewModel @Inject constructor(
     private val _scienceClubs by lazy {
         MutableLiveData<Resource<List<ScienceClub>>>()
             .also {
-                getScienceClubs(it)
+                //     getScienceClubs(it)
             }
     }
     val scienceClubs: LiveData<Resource<List<ScienceClub>>> by lazy {
         _scienceClubs
     }
+
+    val scienceClubPaged = repository.getScienceClubsPaged()
+        .cachedIn(viewModelScope)
 
     private val _categoriesState by lazy {
         val categoriesMock = listOf(
@@ -38,13 +41,6 @@ class ScienceClubsViewModel @Inject constructor(
     }
     val categoriesState: LiveData<CategoriesState> by lazy {
         _categoriesState
-    }
-
-    private fun getScienceClubs(scienceClubsLiveData: MutableLiveData<Resource<List<ScienceClub>>>) {
-        viewModelScope.launch {
-            val result = repository.getScienceClubs()
-            scienceClubsLiveData.postValue(result)
-        }
     }
 
     fun setTextFilter(text: String) {

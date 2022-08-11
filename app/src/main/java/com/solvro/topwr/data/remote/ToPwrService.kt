@@ -8,6 +8,7 @@ import com.solvro.topwr.data.model.notices.Notices
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 
 interface ToPwrService {
@@ -26,7 +27,13 @@ interface ToPwrService {
     suspend fun getDepartments(): Response<List<Departments>>
 
     @GET("scientific-circles")
-    suspend fun getScientificCircles(): Response<List<ScienceClub>>
+    suspend fun getScientificCircles(
+        @Query("_start") startIndex: Int,
+        @Query("_limit") limit: Int
+    ): Response<List<ScienceClub>>
+
+    @GET("scientific-circles/count")
+    suspend fun getScientificCirclesCount(): Response<Int>
 
     @GET("maps")
     suspend fun getMaps(): Response<List<Building>>

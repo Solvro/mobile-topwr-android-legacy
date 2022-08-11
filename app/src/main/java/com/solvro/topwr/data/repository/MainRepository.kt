@@ -37,6 +37,8 @@ class MainRepository @Inject constructor(
         return remoteDataSource.getScientificCircles()
     }
 
+    fun getScienceClubsPaged() = remoteDataSource.getPagedScientificCircles()
+
     fun getNotices(): LiveData<Resource<List<Notices>>> =
         liveData { emit(remoteDataSource.getNotices()) }
 

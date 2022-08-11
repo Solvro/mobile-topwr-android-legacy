@@ -1,11 +1,14 @@
 package com.solvro.topwr.data.remote
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
 import com.solvro.topwr.data.model.departments.Departments
 import com.solvro.topwr.data.model.endDate.EndDate
 import com.solvro.topwr.data.model.endDate.WeekDayException
 import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.data.model.notices.Notices
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
+import com.solvro.topwr.data.remote.pagingsource.ScienceClubPagingSource
 import com.solvro.topwr.utils.Resource
 import javax.inject.Inject
 
@@ -21,8 +24,20 @@ class RemoteDataSource @Inject constructor(
     suspend fun getDepartments(): Resource<List<Departments>> =
         getResult { service.getDepartments() }
 
-    suspend fun getScientificCircles(): Resource<List<ScienceClub>> =
-        getResult { service.getScientificCircles() }
+    suspend fun getScientificCircles(
+        startIndex: Int = 1,
+        limit: Int = 20
+    ): Resource<List<ScienceClub>> =
+        getResult { service.getScientificCircles(startIndex = startIndex, limit = limit) }
+
+    suspend fun getScientificCirclesCount(): Resource<Int> =
+        getResult { service.getScientificCirclesCount() }
+
+    fun getPagedScientificCircles() = Pager(
+        PagingConfig(pageSize = 2)
+    ) {
+        ScienceClubPagingSource(this)
+    }.flow
 
     suspend fun getMaps(): Resource<List<Building>> = getResult { service.getMaps() }
 

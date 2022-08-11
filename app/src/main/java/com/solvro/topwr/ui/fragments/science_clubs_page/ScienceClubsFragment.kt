@@ -7,10 +7,13 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.solvro.topwr.databinding.ScienceClubsFragmentBinding
 import com.solvro.topwr.utils.SpaceItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class
@@ -53,18 +56,20 @@ ScienceClubsFragment : Fragment() {
     }
 
     private fun setObservers() {
-        viewModel.apply{
-            scienceClubs.observe(viewLifecycleOwner) {
-                scienceClubsAdapter.setData(it.data ?: listOf())
-            }
+        viewModel.apply {
             categoriesState.observe(viewLifecycleOwner) {
                 categoriesAdapter.setData(it.allCategories, it.selectedCategories)
+            }
+            lifecycleScope.launch {
+                scienceClubPaged.collectLatest {
+                    scienceClubsAdapter.submitData(it)
+                }
             }
         }
     }
 
     private fun setupScienceClubsRecyclerView() {
-        this.scienceClubsAdapter = ScienceClubsAdapter()
+        this.scienceClubsAdapter = ScienceClubsAdapter(ScienceClubComparator)
         binding.apply {
             scienceClubsRecyclerView.apply {
                 adapter = this@ScienceClubsFragment.scienceClubsAdapter
