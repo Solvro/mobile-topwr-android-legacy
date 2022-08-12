@@ -44,12 +44,12 @@
             />
         <action
             android:id="@+id/action_homeFragment_to_whatsUpFragment"
-            app:destination="@id/whatsUpFragment"
-            app:popEnterAnim="@transition/fade_in"
-            app:popExitAnim="@transition/fade_out"
-            app:enterAnim="@transition/fade_in"
-            app:exitAnim="@transition/fade_out"
-            />
+            app:destination="@id/whatsUpFragment"/>
+<!--            app:popEnterAnim="@transition/fade_in"-->
+<!--            app:popExitAnim="@transition/fade_out"-->
+<!--            app:enterAnim="@transition/fade_in"-->
+<!--            app:exitAnim="@transition/fade_out"-->
+<!--            />-->
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
