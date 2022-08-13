@@ -34,7 +34,7 @@ class RemoteDataSource @Inject constructor(
         getResult { service.getScientificCirclesCount() }
 
     fun getPagedScientificCircles() = Pager(
-        PagingConfig(pageSize = 2)
+        PagingConfig(pageSize = 2, initialLoadSize = 2, prefetchDistance = 1)
     ) {
         ScienceClubPagingSource(this)
     }.flow

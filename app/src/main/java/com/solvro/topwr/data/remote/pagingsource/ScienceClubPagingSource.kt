@@ -14,12 +14,10 @@ class ScienceClubPagingSource(
     private var allResultsCount: Int? = null
 
     override fun getRefreshKey(state: PagingState<Int, ScienceClub>): Int? {
-//        return state.anchorPosition?.let { anchorPosition ->
-//            val anchorPage = state.closestPageToPosition(anchorPosition)
-//            anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
-//        }
-        return 0
-
+        return state.anchorPosition?.let { anchorPosition ->
+            val anchorPage = state.closestPageToPosition(anchorPosition)
+            anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
+        }
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ScienceClub> {
