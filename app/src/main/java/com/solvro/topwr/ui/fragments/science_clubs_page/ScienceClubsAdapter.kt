@@ -13,8 +13,6 @@ import com.solvro.topwr.databinding.ItemScienceClubBinding
 class ScienceClubsAdapter(diffCallback: DiffUtil.ItemCallback<ScienceClub>) :
     PagingDataAdapter<ScienceClub, ScienceClubsAdapter.ViewHolder>(diffCallback) {
 
-    val data = ArrayList<ScienceClub>()
-
     inner class ViewHolder(private val binding: ItemScienceClubBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ScienceClub?) {

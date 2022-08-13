@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.solvro.topwr.databinding.ScienceClubsFragmentBinding
 import com.solvro.topwr.utils.SpaceItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -51,8 +50,10 @@ ScienceClubsFragment : Fragment() {
                 viewModel.setTextFilter(query ?: "")
                 return false
             }
-
         })
+        binding.scienceClubRefreshLayout.setOnRefreshListener {
+            scienceClubsAdapter.refresh()
+        }
     }
 
     private fun setObservers() {
@@ -60,10 +61,9 @@ ScienceClubsFragment : Fragment() {
             categoriesState.observe(viewLifecycleOwner) {
                 categoriesAdapter.setData(it.allCategories, it.selectedCategories)
             }
-            lifecycleScope.launch {
-                scienceClubPaged.collectLatest {
-                    scienceClubsAdapter.submitData(it)
-                }
+            scienceClubs.observe(viewLifecycleOwner) {
+                binding.scienceClubRefreshLayout.isRefreshing = false
+                lifecycleScope.launch { scienceClubsAdapter.submitData(it) }
             }
         }
     }
@@ -94,5 +94,4 @@ ScienceClubsFragment : Fragment() {
             )
         }
     }
-
 }

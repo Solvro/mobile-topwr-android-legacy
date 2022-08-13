@@ -13,11 +13,10 @@ class ScienceClubPagingSource(
     private val resultPerPage = 2
     private var allResultsCount: Int? = null
 
-    override fun getRefreshKey(state: PagingState<Int, ScienceClub>): Int? {
-        return state.anchorPosition?.let { anchorPosition ->
-            val anchorPage = state.closestPageToPosition(anchorPosition)
-            anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
-        }
+    override fun getRefreshKey(state: PagingState<Int, ScienceClub>): Int {
+        // Key where paging starts after refresh
+        // 0 means that paged data will start from the beginning
+        return 0
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ScienceClub> {
@@ -30,12 +29,15 @@ class ScienceClubPagingSource(
             limit = resultPerPage
         )
 
+        val prevPageNumber =
+            if (currentPageNumber > 0) currentPageNumber - 1 else null
+
         val nextPageNumber =
             if (currentPageNumber < getLastPageNumber()) currentPageNumber + 1 else null
 
         return LoadResult.Page(
             data = response.data ?: listOf(),
-            prevKey = null,
+            prevKey = prevPageNumber,
             nextKey = nextPageNumber
         )
     }
