@@ -6,6 +6,8 @@ import com.solvro.topwr.data.model.endDate.WeekDayException
 import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.data.model.notices.Notices
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
+import com.solvro.topwr.data.model.scienceClub.Tag
+import com.solvro.topwr.data.model.tag.TagRemote
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -34,6 +36,9 @@ interface ToPwrService {
 
     @GET("scientific-circles/count")
     suspend fun getScientificCirclesCount(): Response<Int>
+
+    @GET("tags")
+    suspend fun getScientificCirclesTags(): Response<List<TagRemote>>
 
     @GET("maps")
     suspend fun getMaps(): Response<List<Building>>

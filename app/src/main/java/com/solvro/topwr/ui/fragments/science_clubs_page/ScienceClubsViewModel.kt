@@ -8,6 +8,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.data.repository.MainRepository
+import com.solvro.topwr.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -30,14 +31,8 @@ class ScienceClubsViewModel @Inject constructor(
     }
 
     private val _categoriesState by lazy {
-        val categoriesMock = listOf(
-            "Techologia",
-            "Budownictwo",
-            "Programowanie",
-            "Druk 3D",
-            "Motoryzacja"
-        )
-        MutableLiveData(CategoriesState(allCategories = categoriesMock))
+        MutableLiveData<CategoriesState>()
+            .also { getScienceClubTags(it) }
     }
     val categoriesState: LiveData<CategoriesState> by lazy {
         _categoriesState
@@ -50,6 +45,17 @@ class ScienceClubsViewModel @Inject constructor(
                 .collectLatest {
                     _scienceClubs.postValue(it)
                 }
+        }
+    }
+
+    private fun getScienceClubTags(tagsLiveData: MutableLiveData<CategoriesState>) {
+        viewModelScope.launch {
+            val result = repository.getScienceClubTags()
+            if (result.status == Resource.Status.SUCCESS) {
+                tagsLiveData.postValue(CategoriesState(result.data?.map {
+                    it.name
+                } ?: listOf()))
+            }
         }
     }
 
