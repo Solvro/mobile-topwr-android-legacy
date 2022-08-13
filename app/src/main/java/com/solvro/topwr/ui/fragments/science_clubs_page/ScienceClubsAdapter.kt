@@ -22,8 +22,9 @@ class ScienceClubsAdapter(diffCallback: DiffUtil.ItemCallback<ScienceClub>) :
                 scienceClubItemName.text = item?.name
                 Glide
                     .with(root.context)
-                    .load("https://picsum.photos/200")
+                    .load(item?.photo?.url)
                     .apply(RequestOptions().override(100, 100)) //change to 100x100px img
+                    .centerCrop()
                     .into(scienceClubItemImage)
             }
         }
