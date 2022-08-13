@@ -26,16 +26,23 @@ class ScienceClubsViewModel @Inject constructor(
         _scienceClubs
     }
 
-    init {
-        getScienceClubs()
+    private val _scienceClubTags by lazy {
+        MutableLiveData<List<String>>()
     }
 
-    private val _categoriesState by lazy {
-        MutableLiveData<CategoriesState>()
-            .also { getScienceClubTags(it) }
+    val scienceClubTags by lazy {
+        _scienceClubTags
     }
-    val categoriesState: LiveData<CategoriesState> by lazy {
-        _categoriesState
+
+    private val _selectedCategories by lazy {
+        MutableLiveData<List<String>>()
+    }
+    val selectedCategories: LiveData<List<String>> by lazy {
+        _selectedCategories
+    }
+
+    init {
+        getScienceClubs()
     }
 
     private fun getScienceClubs() {
@@ -48,13 +55,17 @@ class ScienceClubsViewModel @Inject constructor(
         }
     }
 
-    private fun getScienceClubTags(tagsLiveData: MutableLiveData<CategoriesState>) {
+    fun getScienceClubTags(){
+        getScienceClubTags(_scienceClubTags)
+    }
+
+    private fun getScienceClubTags(tagsLiveData: MutableLiveData<List<String>>) {
         viewModelScope.launch {
             val result = repository.getScienceClubTags()
             if (result.status == Resource.Status.SUCCESS) {
-                tagsLiveData.postValue(CategoriesState(result.data?.map {
+                tagsLiveData.postValue(result.data?.map {
                     it.name
-                } ?: listOf()))
+                } ?: listOf())
             }
         }
     }
@@ -63,27 +74,27 @@ class ScienceClubsViewModel @Inject constructor(
         // add text filter
     }
 
-    fun toggleCategory(categoryName: String) {
-        if (categoriesState.value?.selectedCategories?.contains(categoryName) == true) {
-            _categoriesState.value =
-                CategoriesState(
-                    allCategories = categoriesState.value?.allCategories ?: listOf(),
-                    selectedCategories = categoriesState.value?.selectedCategories?.minus(
-                        categoryName
-                    ) ?: listOf()
-                )
-        } else {
-            _categoriesState.value = CategoriesState(
-                allCategories = categoriesState.value?.allCategories ?: listOf(),
-                selectedCategories = categoriesState.value?.selectedCategories?.plus(categoryName)
-                    ?: (listOf<String>().plus(categoryName))
-            )
-        }
-        setCategoriesFilter()
-    }
+//    fun toggleCategory(categoryName: String) {
+//        if (categoriesState.value?.selectedCategories?.contains(categoryName) == true) {
+//            _categoriesState.value =
+//                CategoriesState(
+//                    allCategories = categoriesState.value?.allCategories ?: listOf(),
+//                    selectedCategories = categoriesState.value?.selectedCategories?.minus(
+//                        categoryName
+//                    ) ?: listOf()
+//                )
+//        } else {
+//            _categoriesState.value = CategoriesState(
+//                allCategories = categoriesState.value?.allCategories ?: listOf(),
+//                selectedCategories = categoriesState.value?.selectedCategories?.plus(categoryName)
+//                    ?: (listOf<String>().plus(categoryName))
+//            )
+//        }
+//        setCategoriesFilter()
+//    }
 
-    private fun setCategoriesFilter() {
-        //TODO: Filter by category
+    fun setCategoriesFilter(filters: List<String>) {
+        _selectedCategories.postValue(filters)
     }
 
     data class CategoriesState(

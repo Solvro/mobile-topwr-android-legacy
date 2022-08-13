@@ -33,5 +33,6 @@
     <string name="courses_of_study">Kierunki</string>
     <string name="department_position">Politechnika Wrocławska\n%1$s</string>
     <string name="department_detail_building">Budynek %1$s </string>
+    <string name="clear">Wyczyść</string>
 
 </resources>

@@ -40,6 +40,7 @@ ScienceClubsFragment : Fragment() {
         setupScienceClubsRecyclerView()
         setupCategoryRecyclerView()
         setObservers()
+        setClickListeners()
         binding.scienceClubsSearchBar.setOnQueryTextListener(object :
             SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
@@ -56,14 +57,26 @@ ScienceClubsFragment : Fragment() {
         }
     }
 
+    private fun setClickListeners() {
+        binding.scienceClubsFilterBtn.setOnClickListener {
+            viewModel.getScienceClubTags()
+        }
+    }
+
     private fun setObservers() {
         viewModel.apply {
-            categoriesState.observe(viewLifecycleOwner) {
-                categoriesAdapter.setData(it.allCategories, it.selectedCategories)
+            selectedCategories.observe(viewLifecycleOwner) {
+                categoriesAdapter.setData(it, it)
             }
             scienceClubs.observe(viewLifecycleOwner) {
                 binding.scienceClubRefreshLayout.isRefreshing = false
                 lifecycleScope.launch { scienceClubsAdapter.submitData(it) }
+            }
+            scienceClubTags.observe(viewLifecycleOwner) { tags ->
+                TagsDialog(tags) {
+                    val filters = if (it == null) listOf() else listOf(it)
+                    viewModel.setCategoriesFilter(filters)
+                }.show(childFragmentManager, "dialog")
             }
         }
     }
@@ -79,9 +92,7 @@ ScienceClubsFragment : Fragment() {
     }
 
     private fun setupCategoryRecyclerView() {
-        categoriesAdapter = ScienceClubsCategoriesAdapter {
-            viewModel.toggleCategory(it)
-        }
+        categoriesAdapter = ScienceClubsCategoriesAdapter {}
         binding.scienceClubsCategoriesRecyclerView.apply {
             adapter = categoriesAdapter
             layoutManager = LinearLayoutManager(requireContext()).apply {
