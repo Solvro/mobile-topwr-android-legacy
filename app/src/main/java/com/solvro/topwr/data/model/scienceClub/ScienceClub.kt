@@ -1,6 +1,7 @@
 package com.solvro.topwr.data.model.scienceClub
 
 import com.solvro.topwr.data.model.common.Photo
+import com.squareup.moshi.JsonClass
 
 data class ScienceClub(
     val backgroundPhoto: BackgroundPhoto?,

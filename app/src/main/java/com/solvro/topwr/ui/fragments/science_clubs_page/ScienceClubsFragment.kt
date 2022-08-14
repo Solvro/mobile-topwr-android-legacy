@@ -74,8 +74,7 @@ ScienceClubsFragment : Fragment() {
             }
             scienceClubTags.observe(viewLifecycleOwner) { tags ->
                 TagsDialog(tags) {
-                    val filters = if (it == null) listOf() else listOf(it)
-                    viewModel.setCategoriesFilter(filters)
+                    viewModel.setCategoriesFilter(it)
                 }.show(childFragmentManager, "dialog")
             }
         }

@@ -39,6 +39,9 @@ class MainRepository @Inject constructor(
 
     fun getScienceClubsPaged() = remoteDataSource.getPagedScientificCircles()
 
+    fun getScienceClubsByTagPaged(tag: String) =
+        remoteDataSource.getPagedScientificCirclesByTag(tag)
+
     suspend fun getScienceClubTags() = remoteDataSource.getScienceClubTags()
 
     fun getNotices(): LiveData<Resource<List<Notices>>> =

@@ -6,7 +6,6 @@ import com.solvro.topwr.data.model.endDate.WeekDayException
 import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.data.model.notices.Notices
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
-import com.solvro.topwr.data.model.scienceClub.Tag
 import com.solvro.topwr.data.model.tag.TagRemote
 import retrofit2.Response
 import retrofit2.http.GET
@@ -39,6 +38,11 @@ interface ToPwrService {
 
     @GET("tags")
     suspend fun getScientificCirclesTags(): Response<List<TagRemote>>
+
+    @GET("tags")
+    suspend fun getScientificCirclesTag(
+        @Query("name") tagName: String
+    ): Response<List<TagRemote>>
 
     @GET("maps")
     suspend fun getMaps(): Response<List<Building>>
