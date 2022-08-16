@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import androidx.paging.filter
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.data.repository.MainRepository
 import com.solvro.topwr.utils.Resource
@@ -22,6 +23,8 @@ class ScienceClubsViewModel @Inject constructor(
 ) : ViewModel() {
 
     private var scienceClubJob: Job? = null
+
+    private var lastTextFilter: String = ""
 
     private val _scienceClubs by lazy {
         MutableLiveData<PagingData<ScienceClub>>()
@@ -49,24 +52,28 @@ class ScienceClubsViewModel @Inject constructor(
         getScienceClubs()
     }
 
-    private fun getScienceClubs(filter: String? = null) {
+    private fun getScienceClubs(tagFilter: String? = null, textFilter: String = "") {
         scienceClubJob?.cancel()
-        if (filter == null)
+        if (tagFilter == null)
             scienceClubJob = viewModelScope.launch {
                 repository.getScienceClubsPaged()
                     .cancellable()
                     .cachedIn(viewModelScope)
                     .collectLatest {
-                        _scienceClubs.postValue(it)
+                        _scienceClubs.postValue(it.filter { scienceClub ->
+                            scienceClub.name?.lowercase()?.contains(textFilter.lowercase()) ?: false
+                        })
                     }
             }
         else
             scienceClubJob = viewModelScope.launch {
-                repository.getScienceClubsByTagPaged(filter)
+                repository.getScienceClubsByTagPaged(tagFilter)
                     .cancellable()
                     .cachedIn(viewModelScope)
                     .collectLatest {
-                        _scienceClubs.postValue(it)
+                        _scienceClubs.postValue(it.filter { scienceClub ->
+                            scienceClub.name?.lowercase()?.contains(textFilter.lowercase()) ?: false
+                        })
                     }
             }
     }
@@ -80,18 +87,27 @@ class ScienceClubsViewModel @Inject constructor(
             val result = repository.getScienceClubTags()
             if (result.status == Resource.Status.SUCCESS) {
                 tagsLiveData.postValue(result.data?.map {
-                    it.name?: ""
+                    it.name ?: ""
                 } ?: listOf())
             }
         }
     }
 
     fun setTextFilter(text: String) {
-        // add text filter
+        lastTextFilter = text
+        getScienceClubs(
+            tagFilter = _selectedCategories.value?.firstOrNull(),
+            textFilter = text
+        )
     }
 
-    fun setCategoriesFilter(filter: String?) {
-        _selectedCategories.postValue(if (filter == null) listOf() else listOf(filter))
-        getScienceClubs(filter)
+    fun setCategoriesFilter(tagFilter: String?) {
+        _selectedCategories.postValue(
+            if (tagFilter == null) listOf() else listOf(tagFilter)
+        )
+        getScienceClubs(
+            tagFilter = tagFilter,
+            textFilter = lastTextFilter,
+        )
     }
 }

@@ -26,3 +26,11 @@ val Int.toPx
         this.toFloat(),
         Resources.getSystem().displayMetrics
     ).toInt()
+
+fun View.gone() {
+    this.visibility = View.GONE
+}
+
+fun View.visible() {
+    this.visibility = View.VISIBLE
+}
