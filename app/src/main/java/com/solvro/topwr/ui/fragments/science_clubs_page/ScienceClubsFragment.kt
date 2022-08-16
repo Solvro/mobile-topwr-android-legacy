@@ -14,6 +14,7 @@ import com.solvro.topwr.databinding.ScienceClubsFragmentBinding
 import com.solvro.topwr.utils.SpaceItemDecoration
 import com.solvro.topwr.utils.gone
 import com.solvro.topwr.utils.visible
+import com.solvro.topwr.utils.withLoadStateAdapters
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -29,10 +30,28 @@ ScienceClubsFragment : Fragment() {
 
     private val viewModel: ScienceClubsViewModel by viewModels()
     private lateinit var binding: ScienceClubsFragmentBinding
-    private lateinit var scienceClubsAdapter: ScienceClubsAdapter
-    private lateinit var categoriesAdapter: ScienceClubsCategoriesAdapter
+    private var categoriesAdapter: ScienceClubsCategoriesAdapter = ScienceClubsCategoriesAdapter {}
     private var onQueryChangeJob: Job? = null
-
+    private var scienceClubsAdapter: ScienceClubsAdapter =
+        ScienceClubsAdapter(ScienceClubComparator).apply {
+            addLoadStateListener { loadState ->
+                if (
+                    loadState.source.refresh is LoadState.NotLoading
+                    && loadState.append.endOfPaginationReached
+                    && this.itemCount < 1
+                ) {
+                    binding.apply {
+                        scienceClubRefreshLayout.gone()
+                        scienceClubEmptyView.visible()
+                    }
+                } else {
+                    binding.apply {
+                        scienceClubRefreshLayout.visible()
+                        scienceClubEmptyView.gone()
+                    }
+                }
+            }
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -94,35 +113,16 @@ ScienceClubsFragment : Fragment() {
     }
 
     private fun setupScienceClubsRecyclerView() {
-        this.scienceClubsAdapter = ScienceClubsAdapter(ScienceClubComparator)
-        binding.apply {
-            scienceClubsRecyclerView.apply {
-                adapter = scienceClubsAdapter
-                layoutManager = LinearLayoutManager(requireContext())
-            }
+        binding.scienceClubsRecyclerView.apply {
+            adapter = scienceClubsAdapter.withLoadStateAdapters(
+                header = ScienceClubsLoadStateAdapter(scienceClubsAdapter::retry),
+                footer = ScienceClubsLoadStateAdapter(scienceClubsAdapter::retry)
+            )
+            layoutManager = LinearLayoutManager(requireContext())
         }
-        scienceClubsAdapter.addLoadStateListener { loadState ->
-            if (
-                loadState.source.refresh is LoadState.NotLoading
-                && loadState.append.endOfPaginationReached
-                && scienceClubsAdapter.itemCount < 1
-            ) {
-                binding.apply {
-                    scienceClubRefreshLayout.gone()
-                    scienceClubEmptyView.visible()
-                }
-            } else {
-                binding.apply {
-                    scienceClubRefreshLayout.visible()
-                    scienceClubEmptyView.gone()
-                }
-            }
-        }
-
     }
 
     private fun setupCategoryRecyclerView() {
-        categoriesAdapter = ScienceClubsCategoriesAdapter {}
         binding.scienceClubsCategoriesRecyclerView.apply {
             adapter = categoriesAdapter
             layoutManager = LinearLayoutManager(requireContext()).apply {

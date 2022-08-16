@@ -4,6 +4,9 @@ import android.content.res.Resources
 import android.graphics.Rect
 import android.util.TypedValue
 import android.view.View
+import androidx.paging.LoadStateAdapter
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.RecyclerView
 
 class SpaceItemDecoration(private val spaceWidth: Int = 0, private val spaceHeight: Int = 0) :
@@ -33,4 +36,16 @@ fun View.gone() {
 
 fun View.visible() {
     this.visibility = View.VISIBLE
+}
+
+fun <T : Any, V : RecyclerView.ViewHolder> PagingDataAdapter<T, V>.withLoadStateAdapters(
+    header: LoadStateAdapter<*>,
+    footer: LoadStateAdapter<*>
+): ConcatAdapter {
+    addLoadStateListener { loadStates ->
+        header.loadState = loadStates.refresh
+        footer.loadState = loadStates.append
+    }
+
+    return ConcatAdapter(header, this, footer)
 }
