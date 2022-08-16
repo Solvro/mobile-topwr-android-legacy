@@ -26,6 +26,7 @@ class ScienceClubsViewModel @Inject constructor(
 
     private var lastTextFilter: String = ""
 
+    /** LiveData */
     private val _scienceClubs by lazy {
         MutableLiveData<PagingData<ScienceClub>>()
     }
@@ -36,7 +37,6 @@ class ScienceClubsViewModel @Inject constructor(
     private val _scienceClubTags by lazy {
         MutableLiveData<List<String>>()
     }
-
     val scienceClubTags by lazy {
         _scienceClubTags
     }
@@ -52,45 +52,8 @@ class ScienceClubsViewModel @Inject constructor(
         getScienceClubs()
     }
 
-    private fun getScienceClubs(tagFilter: String? = null, textFilter: String = "") {
-        scienceClubJob?.cancel()
-        if (tagFilter == null)
-            scienceClubJob = viewModelScope.launch {
-                repository.getScienceClubsPaged()
-                    .cancellable()
-                    .cachedIn(viewModelScope)
-                    .collectLatest {
-                        _scienceClubs.postValue(it.filter { scienceClub ->
-                            scienceClub.name?.lowercase()?.contains(textFilter.lowercase()) ?: false
-                        })
-                    }
-            }
-        else
-            scienceClubJob = viewModelScope.launch {
-                repository.getScienceClubsByTagPaged(tagFilter)
-                    .cancellable()
-                    .cachedIn(viewModelScope)
-                    .collectLatest {
-                        _scienceClubs.postValue(it.filter { scienceClub ->
-                            scienceClub.name?.lowercase()?.contains(textFilter.lowercase()) ?: false
-                        })
-                    }
-            }
-    }
-
     fun getScienceClubTags() {
         getScienceClubTags(_scienceClubTags)
-    }
-
-    private fun getScienceClubTags(tagsLiveData: MutableLiveData<List<String>>) {
-        viewModelScope.launch {
-            val result = repository.getScienceClubTags()
-            if (result.status == Resource.Status.SUCCESS) {
-                tagsLiveData.postValue(result.data?.map {
-                    it.name ?: ""
-                } ?: listOf())
-            }
-        }
     }
 
     fun setTextFilter(text: String) {
@@ -109,5 +72,47 @@ class ScienceClubsViewModel @Inject constructor(
             tagFilter = tagFilter,
             textFilter = lastTextFilter,
         )
+    }
+
+    private fun getScienceClubs(tagFilter: String? = null, textFilter: String = "") {
+        scienceClubJob?.cancel()
+        scienceClubJob = if (tagFilter == null)
+            getAllScienceClubs(textFilter)
+        else
+            getScienceClubsByTag(tagFilter, textFilter)
+    }
+
+    private fun getAllScienceClubs(textFilter: String) = viewModelScope.launch {
+        repository.getScienceClubsPaged()
+            .cancellable()
+            .cachedIn(viewModelScope)
+            .collectLatest {
+                _scienceClubs.postValue(it.filter { scienceClub ->
+                    scienceClub.name?.lowercase()?.contains(textFilter.lowercase()) ?: false
+                })
+            }
+    }
+
+    private fun getScienceClubsByTag(tagFilter: String, textFilter: String) =
+        viewModelScope.launch {
+            repository.getScienceClubsByTagPaged(tagFilter)
+                .cancellable()
+                .cachedIn(viewModelScope)
+                .collectLatest {
+                    _scienceClubs.postValue(it.filter { scienceClub ->
+                        scienceClub.name?.lowercase()?.contains(textFilter.lowercase()) ?: false
+                    })
+                }
+        }
+
+    private fun getScienceClubTags(tagsLiveData: MutableLiveData<List<String>>) {
+        viewModelScope.launch {
+            val result = repository.getScienceClubTags()
+            if (result.status == Resource.Status.SUCCESS) {
+                tagsLiveData.postValue(result.data?.map {
+                    it.name ?: ""
+                } ?: listOf())
+            }
+        }
     }
 }
