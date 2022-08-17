@@ -9,7 +9,6 @@ import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.data.model.notices.Notices
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.data.model.tag.TagRemote
-import com.solvro.topwr.data.remote.pagingsource.ScienceClubByTagPagingSource
 import com.solvro.topwr.data.remote.pagingsource.ScienceClubPagingSource
 import com.solvro.topwr.utils.Resource
 import javax.inject.Inject
@@ -49,12 +48,6 @@ class RemoteDataSource @Inject constructor(
                 tagName = tag
             )
         }
-
-    fun getPagedScientificCirclesByTag(tag: String) = Pager(
-        PagingConfig(pageSize = 10, initialLoadSize = 10)
-    ) {
-        ScienceClubByTagPagingSource(tag, this)
-    }.flow
 
     suspend fun getScienceClubTags(): Resource<List<TagRemote>> =
         getResult { service.getScientificCirclesTags() }

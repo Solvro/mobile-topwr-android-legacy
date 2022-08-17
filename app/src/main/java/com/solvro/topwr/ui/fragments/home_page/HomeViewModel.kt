@@ -7,6 +7,7 @@ import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.data.repository.MainRepository
 import com.solvro.topwr.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -18,7 +19,9 @@ class HomeViewModel @Inject constructor(private val repository: MainRepository) 
     val departments = repository.getDepartments()
     val buildings = repository.getMaps()
     val notices = repository.getNotices()
-    val scienceClubs = MutableLiveData<Resource<List<ScienceClub>>>()//repository.getScienceClubs()
+
+    private val _scienceClubs by lazy { MutableLiveData<List<ScienceClub>>() }
+    val scienceClubs by lazy { _scienceClubs }
 
     //    private var _dateWeek = MutableLiveData<Date>()
 //    val dateWeek: LiveData<Date>
@@ -75,4 +78,16 @@ class HomeViewModel @Inject constructor(private val repository: MainRepository) 
 
     }
 
+    init {
+        getScienceClubs(_scienceClubs)
+    }
+
+    private fun getScienceClubs(scienceClubsLiveData: MutableLiveData<List<ScienceClub>>) {
+        viewModelScope.launch {
+            val response = repository.getScienceClubs()
+            if (response.status == Resource.Status.SUCCESS) {
+                scienceClubsLiveData.postValue(response.data)
+            }
+        }
+    }
 }

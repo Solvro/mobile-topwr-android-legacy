@@ -15,6 +15,8 @@ data class ScienceClub(
     val name: String?,
     val photo: Photo?,
     val published_at: String?,
-    val tags: List<Any>?,
+    val tags: List<Tag>?,
     val updated_at: String?
-)
+) {
+    fun isTaggedAs(tagName: String) = tags?.any { tag -> tag.name == tagName } ?: false
+}

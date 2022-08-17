@@ -26,34 +26,28 @@ class ScienceClubsViewModel @Inject constructor(
 
     private var lastTextFilter: String = ""
 
+    private lateinit var scienceClubTagsCached: List<String>
+
     /** LiveData */
-    private val _scienceClubs by lazy {
-        MutableLiveData<PagingData<ScienceClub>>()
-    }
-    val scienceClubs: LiveData<PagingData<ScienceClub>> by lazy {
-        _scienceClubs
-    }
+    private val _scienceClubs by lazy { MutableLiveData<PagingData<ScienceClub>>() }
+    val scienceClubs: LiveData<PagingData<ScienceClub>> by lazy { _scienceClubs }
 
-    private val _scienceClubTags by lazy {
-        MutableLiveData<List<String>>()
-    }
-    val scienceClubTags by lazy {
-        _scienceClubTags
-    }
+    private val _areTagsAvailable by lazy { MutableLiveData<Boolean>(false) }
+    val areTagsAvailable: LiveData<Boolean> by lazy { _areTagsAvailable }
 
-    private val _selectedCategories by lazy {
-        MutableLiveData<List<String>>()
-    }
-    val selectedCategories: LiveData<List<String>> by lazy {
-        _selectedCategories
-    }
+    private val _scienceClubTags by lazy { MutableLiveData<List<String>>() }
+    val scienceClubTags by lazy { _scienceClubTags }
+
+    private val _selectedCategories by lazy { MutableLiveData<List<String>>() }
+    val selectedCategories: LiveData<List<String>> by lazy { _selectedCategories }
 
     init {
         getScienceClubs()
+        getScienceClubTagsToCache()
     }
 
     fun getScienceClubTags() {
-        getScienceClubTags(_scienceClubTags)
+        if (::scienceClubTagsCached.isInitialized) _scienceClubTags.postValue(scienceClubTagsCached)
     }
 
     fun setTextFilter(text: String) {
@@ -76,42 +70,32 @@ class ScienceClubsViewModel @Inject constructor(
 
     private fun getScienceClubs(tagFilter: String? = null, textFilter: String = "") {
         scienceClubJob?.cancel()
-        scienceClubJob = if (tagFilter == null)
-            getAllScienceClubs(textFilter)
-        else
-            getScienceClubsByTag(tagFilter, textFilter)
+        scienceClubJob = getAllScienceClubs(tagFilter, textFilter)
     }
 
-    private fun getAllScienceClubs(textFilter: String) = viewModelScope.launch {
-        repository.getScienceClubsPaged()
-            .cancellable()
-            .cachedIn(viewModelScope)
-            .collectLatest {
-                _scienceClubs.postValue(it.filter { scienceClub ->
-                    scienceClub.name?.lowercase()?.contains(textFilter.lowercase()) ?: false
-                })
-            }
-    }
-
-    private fun getScienceClubsByTag(tagFilter: String, textFilter: String) =
+    private fun getAllScienceClubs(tagFilter: String? = null, textFilter: String) =
         viewModelScope.launch {
-            repository.getScienceClubsByTagPaged(tagFilter)
+            repository.getScienceClubsPaged()
                 .cancellable()
                 .cachedIn(viewModelScope)
                 .collectLatest {
-                    _scienceClubs.postValue(it.filter { scienceClub ->
+                    val filteredData = it.filter { scienceClub ->
+                        if (tagFilter == null) true else scienceClub.isTaggedAs(tagFilter)
+                    }.filter { scienceClub ->
                         scienceClub.name?.lowercase()?.contains(textFilter.lowercase()) ?: false
-                    })
+                    }
+                    _scienceClubs.postValue(filteredData)
                 }
         }
 
-    private fun getScienceClubTags(tagsLiveData: MutableLiveData<List<String>>) {
+    private fun getScienceClubTagsToCache() {
         viewModelScope.launch {
             val result = repository.getScienceClubTags()
             if (result.status == Resource.Status.SUCCESS) {
-                tagsLiveData.postValue(result.data?.map {
+                scienceClubTagsCached = result.data?.map {
                     it.name ?: ""
-                } ?: listOf())
+                } ?: listOf()
+                _areTagsAvailable.postValue(true)
             }
         }
     }

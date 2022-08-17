@@ -12,7 +12,6 @@ class ScienceClubsCategoriesAdapter(
 ) :
     RecyclerView.Adapter<ScienceClubsCategoriesAdapter.ViewHolder>() {
 
-    // TODO: Remove fake categories
     private val categories = ArrayList<String>()
     private val selected = ArrayList<String>()
 

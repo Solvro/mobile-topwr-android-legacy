@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -83,7 +84,7 @@ ScienceClubsFragment : Fragment() {
                 override fun onQueryTextChange(query: String?): Boolean {
                     onQueryChangeJob?.cancel()
                     onQueryChangeJob = lifecycleScope.launch {
-                        delay(1000)
+                        delay(500)
                         viewModel.setTextFilter(query ?: "")
                     }
                     return false
@@ -108,6 +109,10 @@ ScienceClubsFragment : Fragment() {
                 TagsDialog(tags) {
                     viewModel.setCategoriesFilter(it)
                 }.show(childFragmentManager, "dialog")
+            }
+            areTagsAvailable.observe(viewLifecycleOwner) {
+                binding.scienceClubsFilterBtn.isVisible = it
+                binding.scienceClubsFilterBtn.isEnabled = it
             }
         }
     }
