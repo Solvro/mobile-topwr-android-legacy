@@ -39,11 +39,6 @@ interface ToPwrService {
     @GET("tags")
     suspend fun getScientificCirclesTags(): Response<List<TagRemote>>
 
-    @GET("tags")
-    suspend fun getScientificCirclesTag(
-        @Query("name") tagName: String
-    ): Response<List<TagRemote>>
-
     @GET("maps")
     suspend fun getMaps(): Response<List<Building>>
 

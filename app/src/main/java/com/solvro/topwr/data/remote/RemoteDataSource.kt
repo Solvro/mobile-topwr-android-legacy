@@ -40,15 +40,6 @@ class RemoteDataSource @Inject constructor(
         ScienceClubPagingSource(this)
     }.flow
 
-    suspend fun getScientificCircleTag(
-        tag: String
-    ): Resource<List<TagRemote>> =
-        getResult {
-            service.getScientificCirclesTag(
-                tagName = tag
-            )
-        }
-
     suspend fun getScienceClubTags(): Resource<List<TagRemote>> =
         getResult { service.getScientificCirclesTags() }
 
