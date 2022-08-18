@@ -97,18 +97,18 @@ class HomeFragment : Fragment() {
             it.message?.let { it1 -> Log.i("testy", it1) }
             Log.i("status", it.status.toString())
             binding.whatsUpRecyclerView.adapter = it.data?.let { notices ->
-                WhatsUpAdapter(notices) { chosenItem, imageView, title, date, dsc ->
+                WhatsUpAdapter(notices) { notice, imageView, title, date, dsc ->
                     val extras = FragmentNavigator.Extras.Builder().addSharedElements(
                         mapOf(
-                            imageView to chosenItem.photo!!.id.toString(),
-                            title to chosenItem.title.toString(),
-                            date to chosenItem.created_at+chosenItem.id,
-                            dsc to chosenItem.description.toString()
+                            imageView to getString(R.string.whatsup_image, notice.id),
+                            title to getString(R.string.whatsup_title, notice.id),
+                            date to getString(R.string.whatsup_date, notice.id),
+                            dsc to getString(R.string.whatsup_description, notice.id)
                         )
                     ).build()
 
                     val action =
-                        HomeFragmentDirections.actionHomeFragmentToWhatsUpFragment(chosenItem)
+                        HomeFragmentDirections.actionHomeFragmentToWhatsUpFragment(notice)
                     findNavController().navigate(action, extras)
                 }
             }

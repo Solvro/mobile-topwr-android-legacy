@@ -16,6 +16,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.solvro.topwr.R
+import com.solvro.topwr.data.model.notices.Notices
 import com.solvro.topwr.databinding.WhatsUpFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -56,12 +57,11 @@ class WhatsUpFragment : Fragment(R.layout.whats_up_fragment) {
             startPostponedEnterTransition()
         }
 
-        binding.apply {
-            whatsUpImageView.transitionName = notice!!.photo!!.id.toString()
-            whatsUpTitle.transitionName = notice.title.toString()
-            whatsUpDate.transitionName = notice.created_at+notice.id
-            whatsUpNewsDescription.transitionName = notice.description.toString()
+        notice?.let {
+            setTransitionNames(it)
+        }
 
+        binding.apply {
             whatsUpTitle.text = notice?.title
             whatsUpNewsDescription.text = notice?.description
             whatsUpDate.text = notice?.getFormattedTime()
@@ -73,6 +73,15 @@ class WhatsUpFragment : Fragment(R.layout.whats_up_fragment) {
         }
 
         notice?.photo?.url?.let { loadImage(it) }
+    }
+
+    private fun setTransitionNames(notice: Notices){
+        binding.apply {
+            whatsUpImageView.transitionName = getString(R.string.whatsup_image, notice.id)
+            whatsUpTitle.transitionName = getString(R.string.whatsup_title, notice.id)
+            whatsUpDate.transitionName = getString(R.string.whatsup_date, notice.id)
+            whatsUpNewsDescription.transitionName = getString(R.string.whatsup_description, notice.id)
+        }
     }
 
     private fun loadImage(imageUrl: String) {

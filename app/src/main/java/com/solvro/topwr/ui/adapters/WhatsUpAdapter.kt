@@ -1,5 +1,6 @@
 package com.solvro.topwr.ui.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -9,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.solvro.topwr.R
 import com.solvro.topwr.data.model.notices.Notices
 import com.solvro.topwr.databinding.WhatsUpItemBinding
 
@@ -42,14 +44,19 @@ class WhatsUpAdapter(
             whatsUpTitle.text = notice.title
             whatsUpDescription.text = notice.description
 
-            whatsupItemImage.transitionName = notice.photo!!.id.toString()
-            whatsUpTitle.transitionName = notice.title.toString()
-            whatsUpDate.transitionName = notice.created_at+notice.id
-            whatsUpDescription.transitionName = notice.description.toString()
+            val context = itemView.context
+            setTransitionNames(context, notice)
 
             moreButton.setOnClickListener {
                 onClick(notice, whatsupItemImage, whatsUpTitle, whatsUpDate, whatsUpDescription)
             }
+        }
+
+        private fun setTransitionNames(context: Context, notice: Notices) {
+            whatsupItemImage.transitionName = context.getString(R.string.whatsup_image, notice.id)
+            whatsUpTitle.transitionName = context.getString(R.string.whatsup_title, notice.id)
+            whatsUpDate.transitionName = context.getString(R.string.whatsup_date, notice.id)
+            whatsUpDescription.transitionName = context.getString(R.string.whatsup_description, notice.id)
         }
     }
 
