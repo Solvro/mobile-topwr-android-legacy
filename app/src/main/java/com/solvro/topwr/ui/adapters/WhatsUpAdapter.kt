@@ -18,18 +18,14 @@ class WhatsUpAdapter(
 ) : RecyclerView.Adapter<WhatsUpAdapter.ViewHolder>() {
     inner class ViewHolder(binding: WhatsUpItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        init {
-            //set OnCLickListener and send data with function
-            binding.moreButton.setOnClickListener {
-                onClick(notices[adapterPosition], whatsupItemImage, whatsUpTitle, whatsUpDate, whatsUpDescription)
-            }
-        }
 
         private val whatsupItemImage = binding.whatsUpImageView
         private val whatsUpDate = binding.dateTextView
         private val whatsUpTitle = binding.titleTextView
         private val whatsUpDescription = binding.descriptionTextView
-        fun bind() {
+        private val moreButton = binding.moreButton
+
+        fun bind(notice: Notices) {
             val options: RequestOptions = RequestOptions().centerCrop().transform(
                 CenterCrop(),
                 GranularRoundedCorners (8F,
@@ -38,18 +34,22 @@ class WhatsUpAdapter(
                 0F
             )
             )
-            Glide.with(whatsupItemImage).load(notices[adapterPosition].photo?.url)
+            Glide.with(whatsupItemImage).load(notice.photo?.url)
                 .apply(options)
                 .into(whatsupItemImage)
-            val dateArray: List<String>? = notices[adapterPosition].created_at?.split("-")
+            val dateArray: List<String>? = notice.created_at?.split("-")
             whatsUpDate.text = dateArray?.get(2)?.substring(0,2) + "." + (dateArray?.get(1)) + "." + (dateArray?.get(0))
-            whatsUpTitle.text = notices[adapterPosition].title
-            whatsUpDescription.text = notices[adapterPosition].description
+            whatsUpTitle.text = notice.title
+            whatsUpDescription.text = notice.description
 
-            whatsupItemImage.transitionName = notices[adapterPosition].photo!!.id.toString()
-            whatsUpTitle.transitionName = notices[adapterPosition].title.toString()
-            whatsUpDate.transitionName = notices[adapterPosition].created_at+notices[adapterPosition].id
-            whatsUpDescription.transitionName = notices[adapterPosition].description.toString()
+            whatsupItemImage.transitionName = notice.photo!!.id.toString()
+            whatsUpTitle.transitionName = notice.title.toString()
+            whatsUpDate.transitionName = notice.created_at+notice.id
+            whatsUpDescription.transitionName = notice.description.toString()
+
+            moreButton.setOnClickListener {
+                onClick(notice, whatsupItemImage, whatsUpTitle, whatsUpDate, whatsUpDescription)
+            }
         }
     }
 
@@ -63,7 +63,7 @@ class WhatsUpAdapter(
     }
 
     override fun onBindViewHolder(holder: WhatsUpAdapter.ViewHolder, position: Int) {
-        holder.bind()
+        holder.bind(notices[position])
     }
 
     override fun getItemCount(): Int = notices.size
