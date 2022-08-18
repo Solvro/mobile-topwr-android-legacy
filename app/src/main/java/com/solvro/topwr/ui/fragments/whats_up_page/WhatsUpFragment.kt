@@ -35,10 +35,7 @@ class WhatsUpFragment : Fragment(R.layout.whats_up_fragment) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = TransitionInflater.from(context!!)
-            .inflateTransition(R.transition.move)
-        sharedElementReturnTransition = TransitionInflater.from(context!!)
-            .inflateTransition(R.transition.move)
+        setupSharedTransition()
     }
 
     override fun onCreateView(
@@ -55,7 +52,7 @@ class WhatsUpFragment : Fragment(R.layout.whats_up_fragment) {
 
         val notice = viewModel.notice.value
 
-        (view!!.parent as? ViewGroup)?.doOnPreDraw {
+        (view.parent as? ViewGroup)?.doOnPreDraw {
             startPostponedEnterTransition()
         }
 
@@ -75,7 +72,12 @@ class WhatsUpFragment : Fragment(R.layout.whats_up_fragment) {
             }
         }
 
-        glide.load(notice?.photo?.url)
+        notice?.photo?.url?.let { loadImage(it) }
+    }
+
+    private fun loadImage(imageUrl: String) {
+
+        glide.load(imageUrl)
             .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
                     e: GlideException?,
@@ -100,5 +102,12 @@ class WhatsUpFragment : Fragment(R.layout.whats_up_fragment) {
 
             })
             .into(binding.whatsUpImageView)
+    }
+
+    private fun setupSharedTransition() {
+        sharedElementEnterTransition = TransitionInflater.from(context!!)
+            .inflateTransition(R.transition.move)
+        sharedElementReturnTransition = TransitionInflater.from(context!!)
+            .inflateTransition(R.transition.move)
     }
 }

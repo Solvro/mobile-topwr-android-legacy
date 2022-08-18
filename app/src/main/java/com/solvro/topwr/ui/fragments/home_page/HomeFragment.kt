@@ -35,11 +35,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        sharedElementEnterTransition = TransitionInflater.from(context!!)
-            .inflateTransition(R.transition.move)
-        sharedElementReturnTransition = TransitionInflater.from(context!!)
-            .inflateTransition(R.transition.move)
+        setupSharedTransition()
     }
 
     override fun onCreateView(
@@ -179,4 +175,10 @@ class HomeFragment : Fragment() {
 
     }
 
+    private fun setupSharedTransition() {
+        sharedElementEnterTransition = TransitionInflater.from(context!!)
+            .inflateTransition(R.transition.move)
+        sharedElementReturnTransition = TransitionInflater.from(context!!)
+            .inflateTransition(R.transition.move)
+    }
 }
