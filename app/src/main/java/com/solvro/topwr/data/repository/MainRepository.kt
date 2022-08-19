@@ -5,8 +5,8 @@ import androidx.lifecycle.liveData
 import com.solvro.topwr.data.local.DataStoreSource
 import com.solvro.topwr.data.model.departments.Departments
 import com.solvro.topwr.data.model.endDate.EndDate
-import com.solvro.topwr.data.model.info.Info
 import com.solvro.topwr.data.model.endDate.WeekDayException
+import com.solvro.topwr.data.model.info.Info
 import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.data.model.notices.Notices
 import com.solvro.topwr.data.remote.RemoteDataSource
@@ -48,5 +48,5 @@ class MainRepository @Inject constructor(
 
     fun getBuildingsSearchHistory() = dataStoreSource.getBuildingsSearchHistory()
 
-    fun getInfos(): LiveData<Resource<List<Info>>> = liveData { emit(remoteDataSource.getInfos()) }
+    suspend fun getInfos(name: String = ""): Resource<List<Info>> = remoteDataSource.getInfos(name)
 }

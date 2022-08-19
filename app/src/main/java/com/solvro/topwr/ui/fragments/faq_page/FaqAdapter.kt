@@ -10,9 +10,10 @@ import com.solvro.topwr.data.model.info.Info
 import com.solvro.topwr.databinding.FaqItemBinding
 
 class FaqAdapter(
-    private val infos: List<Info>,
     private val onClick: (Info) -> Unit
 ) : RecyclerView.Adapter<FaqAdapter.ViewHolder>() {
+
+    private val infos = mutableListOf<Info>()
 
     inner class ViewHolder(private val binding: FaqItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -54,5 +55,13 @@ class FaqAdapter(
     }
 
     override fun getItemCount(): Int = infos.size
+
+    fun setData(infos: List<Info>) {
+        this.infos.apply {
+            clear()
+            addAll(infos)
+        }
+        notifyDataSetChanged()
+    }
 
 }
