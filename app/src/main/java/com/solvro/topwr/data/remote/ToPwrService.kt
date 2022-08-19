@@ -7,7 +7,7 @@ import com.solvro.topwr.data.model.notices.Notices
 import com.solvro.topwr.data.model.scienceClubs.ScienceClubs
 import retrofit2.Response
 import retrofit2.http.GET
-import com.solvro.topwr.data.model.info.Infos
+import com.solvro.topwr.data.model.info.Info
 import com.solvro.topwr.data.model.maps.Building
 
 
@@ -39,5 +39,5 @@ interface ToPwrService {
     suspend fun getWeekDayException(): Response<WeekDayException>
 
     @GET("infos")
-    suspend fun getInfos(): Response<List<Infos>>
+    suspend fun getInfos(): Response<List<Info>>
 }

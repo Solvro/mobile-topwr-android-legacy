@@ -2,7 +2,7 @@ package com.solvro.topwr.data.model.info
 
 import com.solvro.topwr.data.model.common.Photo
 
-data class Infos(
+data class Info(
     val created_at: String?,
     val description: String?,
     val id: Int?,
