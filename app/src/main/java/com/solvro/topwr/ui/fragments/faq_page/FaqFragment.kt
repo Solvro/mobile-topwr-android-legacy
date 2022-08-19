@@ -1,17 +1,14 @@
 package com.solvro.topwr.ui.fragments.faq_page
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.solvro.topwr.databinding.FaqFragmentBinding
-import com.solvro.topwr.ui.adapters.FaqAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class FaqFragment : Fragment() {
@@ -31,11 +28,10 @@ class FaqFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.recyclerView.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-
-        viewModel.infos.observe(viewLifecycleOwner){
+            LinearLayoutManager(requireContext())
+        viewModel.infos.observe(viewLifecycleOwner) {
             binding.recyclerView.adapter = it.data?.let { infos ->
-                FaqAdapter(infos){
+                FaqAdapter(infos) {
 
                 }
             }
