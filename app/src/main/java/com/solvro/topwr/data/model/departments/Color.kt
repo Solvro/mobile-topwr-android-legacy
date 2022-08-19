@@ -1,7 +1,12 @@
 package com.solvro.topwr.data.model.departments
 
-data class Color(
-    val gradientFirst: String?,
-    val gradientSecond: String?,
+class Color(
+    gradientFirst: String?,
+    gradientSecond: String?,
     val id: Int?
-)
+) {
+    val gradientFirst: String? = gradientFirst
+        get() = "#$field"
+    val gradientSecond: String? = gradientSecond
+        get() = "#$field"
+}
