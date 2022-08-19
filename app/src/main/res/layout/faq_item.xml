@@ -31,10 +31,9 @@
         <TextView
             android:id="@+id/textViewDescription"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginHorizontal="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginVertical="8dp"
             android:ellipsize="end"
             android:fontFamily="@font/rubik"
             android:maxLines="3"
@@ -44,7 +43,9 @@
             app:layout_constraintEnd_toStartOf="@id/faqImageView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/faqTitleTextView"
-            tools:text="Sprawdź, jak możesz otrzymać miejsce w akademiku." />
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="Sprawdź, jak możesz otrzymać
+            miejsce w \n akademiku." />
 
         <ImageView
             android:id="@+id/faqImageView"
