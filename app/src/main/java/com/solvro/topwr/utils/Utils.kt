@@ -38,6 +38,12 @@ fun View.visible() {
     this.visibility = View.VISIBLE
 }
 
+/**
+ * This extension function allows to add loading or error state in initial data fetch
+ * in Paging Recycler View. It combines LoadStateAdapter and PagingAdapter.
+ * @return ConcatAdapter composed of PagingAdapter and LoadStateAdapter
+ * */
+
 fun <T : Any, V : RecyclerView.ViewHolder> PagingDataAdapter<T, V>.withLoadStateAdapters(
     header: LoadStateAdapter<*>,
     footer: LoadStateAdapter<*>

@@ -36,6 +36,10 @@ class TagsDialog(private val tags: List<String>, private val onClick: (String?) 
     override fun onStart() {
         super.onStart()
         setOnClickListeners()
+        setupRecyclerView()
+    }
+
+    private fun setupRecyclerView() {
         binding.filterRecyclerView.apply {
             adapter = this@TagsDialog.adapter
             layoutManager = LinearLayoutManager(context)
@@ -60,9 +64,11 @@ class TagsAdapter(
     inner class ViewHolder(private val binding: DialogItemFilterBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(tag: String) {
-            binding.tagTextView.text = tag
-            binding.root.setOnClickListener {
-                onClick.invoke(tag)
+            binding.apply {
+                tagTextView.text = tag
+                root.setOnClickListener {
+                    onClick.invoke(tag)
+                }
             }
         }
     }

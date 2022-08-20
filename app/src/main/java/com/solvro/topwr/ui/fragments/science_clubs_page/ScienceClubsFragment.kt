@@ -33,6 +33,7 @@ ScienceClubsFragment : Fragment() {
     private var scienceClubsAdapter: ScienceClubsAdapter =
         ScienceClubsAdapter(ScienceClubComparator).apply {
             addLoadStateListener { loadState ->
+                // Checks if data are empty
                 if (
                     loadState.source.refresh is LoadState.NotLoading
                     && loadState.append.endOfPaginationReached

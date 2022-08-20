@@ -33,9 +33,8 @@ class MainRepository @Inject constructor(
             emit(remoteDataSource.getMaps())
         }
 
-    suspend fun getScienceClubs(): Resource<List<ScienceClub>> {
-        return remoteDataSource.getScientificCircles()
-    }
+    suspend fun getScienceClubs(): Resource<List<ScienceClub>> =
+        remoteDataSource.getScientificCircles()
 
     fun getScienceClubsPaged() = remoteDataSource.getPagedScientificCircles()
 

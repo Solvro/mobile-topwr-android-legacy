@@ -40,7 +40,6 @@ class ScienceClubsAdapter(diffCallback: DiffUtil.ItemCallback<ScienceClub>) :
 
 object ScienceClubComparator : DiffUtil.ItemCallback<ScienceClub>() {
     override fun areItemsTheSame(oldItem: ScienceClub, newItem: ScienceClub): Boolean {
-        // Id is unique.
         return oldItem.id == newItem.id
     }
 

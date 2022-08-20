@@ -12,6 +12,9 @@ class ScienceClubPagingSource(
 ) : PagingSource<Int, ScienceClub>() {
 
     private var allResultsCount: Int? = null
+    private val pagingError: LoadResult<Int, ScienceClub> = LoadResult.Error(
+        Throwable("Load paged data error")
+    )
 
     override fun getRefreshKey(state: PagingState<Int, ScienceClub>): Int {
         // Key where paging starts after refresh
@@ -21,31 +24,21 @@ class ScienceClubPagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ScienceClub> {
         val resultPerPage = params.loadSize
-        if (allResultsCount == null) {
-            val allResultsCountResponse = remoteDataSource.getScientificCirclesCount()
-            if (allResultsCountResponse.status == Resource.Status.ERROR)
-                return LoadResult.Error(
-                    Throwable("Load paged data error")
-                )
-            allResultsCount = allResultsCountResponse.data
-        }
 
+        getAllResultsCountIfNull()
+        if (allResultsCount == null)
+            return pagingError
 
         val currentPageNumber = params.key ?: 0
         val response = remoteDataSource.getScientificCircles(
-            startIndex = params.key?.times(resultPerPage) ?: 0,
+            startIndex = getStartIndex(currentPageNumber, resultPerPage),
             limit = resultPerPage
         )
         if (response.status == Resource.Status.ERROR)
-            return LoadResult.Error(
-                Throwable("Load paged data error")
-            )
+            return pagingError
 
-        val prevPageNumber =
-            if (currentPageNumber > 0) currentPageNumber - 1 else null
-
-        val nextPageNumber =
-            if (currentPageNumber < getLastPageNumber(resultPerPage)) currentPageNumber + 1 else null
+        val prevPageNumber = getPrevPageNumber(currentPageNumber)
+        val nextPageNumber = getNextPageNumber(currentPageNumber, resultPerPage)
 
         return LoadResult.Page(
             data = response.data ?: listOf(),
@@ -53,6 +46,22 @@ class ScienceClubPagingSource(
             nextKey = nextPageNumber
         )
     }
+
+    private suspend fun getAllResultsCountIfNull() {
+        if (allResultsCount == null) {
+            val allResultsCountResponse = remoteDataSource.getScientificCirclesCount()
+            allResultsCount = allResultsCountResponse.data
+        }
+    }
+
+    private fun getStartIndex(currentPageNumber: Int, resultPerPage: Int) =
+        currentPageNumber.times(resultPerPage)
+
+    private fun getPrevPageNumber(currentPageNumber: Int) =
+        if (currentPageNumber > 0) currentPageNumber - 1 else null
+
+    private fun getNextPageNumber(currentPageNumber: Int, resultPerPage: Int) =
+        if (currentPageNumber < getLastPageNumber(resultPerPage)) currentPageNumber + 1 else null
 
     private fun getLastPageNumber(resultPerPage: Int): Int {
         if (allResultsCount == null) return 0
