@@ -118,12 +118,10 @@ class HomeFragment : Fragment() {
             }
         }
         viewModel.scienceClubs.observe(viewLifecycleOwner) {
-            binding.scienceClubsRecyclerView.adapter = it.data?.let { scienceCLubs ->
-                ScienceClubsAdapter(scienceCLubs) { scienceClubItem ->
+            binding.scienceClubsRecyclerView.adapter =
+                ScienceClubsAdapter(it) { scienceClubItem ->
                     Toast.makeText(context, scienceClubItem.name, Toast.LENGTH_SHORT).show()
-
                 }
-            }
         }
         viewModel.dateWeek.observe(viewLifecycleOwner) { date ->
             when (date.day) {
