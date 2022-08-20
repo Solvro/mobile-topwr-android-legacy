@@ -12,19 +12,44 @@
         tools:layout="@layout/home_fragment">
         <action
             android:id="@+id/action_homeFragment_to_departmentsFragment"
-            app:destination="@id/departmentsFragment" />
+            app:destination="@id/departmentsFragment"
+            app:popEnterAnim="@transition/fade_in"
+            app:popExitAnim="@transition/fade_out"
+            app:enterAnim="@transition/fade_in"
+            app:exitAnim="@transition/fade_out"
+            />
         <action
             android:id="@+id/action_homeFragment_to_departmentsDetailsFragment"
-            app:destination="@id/departmentsDetailsFragment" />
+            app:destination="@id/departmentsDetailsFragment"
+            app:popEnterAnim="@transition/fade_in"
+            app:popExitAnim="@transition/fade_out"
+            app:enterAnim="@transition/fade_in"
+            app:exitAnim="@transition/fade_out"
+            />
         <action
             android:id="@+id/action_homeFragment_to_scienceClubsFragment"
-            app:destination="@id/scienceClubsFragment" />
+            app:destination="@id/scienceClubsFragment"
+            app:popEnterAnim="@transition/fade_in"
+            app:popExitAnim="@transition/fade_out"
+            app:enterAnim="@transition/fade_in"
+            app:exitAnim="@transition/fade_out"
+            />
         <action
             android:id="@+id/action_homeFragment_to_scienceClubsDetailsFragment"
-            app:destination="@id/scienceClubsDetailsFragment" />
+            app:destination="@id/scienceClubsDetailsFragment"
+            app:popEnterAnim="@transition/fade_in"
+            app:popExitAnim="@transition/fade_out"
+            app:enterAnim="@transition/fade_in"
+            app:exitAnim="@transition/fade_out"
+            />
         <action
             android:id="@+id/action_homeFragment_to_whatsUpFragment"
-            app:destination="@id/whatsUpFragment" />
+            app:destination="@id/whatsUpFragment"/>
+<!--            app:popEnterAnim="@transition/fade_in"-->
+<!--            app:popExitAnim="@transition/fade_out"-->
+<!--            app:enterAnim="@transition/fade_in"-->
+<!--            app:exitAnim="@transition/fade_out"-->
+<!--            />-->
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
@@ -39,7 +64,10 @@
         <action
             android:id="@+id/action_departmentsFragment_to_departmentsDetailsFragment"
             app:destination="@id/departmentsDetailsFragment"
-
+            app:popEnterAnim="@transition/fade_in"
+            app:popExitAnim="@transition/fade_out"
+            app:enterAnim="@transition/fade_in"
+            app:exitAnim="@transition/fade_out"
             />
     </fragment>
     <fragment
@@ -49,7 +77,12 @@
         tools:layout="@layout/science_clubs_fragment" >
         <action
             android:id="@+id/action_scienceClubsFragment_to_scienceClubsDetailsFragment"
-            app:destination="@id/scienceClubsDetailsFragment" />
+            app:destination="@id/scienceClubsDetailsFragment"
+            app:popEnterAnim="@transition/fade_in"
+            app:popExitAnim="@transition/fade_out"
+            app:enterAnim="@transition/fade_in"
+            app:exitAnim="@transition/fade_out"
+            />
     </fragment>
     <fragment
         android:id="@+id/faqFragment"
@@ -69,7 +102,12 @@
             android:defaultValue="@null" />
         <action
             android:id="@+id/action_departmentsDetailsFragment_to_scienceClubsFragment"
-            app:destination="@id/scienceClubsFragment" />
+            app:destination="@id/scienceClubsFragment"
+            app:popEnterAnim="@transition/fade_in"
+            app:popExitAnim="@transition/fade_out"
+            app:enterAnim="@transition/fade_in"
+            app:exitAnim="@transition/fade_out"
+            />
         <argument
             android:name="prevFragment"
             app:argType="string" />
