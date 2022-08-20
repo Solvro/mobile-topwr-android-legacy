@@ -8,7 +8,7 @@ import com.solvro.topwr.data.model.endDate.EndDate
 import com.solvro.topwr.data.model.endDate.WeekDayException
 import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.data.model.notices.Notices
-import com.solvro.topwr.data.model.scienceClubs.ScienceClubs
+import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.data.remote.RemoteDataSource
 import com.solvro.topwr.utils.Resource
 import javax.inject.Inject
@@ -33,7 +33,12 @@ class MainRepository @Inject constructor(
             emit(remoteDataSource.getMaps())
         }
 
-    fun getScienceClubs() = liveData { emit(remoteDataSource.getScientificCircles()) }
+    suspend fun getScienceClubs(): Resource<List<ScienceClub>> =
+        remoteDataSource.getScientificCircles()
+
+    fun getScienceClubsPaged() = remoteDataSource.getPagedScientificCircles()
+
+    suspend fun getScienceClubTags() = remoteDataSource.getScienceClubTags()
 
     fun getNotices(): LiveData<Resource<List<Notices>>> =
         liveData { emit(remoteDataSource.getNotices()) }

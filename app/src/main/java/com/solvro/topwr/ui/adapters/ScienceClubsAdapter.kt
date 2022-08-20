@@ -4,14 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.solvro.topwr.data.model.notices.Notices
-import com.solvro.topwr.data.model.scienceClubs.ScienceClubs
+import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.databinding.ScienceClubsItemBinding
-import com.solvro.topwr.databinding.WhatsUpItemBinding
 
 class ScienceClubsAdapter(
-    private val scienceClubs: List<ScienceClubs>,
-    private val onClick: (ScienceClubs) -> Unit
+    private val scienceClubs: List<ScienceClub>,
+    private val onClick: (ScienceClub) -> Unit
 ) : RecyclerView.Adapter<ScienceClubsAdapter.ViewHolder>() {
     inner class ViewHolder(binding: ScienceClubsItemBinding) :
         RecyclerView.ViewHolder(binding.root) {

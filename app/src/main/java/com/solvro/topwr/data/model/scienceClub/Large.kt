@@ -1,6 +1,6 @@
-package com.solvro.topwr.data.model.scienceClubs
+package com.solvro.topwr.data.model.scienceClub
 
-data class Medium(
+data class Large(
     val ext: String?,
     val hash: String?,
     val height: Int?,

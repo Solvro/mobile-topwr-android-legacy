@@ -2,25 +2,27 @@ package com.solvro.topwr.ui.fragments.science_clubs_page
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.solvro.topwr.data.model.scienceclub.ScienceClub
+import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.databinding.ItemScienceClubBinding
 
-class ScienceClubsAdapter : RecyclerView.Adapter<ScienceClubsAdapter.ViewHolder>() {
-
-    val data = ArrayList<ScienceClub>()
+class ScienceClubsAdapter(diffCallback: DiffUtil.ItemCallback<ScienceClub>) :
+    PagingDataAdapter<ScienceClub, ScienceClubsAdapter.ViewHolder>(diffCallback) {
 
     inner class ViewHolder(private val binding: ItemScienceClubBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ScienceClub) {
+        fun bind(item: ScienceClub?) {
             binding.apply {
-                scienceClubItemName.text = item.name
+                scienceClubItemName.text = item?.name
                 Glide
                     .with(root.context)
-                    .load("https://picsum.photos/200")
+                    .load(item?.photo?.url)
                     .apply(RequestOptions().override(100, 100)) //change to 100x100px img
+                    .centerCrop()
                     .into(scienceClubItemImage)
             }
         }
@@ -32,13 +34,16 @@ class ScienceClubsAdapter : RecyclerView.Adapter<ScienceClubsAdapter.ViewHolder>
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(data[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
+        holder.bind(getItem(position))
+}
 
-    override fun getItemCount(): Int = data.size
+object ScienceClubComparator : DiffUtil.ItemCallback<ScienceClub>() {
+    override fun areItemsTheSame(oldItem: ScienceClub, newItem: ScienceClub): Boolean {
+        return oldItem.id == newItem.id
+    }
 
-    fun setData(scienceClubs: List<ScienceClub>){
-        data.clear()
-        data.addAll(scienceClubs)
-        notifyDataSetChanged()
+    override fun areContentsTheSame(oldItem: ScienceClub, newItem: ScienceClub): Boolean {
+        return oldItem == newItem
     }
 }
