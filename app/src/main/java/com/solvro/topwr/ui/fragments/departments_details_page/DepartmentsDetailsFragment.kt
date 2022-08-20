@@ -214,11 +214,7 @@ class DepartmentsDetailsFragment : Fragment() {
             it?.data.let { scienceClubs ->
                 scienceClubs?.let {
                     scienceClubsAdapter = ScienceClubsAdapter(scienceClubs.filter { scienceClubs ->
-                        if (scienceClubs.id != null){
-                            viewModel.departments.value?.scientificCircles?.contains(scienceClubs.id) == true
-                        }else{
-                            false
-                        }
+                        viewModel.departments.value?.scientificCircles?.contains(scienceClubs.id) == true
                     }) { scienceClubItem ->
                         Toast.makeText(context, scienceClubItem.name, Toast.LENGTH_SHORT).show()
                         //TODO("Navigate to specific club")
