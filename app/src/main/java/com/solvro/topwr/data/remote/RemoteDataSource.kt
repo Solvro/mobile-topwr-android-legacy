@@ -10,6 +10,7 @@ import com.solvro.topwr.data.model.notices.Notices
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.data.model.tag.TagRemote
 import com.solvro.topwr.data.remote.pagingsource.ScienceClubPagingSource
+import com.solvro.topwr.utils.Constants
 import com.solvro.topwr.utils.Resource
 import javax.inject.Inject
 
@@ -35,7 +36,10 @@ class RemoteDataSource @Inject constructor(
         getResult { service.getScientificCirclesCount() }
 
     fun getPagedScientificCircles() = Pager(
-        PagingConfig(pageSize = 10, initialLoadSize = 10)
+        PagingConfig(
+            pageSize = Constants.DEFAULT_PAGE_SIZE,
+            initialLoadSize = Constants.DEFAULT_PAGE_SIZE
+        )
     ) {
         ScienceClubPagingSource(this)
     }.flow

@@ -12,10 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.solvro.topwr.databinding.ScienceClubsFragmentBinding
-import com.solvro.topwr.utils.SpaceItemDecoration
-import com.solvro.topwr.utils.gone
-import com.solvro.topwr.utils.visible
-import com.solvro.topwr.utils.withLoadStateAdapters
+import com.solvro.topwr.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -84,7 +81,7 @@ ScienceClubsFragment : Fragment() {
                 override fun onQueryTextChange(query: String?): Boolean {
                     onQueryChangeJob?.cancel()
                     onQueryChangeJob = lifecycleScope.launch {
-                        delay(500)
+                        delay(Constants.DEFAULT_DEBOUNCE_TIME_MS)
                         viewModel.setTextFilter(query ?: "")
                     }
                     return false
