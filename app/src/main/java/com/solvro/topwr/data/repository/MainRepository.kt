@@ -9,6 +9,7 @@ import com.solvro.topwr.data.model.endDate.WeekDayException
 import com.solvro.topwr.data.model.info.Info
 import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.data.model.notices.Notices
+import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.data.remote.RemoteDataSource
 import com.solvro.topwr.utils.Resource
 import javax.inject.Inject
