@@ -80,7 +80,7 @@ class HomeFragment : Fragment() {
         }
         viewModel.departments.observe(viewLifecycleOwner) {
             if (it.status == Resource.Status.LOADING) {
-                binding.departmentsRecyclerView.loadSkeleton(R.layout.departments_home_item)
+                binding.departmentsRecyclerView.loadSkeleton(R.layout.skeleton_departments_home_item)
                 return@observe
             }
             binding.departmentsRecyclerView.apply {
@@ -100,7 +100,7 @@ class HomeFragment : Fragment() {
         }
         viewModel.buildings.observe(viewLifecycleOwner) { buildings ->
             if (buildings.status == Resource.Status.LOADING) {
-                binding.buildingsRecyclerView.loadSkeleton(R.layout.buildings_item)
+                binding.buildingsRecyclerView.loadSkeleton(R.layout.skeleton_buildings_item)
                 return@observe
             }
             binding.buildingsRecyclerView.apply {
@@ -115,7 +115,7 @@ class HomeFragment : Fragment() {
         }
         viewModel.notices.observe(viewLifecycleOwner) {
             if (it.status == Resource.Status.LOADING) {
-                binding.whatsUpRecyclerView.loadSkeleton(R.layout.whats_up_item)
+                binding.whatsUpRecyclerView.loadSkeleton(R.layout.skeleton_whats_up_item)
                 return@observe
             }
 
@@ -145,7 +145,7 @@ class HomeFragment : Fragment() {
         }
         viewModel.scienceClubs.observe(viewLifecycleOwner) {
             if (it.status == Resource.Status.LOADING) {
-                binding.scienceClubsHomeRecyclerView.loadSkeleton(R.layout.science_clubs_item)
+                binding.scienceClubsHomeRecyclerView.loadSkeleton(R.layout.skeleton_science_clubs_item)
                 return@observe
             }
             binding.scienceClubsHomeRecyclerView.apply {

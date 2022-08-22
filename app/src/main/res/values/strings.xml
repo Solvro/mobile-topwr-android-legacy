@@ -37,5 +37,7 @@
     <string name="empty_results">Brak wyników.</string>
     <string name="loading_error">Spróbuj ponownie.</string>
     <string name="retry">Ponów</string>
+    <string name="see_more">Zobacz Więcej</string>
+    <string name="item_image">Item image</string>
 
 </resources>
