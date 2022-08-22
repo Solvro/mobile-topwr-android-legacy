@@ -5,7 +5,6 @@
     <string name="departments">Wydziały</string>
     <string name="empty"/>
     <string name="search_hint">Szukaj…</string>
-    <string name="science_clubs">Koła naukowe</string>
     <string name="home_screen_greeting">Cześć, miło Cię widzieć</string>
     <string name="days">dni</string>
     <string name="until_exam">do rozpoczęcia sesji</string>
@@ -14,6 +13,8 @@
     <string name="map_button"><![CDATA[Mapa >]]></string>
     <string name="list"><![CDATA[Lista >]]></string>
     <string name="whats_up">Co słychać</string>
+    <string name="faq">Przewodnik</string>
+    <string name="science_clubs">Koła Naukowe</string>
     <string name="building_name">Budynek %1$s</string>
     <string name="data_error">Błąd wczytywania danych</string>
     <string name="Monday">Poniedziałek</string>
