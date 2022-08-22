@@ -165,7 +165,7 @@
             android:textColor="@color/lightblack"
             android:textSize="17sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scienceClubsRecyclerView" />
+            app:layout_constraintTop_toBottomOf="@+id/scienceClubsHomeRecyclerView" />
 
         <TextView
             android:id="@+id/scienceClubListTextView"
@@ -217,7 +217,7 @@
             android:textColor="@color/red"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scienceClubsRecyclerView" />
+            app:layout_constraintTop_toBottomOf="@+id/scienceClubsHomeRecyclerView" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/buildingsRecyclerView"
@@ -244,7 +244,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textViewWhatsUp" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/scienceClubsRecyclerView"
+            android:id="@+id/scienceClubsHomeRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"

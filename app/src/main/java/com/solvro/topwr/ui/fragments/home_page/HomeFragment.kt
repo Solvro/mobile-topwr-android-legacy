@@ -2,7 +2,6 @@ package com.solvro.topwr.ui.fragments.home_page
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +9,8 @@ import android.widget.Toast
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigator
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionInflater
 import com.solvro.topwr.R
@@ -20,7 +19,10 @@ import com.solvro.topwr.ui.adapters.BuildingsAdapter
 import com.solvro.topwr.ui.adapters.DepartmentsHomeAdapter
 import com.solvro.topwr.ui.adapters.ScienceClubsAdapter
 import com.solvro.topwr.ui.adapters.WhatsUpAdapter
+import com.solvro.topwr.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import koleton.api.hideSkeleton
+import koleton.api.loadSkeleton
 import java.util.*
 
 @AndroidEntryPoint
@@ -54,10 +56,11 @@ class HomeFragment : Fragment() {
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.whatsUpRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        binding.scienceClubsRecyclerView.layoutManager =
+        binding.scienceClubsHomeRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         viewmodelHandler()
     }
+
 
     @SuppressLint("SetTextI18n")
     private fun viewmodelHandler() {
@@ -76,40 +79,63 @@ class HomeFragment : Fragment() {
 
         }
         viewModel.departments.observe(viewLifecycleOwner) {
-            binding.departmentsRecyclerView.adapter =
-                it.data?.let { it1 ->
-                    DepartmentsHomeAdapter(it1) { chosenDepartment ->
-                        val action = HomeFragmentDirections.actionHomeFragmentToDepartmentsDetailsFragment(HomeFragment::class.java.name)
-                        action.departmentInfo = chosenDepartment
-                        findNavController().navigate(action)
+            if (it.status == Resource.Status.LOADING) {
+                binding.departmentsRecyclerView.loadSkeleton(R.layout.departments_home_item)
+                return@observe
+            }
+            binding.departmentsRecyclerView.apply {
+                hideSkeleton()
+                adapter =
+                    it.data?.let { it1 ->
+                        DepartmentsHomeAdapter(it1) { chosenDepartment ->
+                            val action =
+                                HomeFragmentDirections.actionHomeFragmentToDepartmentsDetailsFragment(
+                                    HomeFragment::class.java.name
+                                )
+                            action.departmentInfo = chosenDepartment
+                            findNavController().navigate(action)
+                        }
                     }
-                }
+            }
         }
         viewModel.buildings.observe(viewLifecycleOwner) { buildings ->
-            binding.buildingsRecyclerView.adapter =
-                buildings.data?.let {
-                    BuildingsAdapter(it) { chosenBuilding ->
-                        Toast.makeText(context, chosenBuilding.code, Toast.LENGTH_SHORT).show()
+            if (buildings.status == Resource.Status.LOADING) {
+                binding.buildingsRecyclerView.loadSkeleton(R.layout.buildings_item)
+                return@observe
+            }
+            binding.buildingsRecyclerView.apply {
+                hideSkeleton()
+                adapter =
+                    buildings.data?.let {
+                        BuildingsAdapter(it) { chosenBuilding ->
+                            Toast.makeText(context, chosenBuilding.code, Toast.LENGTH_SHORT).show()
+                        }
                     }
-                }
+            }
         }
         viewModel.notices.observe(viewLifecycleOwner) {
-            it.message?.let { it1 -> Log.i("testy", it1) }
-            Log.i("status", it.status.toString())
-            binding.whatsUpRecyclerView.adapter = it.data?.let { notices ->
-                WhatsUpAdapter(notices) { notice, imageView, title, date, dsc ->
-                    val extras = FragmentNavigator.Extras.Builder().addSharedElements(
-                        mapOf(
-                            imageView to getString(R.string.whatsup_image, notice.id),
-                            title to getString(R.string.whatsup_title, notice.id),
-                            date to getString(R.string.whatsup_date, notice.id),
-                            dsc to getString(R.string.whatsup_description, notice.id)
-                        )
-                    ).build()
+            if (it.status == Resource.Status.LOADING) {
+                binding.whatsUpRecyclerView.loadSkeleton(R.layout.whats_up_item)
+                return@observe
+            }
 
-                    val action =
-                        HomeFragmentDirections.actionHomeFragmentToWhatsUpFragment(notice)
-                    findNavController().navigate(action, extras)
+            binding.whatsUpRecyclerView.apply {
+                hideSkeleton()
+                adapter = it.data?.let { notices ->
+                    WhatsUpAdapter(notices) { notice, imageView, title, date, dsc ->
+                        val extras = FragmentNavigator.Extras.Builder().addSharedElements(
+                            mapOf(
+                                imageView to getString(R.string.whatsup_image, notice.id),
+                                title to getString(R.string.whatsup_title, notice.id),
+                                date to getString(R.string.whatsup_date, notice.id),
+                                dsc to getString(R.string.whatsup_description, notice.id)
+                            )
+                        ).build()
+
+                        val action =
+                            HomeFragmentDirections.actionHomeFragmentToWhatsUpFragment(notice)
+                        findNavController().navigate(action, extras)
+                    }
                 }
             }
 
@@ -118,12 +144,20 @@ class HomeFragment : Fragment() {
             }
         }
         viewModel.scienceClubs.observe(viewLifecycleOwner) {
-            binding.scienceClubsRecyclerView.adapter =
-                ScienceClubsAdapter(it) { scienceClubItem ->
-                    Toast.makeText(context, scienceClubItem.name, Toast.LENGTH_SHORT).show()
-                }
+            if (it.status == Resource.Status.LOADING) {
+                binding.scienceClubsHomeRecyclerView.loadSkeleton(R.layout.science_clubs_item)
+                return@observe
+            }
+            binding.scienceClubsHomeRecyclerView.apply {
+                hideSkeleton()
+                adapter =
+                    ScienceClubsAdapter(it.data ?: listOf()) { scienceClubItem ->
+                        Toast.makeText(context, scienceClubItem.name, Toast.LENGTH_SHORT).show()
+                    }
+            }
         }
-        viewModel.dateWeek.observe(viewLifecycleOwner) { date ->
+        viewModel.dateWeek.observe(viewLifecycleOwner)
+        { date ->
             when (date.day) {
                 Calendar.SUNDAY -> {
                     if (date.even) binding.textViewDay.text =
@@ -170,7 +204,6 @@ class HomeFragment : Fragment() {
             }
 
         }
-
     }
 
     private fun setupSharedTransition() {
