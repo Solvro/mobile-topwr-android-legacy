@@ -1,6 +1,9 @@
-package com.solvro.topwr.data.model.scienceClubs
+package com.solvro.topwr.data.model.scienceClub
 
-data class Icon(
+import com.solvro.topwr.data.model.common.Formats
+import com.solvro.topwr.data.model.common.ProviderMetadata
+
+data class BackgroundPhoto(
     val alternativeText: String?,
     val caption: String?,
     val created_at: String?,

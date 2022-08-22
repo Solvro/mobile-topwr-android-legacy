@@ -33,7 +33,12 @@ class MainRepository @Inject constructor(
             emit(remoteDataSource.getMaps())
         }
 
-    fun getScienceClubs() = liveData { emit(remoteDataSource.getScientificCircles()) }
+    suspend fun getScienceClubs(): Resource<List<ScienceClub>> =
+        remoteDataSource.getScientificCircles()
+
+    fun getScienceClubsPaged() = remoteDataSource.getPagedScientificCircles()
+
+    suspend fun getScienceClubTags() = remoteDataSource.getScienceClubTags()
 
     fun getNotices(): LiveData<Resource<List<Notices>>> =
         liveData { emit(remoteDataSource.getNotices()) }
