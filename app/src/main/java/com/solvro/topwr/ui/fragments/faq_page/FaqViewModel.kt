@@ -31,7 +31,7 @@ class FaqViewModel @Inject constructor(private val repository: MainRepository) :
     }
 
     fun setTextFilter(textFilter: String) {
-        this.textFilter = textFilter
-        getInfos(_infos, textFilter)
+        this.textFilter = textFilter.trim()
+        getInfos(_infos, this.textFilter)
     }
 }
