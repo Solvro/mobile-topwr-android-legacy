@@ -88,7 +88,11 @@
         android:id="@+id/faqFragment"
         android:name="com.solvro.topwr.ui.fragments.faq_page.FaqFragment"
         android:label="faq_fragment"
-        tools:layout="@layout/faq_fragment" />
+        tools:layout="@layout/faq_fragment" >
+        <action
+            android:id="@+id/action_faqFragment_to_faqDetailsFragment"
+            app:destination="@id/faqDetailsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/departmentsDetailsFragment"
@@ -126,5 +130,14 @@
             android:name="notice"
             app:argType="com.solvro.topwr.data.model.notices.Notices"
             />
+    </fragment>
+    <fragment
+        android:id="@+id/faqDetailsFragment"
+        android:name="com.solvro.topwr.ui.fragments.faq_details.FaqDetailsFragment"
+        android:label="faq_details_fragment"
+        tools:layout="@layout/faq_details_fragment" >
+        <argument
+            android:name="info"
+            app:argType="com.solvro.topwr.data.model.info.Info" />
     </fragment>
 </navigation>
