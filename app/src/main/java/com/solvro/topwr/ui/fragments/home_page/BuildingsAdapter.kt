@@ -1,4 +1,4 @@
-package com.solvro.topwr.ui.adapters
+package com.solvro.topwr.ui.fragments.home_page
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,28 +9,26 @@ import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.databinding.BuildingsItemBinding
 
 class BuildingsAdapter(
-    private val buildings: List<Building>,
     private val onClick: (Building) -> Unit
 ) : RecyclerView.Adapter<BuildingsAdapter.RecentlySearchedViewHolder>() {
-    inner class RecentlySearchedViewHolder(binding: BuildingsItemBinding) :
+
+    private val buildings = mutableListOf<Building>()
+
+    inner class RecentlySearchedViewHolder(private val binding: BuildingsItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        init {
-            //set OnCLickListener and send data with function
-            binding.root.setOnClickListener {
-                onClick(buildings[adapterPosition])
-            }
-        }
-
-        private val buildingItemImage = binding.buildingItemImage
-        private val buildingItemTextView = binding.buildingItemTextView
-        fun bind() {
+        fun bind(building: Building) {
             val options: RequestOptions = RequestOptions()
                 .centerCrop()
-            buildingItemTextView.text = buildings[adapterPosition].code
-            Glide.with(buildingItemImage)
-                .load(buildings[adapterPosition].photo?.url).apply(options)
-                .into(buildingItemImage)
+            binding.apply {
+                buildingItemTextView.text = building.code
+                Glide.with(buildingItemImage)
+                    .load(building.photo?.url).apply(options)
+                    .into(buildingItemImage)
+                root.setOnClickListener {
+                    onClick(building)
+                }
+            }
         }
     }
 
@@ -44,8 +42,16 @@ class BuildingsAdapter(
     }
 
     override fun onBindViewHolder(holder: RecentlySearchedViewHolder, position: Int) {
-        holder.bind()
+        holder.bind(buildings[position])
     }
 
     override fun getItemCount(): Int = buildings.size
+
+    fun setData(buildings: List<Building>) {
+        this.buildings.apply {
+            clear()
+            addAll(buildings)
+        }
+        notifyDataSetChanged()
+    }
 }
