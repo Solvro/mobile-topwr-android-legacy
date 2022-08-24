@@ -26,7 +26,10 @@ class MainRepository @Inject constructor(
     //get list of departments
     // @return LiveData<Resource<List<Departments>>> with departments
     fun getDepartments(): LiveData<Resource<List<Departments>>> =
-        liveData { emit(remoteDataSource.getDepartments()) }
+        liveData {
+            emit(Resource.loading(null))
+            emit(remoteDataSource.getDepartments())
+        }
 
     fun getMaps(): LiveData<Resource<List<Building>>> =
         liveData {
@@ -42,7 +45,10 @@ class MainRepository @Inject constructor(
     suspend fun getScienceClubTags() = remoteDataSource.getScienceClubTags()
 
     fun getNotices(): LiveData<Resource<List<Notices>>> =
-        liveData { emit(remoteDataSource.getNotices()) }
+        liveData {
+            emit(Resource.loading(null))
+            emit(remoteDataSource.getNotices())
+        }
 
     fun getWeekDayException(): LiveData<Resource<WeekDayException>> = liveData {
         emit(remoteDataSource.getWeekDayException())

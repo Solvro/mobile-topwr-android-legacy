@@ -125,7 +125,12 @@ dependencies {
     implementation 'com.jakewharton.threetenabp:threetenabp:1.4.0'
 
     // Paging
-    implementation("androidx.paging:paging-runtime-ktx:3.1.1")
+    implementation "androidx.paging:paging-runtime-ktx:3.1.1"
+
+    // Skeleton loading
+    implementation "com.ericktijerou.koleton:koleton:1.0.0-beta01"
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
 
 }
 

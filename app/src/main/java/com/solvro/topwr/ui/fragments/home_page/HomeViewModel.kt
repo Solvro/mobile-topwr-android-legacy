@@ -20,12 +20,12 @@ class HomeViewModel @Inject constructor(private val repository: MainRepository) 
     val buildings = repository.getMaps()
     val notices = repository.getNotices()
 
-    private val _scienceClubs by lazy { MutableLiveData<List<ScienceClub>>() }
-    val scienceClubs by lazy { _scienceClubs }
+    private val _scienceClubs by lazy {
+        MutableLiveData<Resource<List<ScienceClub>>>()
+            .also { getScienceClubs(it) }
+    }
+    val scienceClubs: LiveData<Resource<List<ScienceClub>>> by lazy { _scienceClubs }
 
-    //    private var _dateWeek = MutableLiveData<Date>()
-//    val dateWeek: LiveData<Date>
-//        get() = _dateWeek
     private val _endDate = repository.getEndDate()
     val endDate: LiveData<String> = Transformations.switchMap(_endDate) { dateObj ->
         var daysString = ""
@@ -78,15 +78,16 @@ class HomeViewModel @Inject constructor(private val repository: MainRepository) 
 
     }
 
-    init {
-        getScienceClubs(_scienceClubs)
-    }
-
-    private fun getScienceClubs(scienceClubsLiveData: MutableLiveData<List<ScienceClub>>) {
+    private fun getScienceClubs(scienceClubsLiveData: MutableLiveData<Resource<List<ScienceClub>>>) {
+        scienceClubsLiveData.value = Resource(
+            status = Resource.Status.LOADING,
+            null,
+            null
+        )
         viewModelScope.launch {
             val response = repository.getScienceClubs()
             if (response.status == Resource.Status.SUCCESS) {
-                scienceClubsLiveData.postValue(response.data)
+                scienceClubsLiveData.postValue(response)
             }
         }
     }
