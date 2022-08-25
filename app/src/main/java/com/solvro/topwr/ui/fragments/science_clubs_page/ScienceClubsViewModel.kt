@@ -9,9 +9,11 @@ import androidx.paging.cachedIn
 import androidx.paging.filter
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.data.repository.MainRepository
+import com.solvro.topwr.utils.Constants
 import com.solvro.topwr.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.cancellable
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -75,6 +77,7 @@ class ScienceClubsViewModel @Inject constructor(
 
     private fun getAllScienceClubs(tagFilter: String? = null, textFilter: String) =
         viewModelScope.launch {
+            delay(Constants.DEFAULT_DEBOUNCE_TIME_MS)
             repository.getScienceClubsPaged()
                 .cancellable()
                 .cachedIn(viewModelScope)

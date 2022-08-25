@@ -25,11 +25,17 @@ class MainRepository @Inject constructor(
 
     //get list of departments
     // @return LiveData<Resource<List<Departments>>> with departments
+    @Deprecated(
+        "Use paged departments flow with getDepartmentsPaged() method",
+        replaceWith = ReplaceWith("getDepartmentsPaged()")
+    )
     fun getDepartments(): LiveData<Resource<List<Departments>>> =
         liveData {
             emit(Resource.loading(null))
             emit(remoteDataSource.getDepartments())
         }
+
+    fun getDepartmentsPaged() = remoteDataSource.getPagedDepartments()
 
     fun getMaps(): LiveData<Resource<List<Building>>> =
         liveData {

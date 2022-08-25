@@ -13,43 +13,39 @@
         <action
             android:id="@+id/action_homeFragment_to_departmentsFragment"
             app:destination="@id/departmentsFragment"
-            app:popEnterAnim="@transition/fade_in"
-            app:popExitAnim="@transition/fade_out"
             app:enterAnim="@transition/fade_in"
             app:exitAnim="@transition/fade_out"
-            />
+            app:popEnterAnim="@transition/fade_in"
+            app:popExitAnim="@transition/fade_out" />
         <action
             android:id="@+id/action_homeFragment_to_departmentsDetailsFragment"
             app:destination="@id/departmentsDetailsFragment"
-            app:popEnterAnim="@transition/fade_in"
-            app:popExitAnim="@transition/fade_out"
             app:enterAnim="@transition/fade_in"
             app:exitAnim="@transition/fade_out"
-            />
+            app:popEnterAnim="@transition/fade_in"
+            app:popExitAnim="@transition/fade_out" />
         <action
             android:id="@+id/action_homeFragment_to_scienceClubsFragment"
             app:destination="@id/scienceClubsFragment"
-            app:popEnterAnim="@transition/fade_in"
-            app:popExitAnim="@transition/fade_out"
             app:enterAnim="@transition/fade_in"
             app:exitAnim="@transition/fade_out"
-            />
+            app:popEnterAnim="@transition/fade_in"
+            app:popExitAnim="@transition/fade_out" />
         <action
             android:id="@+id/action_homeFragment_to_scienceClubsDetailsFragment"
             app:destination="@id/scienceClubsDetailsFragment"
-            app:popEnterAnim="@transition/fade_in"
-            app:popExitAnim="@transition/fade_out"
             app:enterAnim="@transition/fade_in"
             app:exitAnim="@transition/fade_out"
-            />
+            app:popEnterAnim="@transition/fade_in"
+            app:popExitAnim="@transition/fade_out" />
         <action
             android:id="@+id/action_homeFragment_to_whatsUpFragment"
-            app:destination="@id/whatsUpFragment"/>
-<!--            app:popEnterAnim="@transition/fade_in"-->
-<!--            app:popExitAnim="@transition/fade_out"-->
-<!--            app:enterAnim="@transition/fade_in"-->
-<!--            app:exitAnim="@transition/fade_out"-->
-<!--            />-->
+            app:destination="@id/whatsUpFragment" />
+        <!--            app:popEnterAnim="@transition/fade_in"-->
+        <!--            app:popExitAnim="@transition/fade_out"-->
+        <!--            app:enterAnim="@transition/fade_in"-->
+        <!--            app:exitAnim="@transition/fade_out"-->
+        <!--            />-->
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
@@ -60,29 +56,27 @@
         android:id="@+id/departmentsFragment"
         android:name="com.solvro.topwr.ui.fragments.departments_page.DepartmentsFragment"
         android:label="departments_fragment"
-        tools:layout="@layout/departments_fragment" >
+        tools:layout="@layout/departments_fragment">
         <action
             android:id="@+id/action_departmentsFragment_to_departmentsDetailsFragment"
             app:destination="@id/departmentsDetailsFragment"
-            app:popEnterAnim="@transition/fade_in"
-            app:popExitAnim="@transition/fade_out"
             app:enterAnim="@transition/fade_in"
             app:exitAnim="@transition/fade_out"
-            />
+            app:popEnterAnim="@transition/fade_in"
+            app:popExitAnim="@transition/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/scienceClubsFragment"
         android:name="com.solvro.topwr.ui.fragments.science_clubs_page.ScienceClubsFragment"
         android:label="science_clubs_fragment"
-        tools:layout="@layout/science_clubs_fragment" >
+        tools:layout="@layout/science_clubs_fragment">
         <action
             android:id="@+id/action_scienceClubsFragment_to_scienceClubsDetailsFragment"
             app:destination="@id/scienceClubsDetailsFragment"
-            app:popEnterAnim="@transition/fade_in"
-            app:popExitAnim="@transition/fade_out"
             app:enterAnim="@transition/fade_in"
             app:exitAnim="@transition/fade_out"
-            />
+            app:popEnterAnim="@transition/fade_in"
+            app:popExitAnim="@transition/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/faqFragment"
@@ -94,23 +88,23 @@
         android:id="@+id/departmentsDetailsFragment"
         android:name="com.solvro.topwr.ui.fragments.departments_details_page.DepartmentsDetailsFragment"
         android:label="departments_details_fragment"
-        tools:layout="@layout/departments_details_fragment" >
+        tools:layout="@layout/departments_details_fragment">
         <argument
             android:name="department_info"
+            android:defaultValue="@null"
             app:argType="com.solvro.topwr.data.model.departments.Departments"
-            app:nullable="true"
-            android:defaultValue="@null" />
-        <action
-            android:id="@+id/action_departmentsDetailsFragment_to_scienceClubsFragment"
-            app:destination="@id/scienceClubsFragment"
-            app:popEnterAnim="@transition/fade_in"
-            app:popExitAnim="@transition/fade_out"
-            app:enterAnim="@transition/fade_in"
-            app:exitAnim="@transition/fade_out"
-            />
+            app:nullable="true" />
         <argument
             android:name="prevFragment"
             app:argType="string" />
+        <action
+            android:id="@+id/action_departmentsDetailsFragment_to_scienceClubsFragment"
+            app:destination="@id/scienceClubsFragment"
+            app:enterAnim="@transition/fade_in"
+            app:exitAnim="@transition/fade_out"
+            app:popEnterAnim="@transition/fade_in"
+            app:popExitAnim="@transition/fade_out" />
+
     </fragment>
     <fragment
         android:id="@+id/scienceClubsDetailsFragment"
@@ -124,7 +118,6 @@
         tools:layout="@layout/whats_up_fragment">
         <argument
             android:name="notice"
-            app:argType="com.solvro.topwr.data.model.notices.Notices"
-            />
+            app:argType="com.solvro.topwr.data.model.notices.Notices" />
     </fragment>
 </navigation>
