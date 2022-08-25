@@ -1,9 +1,9 @@
 package com.solvro.topwr.ui.fragments.home_page
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.solvro.topwr.data.model.date.Date
 import com.solvro.topwr.data.model.endDate.EndDate
+import com.solvro.topwr.data.model.endDate.Weekday
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.data.repository.MainRepository
 import com.solvro.topwr.utils.Constants
@@ -12,8 +12,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
+import org.threeten.bp.temporal.ChronoField
 import org.threeten.bp.temporal.ChronoUnit
-import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
@@ -43,35 +43,43 @@ class HomeViewModel @Inject constructor(private val repository: MainRepository) 
 
     private val _dateWeek = repository.getWeekDayException()
     val dateWeek: LiveData<Date> = Transformations.switchMap(_dateWeek) { exceptionObj ->
-        // TODO: Split function
-        val dayException = exceptionObj.data?.Weekday?.find {
-            val currDate = SimpleDateFormat("yyyy-MM-dd", Locale.ROOT).format(Date())
-            it.Date.equals(currDate)
+        val dateFormatter = DateTimeFormatter.ofPattern(Constants.DEFAULT_DATE_PATTERN)
+        val dayException = exceptionObj.data?.weekday?.find {
+            val exceptionDate = LocalDate.parse(it.date, dateFormatter)
+            val currDate = LocalDate.now()
+            exceptionDate.equals(currDate)
         }
-        val date: Date
-        if (dayException != null) {
-            var dayOfWeek = 0
-            when (dayException.DayOfTheWeek) {
-                "Mon" -> dayOfWeek = Calendar.MONDAY
-                "Tue" -> dayOfWeek = Calendar.TUESDAY
-                "Wed" -> dayOfWeek = Calendar.WEDNESDAY
-                "Thu" -> dayOfWeek = Calendar.THURSDAY
-                "Fri" -> dayOfWeek = Calendar.FRIDAY
-            }
-            var parity = true
-            when (dayException.Parity) {
-                "Odd" -> parity = false
-                "Even" -> parity = true
-            }
-            date = Date(dayOfWeek, parity)
-        } else {
-            val calendar = Calendar.getInstance()
-            val day = calendar[Calendar.DAY_OF_WEEK]
-            val week = calendar.get(Calendar.WEEK_OF_YEAR) + 1
-            Log.i("Week", week.toString())
-            date = Date(day, week % 2 == 0)
-        }
+        val date = getAcademicDate(dayException)
         liveData { emit(date) }
+    }
+
+    private fun getAcademicDate(
+        dayException: Weekday?
+    ): Date {
+        return if (dayException != null) {
+            val dayOfWeek = when (dayException.dayOfTheWeek) {
+                "Mon" -> Calendar.MONDAY
+                "Tue" -> Calendar.TUESDAY
+                "Wed" -> Calendar.WEDNESDAY
+                "Thu" -> Calendar.THURSDAY
+                "Fri" -> Calendar.FRIDAY
+                "Sat" -> Calendar.SATURDAY
+                "Sun" -> Calendar.SUNDAY
+                else -> Calendar.SUNDAY
+            }
+            val parity = when (dayException.parity) {
+                "Odd" -> false
+                "Even" -> true
+                else -> true
+            }
+            Date(dayOfWeek, parity)
+        } else {
+            val currDate = LocalDate.now()
+            Date(
+                currDate.dayOfWeek.value + 1,
+                currDate.get(ChronoField.ALIGNED_WEEK_OF_YEAR) % 2 == 0
+            )
+        }
     }
 
 
