@@ -10,6 +10,7 @@ import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.data.model.notices.Notices
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.data.model.tag.TagRemote
+import com.solvro.topwr.data.remote.pagingsource.DepartmentPagingSource
 import com.solvro.topwr.data.remote.pagingsource.ScienceClubPagingSource
 import com.solvro.topwr.utils.Constants
 import com.solvro.topwr.utils.Resource
@@ -24,8 +25,28 @@ class RemoteDataSource @Inject constructor(
     suspend fun getEndDate(): Resource<EndDate> = getResult { service.getEndDate() }
 
     //get list of departments
-    suspend fun getDepartments(): Resource<List<Departments>> =
-        getResult { service.getDepartments() }
+    suspend fun getDepartments(
+        startIndex: Int = 1,
+        limit: Int = 20
+    ): Resource<List<Departments>> =
+        getResult {
+            service.getDepartments(
+                startIndex = startIndex,
+                limit = limit
+            )
+        }
+
+    fun getPagedDepartments() = Pager(
+        PagingConfig(
+            pageSize = Constants.DEFAULT_PAGE_SIZE,
+            initialLoadSize = Constants.DEFAULT_PAGE_SIZE
+        )
+    ) {
+        DepartmentPagingSource(this)
+    }.flow
+
+    suspend fun getDepartmentsCount(): Resource<Int> =
+        getResult { service.getDepartmentsCount() }
 
     suspend fun getScientificCircles(
         startIndex: Int = 1,
