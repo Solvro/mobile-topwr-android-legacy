@@ -11,7 +11,10 @@ import com.bumptech.glide.Glide
 import com.solvro.topwr.data.model.departments.Departments
 import com.solvro.topwr.databinding.ItemDepartmentBinding
 
-class DepartmentsAdapter(diffCallback: DiffUtil.ItemCallback<Departments>) :
+class DepartmentsAdapter(
+    diffCallback: DiffUtil.ItemCallback<Departments>,
+    private val onItemClick: (Departments) -> Unit
+) :
     PagingDataAdapter<Departments, DepartmentsAdapter.ViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
@@ -45,6 +48,9 @@ class DepartmentsAdapter(diffCallback: DiffUtil.ItemCallback<Departments>) :
 
                 acronymTextView.text = item.code
                 departmentNameTextView.text = item.name
+                root.setOnClickListener {
+                    onItemClick.invoke(item)
+                }
             }
         }
     }

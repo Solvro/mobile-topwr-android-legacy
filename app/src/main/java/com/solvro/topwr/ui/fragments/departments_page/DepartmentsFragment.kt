@@ -8,8 +8,10 @@ import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.solvro.topwr.R
 import com.solvro.topwr.databinding.DepartmentsFragmentBinding
 import com.solvro.topwr.ui.adapters.DefaultLoadStateAdapter
 import com.solvro.topwr.utils.gone
@@ -27,7 +29,14 @@ class DepartmentsFragment : Fragment() {
 
     private lateinit var binding: DepartmentsFragmentBinding
     private val viewModel: DepartmentsViewModel by viewModels()
-    private var departmentsAdapter = DepartmentsAdapter(DepartmentComparator).apply {
+    private var departmentsAdapter = DepartmentsAdapter(DepartmentComparator) {
+        val action = DepartmentsFragmentDirections
+            .actionDepartmentsFragmentToDepartmentsDetailsFragment(
+                getString(R.string.departments)
+            )
+        action.departmentInfo = it
+        findNavController().navigate(action)
+    }.apply {
         addLoadStateListener { loadState ->
             // Checks if data is empty
             val isEmpty = loadState.source.refresh is LoadState.NotLoading
