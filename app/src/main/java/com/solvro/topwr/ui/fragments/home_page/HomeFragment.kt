@@ -121,8 +121,8 @@ class HomeFragment : Fragment() {
         viewModel.apply {
             endDate.observe(viewLifecycleOwner) {
                 binding.textViewNumber1.text = (it.getOrNull(0) ?: "0").toString()
-                binding.textViewNumber2.text = (it.getOrNull(0) ?: "0").toString()
-                binding.textViewNumber3.text = (it.getOrNull(0) ?: "0").toString()
+                binding.textViewNumber2.text = (it.getOrNull(1) ?: "0").toString()
+                binding.textViewNumber3.text = (it.getOrNull(2) ?: "0").toString()
             }
 
             dateWeek.observe(viewLifecycleOwner) { date ->
