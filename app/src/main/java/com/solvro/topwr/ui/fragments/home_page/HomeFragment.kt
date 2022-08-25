@@ -17,8 +17,8 @@ import androidx.transition.TransitionInflater
 import com.solvro.topwr.R
 import com.solvro.topwr.data.model.notices.Notices
 import com.solvro.topwr.databinding.HomeFragmentBinding
+import com.solvro.topwr.utils.AcademicDayMapper
 import com.solvro.topwr.utils.Resource
-import com.solvro.topwr.utils.getAcademicScheduleDay
 import dagger.hilt.android.AndroidEntryPoint
 import koleton.api.hideSkeleton
 import koleton.api.loadSkeleton
@@ -120,15 +120,14 @@ class HomeFragment : Fragment() {
     private fun setObservers() {
         viewModel.apply {
             endDate.observe(viewLifecycleOwner) {
-                if (it.length == 3) {
-                    binding.textViewNumber1.text = it[0] + ""
-                    binding.textViewNumber2.text = it[1] + ""
-                    binding.textViewNumber3.text = it[2] + ""
-                } else {
-                    binding.textViewNumber1.text = "0"
-                    binding.textViewNumber2.text = "0"
-                    binding.textViewNumber3.text = "0"
-                }
+                binding.textViewNumber1.text = (it.getOrNull(0) ?: "0").toString()
+                binding.textViewNumber2.text = (it.getOrNull(0) ?: "0").toString()
+                binding.textViewNumber3.text = (it.getOrNull(0) ?: "0").toString()
+            }
+
+            dateWeek.observe(viewLifecycleOwner) { date ->
+                binding.textViewDay.text =
+                    AcademicDayMapper.mapAcademicScheduleDay(requireContext(), date)
             }
 
             departments.observe(viewLifecycleOwner) {
@@ -176,12 +175,7 @@ class HomeFragment : Fragment() {
                     }
                 }
             }
-
-            dateWeek.observe(viewLifecycleOwner) { date ->
-                binding.textViewDay.text = getAcademicScheduleDay(requireContext(), date)
-            }
         }
-
     }
 
     private fun setupSharedTransition() {
