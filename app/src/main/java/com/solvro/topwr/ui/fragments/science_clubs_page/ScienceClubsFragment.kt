@@ -12,10 +12,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.solvro.topwr.databinding.ScienceClubsFragmentBinding
-import com.solvro.topwr.utils.*
+import com.solvro.topwr.ui.adapters.DefaultLoadStateAdapter
+import com.solvro.topwr.utils.SpaceItemDecoration
+import com.solvro.topwr.utils.gone
+import com.solvro.topwr.utils.visible
+import com.solvro.topwr.utils.withLoadStateAdapters
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -29,26 +31,14 @@ ScienceClubsFragment : Fragment() {
     private val viewModel: ScienceClubsViewModel by viewModels()
     private lateinit var binding: ScienceClubsFragmentBinding
     private var categoriesAdapter: ScienceClubsCategoriesAdapter = ScienceClubsCategoriesAdapter {}
-    private var onQueryChangeJob: Job? = null
     private var scienceClubsAdapter: ScienceClubsAdapter =
         ScienceClubsAdapter(ScienceClubComparator).apply {
             addLoadStateListener { loadState ->
-                // Checks if data are empty
-                if (
-                    loadState.source.refresh is LoadState.NotLoading
-                    && loadState.append.endOfPaginationReached
-                    && this.itemCount < 1
-                ) {
-                    binding.apply {
-                        scienceClubRefreshLayout.gone()
-                        scienceClubEmptyView.visible()
-                    }
-                } else {
-                    binding.apply {
-                        scienceClubRefreshLayout.visible()
-                        scienceClubEmptyView.gone()
-                    }
-                }
+                // Checks if data is empty
+                val isEmpty = loadState.source.refresh is LoadState.NotLoading
+                        && loadState.append.endOfPaginationReached
+                        && this.itemCount < 1
+                setEmptyView(isEmpty)
             }
         }
 
@@ -80,11 +70,7 @@ ScienceClubsFragment : Fragment() {
                 }
 
                 override fun onQueryTextChange(query: String?): Boolean {
-                    onQueryChangeJob?.cancel()
-                    onQueryChangeJob = lifecycleScope.launch {
-                        delay(Constants.DEFAULT_DEBOUNCE_TIME_MS)
-                        viewModel.setTextFilter(query ?: "")
-                    }
+                    viewModel.setTextFilter(query ?: "")
                     return false
                 }
             })
@@ -118,8 +104,8 @@ ScienceClubsFragment : Fragment() {
     private fun setupScienceClubsRecyclerView() {
         binding.scienceClubsRecyclerView.apply {
             adapter = scienceClubsAdapter.withLoadStateAdapters(
-                header = ScienceClubsLoadStateAdapter(scienceClubsAdapter::retry),
-                footer = ScienceClubsLoadStateAdapter(scienceClubsAdapter::retry)
+                header = DefaultLoadStateAdapter(scienceClubsAdapter::retry),
+                footer = DefaultLoadStateAdapter(scienceClubsAdapter::retry)
             )
             layoutManager = LinearLayoutManager(requireContext())
         }
@@ -136,6 +122,18 @@ ScienceClubsFragment : Fragment() {
                     spaceWidth = 16
                 )
             )
+        }
+    }
+
+    private fun setEmptyView(isEmpty: Boolean) {
+        binding.apply {
+            if (isEmpty) {
+                scienceClubRefreshLayout.gone()
+                scienceClubEmptyView.visible()
+            } else {
+                scienceClubRefreshLayout.visible()
+                scienceClubEmptyView.gone()
+            }
         }
     }
 }

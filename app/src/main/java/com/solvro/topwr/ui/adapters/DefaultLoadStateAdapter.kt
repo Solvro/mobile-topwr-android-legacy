@@ -1,4 +1,4 @@
-package com.solvro.topwr.ui.fragments.science_clubs_page
+package com.solvro.topwr.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,8 +9,8 @@ import com.solvro.topwr.databinding.ItemLoadstateBinding
 import com.solvro.topwr.utils.gone
 import com.solvro.topwr.utils.visible
 
-class ScienceClubsLoadStateAdapter(private val retry: () -> Unit) :
-    LoadStateAdapter<ScienceClubsLoadStateAdapter.ViewHolder>() {
+class DefaultLoadStateAdapter(private val retry: () -> Unit) :
+    LoadStateAdapter<DefaultLoadStateAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: ItemLoadstateBinding) :
         RecyclerView.ViewHolder(binding.root) {
