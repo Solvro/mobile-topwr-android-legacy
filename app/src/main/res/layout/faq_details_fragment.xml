@@ -56,7 +56,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="24dp"
                 android:fontFamily="@font/rubik_medium"
-                android:textColor="@color/whatsUpNewsTitle"
+                android:textColor="@color/faq_normal_text_color"
                 tools:text="Wybitnie uzdolnieni na PWr. Praca z nimi to przyjemność!" />
 
             <TextView
@@ -66,6 +66,7 @@
                 android:layout_marginLeft="24dp"
                 android:layout_marginTop="18dp"
                 android:layout_marginRight="24dp"
+                android:textColor="@color/faq_normal_text_color"
                 tools:text="Na Politechnice Wrocławskiej działa program przeznaczony dla studentów, którzy mają wyjątkowe zdolności naukowe. Już od pierwszego roku mogą oni liczyć m.in. na indywidualną pomoc tutora i stypendium naukowe. Wszystko po to, aby jeszcze bardziej rozwijać się w wybranej przez siebie dziedzinie nauki.
 
 Z programu „Wybitnie uzdolnieni na Politechnice Wrocławskiej” od początku jego istnienia, czyli od 2013 roku, skorzystało już ponad 600 młodych ludzi. Wśród nich jest Jakub Pawłowski, który studiuje inżynierię kwantową na Wydziale Podstawowych Problemów Techniki. Jako wybitny absolwent II LO w Świdnicy trafił pod opiekę naukową prof. Katarzyny Weron. " />

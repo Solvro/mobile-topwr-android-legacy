@@ -23,7 +23,10 @@ import com.solvro.topwr.R
 import com.solvro.topwr.data.model.info.Info
 import com.solvro.topwr.databinding.FaqDetailsFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
+import io.noties.markwon.AbstractMarkwonPlugin
 import io.noties.markwon.Markwon
+import io.noties.markwon.core.MarkwonTheme
+import io.noties.markwon.linkify.LinkifyPlugin
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -64,19 +67,12 @@ class FaqDetailsFragment : Fragment(R.layout.faq_details_fragment) {
 
         binding.apply {
 
-            context?.let { context ->
-                info?.description?.let { description ->
-                    val markwon = Markwon.create(context)
-                    markwon.setMarkdown(faqDescription, description)
-                }
-            };
-
-            (faqDescription as TextView).movementMethod = LinkMovementMethod.getInstance()
-
             backToFaq.setOnClickListener {
                 startPostponedEnterTransition()
                 findNavController().navigateUp()
             }
+
+            info?.description?.let { createTextFromMarkdown(it, faqDescription) }
         }
 
         info?.photo?.url?.let { loadImage(it) }
@@ -121,5 +117,22 @@ class FaqDetailsFragment : Fragment(R.layout.faq_details_fragment) {
             .inflateTransition(R.transition.move)
         sharedElementReturnTransition = TransitionInflater.from(context!!)
             .inflateTransition(R.transition.move)
+    }
+
+    private fun createTextFromMarkdown(description: String, faqDescription: TextView) {
+        context?.let { context ->
+                val markwon = Markwon.builder(context)
+                    .usePlugin(object : AbstractMarkwonPlugin() {
+                        override fun configureTheme(builder: MarkwonTheme.Builder) {
+                            builder
+                                .codeTextColor(context.getColor(R.color.faq_normal_text_color))
+                                .linkColor(context.getColor(R.color.faq_link))
+                                .isLinkUnderlined(true)
+                        }
+                    })
+                    .usePlugin(LinkifyPlugin.create())
+                    .build()
+                markwon.setMarkdown(faqDescription, description)
+        }
     }
 }
