@@ -6,6 +6,7 @@ import com.solvro.topwr.data.model.endDate.EndDate
 import com.solvro.topwr.data.model.endDate.Weekday
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.data.repository.MainRepository
+import com.solvro.topwr.utils.AcademicDayMapper
 import com.solvro.topwr.utils.Constants
 import com.solvro.topwr.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +15,6 @@ import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.temporal.ChronoField
 import org.threeten.bp.temporal.ChronoUnit
-import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -57,21 +57,9 @@ class HomeViewModel @Inject constructor(private val repository: MainRepository) 
         dayException: Weekday?
     ): Date {
         return if (dayException != null) {
-            val dayOfWeek = when (dayException.dayOfTheWeek) {
-                "Mon" -> Calendar.MONDAY
-                "Tue" -> Calendar.TUESDAY
-                "Wed" -> Calendar.WEDNESDAY
-                "Thu" -> Calendar.THURSDAY
-                "Fri" -> Calendar.FRIDAY
-                "Sat" -> Calendar.SATURDAY
-                "Sun" -> Calendar.SUNDAY
-                else -> Calendar.SUNDAY
-            }
-            val parity = when (dayException.parity) {
-                "Odd" -> false
-                "Even" -> true
-                else -> true
-            }
+            val dayOfWeek =
+                AcademicDayMapper.mapWeekDayStringToCalendarWeekDay(dayException.dayOfTheWeek ?: "")
+            val parity = AcademicDayMapper.mapParityToBoolean(dayException.parity ?: "")
             Date(dayOfWeek, parity)
         } else {
             val currDate = LocalDate.now()

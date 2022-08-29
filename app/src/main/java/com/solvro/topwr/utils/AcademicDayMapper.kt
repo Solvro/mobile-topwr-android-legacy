@@ -58,5 +58,26 @@ class AcademicDayMapper {
                 }
             }
         }
+
+        fun mapWeekDayStringToCalendarWeekDay(weekday: String): Int {
+            return when (weekday) {
+                "Mon" -> Calendar.MONDAY
+                "Tue" -> Calendar.TUESDAY
+                "Wed" -> Calendar.WEDNESDAY
+                "Thu" -> Calendar.THURSDAY
+                "Fri" -> Calendar.FRIDAY
+                "Sat" -> Calendar.SATURDAY
+                "Sun" -> Calendar.SUNDAY
+                else -> Calendar.SUNDAY
+            }
+        }
+
+        fun mapParityToBoolean(parity: String): Boolean {
+            return when (parity) {
+                "Odd" -> false
+                "Even" -> true
+                else -> true
+            }
+        }
     }
 }
