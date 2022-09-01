@@ -1,8 +1,8 @@
 package com.solvro.topwr.data.model.endDate
 
 data class Weekday(
-    val Date: String?,
-    val DayOfTheWeek: String?,
-    val Parity: String?,
+    val date: String?,
+    val dayOfTheWeek: String?,
+    val parity: String?,
     val id: Int?
 )
