@@ -40,5 +40,8 @@
     <string name="retry">Ponów</string>
     <string name="see_more">Zobacz Więcej</string>
     <string name="item_image">Item image</string>
+    <string name="no_internet_retry">Spróbuj ponownie</string>
+    <string name="no_internet_main">Ooops!</string>
+    <string name="no_internet_description">Wygląda na to, że nie masz połączenia z Internetem. Podłącz się do sieci i spróbuj ponownie</string>
 
 </resources>
