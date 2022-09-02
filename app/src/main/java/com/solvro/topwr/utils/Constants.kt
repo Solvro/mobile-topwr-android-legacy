@@ -9,4 +9,6 @@ object Constants {
     const val DEFAULT_PAGE_SIZE = 10
 
     const val DEFAULT_DATE_PATTERN = "yyyy-MM-dd"
+
+    const val PLACEHOLDER_COLOR = "#DB2B10"
 }
