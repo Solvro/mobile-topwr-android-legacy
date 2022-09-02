@@ -61,9 +61,11 @@ class FaqDetailsFragment : Fragment(R.layout.faq_details_fragment) {
 
         val info = viewModel.info.value
 
-        info?.let {
-            setTransitionNames(it)
-        }
+        info?.let { setupUI(it) }
+    }
+
+    private fun setupUI(info: Info) {
+        setTransitionNames(info)
 
         binding.apply {
 
@@ -72,10 +74,10 @@ class FaqDetailsFragment : Fragment(R.layout.faq_details_fragment) {
                 findNavController().navigateUp()
             }
 
-            info?.description?.let { createTextFromMarkdown(it, faqDescription) }
+            info.description?.let { createTextFromMarkdown(it, faqDescription) }
         }
 
-        info?.photo?.url?.let { loadImage(it) }
+        info.photo?.url?.let { loadImage(it) }
     }
 
     private fun loadImage(imageUrl: String) {
