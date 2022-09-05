@@ -7,4 +7,6 @@ object Constants {
 
     const val DEFAULT_DEBOUNCE_TIME_MS = 500L
     const val DEFAULT_PAGE_SIZE = 10
+
+    const val DEFAULT_DATE_PATTERN = "yyyy-MM-dd"
 }

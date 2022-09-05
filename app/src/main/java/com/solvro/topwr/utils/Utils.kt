@@ -1,5 +1,6 @@
 package com.solvro.topwr.utils
 
+import android.content.Context
 import android.content.res.Resources
 import android.graphics.Rect
 import android.util.TypedValue
@@ -8,6 +9,9 @@ import androidx.paging.LoadStateAdapter
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.solvro.topwr.R
+import com.solvro.topwr.data.model.date.Date
+import java.util.*
 
 class SpaceItemDecoration(private val spaceWidth: Int = 0, private val spaceHeight: Int = 0) :
     RecyclerView.ItemDecoration() {

@@ -9,7 +9,7 @@
         android:id="@+id/departmentCardView"
         style="@style/VerticalListCardView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -19,16 +19,24 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/departmentLogo"
+                android:id="@+id/departmentBackground"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_w2_bg"
+                android:src="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageView
+                android:id="@+id/departmentListItemLogo"
+                android:layout_width="120dp"
+                android:layout_height="0dp"
+                android:alpha="0.5"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/acronymTextView"
@@ -38,27 +46,26 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/rubik_medium"
                 android:textColor="@color/white"
-                android:textSize="17sp"
+                android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="W-1" />
 
             <TextView
                 android:id="@+id/departmentNameTextView"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="14dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="8dp"
                 android:fontFamily="@font/rubik"
                 android:maxLines="2"
                 android:textColor="@color/white"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/departmentListItemLogo"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/acronymTextView"
                 tools:text="Wydział Budownictwa Wodnego i Lądowego" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

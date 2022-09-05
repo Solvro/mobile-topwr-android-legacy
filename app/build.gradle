@@ -103,8 +103,6 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2'
 
     // Moshi
-    //implementation "com.squareup.moshi:moshi:1.12.0"
-    //kapt "com.squareup.moshi:moshi-kotlin-codegen:1.12.0"
     implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
 
     // Dagger Hilt
@@ -125,9 +123,13 @@ dependencies {
     implementation 'com.jakewharton.threetenabp:threetenabp:1.4.0'
 
     // Paging
-    implementation("androidx.paging:paging-runtime-ktx:3.1.1")
+    implementation "androidx.paging:paging-runtime-ktx:3.1.1"
 
-    //Markwon
+    // Skeleton loading
+    implementation "com.ericktijerou.koleton:koleton:1.0.0-beta01"
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
+    // Markwon
     def markwon_version = "4.6.2"
     implementation("io.noties.markwon:core:$markwon_version")
     implementation("io.noties.markwon:ext-strikethrough:$markwon_version")

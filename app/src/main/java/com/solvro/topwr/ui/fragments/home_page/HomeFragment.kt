@@ -2,12 +2,12 @@ package com.solvro.topwr.ui.fragments.home_page
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
-import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.FragmentNavigator
@@ -15,13 +15,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionInflater
 import com.solvro.topwr.R
+import com.solvro.topwr.data.model.notices.Notices
 import com.solvro.topwr.databinding.HomeFragmentBinding
-import com.solvro.topwr.ui.adapters.BuildingsAdapter
-import com.solvro.topwr.ui.adapters.DepartmentsHomeAdapter
-import com.solvro.topwr.ui.adapters.ScienceClubsAdapter
-import com.solvro.topwr.ui.adapters.WhatsUpAdapter
+import com.solvro.topwr.utils.AcademicDayMapper
+import com.solvro.topwr.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
+import koleton.api.hideSkeleton
+import koleton.api.loadSkeleton
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -32,6 +32,45 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: HomeFragmentBinding
     private val viewModel: HomeViewModel by viewModels()
+
+    /* Adapters */
+    private val buildingsAdapter = BuildingsAdapter { chosenBuilding ->
+        Toast.makeText(context, chosenBuilding.code, Toast.LENGTH_SHORT)
+            .show()
+    }
+
+    private val scienceClubAdapter = ScienceClubsAdapter { scienceClubItem ->
+        Toast.makeText(context, scienceClubItem.name, Toast.LENGTH_SHORT)
+            .show()
+    }
+
+    private val departmentsHomeAdapter = DepartmentsHomeAdapter { chosenDepartment ->
+        val action =
+            HomeFragmentDirections.actionHomeFragmentToDepartmentsDetailsFragment(
+                HomeFragment::class.java.name
+            )
+        action.departmentInfo = chosenDepartment
+        findNavController().navigate(action)
+    }
+
+    private val whatsUpAdapter =
+        WhatsUpAdapter { notice: Notices, noticeIV: ImageView, titleTV: TextView,
+                         dateTV: TextView, descTV: TextView ->
+            val extras = FragmentNavigator.Extras.Builder().addSharedElements(
+                mapOf(
+                    noticeIV to getString(R.string.whatsup_image, notice.id),
+                    titleTV to getString(R.string.whatsup_title, notice.id),
+                    dateTV to getString(R.string.whatsup_date, notice.id),
+                    descTV to getString(R.string.whatsup_description, notice.id)
+                )
+            ).build()
+
+            val action =
+                HomeFragmentDirections.actionHomeFragmentToWhatsUpFragment(
+                    notice
+                )
+            findNavController().navigate(action, extras)
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,129 +87,95 @@ class HomeFragment : Fragment() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.buildingsRecyclerView.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        binding.departmentsRecyclerView.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        binding.whatsUpRecyclerView.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        binding.scienceClubsRecyclerView.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        viewmodelHandler()
+        setupRecyclerViews()
+        setObservers()
     }
 
+    private fun setupRecyclerViews() {
+        fun getDefaultLayoutManager() =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+        binding.apply {
+            buildingsRecyclerView.apply {
+                layoutManager = getDefaultLayoutManager()
+                adapter = buildingsAdapter
+            }
+            departmentsRecyclerView.apply {
+                layoutManager = getDefaultLayoutManager()
+                adapter = departmentsHomeAdapter
+            }
+            whatsUpRecyclerView.apply {
+                layoutManager = getDefaultLayoutManager()
+                adapter = whatsUpAdapter
+            }
+            scienceClubsHomeRecyclerView.apply {
+                layoutManager = getDefaultLayoutManager()
+                adapter = scienceClubAdapter
+            }
+        }
+    }
+
+
     @SuppressLint("SetTextI18n")
-    private fun viewmodelHandler() {
-
-        //livedata for end date and bind data
-        viewModel.endDate.observe(viewLifecycleOwner) {
-            if (it.length == 3) {
-                binding.textViewNumber1.text = it[0] + ""
-                binding.textViewNumber2.text = it[1] + ""
-                binding.textViewNumber3.text = it[2] + ""
-            } else {
-                binding.textViewNumber1.text = "0"
-                binding.textViewNumber2.text = "0"
-                binding.textViewNumber3.text = "0"
+    private fun setObservers() {
+        viewModel.apply {
+            endDate.observe(viewLifecycleOwner) {
+                binding.textViewNumber1.text = (it.getOrNull(0) ?: "0").toString()
+                binding.textViewNumber2.text = (it.getOrNull(1) ?: "0").toString()
+                binding.textViewNumber3.text = (it.getOrNull(2) ?: "0").toString()
             }
 
-        }
-        viewModel.departments.observe(viewLifecycleOwner) {
-            binding.departmentsRecyclerView.adapter =
-                it.data?.let { it1 ->
-                    DepartmentsHomeAdapter(it1) { chosenDepartment ->
-                        val action = HomeFragmentDirections.actionHomeFragmentToDepartmentsDetailsFragment(HomeFragment::class.java.name)
-                        action.departmentInfo = chosenDepartment
-                        findNavController().navigate(action)
+            dateWeek.observe(viewLifecycleOwner) { date ->
+                binding.textViewDay.text =
+                    AcademicDayMapper.mapAcademicScheduleDay(requireContext(), date)
+            }
+
+            departments.observe(viewLifecycleOwner) {
+                binding.departmentsRecyclerView.apply {
+                    if (it.status == Resource.Status.LOADING) {
+                        loadSkeleton(R.layout.skeleton_departments_home_item)
+                    } else {
+                        hideSkeleton()
+                        it.data?.let { data ->
+                            departmentsHomeAdapter.setData(data)
+                        }
                     }
                 }
-        }
-        viewModel.buildings.observe(viewLifecycleOwner) { buildings ->
-            binding.buildingsRecyclerView.adapter =
-                buildings.data?.let {
-                    BuildingsAdapter(it) { chosenBuilding ->
-                        Toast.makeText(context, chosenBuilding.code, Toast.LENGTH_SHORT).show()
+            }
+
+            buildings.observe(viewLifecycleOwner) { buildings ->
+                binding.buildingsRecyclerView.apply {
+                    if (buildings.status == Resource.Status.LOADING) {
+                        loadSkeleton(R.layout.skeleton_buildings_item)
+                    } else {
+                        hideSkeleton()
+                        buildings.data?.let { data -> buildingsAdapter.setData(data) }
                     }
                 }
-        }
-        viewModel.notices.observe(viewLifecycleOwner) {
-            it.message?.let { it1 -> Log.i("testy", it1) }
-            Log.i("status", it.status.toString())
-            binding.whatsUpRecyclerView.adapter = it.data?.let { notices ->
-                WhatsUpAdapter(notices) { notice, imageView, title, date, dsc ->
-                    val extras = FragmentNavigator.Extras.Builder().addSharedElements(
-                        mapOf(
-                            imageView to getString(R.string.whatsup_image, notice.id),
-                            title to getString(R.string.whatsup_title, notice.id),
-                            date to getString(R.string.whatsup_date, notice.id),
-                            dsc to getString(R.string.whatsup_description, notice.id)
-                        )
-                    ).build()
+            }
 
-                    val action =
-                        HomeFragmentDirections.actionHomeFragmentToWhatsUpFragment(notice)
-                    findNavController().navigate(action, extras)
+            notices.observe(viewLifecycleOwner) {
+                binding.whatsUpRecyclerView.apply {
+                    if (it.status == Resource.Status.LOADING) {
+                        loadSkeleton(R.layout.skeleton_whats_up_item)
+                    } else {
+                        hideSkeleton()
+                        it.data?.let { notices -> whatsUpAdapter.setData(notices) }
+                    }
                 }
             }
 
-            (view!!.parent as? ViewGroup)?.doOnPreDraw {
-                startPostponedEnterTransition()
-            }
-        }
-        viewModel.scienceClubs.observe(viewLifecycleOwner) {
-            binding.scienceClubsRecyclerView.adapter =
-                ScienceClubsAdapter(it) { scienceClubItem ->
-                    Toast.makeText(context, scienceClubItem.name, Toast.LENGTH_SHORT).show()
-                }
-        }
-        viewModel.dateWeek.observe(viewLifecycleOwner) { date ->
-            when (date.day) {
-                Calendar.SUNDAY -> {
-                    if (date.even) binding.textViewDay.text =
-                        getString(R.string.Even_f) + " " + getString(R.string.Sunday)
-                    else binding.textViewDay.text =
-                        getString(R.string.Odd_f) + " " + getString(R.string.Sunday)
-                }
-                Calendar.MONDAY -> {
-                    if (date.even) binding.textViewDay.text =
-                        getString(R.string.Even) + " " + getString(R.string.Monday)
-                    else binding.textViewDay.text =
-                        getString(R.string.Odd) + " " + getString(R.string.Monday)
-                }
-                Calendar.TUESDAY -> {
-                    if (date.even) binding.textViewDay.text =
-                        getString(R.string.Even) + " " + getString(R.string.Tuesday)
-                    else binding.textViewDay.text =
-                        getString(R.string.Odd) + " " + getString(R.string.Tuesday)
-                }
-                Calendar.WEDNESDAY -> {
-                    if (date.even) binding.textViewDay.text =
-                        getString(R.string.Even_f) + " " + getString(R.string.Wednesday)
-                    else binding.textViewDay.text =
-                        getString(R.string.Odd_f) + " " + getString(R.string.Wednesday)
-                }
-                Calendar.THURSDAY -> {
-                    if (date.even) binding.textViewDay.text =
-                        getString(R.string.Even) + " " + getString(R.string.Thursday)
-                    else binding.textViewDay.text =
-                        getString(R.string.Odd) + " " + getString(R.string.Thursday)
-                }
-                Calendar.FRIDAY -> {
-                    if (date.even) binding.textViewDay.text =
-                        getString(R.string.Even) + " " + getString(R.string.Friday)
-                    else binding.textViewDay.text =
-                        getString(R.string.Odd) + " " + getString(R.string.Friday)
-                }
-                Calendar.SATURDAY -> {
-                    if (date.even) binding.textViewDay.text =
-                        getString(R.string.Even_f) + " " + getString(R.string.Saturday)
-                    else binding.textViewDay.text =
-                        getString(R.string.Odd_f) + " " + getString(R.string.Saturday)
+            scienceClubs.observe(viewLifecycleOwner) {
+                binding.scienceClubsHomeRecyclerView.apply {
+                    if (it.status == Resource.Status.LOADING) {
+                        loadSkeleton(R.layout.skeleton_science_clubs_item)
+                    } else {
+                        hideSkeleton()
+                        it.data?.let { data -> scienceClubAdapter.setData(data) }
+                    }
                 }
             }
-
         }
-
     }
 
     private fun setupSharedTransition() {
