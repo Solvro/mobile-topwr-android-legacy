@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.solvro.topwr.data.model.departments.Departments
 import com.solvro.topwr.databinding.ItemDepartmentBinding
-import com.solvro.topwr.utils.Constants
 
 class DepartmentsAdapter(
     diffCallback: DiffUtil.ItemCallback<Departments>,
@@ -35,8 +34,8 @@ class DepartmentsAdapter(
             val gradientDrawable = GradientDrawable(
                 GradientDrawable.Orientation.BL_TR,
                 intArrayOf(
-                    Color.parseColor(item.color?.gradientFirst ?: Constants.PLACEHOLDER_COLOR),
-                    Color.parseColor(item.color?.gradientSecond ?: Constants.PLACEHOLDER_COLOR)
+                    Color.parseColor(item.color?.gradientFirst!!),
+                    Color.parseColor(item.color?.gradientSecond!!)
                 )
             )
             with(binding) {

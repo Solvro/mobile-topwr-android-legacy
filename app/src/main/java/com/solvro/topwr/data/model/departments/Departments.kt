@@ -2,10 +2,10 @@ package com.solvro.topwr.data.model.departments
 
 import java.io.Serializable
 
-data class Departments(
+class Departments(
     val addres: String?,
     val code: String?,
-    val color: Color?,
+    color: Color?,
     val created_at: String?,
     val description: String?,
     val fieldsOfStudy: List<FieldsOfStudy>?,
@@ -21,4 +21,8 @@ data class Departments(
     val scientificCircles: List<Int>?,
     val updated_at: String?,
     val website: String?
-): Serializable
+): Serializable {
+
+    val color: Color? = color
+        get() = field ?: Color(Color.PLACEHOLDER_COLOR, Color.PLACEHOLDER_COLOR, id)
+}

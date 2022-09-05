@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.solvro.topwr.data.model.departments.Departments
 import com.solvro.topwr.databinding.DepartmentsHomeItemBinding
-import com.solvro.topwr.utils.Constants.PLACEHOLDER_COLOR
 
 
 class DepartmentsHomeAdapter(
@@ -20,9 +19,12 @@ class DepartmentsHomeAdapter(
     inner class DepartmentsViewHolder(private val binding: DepartmentsHomeItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(department: Departments) {
+            println("Kolor cały ${department.color}")
+            println("Kolor ${department.color?.gradientFirst}")
+            println("Kolor ${department.color?.gradientSecond}")
             val gradientDrawable = generateGradientDrawable(
-                department.color?.gradientFirst ?: PLACEHOLDER_COLOR,
-                department.color?.gradientSecond ?: PLACEHOLDER_COLOR
+                department.color?.gradientFirst!!,
+                department.color?.gradientSecond!!
             )
             binding.apply {
                 Glide.with(departmentsItemImage).load(gradientDrawable)
