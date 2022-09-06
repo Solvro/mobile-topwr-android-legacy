@@ -4,11 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.FragmentNavigator
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.transition.TransitionInflater
+import com.solvro.topwr.R
+import com.solvro.topwr.data.model.info.Info
 import com.solvro.topwr.databinding.FaqFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
@@ -19,11 +25,16 @@ import kotlinx.coroutines.launch
 class FaqFragment : Fragment() {
 
     private val viewModel: FaqViewModel by viewModels()
-    private val adapter = FaqAdapter {
-        // do on info click
+    private val adapter = FaqAdapter { info, imageView ->
+        navigateToDetails(info, imageView)
     }
     private lateinit var binding: FaqFragmentBinding
     private var searchViewJob: Job? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setupSharedTransition()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,5 +83,21 @@ class FaqFragment : Fragment() {
         })
     }
 
+    private fun navigateToDetails(info: Info, imageView: ImageView) {
+        val extras = FragmentNavigator.Extras.Builder().addSharedElements(
+            mapOf(
+                imageView to getString(R.string.faq_image, info.id),
+            )
+        ).build()
 
+        val action = FaqFragmentDirections.actionFaqFragmentToFaqDetailsFragment(info)
+        findNavController().navigate(action, extras)
+    }
+
+    private fun setupSharedTransition() {
+        sharedElementEnterTransition = TransitionInflater.from(context!!)
+            .inflateTransition(R.transition.move)
+        sharedElementReturnTransition = TransitionInflater.from(context!!)
+            .inflateTransition(R.transition.move)
+    }
 }
