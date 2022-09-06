@@ -19,9 +19,12 @@ class DepartmentsHomeAdapter(
     inner class DepartmentsViewHolder(private val binding: DepartmentsHomeItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(department: Departments) {
+            println("Kolor cały ${department.color}")
+            println("Kolor ${department.color?.gradientFirst}")
+            println("Kolor ${department.color?.gradientSecond}")
             val gradientDrawable = generateGradientDrawable(
-                department.color?.gradientFirst,
-                department.color?.gradientSecond
+                department.color?.gradientFirst!!,
+                department.color?.gradientSecond!!
             )
             binding.apply {
                 Glide.with(departmentsItemImage).load(gradientDrawable)
@@ -37,7 +40,7 @@ class DepartmentsHomeAdapter(
             }
         }
 
-        private fun generateGradientDrawable(firstHex: String?, secondHex: String?) =
+        private fun generateGradientDrawable(firstHex: String, secondHex: String) =
             GradientDrawable(
                 GradientDrawable.Orientation.BR_TL,
                 intArrayOf(
