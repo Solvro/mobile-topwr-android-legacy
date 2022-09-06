@@ -1,0 +1,140 @@
+package com.solvro.topwr.ui.fragments.faq_details
+
+import android.graphics.drawable.Drawable
+import android.os.Build
+import android.os.Bundle
+import android.text.Html
+import android.text.method.LinkMovementMethod
+import android.text.util.Linkify
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.transition.TransitionInflater
+import com.bumptech.glide.RequestManager
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
+import com.solvro.topwr.R
+import com.solvro.topwr.data.model.info.Info
+import com.solvro.topwr.databinding.FaqDetailsFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
+import io.noties.markwon.AbstractMarkwonPlugin
+import io.noties.markwon.Markwon
+import io.noties.markwon.core.MarkwonTheme
+import io.noties.markwon.linkify.LinkifyPlugin
+import javax.inject.Inject
+
+@AndroidEntryPoint
+class FaqDetailsFragment : Fragment(R.layout.faq_details_fragment) {
+
+    companion object {
+        fun newInstance() = FaqDetailsFragment()
+    }
+
+    @Inject
+    lateinit var glide: RequestManager
+
+    private lateinit var binding: FaqDetailsFragmentBinding
+    private val viewModel: FaqDetailsViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setupSharedTransition()
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FaqDetailsFragmentBinding.inflate(inflater, container, false)
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val info = viewModel.info.value
+
+        info?.let { setupUI(it) }
+    }
+
+    private fun setupUI(info: Info) {
+        setTransitionNames(info)
+
+        binding.apply {
+
+            backToFaq.setOnClickListener {
+                startPostponedEnterTransition()
+                findNavController().navigateUp()
+            }
+
+            info.description?.let { createTextFromMarkdown(it, faqDescription) }
+        }
+
+        info.photo?.url?.let { loadImage(it) }
+    }
+
+    private fun loadImage(imageUrl: String) {
+        glide.load(imageUrl)
+            .listener(object : RequestListener<Drawable> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    startPostponedEnterTransition()
+                    return false
+                }
+
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    startPostponedEnterTransition()
+                    return false
+                }
+
+            })
+            .into(binding.faqImageView)
+    }
+
+    private fun setTransitionNames(info: Info) {
+        binding.apply {
+            faqImageView.transitionName = getString(R.string.faq_image, info.id)
+        }
+    }
+
+    private fun setupSharedTransition() {
+        sharedElementEnterTransition = TransitionInflater.from(context!!)
+            .inflateTransition(R.transition.move)
+        sharedElementReturnTransition = TransitionInflater.from(context!!)
+            .inflateTransition(R.transition.move)
+    }
+
+    private fun createTextFromMarkdown(description: String, faqDescription: TextView) {
+        context?.let { context ->
+                val markwon = Markwon.builder(context)
+                    .usePlugin(object : AbstractMarkwonPlugin() {
+                        override fun configureTheme(builder: MarkwonTheme.Builder) {
+                            builder
+                                .codeTextColor(context.getColor(R.color.faq_normal_text_color))
+                                .linkColor(context.getColor(R.color.faq_link))
+                                .isLinkUnderlined(true)
+                        }
+                    })
+                    .usePlugin(LinkifyPlugin.create())
+                    .build()
+                markwon.setMarkdown(faqDescription, description)
+        }
+    }
+}
