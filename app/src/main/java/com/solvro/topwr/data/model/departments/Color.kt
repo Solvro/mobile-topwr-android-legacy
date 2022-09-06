@@ -6,7 +6,11 @@ class Color(
     val id: Int?
 ) {
     val gradientFirst: String? = gradientFirst
-        get() = "#$field"
+        get() = field?.let { "#$it" } ?: "#$PLACEHOLDER_COLOR"
     val gradientSecond: String? = gradientSecond
-        get() = "#$field"
+        get() = field?.let { "#$it" } ?: "#$PLACEHOLDER_COLOR"
+
+    companion object {
+        const val PLACEHOLDER_COLOR = "DB2B10"
+    }
 }
