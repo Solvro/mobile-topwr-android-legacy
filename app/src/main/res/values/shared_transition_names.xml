@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--Whatsup-->
     <string name="whatsup_image">whatsUpImageView_%1$d</string>
     <string name="whatsup_date">dateTextView_%1$d</string>
     <string name="whatsup_title">titleTextView_%1$d</string>
     <string name="whatsup_description">descriptionTextView_%1$d</string>
 
+    <!--FAQ-->
+    <string name="faq_image">faqImageView_%1$d</string>
 </resources>

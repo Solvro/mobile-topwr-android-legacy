@@ -1,16 +1,20 @@
 package com.solvro.topwr.ui.fragments.faq_page
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.request.RequestOptions
+import com.solvro.topwr.R
 import com.solvro.topwr.data.model.info.Info
 import com.solvro.topwr.databinding.FaqItemBinding
 
 class FaqAdapter(
-    private val onClick: (Info) -> Unit
+    private val onClick: (Info, ImageView) -> Unit
 ) : RecyclerView.Adapter<FaqAdapter.ViewHolder>() {
 
     private val infos = mutableListOf<Info>()
@@ -23,6 +27,7 @@ class FaqAdapter(
         private val faqDescription = binding.textViewDescription
         fun bind(info: Info) {
             val options: RequestOptions = RequestOptions()
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .centerCrop()
                 .transform(
                     CenterCrop()
@@ -36,8 +41,14 @@ class FaqAdapter(
             faqDescription.text = info.shortDescription
 
             binding.root.setOnClickListener {
-                onClick(info)
+                onClick(info, faqItemImage)
             }
+
+            setTransitionNames(itemView.context, info)
+        }
+
+        private fun setTransitionNames(context: Context, info: Info) {
+            faqItemImage.transitionName = context.getString(R.string.faq_image, info.id)
         }
     }
 
