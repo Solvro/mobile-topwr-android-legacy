@@ -40,5 +40,7 @@
     <string name="retry">Ponów</string>
     <string name="see_more">Zobacz Więcej</string>
     <string name="item_image">Item image</string>
+    <string name="science_club_about">O Nas</string>
+    <string name="science_club_contacts">Kontakt</string>
 
 </resources>

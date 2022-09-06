@@ -110,7 +110,11 @@
         android:id="@+id/scienceClubsDetailsFragment"
         android:name="com.solvro.topwr.ui.fragments.science_clubs_details.ScienceClubsDetailsFragment"
         android:label="science_clubs_details_fragment"
-        tools:layout="@layout/science_clubs_details_fragment" />
+        tools:layout="@layout/science_clubs_details_fragment">
+        <argument
+            android:name="science_club"
+            app:argType="com.solvro.topwr.data.model.scienceClub.ScienceClub" />
+    </fragment>
     <fragment
         android:id="@+id/whatsUpFragment"
         android:name="com.solvro.topwr.ui.fragments.whats_up_page.WhatsUpFragment"
