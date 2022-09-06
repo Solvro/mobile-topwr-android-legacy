@@ -128,6 +128,15 @@ dependencies {
     // Skeleton loading
     implementation "com.ericktijerou.koleton:koleton:1.0.0-beta01"
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
+    // Markwon
+    def markwon_version = "4.6.2"
+    implementation("io.noties.markwon:core:$markwon_version")
+    implementation("io.noties.markwon:ext-strikethrough:$markwon_version")
+    implementation("io.noties.markwon:ext-tables:$markwon_version")
+    implementation("io.noties.markwon:ext-tasklist:$markwon_version")
+    implementation("io.noties.markwon:html:$markwon_version")
+    implementation("io.noties.markwon:linkify:$markwon_version")
 }
 
 kapt {
