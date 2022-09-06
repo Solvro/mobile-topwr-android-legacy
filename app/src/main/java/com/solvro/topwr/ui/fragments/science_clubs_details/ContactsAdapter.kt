@@ -1,6 +1,6 @@
 package com.solvro.topwr.ui.fragments.science_clubs_details
 
-import android.text.method.LinkMovementMethod
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,7 +9,8 @@ import com.solvro.topwr.data.model.scienceClub.Info
 import com.solvro.topwr.databinding.ItemContactBinding
 
 class ContactsAdapter(
-    private val onClick: (String) -> Unit
+    private val onWebsiteClick: (String) -> Unit,
+    private val onEmailClick: (String) -> Unit
 ) : RecyclerView.Adapter<ContactsAdapter.ViewHolder>() {
 
     private val data = mutableListOf<Info>()
@@ -29,10 +30,13 @@ class ContactsAdapter(
             )
             binding.contactText.apply {
                 text = info.visibleText
-                movementMethod = LinkMovementMethod.getInstance()
+                paintFlags = Paint.UNDERLINE_TEXT_FLAG
             }
-            binding.root.setOnClickListener {
-                info.value?.let { onClick.invoke(it) }
+            binding.contactText.setOnClickListener {
+                info.value?.let {
+                    if (info.getType() != Info.InfoType.EMAIL) onWebsiteClick.invoke(it)
+                    else onEmailClick.invoke(it)
+                }
             }
         }
     }

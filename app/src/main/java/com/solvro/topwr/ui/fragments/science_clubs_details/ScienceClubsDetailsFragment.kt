@@ -1,5 +1,7 @@
 package com.solvro.topwr.ui.fragments.science_clubs_details
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +15,7 @@ import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.databinding.ScienceClubsDetailsFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class ScienceClubsDetailsFragment : Fragment() {
 
@@ -22,9 +25,9 @@ class ScienceClubsDetailsFragment : Fragment() {
 
     private lateinit var binding: ScienceClubsDetailsFragmentBinding
     private val viewModel: ScienceClubsDetailsViewModel by viewModels()
-    private val contactsAdapter = ContactsAdapter {
-
-    }
+    private val contactsAdapter = ContactsAdapter({
+        navigateToWebsite(it)
+    }, { navigateToEmail(it) })
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -73,5 +76,20 @@ class ScienceClubsDetailsFragment : Fragment() {
         binding.scienceClubsBackToMainBtn.setOnClickListener {
             findNavController().navigateUp()
         }
+    }
+
+    private fun navigateToWebsite(url: String) {
+        val i = Intent(Intent.ACTION_VIEW)
+        i.data = Uri.parse(url)
+        startActivity(i)
+    }
+
+
+    private fun navigateToEmail(email: String) {
+        val intent = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse("mailto:")
+            putExtra(Intent.EXTRA_EMAIL, email)
+        }
+        startActivity(intent)
     }
 }
