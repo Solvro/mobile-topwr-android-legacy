@@ -32,7 +32,7 @@ class ContactsAdapter(
                 movementMethod = LinkMovementMethod.getInstance()
             }
             binding.root.setOnClickListener {
-                onClick.invoke(info.value)
+                info.value?.let { onClick.invoke(it) }
             }
         }
     }

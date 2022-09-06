@@ -10,13 +10,17 @@ import com.bumptech.glide.request.RequestOptions
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.databinding.ItemScienceClubBinding
 
-class ScienceClubsAdapter(diffCallback: DiffUtil.ItemCallback<ScienceClub>) :
+class ScienceClubsAdapter(
+    diffCallback: DiffUtil.ItemCallback<ScienceClub>,
+    private val onItemClick: (ScienceClub) -> Unit
+) :
     PagingDataAdapter<ScienceClub, ScienceClubsAdapter.ViewHolder>(diffCallback) {
 
     inner class ViewHolder(private val binding: ItemScienceClubBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ScienceClub?) {
             binding.apply {
+                root.setOnClickListener { item?.let { onItemClick.invoke(it) } }
                 scienceClubItemName.text = item?.name
                 Glide
                     .with(root.context)

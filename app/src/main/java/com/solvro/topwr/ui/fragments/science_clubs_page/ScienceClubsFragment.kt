@@ -9,8 +9,10 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.databinding.ScienceClubsFragmentBinding
 import com.solvro.topwr.ui.adapters.DefaultLoadStateAdapter
 import com.solvro.topwr.utils.SpaceItemDecoration
@@ -32,7 +34,9 @@ ScienceClubsFragment : Fragment() {
     private lateinit var binding: ScienceClubsFragmentBinding
     private var categoriesAdapter: ScienceClubsCategoriesAdapter = ScienceClubsCategoriesAdapter {}
     private var scienceClubsAdapter: ScienceClubsAdapter =
-        ScienceClubsAdapter(ScienceClubComparator).apply {
+        ScienceClubsAdapter(ScienceClubComparator, {
+            navigateToDetails(it)
+        }).apply {
             addLoadStateListener { loadState ->
                 // Checks if data is empty
                 val isEmpty = loadState.source.refresh is LoadState.NotLoading
@@ -135,5 +139,13 @@ ScienceClubsFragment : Fragment() {
                 scienceClubEmptyView.gone()
             }
         }
+    }
+
+    private fun navigateToDetails(scienceClub: ScienceClub) {
+        val action =
+            ScienceClubsFragmentDirections.actionScienceClubsFragmentToScienceClubsDetailsFragment(
+                scienceClub
+            )
+        findNavController().navigate(action)
     }
 }

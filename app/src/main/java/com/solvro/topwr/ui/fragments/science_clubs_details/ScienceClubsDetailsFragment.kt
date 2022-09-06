@@ -5,11 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.databinding.ScienceClubsDetailsFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ScienceClubsDetailsFragment : Fragment() {
 
     companion object {
@@ -17,7 +21,7 @@ class ScienceClubsDetailsFragment : Fragment() {
     }
 
     private lateinit var binding: ScienceClubsDetailsFragmentBinding
-    private lateinit var viewModel: ScienceClubsDetailsViewModel
+    private val viewModel: ScienceClubsDetailsViewModel by viewModels()
     private val contactsAdapter = ContactsAdapter {
 
     }
@@ -34,6 +38,7 @@ class ScienceClubsDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setObservers()
+        setNavigateBackBtn()
     }
 
     private fun setObservers() {
@@ -61,6 +66,12 @@ class ScienceClubsDetailsFragment : Fragment() {
             Glide.with(requireContext())
                 .load(scienceClub.photo?.url)
                 .into(scienceClubDetailFragmentLogo)
+        }
+    }
+
+    private fun setNavigateBackBtn() {
+        binding.scienceClubsBackToMainBtn.setOnClickListener {
+            findNavController().navigateUp()
         }
     }
 }
