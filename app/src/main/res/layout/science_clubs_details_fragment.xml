@@ -40,12 +40,12 @@
                 <ImageView
                     android:id="@+id/scienceClubBackgroundImage"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="254dp"
+                    android:scaleType="centerCrop"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="ContentDescription"
-                    tools:layout_height="254dp"
                     tools:src="@color/black" />
 
                 <com.google.android.material.card.MaterialCardView
@@ -73,6 +73,7 @@
                     android:id="@+id/scienceClubName"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="24dp"
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/rubik_medium"
                     android:gravity="center"
@@ -82,9 +83,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/scienceClubDetailFragmentLogoCard"
-                    tools:text="KN Solvro"
-
-                    />
+                    tools:text="KN Solvro" />
 
                 <TextView
                     android:id="@+id/scienceClubDepartment"
@@ -107,6 +106,7 @@
                     android:layout_marginTop="24dp"
                     android:background="@color/lightgray"
                     android:orientation="vertical"
+                    android:paddingBottom="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/scienceClubDepartment">

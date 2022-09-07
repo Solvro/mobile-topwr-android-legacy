@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.solvro.topwr.R
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.databinding.ScienceClubsDetailsFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,8 +46,13 @@ class ScienceClubsDetailsFragment : Fragment() {
     }
 
     private fun setObservers() {
-        viewModel.scienceClub.observe(viewLifecycleOwner) {
-            bindScienceClub(it)
+        viewModel.apply {
+            scienceClub.observe(viewLifecycleOwner) {
+                bindScienceClub(it)
+            }
+            departmentName.observe(viewLifecycleOwner) {
+                binding.scienceClubDepartment.text = it ?: getString(R.string.unknown_department)
+            }
         }
     }
 
@@ -60,7 +66,6 @@ class ScienceClubsDetailsFragment : Fragment() {
     private fun bindScienceClub(scienceClub: ScienceClub) {
         binding.apply {
             scienceClubName.text = scienceClub.name
-            scienceClubDepartment.text = scienceClub.department.toString()
             scienceClubDetailAboutText.text = scienceClub.description
             contactsAdapter.setData(scienceClub.infoSection?.first()?.info ?: listOf())
             Glide.with(requireContext())
@@ -87,7 +92,7 @@ class ScienceClubsDetailsFragment : Fragment() {
 
     private fun navigateToEmail(email: String) {
         val intent = Intent(Intent.ACTION_SENDTO).apply {
-            data = Uri.parse("mailto:")
+            data = Uri.parse("mailto:${email}")
             putExtra(Intent.EXTRA_EMAIL, email)
         }
         startActivity(intent)

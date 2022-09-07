@@ -34,6 +34,11 @@ interface ToPwrService {
     @GET("departments/count")
     suspend fun getDepartmentsCount(): Response<Int>
 
+    @GET("departments")
+    suspend fun getDepartment(
+        @Query("displayOrder") departmentNumber: Int
+    ): Response<List<Departments>>
+
     @GET("scientific-circles")
     suspend fun getScientificCircles(
         @Query("_start") startIndex: Int,

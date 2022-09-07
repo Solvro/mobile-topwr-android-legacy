@@ -42,5 +42,6 @@
     <string name="item_image">Item image</string>
     <string name="science_club_about">O Nas</string>
     <string name="science_club_contacts">Kontakt</string>
+    <string name="unknown_department">Brak danych o wydziale</string>
 
 </resources>
