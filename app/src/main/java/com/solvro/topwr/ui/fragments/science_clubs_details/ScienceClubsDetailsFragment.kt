@@ -89,7 +89,6 @@ class ScienceClubsDetailsFragment : Fragment() {
         startActivity(i)
     }
 
-
     private fun navigateToEmail(email: String) {
         val intent = Intent(Intent.ACTION_SENDTO).apply {
             data = Uri.parse("mailto:${email}")
