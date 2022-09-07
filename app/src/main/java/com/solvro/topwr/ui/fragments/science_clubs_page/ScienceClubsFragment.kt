@@ -9,9 +9,12 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.transition.TransitionInflater
+import com.solvro.topwr.R
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.databinding.ScienceClubsFragmentBinding
 import com.solvro.topwr.ui.adapters.DefaultLoadStateAdapter
@@ -34,9 +37,9 @@ ScienceClubsFragment : Fragment() {
     private lateinit var binding: ScienceClubsFragmentBinding
     private var categoriesAdapter: ScienceClubsCategoriesAdapter = ScienceClubsCategoriesAdapter {}
     private var scienceClubsAdapter: ScienceClubsAdapter =
-        ScienceClubsAdapter(ScienceClubComparator, {
-            navigateToDetails(it)
-        }).apply {
+        ScienceClubsAdapter(ScienceClubComparator) { scienceClub, logoView, nameTextView ->
+            navigateToDetails(scienceClub, logoView, nameTextView)
+        }.apply {
             addLoadStateListener { loadState ->
                 // Checks if data is empty
                 val isEmpty = loadState.source.refresh is LoadState.NotLoading
@@ -60,6 +63,7 @@ ScienceClubsFragment : Fragment() {
         setupCategoryRecyclerView()
         setObservers()
         setListeners()
+        setupSharedTransition()
     }
 
     private fun setListeners() {
@@ -141,11 +145,24 @@ ScienceClubsFragment : Fragment() {
         }
     }
 
-    private fun navigateToDetails(scienceClub: ScienceClub) {
+    private fun navigateToDetails(scienceClub: ScienceClub, logoView: View, nameTextView: View) {
         val action =
             ScienceClubsFragmentDirections.actionScienceClubsFragmentToScienceClubsDetailsFragment(
                 scienceClub
             )
-        findNavController().navigate(action)
+        val extras = FragmentNavigator.Extras.Builder().addSharedElements(
+            mapOf(
+                logoView to "science_club_logo",
+                nameTextView to "science_club_name"
+            )
+        ).build()
+        findNavController().navigate(action, navigatorExtras = extras)
+    }
+
+    private fun setupSharedTransition() {
+        sharedElementEnterTransition = TransitionInflater.from(context!!)
+            .inflateTransition(R.transition.move)
+        sharedElementReturnTransition = TransitionInflater.from(context!!)
+            .inflateTransition(R.transition.move)
     }
 }

@@ -1,7 +1,10 @@
 package com.solvro.topwr.ui.fragments.science_clubs_page
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +15,7 @@ import com.solvro.topwr.databinding.ItemScienceClubBinding
 
 class ScienceClubsAdapter(
     diffCallback: DiffUtil.ItemCallback<ScienceClub>,
-    private val onItemClick: (ScienceClub) -> Unit
+    private val onItemClick: (ScienceClub, ImageView, TextView) -> Unit
 ) :
     PagingDataAdapter<ScienceClub, ScienceClubsAdapter.ViewHolder>(diffCallback) {
 
@@ -20,7 +23,15 @@ class ScienceClubsAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ScienceClub?) {
             binding.apply {
-                root.setOnClickListener { item?.let { onItemClick.invoke(it) } }
+                root.setOnClickListener {
+                    item?.let {
+                        onItemClick.invoke(
+                            it,
+                            scienceClubItemImage,
+                            scienceClubItemName
+                        )
+                    }
+                }
                 scienceClubItemName.text = item?.name
                 Glide
                     .with(root.context)
@@ -28,6 +39,14 @@ class ScienceClubsAdapter(
                     .apply(RequestOptions().override(100, 100)) //change to 100x100px img
                     .centerCrop()
                     .into(scienceClubItemImage)
+            }
+            item?.let { setSharedTransitionNames(it) }
+        }
+
+        private fun setSharedTransitionNames(scienceClub: ScienceClub) {
+            binding.apply {
+                scienceClubItemName.transitionName = "${scienceClub.id}_name"
+                scienceClubItemImage.transitionName = "${scienceClub.id}_image"
             }
         }
     }

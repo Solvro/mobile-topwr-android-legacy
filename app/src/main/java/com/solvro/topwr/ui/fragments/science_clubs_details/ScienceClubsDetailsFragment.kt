@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.transition.TransitionInflater
 import com.bumptech.glide.Glide
 import com.solvro.topwr.R
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
@@ -41,6 +43,7 @@ class ScienceClubsDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+        setupSharedElementTransition()
         setObservers()
         setNavigateBackBtn()
     }
@@ -60,6 +63,17 @@ class ScienceClubsDetailsFragment : Fragment() {
         binding.scienceClubDetailContactsList.apply {
             adapter = contactsAdapter
             layoutManager = LinearLayoutManager(requireContext())
+        }
+    }
+
+    private fun setupSharedElementTransition(){
+        binding.apply {
+            scienceClubName.transitionName = "science_club_name"
+            scienceClubDetailFragmentLogo.transitionName = "science_club_logo"
+            sharedElementEnterTransition = TransitionInflater.from(context!!)
+                .inflateTransition(R.transition.move)
+            sharedElementReturnTransition = TransitionInflater.from(context!!)
+                .inflateTransition(R.transition.move)
         }
     }
 
