@@ -141,5 +141,9 @@
         android:name="com.solvro.topwr.ui.fragments.about_us_page.AboutUsFragment"
         android:label="AboutUsFragment"
         tools:layout="@layout/about_us_fragment"
-        />
+        >
+        <argument
+            android:name="aboutUs"
+            app:argType="com.solvro.topwr.data.model.aboutUs.AboutUs" />
+    </fragment>
 </navigation>

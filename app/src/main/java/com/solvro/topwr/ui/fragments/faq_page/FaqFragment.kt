@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionInflater
 import com.solvro.topwr.R
+import com.solvro.topwr.data.model.aboutUs.AboutUs
 import com.solvro.topwr.data.model.info.Info
 import com.solvro.topwr.databinding.FaqFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,8 +30,8 @@ class FaqFragment : Fragment() {
     private val faqAdapter = FaqAdapter { info, imageView ->
         navigateToDetails(info, imageView)
     }
-    private val aboutUsAdapter = AboutUsAdapter { imageView ->
-        navigateToAboutUs(imageView)
+    private val aboutUsAdapter = AboutUsAdapter { aboutUs, imageView ->
+        navigateToAboutUs(aboutUs, imageView)
     }
     private lateinit var binding: FaqFragmentBinding
     private var searchViewJob: Job? = null
@@ -60,6 +61,10 @@ class FaqFragment : Fragment() {
             it.data?.let { infosData ->
                 faqAdapter.setData(infosData)
             }
+        }
+
+        viewModel.aboutUs.observe(viewLifecycleOwner) {
+            aboutUsAdapter.setData(it)
         }
     }
 
@@ -99,14 +104,14 @@ class FaqFragment : Fragment() {
         findNavController().navigate(action, extras)
     }
 
-    private fun navigateToAboutUs(imageView: ImageView) {
+    private fun navigateToAboutUs(aboutUs: AboutUs, imageView: ImageView) {
         val extras = FragmentNavigator.Extras.Builder().addSharedElements(
             mapOf(
                 imageView to getString(R.string.about_us_image),
             )
         ).build()
 
-        val action = FaqFragmentDirections.actionFaqFragmentToAboutUsFragment()
+        val action = FaqFragmentDirections.actionFaqFragmentToAboutUsFragment(aboutUs)
         findNavController().navigate(action, extras)
     }
 

@@ -2,6 +2,7 @@ package com.solvro.topwr.data.remote
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
+import com.solvro.topwr.data.model.aboutUs.AboutUs
 import com.solvro.topwr.data.model.departments.Departments
 import com.solvro.topwr.data.model.endDate.EndDate
 import com.solvro.topwr.data.model.endDate.WeekDayException
@@ -78,4 +79,7 @@ class RemoteDataSource @Inject constructor(
 
     suspend fun getInfos(name: String): Resource<List<Info>> =
         getResult { service.getInfos(name) }
+
+    suspend fun getAboutUs(): Resource<AboutUs> =
+        getResult { service.getAboutUs() }
 }

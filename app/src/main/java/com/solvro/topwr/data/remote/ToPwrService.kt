@@ -1,5 +1,6 @@
 package com.solvro.topwr.data.remote
 
+import com.solvro.topwr.data.model.aboutUs.AboutUs
 import com.solvro.topwr.data.model.departments.Departments
 import com.solvro.topwr.data.model.endDate.EndDate
 import com.solvro.topwr.data.model.endDate.WeekDayException
@@ -57,4 +58,7 @@ interface ToPwrService {
 
     @GET("infos")
     suspend fun getInfos(@Query("title_contains") name: String): Response<List<Info>>
+
+    @GET("about-us")
+    suspend fun getAboutUs(): Response<AboutUs>
 }

@@ -6,12 +6,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.solvro.topwr.R
+import com.solvro.topwr.data.model.aboutUs.AboutUs
 import com.solvro.topwr.data.model.info.Info
 import com.solvro.topwr.databinding.AboutUsItemBinding
 
 class AboutUsAdapter(
-    private val onClick: (ImageView) -> Unit
+    private val onClick: (AboutUs, ImageView) -> Unit
 ): RecyclerView.Adapter<AboutUsAdapter.ViewHolder>() {
+
+    private var aboutUs: AboutUs? = null
 
     inner class ViewHolder(private val binding: AboutUsItemBinding) :
             RecyclerView.ViewHolder(binding.root) {
@@ -22,7 +25,9 @@ class AboutUsAdapter(
 
                 fun bind() {
                     binding.root.setOnClickListener {
-                        onClick(image)
+                        aboutUs?.let { aboutUsInfo ->
+                            onClick(aboutUsInfo, image)
+                        }
                     }
                     setTransitionNames(itemView.context)
                 }
@@ -46,6 +51,11 @@ class AboutUsAdapter(
     }
 
     override fun getItemCount(): Int {
-        return 1
+        return aboutUs?.let { 1 } ?: 0
+    }
+
+    fun setData(aboutUs: AboutUs) {
+        this.aboutUs = aboutUs
+        notifyDataSetChanged()
     }
 }

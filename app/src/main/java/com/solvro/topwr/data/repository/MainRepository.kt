@@ -3,6 +3,7 @@ package com.solvro.topwr.data.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.solvro.topwr.data.local.DataStoreSource
+import com.solvro.topwr.data.model.aboutUs.AboutUs
 import com.solvro.topwr.data.model.departments.Departments
 import com.solvro.topwr.data.model.endDate.EndDate
 import com.solvro.topwr.data.model.endDate.WeekDayException
@@ -67,4 +68,6 @@ class MainRepository @Inject constructor(
     fun getBuildingsSearchHistory() = dataStoreSource.getBuildingsSearchHistory()
 
     suspend fun getInfos(name: String = ""): Resource<List<Info>> = remoteDataSource.getInfos(name)
+
+    suspend fun getAboutUs(): Resource<AboutUs> = remoteDataSource.getAboutUs()
 }
