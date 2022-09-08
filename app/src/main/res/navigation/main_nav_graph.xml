@@ -86,6 +86,9 @@
         <action
             android:id="@+id/action_faqFragment_to_faqDetailsFragment"
             app:destination="@id/faqDetailsFragment" />
+        <action
+            android:id="@+id/action_faqFragment_to_aboutUsFragment"
+            app:destination="@id/aboutUsFragment" />
     </fragment>
 
     <fragment
@@ -133,4 +136,10 @@
             android:name="info"
             app:argType="com.solvro.topwr.data.model.info.Info" />
     </fragment>
+    <fragment
+        android:id="@+id/aboutUsFragment"
+        android:name="com.solvro.topwr.ui.fragments.about_us_page.AboutUsFragment"
+        android:label="AboutUsFragment"
+        tools:layout="@layout/about_us_fragment"
+        />
 </navigation>

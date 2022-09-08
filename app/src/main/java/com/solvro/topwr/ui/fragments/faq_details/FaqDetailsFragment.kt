@@ -58,7 +58,6 @@ class FaqDetailsFragment : Fragment(R.layout.faq_details_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val info = viewModel.info.value
 
         info?.let { setupUI(it) }
@@ -68,7 +67,6 @@ class FaqDetailsFragment : Fragment(R.layout.faq_details_fragment) {
         setTransitionNames(info)
 
         binding.apply {
-
             backToFaq.setOnClickListener {
                 startPostponedEnterTransition()
                 findNavController().navigateUp()

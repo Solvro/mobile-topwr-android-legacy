@@ -24,6 +24,7 @@
     <color name="lightblack1">#37313C</color>
     <color name="faq_normal_text_color">#2E405A</color>
     <color name="faq_link">#E43D32</color>
+    <color name="about_us_title">#EB6143</color>
 
     <color name="icon_red">#E43D32</color>
 </resources>

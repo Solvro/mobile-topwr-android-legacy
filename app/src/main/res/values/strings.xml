@@ -41,4 +41,6 @@
     <string name="see_more">Zobacz Więcej</string>
     <string name="item_image">Item image</string>
 
+    <string name="about_us_title">O Nas!</string>
+    <string name="about_us_content">Poznaj twórców, którzy razem stworzyli te aplikacje!</string>
 </resources>
