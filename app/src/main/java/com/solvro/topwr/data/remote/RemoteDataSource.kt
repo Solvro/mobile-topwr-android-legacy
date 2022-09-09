@@ -36,6 +36,14 @@ class RemoteDataSource @Inject constructor(
             )
         }
 
+    suspend fun getDepartment(departmentNumber: Int) =
+        getResult {
+            service.getDepartment(
+                departmentNumber
+            )
+        }
+
+
     fun getPagedDepartments() = Pager(
         PagingConfig(
             pageSize = Constants.DEFAULT_PAGE_SIZE,
