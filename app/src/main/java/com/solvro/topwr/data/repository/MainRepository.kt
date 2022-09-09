@@ -35,6 +35,15 @@ class MainRepository @Inject constructor(
             emit(remoteDataSource.getDepartments())
         }
 
+    suspend fun getDepartment(departmentNumber: Int): Resource<Departments?> {
+        val resource = remoteDataSource.getDepartment(departmentNumber)
+        return when (resource.status) {
+            Resource.Status.ERROR -> Resource.error(resource.message!!)
+            Resource.Status.SUCCESS -> Resource.success(resource.data?.firstOrNull())
+            Resource.Status.LOADING -> Resource.loading()
+        }
+    }
+
     fun getDepartmentsPaged() = remoteDataSource.getPagedDepartments()
 
     fun getMaps(): LiveData<Resource<List<Building>>> =
