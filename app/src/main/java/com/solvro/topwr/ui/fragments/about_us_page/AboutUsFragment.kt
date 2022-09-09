@@ -21,12 +21,14 @@ import com.solvro.topwr.data.model.info.Info
 import com.solvro.topwr.databinding.AboutUsFragmentBinding
 import com.solvro.topwr.ui.fragments.faq_details.FaqDetailsFragment
 import com.solvro.topwr.utils.MarkdownToText
+import dagger.hilt.android.AndroidEntryPoint
 import io.noties.markwon.AbstractMarkwonPlugin
 import io.noties.markwon.Markwon
 import io.noties.markwon.core.MarkwonTheme
 import io.noties.markwon.linkify.LinkifyPlugin
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class AboutUsFragment : Fragment(R.layout.about_us_fragment) {
 
     companion object {
