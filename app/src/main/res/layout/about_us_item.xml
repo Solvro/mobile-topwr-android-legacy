@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    app:cardCornerRadius="8dp"
+    android:layout_marginHorizontal="25dp"
+    android:layout_marginBottom="16dp"
+    app:cardElevation="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/rounded_background">
+
+        <TextView
+            android:id="@+id/aboutUsTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/rubik_medium"
+            android:textColor="@color/about_us_title"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/about_us_title"
+            tools:text="O Nas!" />
+
+        <TextView
+            android:id="@+id/aboutUsContent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginVertical="8dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/rubik"
+            android:maxLines="3"
+            android:textColor="@color/whatsNewDescription"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/aboutUsImageView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/aboutUsTitleTextView"
+            app:layout_constraintVertical_bias="0.0"
+            android:text="@string/about_us_content"
+            tools:text="Poznaj twórców, którzy razem stworzyli te aplikacje!" />
+
+        <ImageView
+            android:id="@+id/aboutUsImageView"
+            android:layout_width="100dp"
+            android:layout_height="0dp"
+            android:foreground="@drawable/ic_about_us"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
