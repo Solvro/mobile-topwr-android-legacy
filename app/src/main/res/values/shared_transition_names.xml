@@ -8,4 +8,7 @@
 
     <!--FAQ-->
     <string name="faq_image">faqImageView_%1$d</string>
+
+    <!--About Us-->
+    <string name="about_us_image">aboutUsImageView</string>
 </resources>

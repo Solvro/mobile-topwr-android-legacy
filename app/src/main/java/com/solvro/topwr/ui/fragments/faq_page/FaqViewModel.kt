@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.solvro.topwr.data.model.aboutUs.AboutUs
 import com.solvro.topwr.data.model.info.Info
 import com.solvro.topwr.data.repository.MainRepository
 import com.solvro.topwr.utils.Resource
@@ -19,7 +20,11 @@ class FaqViewModel @Inject constructor(private val repository: MainRepository) :
     private val _infos by lazy { MutableLiveData<Resource<List<Info>>>() }
     val infos: LiveData<Resource<List<Info>>> by lazy { _infos }
 
+    private val _about_us by lazy { MutableLiveData<AboutUs>() }
+    val aboutUs: LiveData<AboutUs> by lazy { _about_us }
+
     init {
+        getAboutUs()
         getInfos(_infos, textFilter)
     }
 
@@ -33,5 +38,28 @@ class FaqViewModel @Inject constructor(private val repository: MainRepository) :
     fun setTextFilter(textFilter: String) {
         this.textFilter = textFilter.trim()
         getInfos(_infos, this.textFilter)
+    }
+
+    private fun getAboutUs() {
+        viewModelScope.launch {
+            val aboutUsInfo = repository.getAboutUs()
+            handleAboutUsResponse(aboutUsInfo)
+        }
+    }
+
+    private fun handleAboutUsResponse(response: Resource<AboutUs>) {
+        when (response.status) {
+            Resource.Status.SUCCESS -> {
+                response.data?.let {
+                    _about_us.postValue(it)
+                }
+            }
+            Resource.Status.ERROR -> {
+                //TODO()
+            }
+            Resource.Status.LOADING -> {
+                //TODO()
+            }
+        }
     }
 }

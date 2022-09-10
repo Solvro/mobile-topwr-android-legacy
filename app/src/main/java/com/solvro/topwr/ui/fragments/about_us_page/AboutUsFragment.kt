@@ -1,11 +1,7 @@
-package com.solvro.topwr.ui.fragments.faq_details
+package com.solvro.topwr.ui.fragments.about_us_page
 
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.os.Bundle
-import android.text.Html
-import android.text.method.LinkMovementMethod
-import android.text.util.Linkify
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,8 +16,10 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.solvro.topwr.R
+import com.solvro.topwr.data.model.aboutUs.AboutUs
 import com.solvro.topwr.data.model.info.Info
-import com.solvro.topwr.databinding.FaqDetailsFragmentBinding
+import com.solvro.topwr.databinding.AboutUsFragmentBinding
+import com.solvro.topwr.ui.fragments.faq_details.FaqDetailsFragment
 import com.solvro.topwr.utils.MarkdownToText
 import dagger.hilt.android.AndroidEntryPoint
 import io.noties.markwon.AbstractMarkwonPlugin
@@ -31,7 +29,7 @@ import io.noties.markwon.linkify.LinkifyPlugin
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class FaqDetailsFragment : Fragment(R.layout.faq_details_fragment) {
+class AboutUsFragment : Fragment(R.layout.about_us_fragment) {
 
     companion object {
         fun newInstance() = FaqDetailsFragment()
@@ -40,8 +38,8 @@ class FaqDetailsFragment : Fragment(R.layout.faq_details_fragment) {
     @Inject
     lateinit var glide: RequestManager
 
-    private lateinit var binding: FaqDetailsFragmentBinding
-    private val viewModel: FaqDetailsViewModel by viewModels()
+    private lateinit var binding: AboutUsFragmentBinding
+    private val viewModel: AboutUsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,20 +50,20 @@ class FaqDetailsFragment : Fragment(R.layout.faq_details_fragment) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FaqDetailsFragmentBinding.inflate(inflater, container, false)
+        binding = AboutUsFragmentBinding.inflate(inflater, container, false)
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val info = viewModel.info.value
+        val about = viewModel.aboutUs.value
 
-        info?.let { setupUI(it) }
+        setupUI(about)
     }
 
-    private fun setupUI(info: Info) {
-        setTransitionNames(info)
+    private fun setupUI(aboutUs: AboutUs?) {
+        setTransitionNames()
 
         binding.apply {
             backToFaq.setOnClickListener {
@@ -73,21 +71,23 @@ class FaqDetailsFragment : Fragment(R.layout.faq_details_fragment) {
                 findNavController().navigateUp()
             }
 
-            info.description?.let { description ->
+            aboutUs?.content?.let { content ->
                 context?.let { context ->
                     MarkdownToText.createTextFromMarkdown(
                         context = context,
-                        description = description,
-                        textView = faqDescription,
+                        description = content,
+                        textView = aboutUsContent,
                         codeTextColor = context.getColor(R.color.faq_normal_text_color),
                         linkColor = context.getColor(R.color.faq_link),
                         isLinkUnderlined = true,
                     )
                 }
             }
-        }
 
-        info.photo?.url?.let { loadImage(it) }
+            aboutUs?.photo?.url?.let {
+                loadImage(it)
+            }
+        }
     }
 
     private fun loadImage(imageUrl: String) {
@@ -115,12 +115,12 @@ class FaqDetailsFragment : Fragment(R.layout.faq_details_fragment) {
                 }
 
             })
-            .into(binding.faqImageView)
+            .into(binding.aboutUsImageView)
     }
 
-    private fun setTransitionNames(info: Info) {
+    private fun setTransitionNames() {
         binding.apply {
-            faqImageView.transitionName = getString(R.string.faq_image, info.id)
+            aboutUsImageView.transitionName = getString(R.string.about_us_image)
         }
     }
 

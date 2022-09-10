@@ -44,4 +44,6 @@
     <string name="science_club_contacts">Kontakt</string>
     <string name="unknown_department">Brak danych o wydziale</string>
 
+    <string name="about_us_title">O Nas!</string>
+    <string name="about_us_content">Poznaj twórców, którzy razem stworzyli te aplikacje!</string>
 </resources>
