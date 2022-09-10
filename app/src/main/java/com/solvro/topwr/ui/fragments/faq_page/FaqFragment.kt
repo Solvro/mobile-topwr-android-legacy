@@ -11,9 +11,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionInflater
 import com.solvro.topwr.R
+import com.solvro.topwr.data.model.aboutUs.AboutUs
 import com.solvro.topwr.data.model.info.Info
 import com.solvro.topwr.databinding.FaqFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,8 +27,11 @@ import kotlinx.coroutines.launch
 class FaqFragment : Fragment() {
 
     private val viewModel: FaqViewModel by viewModels()
-    private val adapter = FaqAdapter { info, imageView ->
+    private val faqAdapter = FaqAdapter { info, imageView ->
         navigateToDetails(info, imageView)
+    }
+    private val aboutUsAdapter = AboutUsAdapter { aboutUs, imageView ->
+        navigateToAboutUs(aboutUs, imageView)
     }
     private lateinit var binding: FaqFragmentBinding
     private var searchViewJob: Job? = null
@@ -54,16 +59,21 @@ class FaqFragment : Fragment() {
     private fun setObservers() {
         viewModel.infos.observe(viewLifecycleOwner) {
             it.data?.let { infosData ->
-                adapter.setData(infosData)
+                faqAdapter.setData(infosData)
             }
+        }
+
+        viewModel.aboutUs.observe(viewLifecycleOwner) {
+            aboutUsAdapter.setData(it)
         }
     }
 
     private fun setupRecyclerView() {
+        val concatAdapter = ConcatAdapter(aboutUsAdapter, faqAdapter)
         binding.recyclerView.apply {
             layoutManager =
                 LinearLayoutManager(requireContext())
-            adapter = this@FaqFragment.adapter
+            adapter = concatAdapter
         }
     }
 
@@ -91,6 +101,17 @@ class FaqFragment : Fragment() {
         ).build()
 
         val action = FaqFragmentDirections.actionFaqFragmentToFaqDetailsFragment(info)
+        findNavController().navigate(action, extras)
+    }
+
+    private fun navigateToAboutUs(aboutUs: AboutUs, imageView: ImageView) {
+        val extras = FragmentNavigator.Extras.Builder().addSharedElements(
+            mapOf(
+                imageView to getString(R.string.about_us_image),
+            )
+        ).build()
+
+        val action = FaqFragmentDirections.actionFaqFragmentToAboutUsFragment(aboutUs)
         findNavController().navigate(action, extras)
     }
 
