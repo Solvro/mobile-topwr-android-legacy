@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionInflater
 import com.solvro.topwr.R
 import com.solvro.topwr.data.model.notices.Notices
+import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.databinding.HomeFragmentBinding
 import com.solvro.topwr.ui.MainActivity
 import com.solvro.topwr.utils.AcademicDayMapper
@@ -41,8 +42,7 @@ class HomeFragment : Fragment() {
     }
 
     private val scienceClubAdapter = ScienceClubsAdapter { scienceClubItem ->
-        Toast.makeText(context, scienceClubItem.name, Toast.LENGTH_SHORT)
-            .show()
+        navigateToScienceClubDetails(scienceClubItem)
     }
 
     private val departmentsHomeAdapter = DepartmentsHomeAdapter { chosenDepartment ->
@@ -182,8 +182,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setListeners() {
-
-        fun changePage(page: MainActivity.BottomNavPage){
+        fun changePage(page: MainActivity.BottomNavPage) {
             val mainActivity = (requireActivity() as? MainActivity)
             mainActivity?.changeBottomNavView(page)
         }
@@ -206,5 +205,11 @@ class HomeFragment : Fragment() {
             .inflateTransition(R.transition.move)
         sharedElementReturnTransition = TransitionInflater.from(context!!)
             .inflateTransition(R.transition.move)
+    }
+
+    private fun navigateToScienceClubDetails(scienceClub: ScienceClub) {
+        val action =
+            HomeFragmentDirections.actionHomeFragmentToScienceClubsDetailsFragment(scienceClub)
+        findNavController().navigate(action)
     }
 }
