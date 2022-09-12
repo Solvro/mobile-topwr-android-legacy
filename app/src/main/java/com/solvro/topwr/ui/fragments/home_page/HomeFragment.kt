@@ -17,6 +17,7 @@ import androidx.transition.TransitionInflater
 import com.solvro.topwr.R
 import com.solvro.topwr.data.model.notices.Notices
 import com.solvro.topwr.databinding.HomeFragmentBinding
+import com.solvro.topwr.ui.MainActivity
 import com.solvro.topwr.utils.AcademicDayMapper
 import com.solvro.topwr.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
@@ -87,8 +88,10 @@ class HomeFragment : Fragment() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupRecyclerViews()
         setObservers()
+        setListeners()
     }
 
     private fun setupRecyclerViews() {
@@ -174,6 +177,26 @@ class HomeFragment : Fragment() {
                         it.data?.let { data -> scienceClubAdapter.setData(data) }
                     }
                 }
+            }
+        }
+    }
+
+    private fun setListeners() {
+
+        fun changePage(page: MainActivity.BottomNavPage){
+            val mainActivity = (requireActivity() as? MainActivity)
+            mainActivity?.changeBottomNavView(page)
+        }
+
+        with(binding) {
+            mapListBtnHomeFragment.setOnClickListener {
+                changePage(MainActivity.BottomNavPage.MapPage)
+            }
+            departmentsListBtnHomeFragment.setOnClickListener {
+                changePage(MainActivity.BottomNavPage.DepartmentsPage)
+            }
+            scienceClubListBtnHomeFragment.setOnClickListener {
+                changePage(MainActivity.BottomNavPage.ScienceClubsPage)
             }
         }
     }
