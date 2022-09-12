@@ -27,7 +27,7 @@ class RemoteDataSource @Inject constructor(
 
     //get list of departments
     suspend fun getDepartments(
-        startIndex: Int = 1,
+        startIndex: Int = 0,
         limit: Int = 20
     ): Resource<List<Departments>> =
         getResult {
