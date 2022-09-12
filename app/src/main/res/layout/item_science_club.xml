@@ -38,6 +38,7 @@
             <ImageView
                 android:id="@+id/scienceClubItemImage"
                 style="@style/ScienceClubItemImageView"
+                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

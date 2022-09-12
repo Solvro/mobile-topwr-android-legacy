@@ -7,9 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners
-import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.solvro.topwr.R
 import com.solvro.topwr.data.model.notices.Notices
 import com.solvro.topwr.databinding.WhatsUpItemBinding
@@ -24,20 +22,12 @@ class WhatsUpAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(notice: Notices) {
-            val options: RequestOptions = RequestOptions().centerCrop().transform(
-                CenterCrop(),
-                GranularRoundedCorners(
-                    8F,
-                    8F,
-                    0F,
-                    0F
-                )
-            )
             binding.apply {
                 Glide
                     .with(whatsUpImageView)
                     .load(notice.photo?.url)
-                    .apply(options)
+                    .placeholder(R.drawable.placeholder)
+                    .transition(DrawableTransitionOptions.withCrossFade())
                     .into(whatsUpImageView)
 
                 val dateArray: List<String>? = notice.created_at?.split("-")
