@@ -12,7 +12,7 @@
         android:title=""/>
     <item
         android:id="@+id/departmentsFragment"
-        android:icon="@drawable/ic_list"
+        android:icon="@drawable/ic_school"
         android:title="" />
     <item
         android:id="@+id/scienceClubsFragment"
