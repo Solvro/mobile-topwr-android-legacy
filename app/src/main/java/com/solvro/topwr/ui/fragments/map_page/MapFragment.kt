@@ -102,14 +102,17 @@ class MapFragment : Fragment() {
             }
 
             selectedBuilding.observe(viewLifecycleOwner) {
-                setBuildingMarker(it)
-                adapter.setSelectedBuilding(it)
-                setBottomSheetState(true)
-                bottomSheet.peekHeight = if (it == null) {
-                    BOTTOM_SHEET_PEEK_HEIGHT_COLLAPSED
-                } else BOTTOM_SHEET_PEEK_HEIGHT_EXTENDED
-                binding.mapBottomSheet.buildingsRecyclerView.smoothScrollToPosition(0)
-                setBottomSheetState(false)
+                if (!it.hasBeenHandled) {
+                    val selectedBuilding = it.getContentIfNotHandled()
+                    setBuildingMarker(selectedBuilding)
+                    adapter.setSelectedBuilding(selectedBuilding)
+                    setBottomSheetState(true)
+                    bottomSheet.peekHeight = if (it == null) {
+                        BOTTOM_SHEET_PEEK_HEIGHT_COLLAPSED
+                    } else BOTTOM_SHEET_PEEK_HEIGHT_EXTENDED
+                    binding.mapBottomSheet.buildingsRecyclerView.smoothScrollToPosition(0)
+                    setBottomSheetState(false)
+                }
             }
             searchHistory.observe(viewLifecycleOwner) {
                 adapter.setSearchHistory(it)
