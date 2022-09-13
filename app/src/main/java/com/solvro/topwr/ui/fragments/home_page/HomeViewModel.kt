@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.solvro.topwr.data.model.date.Date
 import com.solvro.topwr.data.model.endDate.EndDate
 import com.solvro.topwr.data.model.endDate.Weekday
+import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.data.repository.MainRepository
 import com.solvro.topwr.utils.AcademicDayMapper
@@ -22,8 +23,13 @@ class HomeViewModel @Inject constructor(private val repository: MainRepository) 
 
     /* LiveData */
     val departments = repository.getDepartments()
-    val buildings = repository.getMaps()
     val notices = repository.getNotices()
+
+    private val _buildings by lazy {
+        MutableLiveData<Resource<List<Building>>>()
+            .also { getBuildings(it) }
+    }
+    val buildings: LiveData<Resource<List<Building>>> by lazy { _buildings }
 
     private val _scienceClubs by lazy {
         MutableLiveData<Resource<List<ScienceClub>>>()
@@ -82,6 +88,13 @@ class HomeViewModel @Inject constructor(private val repository: MainRepository) 
             if (response.status == Resource.Status.SUCCESS) {
                 scienceClubsLiveData.postValue(response)
             }
+        }
+    }
+
+    private fun getBuildings(buildingsLiveData: MutableLiveData<Resource<List<Building>>>) {
+        viewModelScope.launch {
+            val buildingsResource = repository.getBuildings()
+            buildingsLiveData.postValue(buildingsResource)
         }
     }
 

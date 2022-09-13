@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -108,10 +108,8 @@ class MapFragment : Fragment() {
                 bottomSheet.peekHeight = if (it == null) {
                     BOTTOM_SHEET_PEEK_HEIGHT_COLLAPSED
                 } else BOTTOM_SHEET_PEEK_HEIGHT_EXTENDED
+                binding.mapBottomSheet.buildingsRecyclerView.smoothScrollToPosition(0)
                 setBottomSheetState(false)
-            }
-            searchText.observe(viewLifecycleOwner) {
-                adapter.searchText = it
             }
             searchHistory.observe(viewLifecycleOwner) {
                 adapter.setSearchHistory(it)
@@ -127,9 +125,16 @@ class MapFragment : Fragment() {
     }
 
     private fun setListeners() {
-        binding.mapBottomSheet.buildingsSearchBar.doOnTextChanged { _, _, _, _ ->
-            setBottomSheetState(isExpanded = true)
-        }
+        binding.mapBottomSheet.buildingsSearchBar.setOnQueryTextListener(object :
+            SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean = false
+
+            override fun onQueryTextChange(text: String?): Boolean {
+                setBottomSheetState(isExpanded = true)
+                viewModel.setTextFilter(text ?: "")
+                return false
+            }
+        })
     }
 
     private fun setBottomSheetState(isExpanded: Boolean) {
