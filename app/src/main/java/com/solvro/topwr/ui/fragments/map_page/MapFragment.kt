@@ -66,12 +66,16 @@ class MapFragment : Fragment() {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync {
             map = it
-            it.moveCamera(
-                CameraUpdateFactory.newLatLngZoom(
-                    LatLng(Constants.DEFAULT_MAP_LATITUDE, Constants.DEFAULT_MAP_LONGITUDE),
-                    Constants.DEFAULT_CAMERA_ZOOM
+            if (viewModel.selectedBuilding.value?.peekContent() != null) {
+                setBuildingMarker(viewModel.selectedBuilding.value?.peekContent())
+            } else {
+                it.moveCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        LatLng(Constants.DEFAULT_MAP_LATITUDE, Constants.DEFAULT_MAP_LONGITUDE),
+                        Constants.DEFAULT_CAMERA_ZOOM
+                    )
                 )
-            )
+            }
         }
     }
 
@@ -102,18 +106,17 @@ class MapFragment : Fragment() {
             }
 
             selectedBuilding.observe(viewLifecycleOwner) {
-                if (!it.hasBeenHandled) {
-                    val selectedBuilding = it.getContentIfNotHandled()
-                    setBuildingMarker(selectedBuilding)
-                    adapter.setSelectedBuilding(selectedBuilding)
-                    setBottomSheetState(true)
-                    bottomSheet.peekHeight = if (it == null) {
-                        BOTTOM_SHEET_PEEK_HEIGHT_COLLAPSED
-                    } else BOTTOM_SHEET_PEEK_HEIGHT_EXTENDED
-                    binding.mapBottomSheet.buildingsRecyclerView.smoothScrollToPosition(0)
-                    setBottomSheetState(false)
-                }
+                val selectedBuilding = it.getContentIfNotHandled()
+                setBuildingMarker(selectedBuilding)
+                adapter.setSelectedBuilding(selectedBuilding)
+                setBottomSheetState(true)
+                bottomSheet.peekHeight = if (it.peekContent() == null) {
+                    BOTTOM_SHEET_PEEK_HEIGHT_COLLAPSED
+                } else BOTTOM_SHEET_PEEK_HEIGHT_EXTENDED
+                binding.mapBottomSheet.buildingsRecyclerView.smoothScrollToPosition(0)
+                setBottomSheetState(false)
             }
+
             searchHistory.observe(viewLifecycleOwner) {
                 adapter.setSearchHistory(it)
             }

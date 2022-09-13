@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.FragmentNavigator
@@ -15,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionInflater
 import com.solvro.topwr.R
+import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.data.model.notices.Notices
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.databinding.HomeFragmentBinding
@@ -37,8 +37,7 @@ class HomeFragment : Fragment() {
 
     /* Adapters */
     private val buildingsAdapter = BuildingsAdapter { chosenBuilding ->
-        Toast.makeText(context, chosenBuilding.code, Toast.LENGTH_SHORT)
-            .show()
+        navigateToBuilding(chosenBuilding)
     }
 
     private val scienceClubAdapter = ScienceClubsAdapter { scienceClubItem ->
@@ -211,5 +210,13 @@ class HomeFragment : Fragment() {
         val action =
             HomeFragmentDirections.actionHomeFragmentToScienceClubsDetailsFragment(scienceClub)
         findNavController().navigate(action)
+    }
+
+    private fun navigateToBuilding(building: Building) {
+        val action =
+            HomeFragmentDirections.actionHomeFragmentToMapFragment()
+        action.buildingToShow = building
+        findNavController().navigate(action)
+
     }
 }

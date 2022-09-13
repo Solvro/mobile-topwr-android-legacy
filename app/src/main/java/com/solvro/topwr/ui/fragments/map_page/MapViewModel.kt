@@ -1,9 +1,6 @@
 package com.solvro.topwr.ui.fragments.map_page
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.data.repository.MainRepository
 import com.solvro.topwr.utils.Event
@@ -14,7 +11,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MapViewModel @Inject constructor(
-    private val repository: MainRepository
+    private val repository: MainRepository,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private var allBuildingsCached = mutableListOf<Building>()
@@ -32,6 +30,10 @@ class MapViewModel @Inject constructor(
     val searchHistory: LiveData<List<Int>> get() = _searchHistory
 
     private var textFilter = ""
+
+    init {
+        _selectedBuilding.value = Event(savedStateHandle.get<Building>("buildingToShow"))
+    }
 
     fun selectBuilding(building: Building) {
         val event =
