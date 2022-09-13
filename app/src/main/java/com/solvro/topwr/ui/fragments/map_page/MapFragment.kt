@@ -10,6 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -27,6 +28,8 @@ import com.solvro.topwr.utils.Constants
 import com.solvro.topwr.utils.Resource
 import com.solvro.topwr.utils.toPx
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MapFragment : Fragment() {
@@ -113,8 +116,11 @@ class MapFragment : Fragment() {
                 bottomSheet.peekHeight = if (it.peekContent() == null) {
                     BOTTOM_SHEET_PEEK_HEIGHT_COLLAPSED
                 } else BOTTOM_SHEET_PEEK_HEIGHT_EXTENDED
-                binding.mapBottomSheet.buildingsRecyclerView.smoothScrollToPosition(0)
                 setBottomSheetState(false)
+                lifecycleScope.launch {
+                    delay(100)
+                    binding.mapBottomSheet.buildingsRecyclerView.smoothScrollBy(0, Int.MIN_VALUE)
+                }
             }
 
             searchHistory.observe(viewLifecycleOwner) {
