@@ -119,6 +119,9 @@
             app:exitAnim="@transition/fade_out"
             app:popEnterAnim="@transition/fade_in"
             app:popExitAnim="@transition/fade_out" />
+        <action
+            android:id="@+id/action_departmentsDetailsFragment_to_scienceClubsDetailsFragment"
+            app:destination="@id/scienceClubsDetailsFragment" />
 
     </fragment>
     <fragment
