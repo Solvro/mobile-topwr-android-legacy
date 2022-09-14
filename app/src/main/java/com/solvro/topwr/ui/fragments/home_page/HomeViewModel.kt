@@ -48,15 +48,19 @@ class HomeViewModel @Inject constructor(private val repository: MainRepository) 
     }
 
     private val _dateWeek = repository.getWeekDayException()
-    val dateWeek: LiveData<Date> = Transformations.switchMap(_dateWeek) { exceptionObj ->
-        val dateFormatter = DateTimeFormatter.ofPattern(Constants.DEFAULT_DATE_PATTERN)
-        val dayException = exceptionObj.data?.weekday?.find {
-            val exceptionDate = LocalDate.parse(it.date, dateFormatter)
-            val currDate = LocalDate.now()
-            exceptionDate.equals(currDate)
+    val dateWeek: LiveData<Date?> = Transformations.switchMap(_dateWeek) { exceptionObj ->
+        if (exceptionObj.status == Resource.Status.ERROR) {
+            liveData { emit(null) }
+        } else {
+            val dateFormatter = DateTimeFormatter.ofPattern(Constants.DEFAULT_DATE_PATTERN)
+            val dayException = exceptionObj.data?.weekday?.find {
+                val exceptionDate = LocalDate.parse(it.date, dateFormatter)
+                val currDate = LocalDate.now()
+                exceptionDate.equals(currDate)
+            }
+            val date = getAcademicDate(dayException)
+            liveData { emit(date) }
         }
-        val date = getAcademicDate(dayException)
-        liveData { emit(date) }
     }
 
     private fun getAcademicDate(

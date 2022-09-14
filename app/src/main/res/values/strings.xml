@@ -48,4 +48,5 @@
     <string name="about_us_content">Poznaj twórców, którzy razem stworzyli te aplikacje!</string>
     <string name="version">Version %s (%s)</string>
     <string name="all_tag_name">Wszystkie</string>
+    <string name="unknown_day">w ten piękny dzień!</string>
 </resources>

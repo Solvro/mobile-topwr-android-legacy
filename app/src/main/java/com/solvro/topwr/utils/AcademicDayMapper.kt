@@ -7,9 +7,9 @@ import java.util.*
 
 class AcademicDayMapper {
     companion object {
-        fun mapAcademicScheduleDay(context: Context, date: Date): String {
+        fun mapAcademicScheduleDay(context: Context, date: Date?): String {
             return with(context) {
-                when (date.day) {
+                when (date?.day) {
                     Calendar.SUNDAY -> {
                         if (date.even)
                             "${getString(R.string.Even_f)} ${getString(R.string.Sunday)}"
@@ -53,7 +53,7 @@ class AcademicDayMapper {
                             "${getString(R.string.Odd_f)} ${getString(R.string.Saturday)}"
                     }
                     else -> {
-                        "Unknown date"
+                        getString(R.string.unknown_day)
                     }
                 }
             }
