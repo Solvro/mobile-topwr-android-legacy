@@ -47,4 +47,5 @@
     <string name="about_us_title">O Nas!</string>
     <string name="about_us_content">Poznaj twórców, którzy razem stworzyli te aplikacje!</string>
     <string name="version">Version %s (%s)</string>
+    <string name="all_tag_name">Wszystkie</string>
 </resources>

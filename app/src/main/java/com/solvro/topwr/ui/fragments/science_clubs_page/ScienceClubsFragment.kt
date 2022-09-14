@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -35,7 +34,9 @@ ScienceClubsFragment : Fragment() {
 
     private val viewModel: ScienceClubsViewModel by viewModels()
     private lateinit var binding: ScienceClubsFragmentBinding
-    private var categoriesAdapter: ScienceClubsCategoriesAdapter = ScienceClubsCategoriesAdapter {}
+    private var categoriesAdapter: ScienceClubsCategoriesAdapter = ScienceClubsCategoriesAdapter {
+        viewModel.setCategoriesFilter(if (it == getString(R.string.all_tag_name)) null else it)
+    }
     private var scienceClubsAdapter: ScienceClubsAdapter =
         ScienceClubsAdapter(ScienceClubComparator) { scienceClub, logoView, nameTextView ->
             navigateToDetails(scienceClub, logoView, nameTextView)
@@ -68,14 +69,9 @@ ScienceClubsFragment : Fragment() {
 
     private fun setListeners() {
         binding.apply {
-            scienceClubsFilterBtn.setOnClickListener {
-                viewModel.getScienceClubTags()
-            }
             scienceClubsSearchBar.setOnQueryTextListener(object :
                 SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(p0: String?): Boolean {
-                    return false
-                }
+                override fun onQueryTextSubmit(query: String?): Boolean = false
 
                 override fun onQueryTextChange(query: String?): Boolean {
                     viewModel.setTextFilter(query ?: "")
@@ -90,21 +86,18 @@ ScienceClubsFragment : Fragment() {
 
     private fun setObservers() {
         viewModel.apply {
-            selectedCategories.observe(viewLifecycleOwner) {
-                categoriesAdapter.setData(it, it)
+            selectedCategory.observe(viewLifecycleOwner) {
+                categoriesAdapter.selectCategory(it ?: getString(R.string.all_tag_name))
             }
             scienceClubs.observe(viewLifecycleOwner) {
                 binding.scienceClubRefreshLayout.isRefreshing = false
                 lifecycleScope.launch { scienceClubsAdapter.submitData(it) }
             }
             scienceClubTags.observe(viewLifecycleOwner) { tags ->
-                TagsDialog(tags) {
-                    viewModel.setCategoriesFilter(it)
-                }.show(childFragmentManager, "dialog")
-            }
-            areTagsAvailable.observe(viewLifecycleOwner) {
-                binding.scienceClubsFilterBtn.isVisible = it
-                binding.scienceClubsFilterBtn.isEnabled = it
+                categoriesAdapter.setData(mutableListOf<String>().apply {
+                    add(getString(R.string.all_tag_name))
+                    addAll(tags)
+                })
             }
         }
     }
