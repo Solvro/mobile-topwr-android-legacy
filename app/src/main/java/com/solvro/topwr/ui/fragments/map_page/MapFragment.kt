@@ -1,5 +1,7 @@
 package com.solvro.topwr.ui.fragments.map_page
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -109,6 +112,7 @@ class MapFragment : Fragment() {
             }
 
             selectedBuilding.observe(viewLifecycleOwner) {
+                binding.mapBottomSheet.navigateMeButton.isVisible = it.peekContent() != null
                 val selectedBuilding = it.getContentIfNotHandled()
                 setBuildingMarker(selectedBuilding)
                 adapter.setSelectedBuilding(selectedBuilding)
@@ -137,16 +141,26 @@ class MapFragment : Fragment() {
     }
 
     private fun setListeners() {
-        binding.mapBottomSheet.buildingsSearchBar.setOnQueryTextListener(object :
-            SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(p0: String?): Boolean = false
+        with(binding) {
+            with(mapBottomSheet) {
+                buildingsSearchBar.setOnQueryTextListener(object :
+                    SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(p0: String?): Boolean = false
 
-            override fun onQueryTextChange(text: String?): Boolean {
-                setBottomSheetState(isExpanded = true)
-                viewModel.setTextFilter(text ?: "")
-                return false
+                    override fun onQueryTextChange(text: String?): Boolean {
+                        setBottomSheetState(isExpanded = true)
+                        this@MapFragment.viewModel.setTextFilter(text ?: "")
+                        return false
+                    }
+                })
+                navigateMeButton.setOnClickListener {
+                    this@MapFragment.viewModel.selectedBuilding.value?.peekContent()?.let {
+                        if (it.latitude != null && it.longitude != null)
+                            navigateToMaps(it.latitude, it.longitude)
+                    }
+                }
             }
-        })
+        }
     }
 
     private fun setBottomSheetState(isExpanded: Boolean) {
@@ -178,6 +192,14 @@ class MapFragment : Fragment() {
             )
             currentMarker?.showInfoWindow()
         }
+    }
+
+    private fun navigateToMaps(lat: Double, lng: Double) {
+        val intent = Intent(
+            Intent.ACTION_VIEW,
+            Uri.parse("http://maps.google.com/maps?&daddr=${lat},${lng}")
+        )
+        startActivity(intent)
     }
 
     companion object {
