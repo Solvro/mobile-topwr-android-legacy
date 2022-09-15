@@ -96,6 +96,7 @@ class HomeViewModel @Inject constructor(private val repository: MainRepository) 
     }
 
     private fun getBuildings(buildingsLiveData: MutableLiveData<Resource<List<Building>>>) {
+        buildingsLiveData.postValue(Resource.loading())
         viewModelScope.launch {
             val buildingsResource = repository.getBuildings()
             buildingsLiveData.postValue(buildingsResource)
