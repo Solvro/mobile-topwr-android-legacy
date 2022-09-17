@@ -38,7 +38,7 @@
     <string name="empty_results">Brak wyników.</string>
     <string name="loading_error">Spróbuj ponownie.</string>
     <string name="retry">Ponów</string>
-    <string name="see_more">Zobacz Więcej</string>
+    <string name="see_more">Czytaj dalej</string>
     <string name="item_image">Item image</string>
     <string name="science_club_about">O Nas</string>
     <string name="science_club_contacts">Kontakt</string>
@@ -46,4 +46,8 @@
 
     <string name="about_us_title">O Nas!</string>
     <string name="about_us_content">Poznaj twórców, którzy razem stworzyli te aplikacje!</string>
+    <string name="version">Version %s (%s)</string>
+    <string name="all_tag_name">Wszystkie</string>
+    <string name="unknown_day">w ten piękny dzień!</string>
+    <string name="navigate_me">Nawiguj mnie!</string>
 </resources>

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.FragmentNavigator
@@ -15,8 +14,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionInflater
 import com.solvro.topwr.R
+import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.data.model.notices.Notices
+import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.databinding.HomeFragmentBinding
+import com.solvro.topwr.ui.MainActivity
 import com.solvro.topwr.utils.AcademicDayMapper
 import com.solvro.topwr.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,13 +37,11 @@ class HomeFragment : Fragment() {
 
     /* Adapters */
     private val buildingsAdapter = BuildingsAdapter { chosenBuilding ->
-        Toast.makeText(context, chosenBuilding.code, Toast.LENGTH_SHORT)
-            .show()
+        navigateToBuilding(chosenBuilding)
     }
 
     private val scienceClubAdapter = ScienceClubsAdapter { scienceClubItem ->
-        Toast.makeText(context, scienceClubItem.name, Toast.LENGTH_SHORT)
-            .show()
+        navigateToScienceClubDetails(scienceClubItem)
     }
 
     private val departmentsHomeAdapter = DepartmentsHomeAdapter { chosenDepartment ->
@@ -87,8 +87,10 @@ class HomeFragment : Fragment() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupRecyclerViews()
         setObservers()
+        setListeners()
     }
 
     private fun setupRecyclerViews() {
@@ -178,10 +180,43 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun setListeners() {
+        fun changePage(page: MainActivity.BottomNavPage) {
+            val mainActivity = (requireActivity() as? MainActivity)
+            mainActivity?.changeBottomNavView(page)
+        }
+
+        with(binding) {
+            mapListBtnHomeFragment.setOnClickListener {
+                changePage(MainActivity.BottomNavPage.MapPage)
+            }
+            departmentsListBtnHomeFragment.setOnClickListener {
+                changePage(MainActivity.BottomNavPage.DepartmentsPage)
+            }
+            scienceClubListBtnHomeFragment.setOnClickListener {
+                changePage(MainActivity.BottomNavPage.ScienceClubsPage)
+            }
+        }
+    }
+
     private fun setupSharedTransition() {
         sharedElementEnterTransition = TransitionInflater.from(context!!)
             .inflateTransition(R.transition.move)
         sharedElementReturnTransition = TransitionInflater.from(context!!)
             .inflateTransition(R.transition.move)
+    }
+
+    private fun navigateToScienceClubDetails(scienceClub: ScienceClub) {
+        val action =
+            HomeFragmentDirections.actionHomeFragmentToScienceClubsDetailsFragment(scienceClub)
+        findNavController().navigate(action)
+    }
+
+    private fun navigateToBuilding(building: Building) {
+        val action =
+            HomeFragmentDirections.actionHomeFragmentToMapFragment()
+        action.buildingToShow = building
+        findNavController().navigate(action)
+
     }
 }

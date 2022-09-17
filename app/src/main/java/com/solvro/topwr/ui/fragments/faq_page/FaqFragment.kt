@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionInflater
+import com.solvro.topwr.BuildConfig
 import com.solvro.topwr.R
 import com.solvro.topwr.data.model.aboutUs.AboutUs
 import com.solvro.topwr.data.model.info.Info
@@ -54,6 +55,7 @@ class FaqFragment : Fragment() {
         setupRecyclerView()
         setupSearchView()
         setObservers()
+        setVersion()
     }
 
     private fun setObservers() {
@@ -120,5 +122,9 @@ class FaqFragment : Fragment() {
             .inflateTransition(R.transition.move)
         sharedElementReturnTransition = TransitionInflater.from(context!!)
             .inflateTransition(R.transition.move)
+    }
+
+    private fun setVersion(){
+        binding.versionTextView.text = getString(R.string.version, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE)
     }
 }

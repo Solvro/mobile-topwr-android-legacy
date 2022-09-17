@@ -1,15 +1,19 @@
 package com.solvro.topwr.ui.fragments.map_page
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.widget.doOnTextChanged
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -27,6 +31,8 @@ import com.solvro.topwr.utils.Constants
 import com.solvro.topwr.utils.Resource
 import com.solvro.topwr.utils.toPx
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MapFragment : Fragment() {
@@ -66,12 +72,16 @@ class MapFragment : Fragment() {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync {
             map = it
-            it.moveCamera(
-                CameraUpdateFactory.newLatLngZoom(
-                    LatLng(Constants.DEFAULT_MAP_LATITUDE, Constants.DEFAULT_MAP_LONGITUDE),
-                    Constants.DEFAULT_CAMERA_ZOOM
+            if (viewModel.selectedBuilding.value?.peekContent() != null) {
+                setBuildingMarker(viewModel.selectedBuilding.value?.peekContent())
+            } else {
+                it.moveCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        LatLng(Constants.DEFAULT_MAP_LATITUDE, Constants.DEFAULT_MAP_LONGITUDE),
+                        Constants.DEFAULT_CAMERA_ZOOM
+                    )
                 )
-            )
+            }
         }
     }
 
@@ -102,17 +112,21 @@ class MapFragment : Fragment() {
             }
 
             selectedBuilding.observe(viewLifecycleOwner) {
-                setBuildingMarker(it)
-                adapter.setSelectedBuilding(it)
+                binding.mapBottomSheet.navigateMeButton.isVisible = it.peekContent() != null
+                val selectedBuilding = it.getContentIfNotHandled()
+                setBuildingMarker(selectedBuilding)
+                adapter.setSelectedBuilding(selectedBuilding)
                 setBottomSheetState(true)
-                bottomSheet.peekHeight = if (it == null) {
+                bottomSheet.peekHeight = if (it.peekContent() == null) {
                     BOTTOM_SHEET_PEEK_HEIGHT_COLLAPSED
                 } else BOTTOM_SHEET_PEEK_HEIGHT_EXTENDED
                 setBottomSheetState(false)
+                lifecycleScope.launch {
+                    delay(100)
+                    binding.mapBottomSheet.buildingsRecyclerView.smoothScrollBy(0, Int.MIN_VALUE)
+                }
             }
-            searchText.observe(viewLifecycleOwner) {
-                adapter.searchText = it
-            }
+
             searchHistory.observe(viewLifecycleOwner) {
                 adapter.setSearchHistory(it)
             }
@@ -127,8 +141,25 @@ class MapFragment : Fragment() {
     }
 
     private fun setListeners() {
-        binding.mapBottomSheet.buildingsSearchBar.doOnTextChanged { _, _, _, _ ->
-            setBottomSheetState(isExpanded = true)
+        with(binding) {
+            with(mapBottomSheet) {
+                buildingsSearchBar.setOnQueryTextListener(object :
+                    SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(p0: String?): Boolean = false
+
+                    override fun onQueryTextChange(text: String?): Boolean {
+                        setBottomSheetState(isExpanded = true)
+                        this@MapFragment.viewModel.setTextFilter(text ?: "")
+                        return false
+                    }
+                })
+                navigateMeButton.setOnClickListener {
+                    this@MapFragment.viewModel.selectedBuilding.value?.peekContent()?.let {
+                        if (it.latitude != null && it.longitude != null)
+                            navigateToMaps(it.latitude, it.longitude)
+                    }
+                }
+            }
         }
     }
 
@@ -161,6 +192,14 @@ class MapFragment : Fragment() {
             )
             currentMarker?.showInfoWindow()
         }
+    }
+
+    private fun navigateToMaps(lat: Double, lng: Double) {
+        val intent = Intent(
+            Intent.ACTION_VIEW,
+            Uri.parse("http://maps.google.com/maps?&daddr=${lat},${lng}")
+        )
+        startActivity(intent)
     }
 
     companion object {

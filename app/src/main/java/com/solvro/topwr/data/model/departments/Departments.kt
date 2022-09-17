@@ -8,6 +8,7 @@ class Departments(
     color: Color?,
     val created_at: String?,
     val description: String?,
+    val displayOrder: Int?,
     val fieldsOfStudy: List<FieldsOfStudy>?,
     val id: Int?,
     val infoSection: List<InfoSection>?,

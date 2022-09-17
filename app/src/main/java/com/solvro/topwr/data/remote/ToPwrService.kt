@@ -29,7 +29,8 @@ interface ToPwrService {
     @GET("departments")
     suspend fun getDepartments(
         @Query("_start") startIndex: Int,
-        @Query("_limit") limit: Int
+        @Query("_limit") limit: Int,
+        @Query("_sort") sortPropertyName: String = "displayOrder"
     ): Response<List<Departments>>
 
     @GET("departments/count")
