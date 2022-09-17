@@ -40,18 +40,24 @@
             app:popExitAnim="@transition/fade_out" />
         <action
             android:id="@+id/action_homeFragment_to_whatsUpFragment"
-            app:destination="@id/whatsUpFragment" />
-        <!--            app:popEnterAnim="@transition/fade_in"-->
-        <!--            app:popExitAnim="@transition/fade_out"-->
-        <!--            app:enterAnim="@transition/fade_in"-->
-        <!--            app:exitAnim="@transition/fade_out"-->
-        <!--            />-->
+            app:destination="@id/whatsUpFragment"
+            app:exitAnim="@transition/fade_out"
+            app:popExitAnim="@transition/fade_out" />
+        <action
+            android:id="@+id/action_homeFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.solvro.topwr.ui.fragments.map_page.MapFragment"
         android:label="map_fragment"
-        tools:layout="@layout/map_fragment" />
+        tools:layout="@layout/map_fragment">
+        <argument
+            android:name="buildingToShow"
+            android:defaultValue="@null"
+            app:argType="com.solvro.topwr.data.model.maps.Building"
+            app:nullable="true" />
+    </fragment>
     <fragment
         android:id="@+id/departmentsFragment"
         android:name="com.solvro.topwr.ui.fragments.departments_page.DepartmentsFragment"
@@ -88,7 +94,9 @@
             app:destination="@id/faqDetailsFragment" />
         <action
             android:id="@+id/action_faqFragment_to_aboutUsFragment"
-            app:destination="@id/aboutUsFragment" />
+            app:destination="@id/aboutUsFragment"
+            app:exitAnim="@android:anim/fade_out"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
 
     <fragment
@@ -111,6 +119,9 @@
             app:exitAnim="@transition/fade_out"
             app:popEnterAnim="@transition/fade_in"
             app:popExitAnim="@transition/fade_out" />
+        <action
+            android:id="@+id/action_departmentsDetailsFragment_to_scienceClubsDetailsFragment"
+            app:destination="@id/scienceClubsDetailsFragment" />
 
     </fragment>
     <fragment
@@ -144,8 +155,7 @@
         android:id="@+id/aboutUsFragment"
         android:name="com.solvro.topwr.ui.fragments.about_us_page.AboutUsFragment"
         android:label="AboutUsFragment"
-        tools:layout="@layout/about_us_fragment"
-        >
+        tools:layout="@layout/about_us_fragment">
         <argument
             android:name="aboutUs"
             app:argType="com.solvro.topwr.data.model.aboutUs.AboutUs" />

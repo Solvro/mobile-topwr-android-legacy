@@ -27,9 +27,11 @@ class DepartmentsHomeAdapter(
                 department.color?.gradientSecond!!
             )
             binding.apply {
-                Glide.with(departmentsItemImage).load(gradientDrawable)
+                Glide.with(departmentsItemImage)
+                    .load(gradientDrawable)
                     .into(departmentsItemImage)
-                Glide.with(departmentsLogoItemImage).load(department.logo?.url)
+                Glide.with(departmentsLogoItemImage)
+                    .load(department.logo?.url)
                     .into(departmentsLogoItemImage)
 
                 departmentsItemNameTextView.text = department.name

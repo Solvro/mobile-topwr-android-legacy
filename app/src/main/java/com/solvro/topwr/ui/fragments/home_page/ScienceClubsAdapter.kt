@@ -23,8 +23,9 @@ class ScienceClubsAdapter(
                     .load(scienceClub.photo?.url)
                     .into(scienceClubsImageView)
 
-                scienceClubsTextView.text = scienceClub.name
-                root.setOnClickListener {
+                scienceClubNameTextView.text = scienceClub.name
+                scienceClubDescriptionTextView.text = scienceClub.description
+                readmoreButton.setOnClickListener {
                     onClick(scienceClub)
                 }
             }

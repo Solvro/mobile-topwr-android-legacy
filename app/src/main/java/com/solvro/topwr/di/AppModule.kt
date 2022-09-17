@@ -28,7 +28,7 @@ object AppModule {
     // baseUrl for Retrofit
     @Provides
     @Named("BaseUrl")
-    fun provideBaseUrl(): String = "https://to-pwr-backend.herokuapp.com/"
+    fun provideBaseUrl(): String = "http://217.182.78.179:1337/"
 
     //provide retrofit
     @Singleton

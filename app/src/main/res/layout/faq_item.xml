@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    app:cardCornerRadius="8dp"
     android:layout_marginHorizontal="25dp"
     android:layout_marginBottom="16dp"
+    app:cardCornerRadius="8dp"
     app:cardElevation="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:foreground="?android:attr/selectableItemBackground"
         android:background="@drawable/rounded_background">
 
         <TextView
@@ -52,6 +53,7 @@
             android:layout_width="100dp"
             android:layout_height="0dp"
             android:background="@color/black"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

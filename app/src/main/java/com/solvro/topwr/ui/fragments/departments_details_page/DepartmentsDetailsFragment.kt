@@ -13,11 +13,11 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.core.content.res.ResourcesCompat.getDrawable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -30,14 +30,19 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.solvro.topwr.R
+import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.databinding.DepartmentsDetailsFragmentBinding
+import com.solvro.topwr.ui.adapters.DefaultLoadStateAdapter
 import com.solvro.topwr.ui.adapters.FieldsOfStudyAdapter
 import com.solvro.topwr.ui.adapters.PhoneAdapter
+import com.solvro.topwr.ui.adapters.ScienceClubBigAdapter
 import com.solvro.topwr.ui.fragments.departments_page.DepartmentsFragment
 import com.solvro.topwr.ui.fragments.home_page.HomeFragment
-import com.solvro.topwr.ui.fragments.home_page.ScienceClubsAdapter
+import com.solvro.topwr.ui.fragments.science_clubs_page.ScienceClubComparator
 import com.solvro.topwr.ui.fragments.science_clubs_page.ScienceClubsFragment
+import com.solvro.topwr.utils.withLoadStateAdapters
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class DepartmentsDetailsFragment : Fragment() {
@@ -49,10 +54,10 @@ class DepartmentsDetailsFragment : Fragment() {
     private lateinit var binding: DepartmentsDetailsFragmentBinding
     private val viewModel: DepartmentsDetailsViewModel by viewModels()
     private var map: GoogleMap? = null
-    private val scienceClubsAdapter = ScienceClubsAdapter { scienceClubItem ->
-        Toast.makeText(context, scienceClubItem.name, Toast.LENGTH_SHORT).show()
-        //TODO("Navigate to specific club")
-    }
+    private val scienceClubsAdapter =
+        ScienceClubBigAdapter(ScienceClubComparator) { scienceClubItem ->
+            navigateToScienceClub(scienceClubItem)
+        }
     private lateinit var fieldsOfStudyAdapter: FieldsOfStudyAdapter
     private lateinit var phoneAdapter: PhoneAdapter
 
@@ -123,7 +128,10 @@ class DepartmentsDetailsFragment : Fragment() {
 
     private fun setupRecyclerView() {
         binding.scienceClubsOfDepartmentRecyclerView.apply {
-            adapter = scienceClubsAdapter
+            adapter = scienceClubsAdapter.withLoadStateAdapters(
+                DefaultLoadStateAdapter(viewModel::retryGetScienceClubs),
+                DefaultLoadStateAdapter(viewModel::retryGetScienceClubs)
+            )
             layoutManager = LinearLayoutManager(
                 requireContext(),
                 LinearLayoutManager.HORIZONTAL,
@@ -228,20 +236,22 @@ class DepartmentsDetailsFragment : Fragment() {
         }
 
         viewModel.scienceClubs.observe(viewLifecycleOwner) {
-            it?.data.let { scienceClubs ->
-                scienceClubs?.let {
-                    scienceClubsAdapter.setData(
-                        scienceClubs.filter { scienceClubs ->
-                            viewModel.departments.value?.scientificCircles?.contains(scienceClubs.id) == true
-                        })
-                }
+            lifecycleScope.launch {
+                scienceClubsAdapter.submitData(it)
             }
         }
     }
 
+    private fun navigateToScienceClub(scienceClub: ScienceClub) {
+        val action =
+            DepartmentsDetailsFragmentDirections.actionDepartmentsDetailsFragmentToScienceClubsDetailsFragment(
+                scienceClub
+            )
+        findNavController().navigate(action)
+    }
+
 
     private fun vectorToBitmap(@DrawableRes id: Int): BitmapDescriptor {
-
         val vector: Drawable =
             getDrawable(resources, id, null) ?: return BitmapDescriptorFactory.defaultMarker()
 
