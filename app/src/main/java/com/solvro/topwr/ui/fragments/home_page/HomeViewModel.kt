@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.solvro.topwr.data.model.date.Date
 import com.solvro.topwr.data.model.endDate.EndDate
 import com.solvro.topwr.data.model.endDate.Weekday
+import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.data.repository.MainRepository
 import com.solvro.topwr.utils.AcademicDayMapper
@@ -22,8 +23,13 @@ class HomeViewModel @Inject constructor(private val repository: MainRepository) 
 
     /* LiveData */
     val departments = repository.getDepartments()
-    val buildings = repository.getMaps()
     val notices = repository.getNotices()
+
+    private val _buildings by lazy {
+        MutableLiveData<Resource<List<Building>>>()
+            .also { getBuildings(it) }
+    }
+    val buildings: LiveData<Resource<List<Building>>> by lazy { _buildings }
 
     private val _scienceClubs by lazy {
         MutableLiveData<Resource<List<ScienceClub>>>()
@@ -42,15 +48,19 @@ class HomeViewModel @Inject constructor(private val repository: MainRepository) 
     }
 
     private val _dateWeek = repository.getWeekDayException()
-    val dateWeek: LiveData<Date> = Transformations.switchMap(_dateWeek) { exceptionObj ->
-        val dateFormatter = DateTimeFormatter.ofPattern(Constants.DEFAULT_DATE_PATTERN)
-        val dayException = exceptionObj.data?.weekday?.find {
-            val exceptionDate = LocalDate.parse(it.date, dateFormatter)
-            val currDate = LocalDate.now()
-            exceptionDate.equals(currDate)
+    val dateWeek: LiveData<Date?> = Transformations.switchMap(_dateWeek) { exceptionObj ->
+        if (exceptionObj.status == Resource.Status.ERROR) {
+            liveData { emit(null) }
+        } else {
+            val dateFormatter = DateTimeFormatter.ofPattern(Constants.DEFAULT_DATE_PATTERN)
+            val dayException = exceptionObj.data?.weekday?.find {
+                val exceptionDate = LocalDate.parse(it.date, dateFormatter)
+                val currDate = LocalDate.now()
+                exceptionDate.equals(currDate)
+            }
+            val date = getAcademicDate(dayException)
+            liveData { emit(date) }
         }
-        val date = getAcademicDate(dayException)
-        liveData { emit(date) }
     }
 
     private fun getAcademicDate(
@@ -82,6 +92,14 @@ class HomeViewModel @Inject constructor(private val repository: MainRepository) 
             if (response.status == Resource.Status.SUCCESS) {
                 scienceClubsLiveData.postValue(response)
             }
+        }
+    }
+
+    private fun getBuildings(buildingsLiveData: MutableLiveData<Resource<List<Building>>>) {
+        buildingsLiveData.postValue(Resource.loading())
+        viewModelScope.launch {
+            val buildingsResource = repository.getBuildings()
+            buildingsLiveData.postValue(buildingsResource)
         }
     }
 

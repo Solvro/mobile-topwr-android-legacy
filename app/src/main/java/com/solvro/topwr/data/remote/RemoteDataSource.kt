@@ -27,7 +27,7 @@ class RemoteDataSource @Inject constructor(
 
     //get list of departments
     suspend fun getDepartments(
-        startIndex: Int = 1,
+        startIndex: Int = 0,
         limit: Int = 20
     ): Resource<List<Departments>> =
         getResult {
@@ -78,7 +78,7 @@ class RemoteDataSource @Inject constructor(
     suspend fun getScienceClubTags(): Resource<List<TagRemote>> =
         getResult { service.getScientificCirclesTags() }
 
-    suspend fun getMaps(): Resource<List<Building>> = getResult { service.getMaps() }
+    suspend fun getBuildings(): Resource<List<Building>> = getResult { service.getMaps() }
 
     suspend fun getNotices(): Resource<List<Notices>> = getResult { service.getNotices() }
 

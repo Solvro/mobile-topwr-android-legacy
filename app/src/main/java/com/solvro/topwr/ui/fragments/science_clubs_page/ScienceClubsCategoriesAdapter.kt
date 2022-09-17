@@ -13,7 +13,7 @@ class ScienceClubsCategoriesAdapter(
     RecyclerView.Adapter<ScienceClubsCategoriesAdapter.ViewHolder>() {
 
     private val categories = ArrayList<String>()
-    private val selected = ArrayList<String>()
+    private var selected: String? = null
 
     inner class ViewHolder(private val binding: ItemCategoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -21,7 +21,7 @@ class ScienceClubsCategoriesAdapter(
             categories[position].let { categoryName ->
                 binding.apply {
                     scienceClubCategoryNameTextView.text = categoryName
-                    isChecked = selected.contains(categoryName)
+                    isChecked = selected?.contains(categoryName) ?: false
                     root.setOnClickListener {
                         onItemClick(categoryName)
                     }
@@ -41,11 +41,14 @@ class ScienceClubsCategoriesAdapter(
 
     override fun getItemCount(): Int = categories.size
 
-    fun setData(categories: List<String>, selectedCategories: List<String>) {
+    fun setData(categories: List<String>) {
         this.categories.clear()
         this.categories.addAll(categories)
-        this.selected.clear()
-        this.selected.addAll(selectedCategories)
+        notifyDataSetChanged()
+    }
+
+    fun selectCategory(category: String) {
+        selected = category
         notifyDataSetChanged()
     }
 

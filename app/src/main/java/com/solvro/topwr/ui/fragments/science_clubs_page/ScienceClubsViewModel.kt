@@ -28,41 +28,32 @@ class ScienceClubsViewModel @Inject constructor(
 
     private var lastTextFilter: String = ""
 
-    private lateinit var scienceClubTagsCached: List<String>
-
     /** LiveData */
     private val _scienceClubs by lazy { MutableLiveData<PagingData<ScienceClub>>() }
     val scienceClubs: LiveData<PagingData<ScienceClub>> by lazy { _scienceClubs }
 
-    private val _areTagsAvailable by lazy { MutableLiveData<Boolean>(false) }
-    val areTagsAvailable: LiveData<Boolean> by lazy { _areTagsAvailable }
-
     private val _scienceClubTags by lazy { MutableLiveData<List<String>>() }
-    val scienceClubTags by lazy { _scienceClubTags }
+    val scienceClubTags: LiveData<List<String>> by lazy { _scienceClubTags }
 
-    private val _selectedCategories by lazy { MutableLiveData<List<String>>() }
-    val selectedCategories: LiveData<List<String>> by lazy { _selectedCategories }
+    private val _selectedCategory by lazy { MutableLiveData<String>(null) }
+    val selectedCategory: LiveData<String> by lazy { _selectedCategory }
 
     init {
         getScienceClubs()
-        getScienceClubTagsToCache()
-    }
-
-    fun getScienceClubTags() {
-        if (::scienceClubTagsCached.isInitialized) _scienceClubTags.postValue(scienceClubTagsCached)
+        getScienceClubTags()
     }
 
     fun setTextFilter(text: String) {
         lastTextFilter = text
         getScienceClubs(
-            tagFilter = _selectedCategories.value?.firstOrNull(),
+            tagFilter = _selectedCategory.value,
             textFilter = text
         )
     }
 
     fun setCategoriesFilter(tagFilter: String?) {
-        _selectedCategories.postValue(
-            if (tagFilter == null) listOf() else listOf(tagFilter)
+        _selectedCategory.postValue(
+            tagFilter
         )
         getScienceClubs(
             tagFilter = tagFilter,
@@ -91,14 +82,13 @@ class ScienceClubsViewModel @Inject constructor(
                 }
         }
 
-    private fun getScienceClubTagsToCache() {
+    private fun getScienceClubTags() {
         viewModelScope.launch {
             val result = repository.getScienceClubTags()
             if (result.status == Resource.Status.SUCCESS) {
-                scienceClubTagsCached = result.data?.map {
+                _scienceClubTags.postValue(result.data?.map {
                     it.name ?: ""
-                } ?: listOf()
-                _areTagsAvailable.postValue(true)
+                } ?: listOf())
             }
         }
     }

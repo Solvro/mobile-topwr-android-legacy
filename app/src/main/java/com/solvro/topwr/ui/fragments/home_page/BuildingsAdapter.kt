@@ -4,7 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
+import com.solvro.topwr.R
 import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.databinding.BuildingsItemBinding
 
@@ -18,12 +20,13 @@ class BuildingsAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(building: Building) {
-            val options: RequestOptions = RequestOptions()
-                .centerCrop()
+
             binding.apply {
                 buildingItemTextView.text = building.code
                 Glide.with(buildingItemImage)
-                    .load(building.photo?.url).apply(options)
+                    .load(building.photo?.url)
+                    .placeholder(R.drawable.placeholder)
+                    .transition(DrawableTransitionOptions.withCrossFade())
                     .into(buildingItemImage)
                 root.setOnClickListener {
                     onClick(building)

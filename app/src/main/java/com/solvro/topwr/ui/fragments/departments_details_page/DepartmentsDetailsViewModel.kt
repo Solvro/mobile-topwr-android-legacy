@@ -1,12 +1,17 @@
 package com.solvro.topwr.ui.fragments.departments_details_page
 
 import androidx.lifecycle.*
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import androidx.paging.filter
 import com.solvro.topwr.data.model.departments.Departments
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.data.repository.MainRepository
 import com.solvro.topwr.ui.fragments.home_page.HomeFragment
-import com.solvro.topwr.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.cancellable
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,18 +21,36 @@ class DepartmentsDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _scienceClubs = MutableLiveData<Resource<List<ScienceClub>>>()
-    val scienceClubs: LiveData<Resource<List<ScienceClub>>> by lazy { _scienceClubs }
+    private val _scienceClubs by lazy {
+        MutableLiveData<PagingData<ScienceClub>>()
+            .also {
+                getScienceClubs(it)
+            }
+    }
+    val scienceClubs: LiveData<PagingData<ScienceClub>> by lazy { _scienceClubs }
 
     val departments: LiveData<Departments?> = savedStateHandle.getLiveData("department_info", null)
     val prevFragment: LiveData<String> =
         savedStateHandle.getLiveData("prevFragment", HomeFragment::class.java.name)
 
-    init {
-        getScienceClubs()
+    private var scienceClubsJob: Job? = null
+
+    private fun getScienceClubs(scienceClubsLiveData: MutableLiveData<PagingData<ScienceClub>>) {
+        scienceClubsJob?.cancel()
+        scienceClubsJob = viewModelScope.launch {
+            repository.getScienceClubsPaged()
+                .cancellable()
+                .cachedIn(viewModelScope)
+                .collectLatest { scienceClubsPagedData ->
+                    val filteredData = scienceClubsPagedData.filter {
+                        (it.department == departments.value?.displayOrder)
+                    }
+                    scienceClubsLiveData.postValue(filteredData)
+                }
+        }
     }
 
-    private fun getScienceClubs() {
-        viewModelScope.launch { repository.getScienceClubs() }
+    fun retryGetScienceClubs() {
+        getScienceClubs(_scienceClubs)
     }
 }

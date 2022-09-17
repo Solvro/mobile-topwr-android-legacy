@@ -19,3 +19,16 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keep class com.solvro.topwr.data.model.maps.* { *; }
+-keep class com.solvro.topwr.data.model.aboutUs.* { *; }
+-keep class com.solvro.topwr.data.model.building.* { *; }
+-keep class com.solvro.topwr.data.model.common.* { *; }
+-keep class com.solvro.topwr.data.model.department.* { *; }
+-keep class com.solvro.topwr.data.model.departments.* { *; }
+-keep class com.solvro.topwr.data.model.endDate.* { *; }
+-keep class com.solvro.topwr.data.model.date.* { *; }
+-keep class com.solvro.topwr.data.model.info.* { *; }
+-keep class com.solvro.topwr.data.model.notices.* { *; }
+-keep class com.solvro.topwr.data.model.tag.* { *; }
+-keep class com.solvro.topwr.data.model.scienceClub.* { *; }

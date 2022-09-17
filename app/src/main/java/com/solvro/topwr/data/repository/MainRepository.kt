@@ -47,11 +47,7 @@ class MainRepository @Inject constructor(
 
     fun getDepartmentsPaged() = remoteDataSource.getPagedDepartments()
 
-    fun getMaps(): LiveData<Resource<List<Building>>> =
-        liveData {
-            emit(Resource.loading(null))
-            emit(remoteDataSource.getMaps())
-        }
+    suspend fun getBuildings(): Resource<List<Building>> = remoteDataSource.getBuildings()
 
     suspend fun getScienceClubs(): Resource<List<ScienceClub>> =
         remoteDataSource.getScientificCircles()

@@ -69,7 +69,6 @@ class FaqDetailsFragment : Fragment(R.layout.faq_details_fragment) {
 
         binding.apply {
             backToFaq.setOnClickListener {
-                startPostponedEnterTransition()
                 findNavController().navigateUp()
             }
 

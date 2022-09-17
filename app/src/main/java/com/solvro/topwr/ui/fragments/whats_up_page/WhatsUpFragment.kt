@@ -67,7 +67,6 @@ class WhatsUpFragment : Fragment(R.layout.whats_up_fragment) {
             whatsUpDate.text = notice?.getFormattedTime()
 
             backToMainBtn.setOnClickListener {
-                startPostponedEnterTransition()
                 findNavController().navigateUp()
             }
         }
