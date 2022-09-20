@@ -48,6 +48,16 @@ class WhatsUpAdapter(
                         descriptionTextView
                     )
                 }
+
+                whatsUpFrame.setOnClickListener {
+                    onClick(
+                        notice,
+                        whatsUpImageView,
+                        titleTextView,
+                        dateTextView,
+                        descriptionTextView
+                    )
+                }
             }
         }
 
