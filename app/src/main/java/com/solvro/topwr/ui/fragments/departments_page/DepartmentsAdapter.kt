@@ -8,6 +8,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.solvro.topwr.data.model.departments.Departments
 import com.solvro.topwr.databinding.ItemDepartmentBinding
 
@@ -44,6 +45,8 @@ class DepartmentsAdapter(
                     .into(departmentBackground)
                 Glide.with(departmentListItemLogo)
                     .load(item.logo?.url)
+                    .override(120, 120)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(departmentListItemLogo)
 
                 acronymTextView.text = item.code
