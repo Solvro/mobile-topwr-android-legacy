@@ -2,10 +2,7 @@ package com.solvro.topwr.ui.fragments.departments_details_page
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.os.Bundle
@@ -13,8 +10,6 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.DrawableRes
-import androidx.core.content.res.ResourcesCompat.getDrawable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -25,7 +20,6 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapsInitializer
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -40,6 +34,7 @@ import com.solvro.topwr.ui.fragments.departments_page.DepartmentsFragment
 import com.solvro.topwr.ui.fragments.home_page.HomeFragment
 import com.solvro.topwr.ui.fragments.science_clubs_page.ScienceClubComparator
 import com.solvro.topwr.ui.fragments.science_clubs_page.ScienceClubsFragment
+import com.solvro.topwr.utils.DrawableToBitmapDescriptorConverter
 import com.solvro.topwr.utils.withLoadStateAdapters
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -180,8 +175,14 @@ class DepartmentsDetailsFragment : Fragment() {
                 map?.addMarker(
                     MarkerOptions()
                         .position(position)
-                        .title(departments?.name)
-                        .icon(vectorToBitmap(R.drawable.ic_map_marker_1))
+                        .title(departments.name)
+                        .icon(
+                            DrawableToBitmapDescriptorConverter.vectorToBitmap(
+                                resources,
+                                R.drawable.ic_map_marker_1
+                            )
+                                ?: BitmapDescriptorFactory.defaultMarker()
+                        )
                 )
             }
         }
@@ -249,20 +250,4 @@ class DepartmentsDetailsFragment : Fragment() {
             )
         findNavController().navigate(action)
     }
-
-
-    private fun vectorToBitmap(@DrawableRes id: Int): BitmapDescriptor {
-        val vector: Drawable =
-            getDrawable(resources, id, null) ?: return BitmapDescriptorFactory.defaultMarker()
-
-        val bitmap = Bitmap.createBitmap(
-            vector.intrinsicWidth,
-            vector.intrinsicHeight, Bitmap.Config.ARGB_8888
-        )
-        val canvas = Canvas(bitmap)
-        vector.setBounds(0, 0, canvas.width, canvas.height)
-        vector.draw(canvas)
-        return BitmapDescriptorFactory.fromBitmap(bitmap)
-    }
-
 }
