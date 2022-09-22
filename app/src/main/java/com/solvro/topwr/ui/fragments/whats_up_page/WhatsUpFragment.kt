@@ -79,7 +79,7 @@ class WhatsUpFragment : Fragment(R.layout.whats_up_fragment) {
             whatsUpImageView.transitionName = getString(R.string.whatsup_image, notice.id)
             whatsUpTitle.transitionName = getString(R.string.whatsup_title, notice.id)
             whatsUpDate.transitionName = getString(R.string.whatsup_date, notice.id)
-            whatsUpNewsDescription.transitionName = getString(R.string.whatsup_description, notice.id)
+//            whatsUpNewsDescription.transitionName = getString(R.string.whatsup_description, notice.id)
         }
     }
 

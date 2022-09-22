@@ -25,7 +25,7 @@ class ScienceClubsAdapter(
 
                 scienceClubNameTextView.text = scienceClub.name
                 scienceClubDescriptionTextView.text = scienceClub.description
-                readmoreButton.setOnClickListener {
+                root.setOnClickListener {
                     onClick(scienceClub)
                 }
             }
