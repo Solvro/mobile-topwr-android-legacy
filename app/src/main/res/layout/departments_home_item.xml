@@ -59,6 +59,8 @@
             android:fontFamily="@font/rubik"
             android:textColor="@color/white"
             android:textSize="13sp"
+            android:ellipsize="end"
+            android:lines="2"
             app:layout_constraintBottom_toBottomOf="@+id/departmentsItemImage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
