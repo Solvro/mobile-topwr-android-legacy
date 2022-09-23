@@ -32,4 +32,19 @@
         <item name="android:layout_width">92dp</item>
         <item name="android:layout_height">92dp</item>
     </style>
+
+    <style name="BackButton" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_marginTop">44dp</item>
+        <item name="android:layout_marginStart">25dp</item>
+        <item name="android:drawablePadding">6dp</item>
+        <item name="android:fontFamily">@font/rubik_medium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:paddingHorizontal">0dp</item>
+        <item name="android:paddingVertical">4dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/red</item>
+        <item name="android:textSize">13sp</item>
+        <item name="drawableLeftCompat">@drawable/ic_back</item>
+    </style>
 </resources>

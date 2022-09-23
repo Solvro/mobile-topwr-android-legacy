@@ -11,23 +11,15 @@
         android:layout_height="wrap_content"
         android:paddingBottom="30dp">
 
-        <TextView
+        <Button
             android:id="@+id/backToMainDepartmentBtn"
+            style="@style/BackButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="48dp"
-            android:background="@android:color/transparent"
-            android:drawablePadding="6dp"
-            android:fontFamily="@font/rubik_medium"
-            android:gravity="center"
             android:text="@string/departments"
-            android:textColor="@color/red"
-            android:textSize="13sp"
-            app:drawableLeftCompat="@drawable/ic_back"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/departmentMap"

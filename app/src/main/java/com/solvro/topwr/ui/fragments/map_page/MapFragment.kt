@@ -28,6 +28,7 @@ import com.solvro.topwr.R
 import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.databinding.MapFragmentBinding
 import com.solvro.topwr.utils.Constants
+import com.solvro.topwr.utils.DrawableToBitmapDescriptorConverter
 import com.solvro.topwr.utils.Resource
 import com.solvro.topwr.utils.toPx
 import dagger.hilt.android.AndroidEntryPoint
@@ -189,6 +190,12 @@ class MapFragment : Fragment() {
                 MarkerOptions()
                     .position(newLocation)
                     .title(building.name)
+                    .icon(
+                        DrawableToBitmapDescriptorConverter.vectorToBitmap(
+                            resources,
+                            R.drawable.ic_building_map_marker
+                        )
+                    )
             )
             currentMarker?.showInfoWindow()
         }
