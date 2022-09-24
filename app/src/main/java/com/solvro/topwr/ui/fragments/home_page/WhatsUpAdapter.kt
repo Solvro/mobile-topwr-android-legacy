@@ -39,7 +39,7 @@ class WhatsUpAdapter(
                 val context = itemView.context
                 setTransitionNames(context, notice)
 
-                moreButton.setOnClickListener {
+                root.setOnClickListener {
                     onClick(
                         notice,
                         whatsUpImageView,
