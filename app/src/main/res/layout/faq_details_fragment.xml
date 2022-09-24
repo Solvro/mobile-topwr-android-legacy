@@ -56,6 +56,8 @@
                 android:layout_marginLeft="24dp"
                 android:layout_marginTop="18dp"
                 android:layout_marginRight="24dp"
+                android:layout_marginBottom="10dp"
+                android:paddingBottom="10dp"
                 android:textColor="@color/faq_normal_text_color"
                 tools:text="Na Politechnice Wrocławskiej działa program przeznaczony dla studentów, którzy mają wyjątkowe zdolności naukowe. Już od pierwszego roku mogą oni liczyć m.in. na indywidualną pomoc tutora i stypendium naukowe. Wszystko po to, aby jeszcze bardziej rozwijać się w wybranej przez siebie dziedzinie nauki.
 
