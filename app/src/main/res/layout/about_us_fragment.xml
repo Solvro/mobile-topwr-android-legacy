@@ -65,6 +65,8 @@
                 android:layout_marginLeft="24dp"
                 android:layout_marginTop="18dp"
                 android:layout_marginRight="24dp"
+                android:layout_marginBottom="15dp"
+                android:paddingBottom="10dp"
                 android:textColor="@color/faq_normal_text_color"
                 android:text="@string/about_us_content"
                 tools:text="@string/about_us_content" />
