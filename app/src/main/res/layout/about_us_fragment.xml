@@ -18,13 +18,12 @@
         android:drawablePadding="6dp"
         android:fontFamily="@font/rubik_medium"
         android:gravity="center"
+        android:text="@string/faq"
         android:textColor="@color/red"
         android:textSize="13sp"
         app:drawableLeftCompat="@drawable/ic_back"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/faq"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -39,7 +38,8 @@
             android:id="@+id/aboutUsInformationContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="16dp">
 
             <ImageView
                 android:id="@+id/aboutUsImageView"
@@ -62,13 +62,11 @@
                 android:id="@+id/aboutUsContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="24dp"
+                android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="18dp"
-                android:layout_marginRight="24dp"
-                android:layout_marginBottom="15dp"
                 android:paddingBottom="10dp"
-                android:textColor="@color/faq_normal_text_color"
                 android:text="@string/about_us_content"
+                android:textColor="@color/faq_normal_text_color"
                 tools:text="@string/about_us_content" />
         </LinearLayout>
     </ScrollView>

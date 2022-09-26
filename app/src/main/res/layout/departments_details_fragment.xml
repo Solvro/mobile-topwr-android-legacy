@@ -1,236 +1,232 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragments.departments_details_page.DepartmentsDetailsFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="30dp">
-
-        <Button
-            android:id="@+id/backToMainDepartmentBtn"
-            style="@style/BackButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/departments"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/departmentMap"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="254dp"
-            android:layout_marginTop="20dp"
-            android:nestedScrollingEnabled="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/backToMainDepartmentBtn" />
-
-        <ImageView
-            android:id="@+id/transparentMapOverlapping"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:src="@android:color/transparent"
-            app:layout_constraintBottom_toBottomOf="@+id/departmentMap"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/departmentMap" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/departmentDetailFragmentLogoCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:shape="ring"
-            app:cardCornerRadius="60dp"
-            app:layout_constraintBottom_toBottomOf="@+id/departmentMap"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/departmentMap">
-
-            <ImageView
-                android:id="@+id/departmentDetailFragmentLogo"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:padding="28dp"
-                android:scaleType="fitCenter" />
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <TextView
-            android:id="@+id/departmentName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/rubik_medium"
-            android:gravity="center"
-            android:textColor="@color/lightblack"
-            android:textSize="17sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/departmentDetailFragmentLogoCard"
-            tools:text="Wydział Architektury"
-
-            />
-
-        <TextView
-            android:id="@+id/departmentPosition"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/rubik"
-            android:gravity="center"
-            android:textColor="@color/detailsMainScreen"
-            android:textSize="13sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/departmentName"
-            tools:text="Politechnika Wrocławska\nul. Bolesława Prusa 53/55\n50-317 Wrocław" />
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/detailsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:background="@color/grey"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/departmentPosition">
+            android:paddingBottom="16dp">
+
+            <Button
+                android:id="@+id/backToMainDepartmentBtn"
+                style="@style/BackButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/departments"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <fragment
+                android:id="@+id/departmentMap"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="254dp"
+                android:layout_marginTop="20dp"
+                android:nestedScrollingEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/backToMainDepartmentBtn" />
+
+            <ImageView
+                android:id="@+id/transparentMapOverlapping"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:src="@android:color/transparent"
+                app:layout_constraintBottom_toBottomOf="@+id/departmentMap"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/departmentMap" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/departmentDetailFragmentLogoCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:shape="ring"
+                app:cardCornerRadius="60dp"
+                app:layout_constraintBottom_toBottomOf="@+id/departmentMap"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/departmentMap">
+
+                <ImageView
+                    android:id="@+id/departmentDetailFragmentLogo"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:padding="28dp"
+                    android:scaleType="fitCenter" />
+
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
-                android:id="@+id/deaneryTextView"
+                android:id="@+id/departmentName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/rubik_medium"
+                android:gravity="center"
+                android:textColor="@color/lightblack"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/departmentDetailFragmentLogoCard"
+                tools:text="Wydział Architektury" />
+
+            <TextView
+                android:id="@+id/departmentPosition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/rubik"
+                android:gravity="center"
+                android:textColor="@color/detailsMainScreen"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/departmentName"
+                tools:text="Politechnika Wrocławska\nul. Bolesława Prusa 53/55\n50-317 Wrocław" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/detailsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@color/grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/departmentPosition">
+
+                <TextView
+                    android:id="@+id/deaneryTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/rubik_medium"
+                    android:text="@string/deanery"
+                    android:textColor="@color/lightblack"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="4dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/deaneryTextView">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_compass"
+                        app:tint="@color/icon_red" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/departmentDetailBuildingTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:fontFamily="@font/rubik"
+                    android:textColor="@color/lightblack"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/cardView"
+                    app:layout_constraintStart_toEndOf="@+id/cardView"
+                    app:layout_constraintTop_toTopOf="@+id/cardView"
+                    tools:text="Budynek E-1, pokój 21" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/contactPhoneRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="24dp"
+                    android:nestedScrollingEnabled="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/coursesOfStudyTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/rubik_medium"
-                android:text="@string/deanery"
+                android:text="@string/courses_of_study"
                 android:textColor="@color/lightblack"
                 android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="4dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/deaneryTextView">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_compass"
-                    app:tint="@color/icon_red" />
-
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:id="@+id/departmentDetailBuildingTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:fontFamily="@font/rubik"
-                android:textColor="@color/lightblack"
-                android:textSize="13sp"
-                app:layout_constraintBottom_toBottomOf="@+id/cardView"
-                app:layout_constraintStart_toEndOf="@+id/cardView"
-                app:layout_constraintTop_toTopOf="@+id/cardView"
-                tools:text="Budynek E-1, pokój 21" />
+                app:layout_constraintTop_toBottomOf="@id/detailsContainer" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/contactPhoneRecyclerView"
+                android:id="@+id/coursesOfStudyRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="24dp"
-                android:layout_marginBottom="24dp"
                 android:nestedScrollingEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/coursesOfStudyTextView" />
+
+            <TextView
+                android:id="@+id/listOfScienceClubs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/rubik_medium"
+                android:text="@string/science_clubs"
+                android:textColor="@color/lightblack"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/coursesOfStudyRecyclerView" />
+
+            <TextView
+                android:id="@+id/scienceClubListTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:clickable="true"
+                android:fontFamily="@font/rubik_medium"
+                android:text="@string/list"
+                android:textColor="@color/red"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@+id/listOfScienceClubs"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/scienceClubsOfDepartmentRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView" />
-
+                app:layout_constraintTop_toBottomOf="@id/listOfScienceClubs" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/coursesOfStudyTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:fontFamily="@font/rubik_medium"
-            android:text="@string/courses_of_study"
-            android:textColor="@color/lightblack"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/detailsContainer" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/coursesOfStudyRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:nestedScrollingEnabled="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/coursesOfStudyTextView" />
-
-        <TextView
-            android:id="@+id/listOfScienceClubs"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:fontFamily="@font/rubik_medium"
-            android:text="@string/science_clubs"
-            android:textColor="@color/lightblack"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/coursesOfStudyRecyclerView" />
-
-
-        <TextView
-            android:id="@+id/scienceClubListTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:clickable="true"
-            android:fontFamily="@font/rubik_medium"
-            android:text="@string/list"
-            android:textColor="@color/red"
-            android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="@+id/listOfScienceClubs"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/scienceClubsOfDepartmentRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/listOfScienceClubs" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-</ScrollView>
