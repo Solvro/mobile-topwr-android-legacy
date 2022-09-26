@@ -12,7 +12,7 @@ class PhoneAdapter(
     private val onClick: (String) -> Unit = {}
 ) : RecyclerView.Adapter<PhoneAdapter.PhoneNumbersViewHolder>() {
 
-    inner class PhoneNumbersViewHolder(binding: PhoneItemBinding): RecyclerView.ViewHolder(binding.root){
+    inner class PhoneNumbersViewHolder(private val binding: PhoneItemBinding): RecyclerView.ViewHolder(binding.root){
         private val phoneIcon = binding.phoneIcon
         private val phoneNumberText = binding.phoneNumber
 
@@ -21,7 +21,7 @@ class PhoneAdapter(
             phoneNumberText.text = phoneNumbers[adapterPosition]
             phoneNumberText.movementMethod = LinkMovementMethod.getInstance()
 
-            phoneIcon.setOnClickListener {
+            phoneNumberText.setOnClickListener {
                 onClick(phoneNumbers[adapterPosition])
             }
         }
