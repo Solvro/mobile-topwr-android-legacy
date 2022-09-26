@@ -88,6 +88,7 @@ class ScienceClubsDetailsFragment : Fragment() {
                 .into(scienceClubBackgroundImage)
             Glide.with(requireContext())
                 .load(scienceClub.photo?.url)
+                .circleCrop()
                 .into(scienceClubDetailFragmentLogo)
         }
     }
