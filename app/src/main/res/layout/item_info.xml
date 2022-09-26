@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@android:color/transparent"
-    >
+    android:background="@android:color/transparent">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/phoneIcon"
+        android:id="@+id/infoIconCard"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginVertical="4dp"
@@ -20,28 +19,28 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/infoIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_gravity="center"
-            android:src="@drawable/ic_phone"
-            app:tint="@color/icon_red" />
+            app:tint="@color/icon_red"
+            tools:src="@drawable/ic_phone" />
 
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/phoneNumber"
+        android:id="@+id/infoText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
         android:fontFamily="@font/rubik"
-        android:textColor="@color/icon_red"
-        android:textSize="13sp"
-        app:layout_constraintBottom_toBottomOf="@+id/phoneIcon"
-        app:layout_constraintStart_toEndOf="@+id/phoneIcon"
-        app:layout_constraintTop_toTopOf="@+id/phoneIcon"
-        tools:text="(+48) 71 320 62 30"
-        android:textColorLink="@color/icon_red"
         android:linksClickable="true"
-        />
+        android:textColor="@color/icon_red"
+        android:textColorLink="@color/icon_red"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@+id/infoIconCard"
+        app:layout_constraintStart_toEndOf="@+id/infoIconCard"
+        app:layout_constraintTop_toTopOf="@+id/infoIconCard"
+        tools:text="(+48) 71 320 62 30" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

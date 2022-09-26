@@ -5,18 +5,19 @@ import android.text.util.Linkify
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.solvro.topwr.databinding.PhoneItemBinding
+import com.solvro.topwr.databinding.ItemInfoBinding
 
 class PhoneAdapter(
     private val phoneNumbers: List<String>,
     private val onClick: (String) -> Unit = {}
 ) : RecyclerView.Adapter<PhoneAdapter.PhoneNumbersViewHolder>() {
 
-    inner class PhoneNumbersViewHolder(private val binding: PhoneItemBinding): RecyclerView.ViewHolder(binding.root){
-        private val phoneIcon = binding.phoneIcon
-        private val phoneNumberText = binding.phoneNumber
+    inner class PhoneNumbersViewHolder(private val binding: ItemInfoBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        private val phoneIcon = binding.infoIcon
+        private val phoneNumberText = binding.infoText
 
-        fun bind(){
+        fun bind() {
             phoneNumberText.autoLinkMask = Linkify.PHONE_NUMBERS
             phoneNumberText.text = phoneNumbers[adapterPosition]
             phoneNumberText.movementMethod = LinkMovementMethod.getInstance()
@@ -28,7 +29,7 @@ class PhoneAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhoneNumbersViewHolder {
-        val binding = PhoneItemBinding.inflate(
+        val binding = ItemInfoBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
