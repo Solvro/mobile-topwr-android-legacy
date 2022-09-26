@@ -88,7 +88,7 @@ class ScienceClubsViewModel @Inject constructor(
             if (result.status == Resource.Status.SUCCESS) {
                 _scienceClubTags.postValue(result.data?.map {
                     it.name ?: ""
-                } ?: listOf())
+                }?.sorted() ?: listOf())
             }
         }
     }
