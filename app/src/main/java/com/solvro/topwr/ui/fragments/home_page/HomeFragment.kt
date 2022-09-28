@@ -151,7 +151,7 @@ class HomeFragment : Fragment() {
                         loadSkeleton(R.layout.skeleton_buildings_item)
                     } else {
                         hideSkeleton()
-                        buildings.data?.let { data -> buildingsAdapter.setData(data) }
+                        buildings.data?.let { data -> buildingsAdapter.setData(data.sortedBy { it.code }) }
                     }
                 }
             }
@@ -173,7 +173,7 @@ class HomeFragment : Fragment() {
                         loadSkeleton(R.layout.skeleton_science_clubs_item)
                     } else {
                         hideSkeleton()
-                        it.data?.let { data -> scienceClubAdapter.setData(data) }
+                        it.data?.let { data -> scienceClubAdapter.setData(data.sortedBy { it.name }) }
                     }
                 }
             }
@@ -200,9 +200,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupSharedTransition() {
-        sharedElementEnterTransition = TransitionInflater.from(context!!)
+        sharedElementEnterTransition = TransitionInflater.from(requireContext())
             .inflateTransition(R.transition.move)
-        sharedElementReturnTransition = TransitionInflater.from(context!!)
+        sharedElementReturnTransition = TransitionInflater.from(requireContext())
             .inflateTransition(R.transition.move)
     }
 
