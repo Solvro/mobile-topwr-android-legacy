@@ -1,9 +1,10 @@
 package com.solvro.topwr.data.model.departments
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class FieldsOfStudy(
-    val Name: Any?,
     val id: Int?,
     val name: String?
-): Serializable
+) : Parcelable

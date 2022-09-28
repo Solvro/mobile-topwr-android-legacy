@@ -28,7 +28,6 @@ import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.databinding.DepartmentsDetailsFragmentBinding
 import com.solvro.topwr.ui.adapters.DefaultLoadStateAdapter
 import com.solvro.topwr.ui.adapters.FieldsOfStudyAdapter
-import com.solvro.topwr.ui.adapters.PhoneAdapter
 import com.solvro.topwr.ui.adapters.ScienceClubBigAdapter
 import com.solvro.topwr.ui.fragments.departments_page.DepartmentsFragment
 import com.solvro.topwr.ui.fragments.home_page.HomeFragment
@@ -54,7 +53,12 @@ class DepartmentsDetailsFragment : Fragment() {
             navigateToScienceClub(scienceClubItem)
         }
     private lateinit var fieldsOfStudyAdapter: FieldsOfStudyAdapter
-    private lateinit var phoneAdapter: PhoneAdapter
+    private var infoAdapter = DepartmentInfoAdapter { phoneNumber ->
+        Intent(Intent.ACTION_DIAL).let {
+            it.data = Uri.parse("tel:+48${phoneNumber.replace(" ", "")}")
+            startActivity(it)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -190,24 +194,9 @@ class DepartmentsDetailsFragment : Fragment() {
 
     private fun setupPhoneNumbers() {
         viewModel.departments.observe(viewLifecycleOwner) { departments ->
-            val phones = mutableListOf<String>()
-            departments?.infoSection?.forEach { infoSection ->
-                infoSection.info?.forEach {
-                    if (it.type == "PhoneNumber") {
-                        it.value?.let { number -> phones.add(number) }
-                    }
-                }
-            }
-
-            phoneAdapter = PhoneAdapter(phones) { phoneNumber ->
-                Intent(Intent.ACTION_DIAL).let {
-                    it.data = Uri.parse("tel:+48${phoneNumber.replace(" ", "")}")
-                    startActivity(it)
-                }
-            }
-
+            infoAdapter.addData(departments?.infoSection?.firstOrNull()?.info ?: listOf())
             binding.contactPhoneRecyclerView.apply {
-                adapter = phoneAdapter
+                adapter = infoAdapter
                 layoutManager = LinearLayoutManager(requireContext())
             }
         }

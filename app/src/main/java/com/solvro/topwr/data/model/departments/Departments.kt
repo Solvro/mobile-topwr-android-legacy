@@ -1,11 +1,16 @@
 package com.solvro.topwr.data.model.departments
 
-import java.io.Serializable
+import android.os.Parcel
+import android.os.Parcelable
+import kotlinx.parcelize.IgnoredOnParcel
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 
+@Parcelize
 class Departments(
     val addres: String?,
     val code: String?,
-    color: Color?,
+    private val colorValue: Color?,
     val created_at: String?,
     val description: String?,
     val displayOrder: Int?,
@@ -14,7 +19,7 @@ class Departments(
     val infoSection: List<InfoSection>?,
     val latitude: Double?,
     val locale: String?,
-    val localizations: List<Any>?,
+    val localizations: @RawValue List<Any>?,
     val logo: Logo?,
     val longitude: Double?,
     val name: String?,
@@ -22,8 +27,9 @@ class Departments(
     val scientificCircles: List<Int>?,
     val updated_at: String?,
     val website: String?
-): Serializable {
+) : Parcelable {
 
-    val color: Color? = color
+    @IgnoredOnParcel
+    val color: Color? = colorValue
         get() = field ?: Color(Color.PLACEHOLDER_COLOR, Color.PLACEHOLDER_COLOR, id)
 }

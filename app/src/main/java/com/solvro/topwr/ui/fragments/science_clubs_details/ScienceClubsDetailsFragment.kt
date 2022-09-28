@@ -1,14 +1,15 @@
 package com.solvro.topwr.ui.fragments.science_clubs_details
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionInflater
@@ -66,7 +67,7 @@ class ScienceClubsDetailsFragment : Fragment() {
         }
     }
 
-    private fun setupSharedElementTransition(){
+    private fun setupSharedElementTransition() {
         binding.apply {
             scienceClubName.transitionName = "science_club_name"
             scienceClubDetailFragmentLogo.transitionName = "science_club_logo"
@@ -87,6 +88,7 @@ class ScienceClubsDetailsFragment : Fragment() {
                 .into(scienceClubBackgroundImage)
             Glide.with(requireContext())
                 .load(scienceClub.photo?.url)
+                .circleCrop()
                 .into(scienceClubDetailFragmentLogo)
         }
     }
@@ -97,10 +99,17 @@ class ScienceClubsDetailsFragment : Fragment() {
         }
     }
 
-    private fun navigateToWebsite(url: String) {
+    private fun navigateToWebsite(urlString: String) {
+        val url = if (urlString.startsWith("https://") || urlString.startsWith("http://"))
+            urlString else "http://$urlString"
         val i = Intent(Intent.ACTION_VIEW)
         i.data = Uri.parse(url)
-        startActivity(i)
+        try {
+            startActivity(i)
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(requireContext(), R.string.cant_navigate_to_browser, Toast.LENGTH_LONG)
+                .show()
+        }
     }
 
     private fun navigateToEmail(email: String) {

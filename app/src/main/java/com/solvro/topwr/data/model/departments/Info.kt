@@ -12,4 +12,4 @@ data class Info(
     val type: @RawValue Any?,
     val value: String?,
     val visibleText: String?
-): Serializable, Parcelable
+): Parcelable
