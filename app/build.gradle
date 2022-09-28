@@ -51,6 +51,7 @@ android {
         viewBinding true
         dataBinding true
     }
+    namespace 'com.solvro.topwr'
 }
 
 dependencies {

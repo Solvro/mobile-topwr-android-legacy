@@ -1,13 +1,20 @@
 package com.solvro.topwr.data.model.departments
 
+import android.os.Parcelable
+import kotlinx.parcelize.IgnoredOnParcel
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 class Color(
-    gradientFirst: String?,
-    gradientSecond: String?,
+    private val gradientFirstValue: String?,
+    private val gradientSecondValue: String?,
     val id: Int?
-) {
-    val gradientFirst: String? = gradientFirst
+) : Parcelable {
+    @IgnoredOnParcel
+    val gradientFirst: String? = gradientFirstValue
         get() = field?.let { "#$it" } ?: "#$PLACEHOLDER_COLOR"
-    val gradientSecond: String? = gradientSecond
+    @IgnoredOnParcel
+    val gradientSecond: String? = gradientSecondValue
         get() = field?.let { "#$it" } ?: "#$PLACEHOLDER_COLOR"
 
     companion object {
