@@ -60,7 +60,7 @@
     </fragment>
     <fragment
         android:id="@+id/departmentsFragment"
-        android:name="com.solvro.topwr.ui.fragments.departments_page.DepartmentsFragment"
+        android:name="com.solvro.topwr.ui.fragments.departments_page.presentation.DepartmentsFragment"
         android:label="departments_fragment"
         tools:layout="@layout/departments_fragment">
         <action
@@ -101,7 +101,7 @@
 
     <fragment
         android:id="@+id/departmentsDetailsFragment"
-        android:name="com.solvro.topwr.ui.fragments.departments_details_page.DepartmentsDetailsFragment"
+        android:name="com.solvro.topwr.ui.fragments.departments_details_page.presentation.DepartmentsDetailsFragment"
         android:label="departments_details_fragment"
         tools:layout="@layout/departments_details_fragment">
         <argument

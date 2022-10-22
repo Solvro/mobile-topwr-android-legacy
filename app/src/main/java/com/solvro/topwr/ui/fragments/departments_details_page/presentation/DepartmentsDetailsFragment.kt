@@ -1,4 +1,4 @@
-package com.solvro.topwr.ui.fragments.departments_details_page
+package com.solvro.topwr.ui.fragments.departments_details_page.presentation
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -29,7 +29,8 @@ import com.solvro.topwr.databinding.DepartmentsDetailsFragmentBinding
 import com.solvro.topwr.ui.adapters.DefaultLoadStateAdapter
 import com.solvro.topwr.ui.adapters.FieldsOfStudyAdapter
 import com.solvro.topwr.ui.adapters.ScienceClubBigAdapter
-import com.solvro.topwr.ui.fragments.departments_page.DepartmentsFragment
+import com.solvro.topwr.ui.fragments.departments_details_page.DepartmentsDetailsViewModel
+import com.solvro.topwr.ui.fragments.departments_page.presentation.DepartmentsFragment
 import com.solvro.topwr.ui.fragments.home_page.HomeFragment
 import com.solvro.topwr.ui.fragments.science_clubs_page.ScienceClubComparator
 import com.solvro.topwr.ui.fragments.science_clubs_page.ScienceClubsFragment
@@ -64,7 +65,7 @@ class DepartmentsDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DepartmentsDetailsFragmentBinding.inflate(inflater, container, false)
+        binding = com.solvro.topwr.databinding.DepartmentsDetailsFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 

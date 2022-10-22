@@ -7,6 +7,7 @@ import androidx.paging.filter
 import com.solvro.topwr.data.model.departments.Departments
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.data.repository.MainRepository
+import com.solvro.topwr.ui.fragments.departments_details_page.domain.use_case.GetScienceClubs_UseCase
 import com.solvro.topwr.ui.fragments.home_page.HomeFragment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -17,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DepartmentsDetailsViewModel @Inject constructor(
-    private val repository: MainRepository,
+    private val getScienceClubsUseCase: GetScienceClubs_UseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -38,7 +39,7 @@ class DepartmentsDetailsViewModel @Inject constructor(
     private fun getScienceClubs(scienceClubsLiveData: MutableLiveData<PagingData<ScienceClub>>) {
         scienceClubsJob?.cancel()
         scienceClubsJob = viewModelScope.launch {
-            repository.getScienceClubsPaged()
+            getScienceClubsUseCase()
                 .cancellable()
                 .cachedIn(viewModelScope)
                 .collectLatest { scienceClubsPagedData ->

@@ -1,4 +1,4 @@
-package com.solvro.topwr.ui.fragments.departments_details_page
+package com.solvro.topwr.ui.fragments.departments_details_page.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
