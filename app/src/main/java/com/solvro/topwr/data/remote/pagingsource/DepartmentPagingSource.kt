@@ -17,5 +17,6 @@ class DepartmentPagingSource(
     override suspend fun getAllResultsCount(): Int? {
         val allResultsCountResponse = remoteDataSource.getDepartmentsCount()
         return allResultsCountResponse.data
+
     }
 }

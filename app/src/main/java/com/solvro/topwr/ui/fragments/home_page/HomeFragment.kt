@@ -16,8 +16,8 @@ import androidx.transition.TransitionInflater
 import com.solvro.topwr.R
 import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.data.model.notices.Notices
-import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.databinding.HomeFragmentBinding
+import com.solvro.topwr.features.scienceclub.domain.model.ScienceClub
 import com.solvro.topwr.ui.MainActivity
 import com.solvro.topwr.utils.AcademicDayMapper
 import com.solvro.topwr.utils.Resource

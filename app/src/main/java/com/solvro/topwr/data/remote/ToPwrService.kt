@@ -1,5 +1,7 @@
 package com.solvro.topwr.data.remote
 
+import com.solvro.topwr.core.api.model.scienceclub.ScienceClubRemote
+import com.solvro.topwr.core.api.model.scienceclub.TagRemote
 import com.solvro.topwr.data.model.aboutUs.AboutUs
 import com.solvro.topwr.data.model.departments.Departments
 import com.solvro.topwr.data.model.endDate.EndDate
@@ -7,8 +9,6 @@ import com.solvro.topwr.data.model.endDate.WeekDayException
 import com.solvro.topwr.data.model.info.Info
 import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.data.model.notices.Notices
-import com.solvro.topwr.data.model.scienceClub.ScienceClub
-import com.solvro.topwr.data.model.tag.TagRemote
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -45,7 +45,7 @@ interface ToPwrService {
     suspend fun getScientificCircles(
         @Query("_start") startIndex: Int,
         @Query("_limit") limit: Int
-    ): Response<List<ScienceClub>>
+    ): Response<List<ScienceClubRemote>>
 
     @GET("scientific-circles/count")
     suspend fun getScientificCirclesCount(): Response<Int>

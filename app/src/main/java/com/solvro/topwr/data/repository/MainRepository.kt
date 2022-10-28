@@ -2,6 +2,7 @@ package com.solvro.topwr.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import com.solvro.topwr.utils.Resource
 import com.solvro.topwr.data.local.DataStoreSource
 import com.solvro.topwr.data.model.aboutUs.AboutUs
 import com.solvro.topwr.data.model.departments.Departments
@@ -10,9 +11,7 @@ import com.solvro.topwr.data.model.endDate.WeekDayException
 import com.solvro.topwr.data.model.info.Info
 import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.data.model.notices.Notices
-import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.data.remote.RemoteDataSource
-import com.solvro.topwr.utils.Resource
 import javax.inject.Inject
 
 class MainRepository @Inject constructor(
@@ -48,13 +47,6 @@ class MainRepository @Inject constructor(
     fun getDepartmentsPaged() = remoteDataSource.getPagedDepartments()
 
     suspend fun getBuildings(): Resource<List<Building>> = remoteDataSource.getBuildings()
-
-    suspend fun getScienceClubs(): Resource<List<ScienceClub>> =
-        remoteDataSource.getScientificCircles()
-
-    fun getScienceClubsPaged() = remoteDataSource.getPagedScientificCircles()
-
-    suspend fun getScienceClubTags() = remoteDataSource.getScienceClubTags()
 
     fun getNotices(): LiveData<Resource<List<Notices>>> =
         liveData {

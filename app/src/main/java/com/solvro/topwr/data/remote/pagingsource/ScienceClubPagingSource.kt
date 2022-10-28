@@ -1,17 +1,17 @@
 package com.solvro.topwr.data.remote.pagingsource
 
-import com.solvro.topwr.data.model.scienceClub.ScienceClub
+import com.solvro.topwr.core.api.model.scienceclub.ScienceClubRemote
 import com.solvro.topwr.data.remote.RemoteDataSource
 import com.solvro.topwr.utils.Resource
 
 class ScienceClubPagingSource(
     private val remoteDataSource: RemoteDataSource
-) : BaseToPWrPagingSource<ScienceClub>() {
+) : BaseToPWrPagingSource<ScienceClubRemote>() {
 
     override suspend fun getPagedData(
         startIndex: Int,
         resultPerPage: Int
-    ): List<ScienceClub>? {
+    ): List<ScienceClubRemote>? {
         val response = remoteDataSource.getScientificCircles(
             startIndex = startIndex,
             limit = resultPerPage

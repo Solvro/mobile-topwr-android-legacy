@@ -24,15 +24,15 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.solvro.topwr.R
-import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.databinding.DepartmentsDetailsFragmentBinding
+import com.solvro.topwr.features.scienceclub.domain.model.ScienceClub
+import com.solvro.topwr.features.scienceclub.presentation.list.ScienceClubComparator
+import com.solvro.topwr.features.scienceclub.presentation.list.ScienceClubsFragment
 import com.solvro.topwr.ui.adapters.DefaultLoadStateAdapter
 import com.solvro.topwr.ui.adapters.FieldsOfStudyAdapter
 import com.solvro.topwr.ui.adapters.ScienceClubBigAdapter
 import com.solvro.topwr.ui.fragments.departments_page.DepartmentsFragment
 import com.solvro.topwr.ui.fragments.home_page.HomeFragment
-import com.solvro.topwr.ui.fragments.science_clubs_page.ScienceClubComparator
-import com.solvro.topwr.ui.fragments.science_clubs_page.ScienceClubsFragment
 import com.solvro.topwr.utils.DrawableToBitmapDescriptorConverter
 import com.solvro.topwr.utils.withLoadStateAdapters
 import dagger.hilt.android.AndroidEntryPoint
@@ -169,7 +169,7 @@ class DepartmentsDetailsFragment : Fragment() {
         mapFragment.getMapAsync {
             map = it
             viewModel.departments.observe(viewLifecycleOwner) { departments ->
-                val position = LatLng(departments?.latitude!!, departments?.longitude!!)
+                val position = LatLng(departments?.latitude!!, departments.longitude!!)
 
                 map?.moveCamera(
                     CameraUpdateFactory.newLatLngZoom(

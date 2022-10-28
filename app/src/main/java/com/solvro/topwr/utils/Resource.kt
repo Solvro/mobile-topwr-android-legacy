@@ -28,4 +28,12 @@ data class Resource<out T>(val status: Status, val data: T?, val message: String
             return Resource(Status.LOADING, data, null)
         }
     }
+
+    fun <S> map(transform: (T) -> S): Resource<S> {
+        return when (this.status) {
+            Status.SUCCESS -> success(transform.invoke(data!!))
+            Status.ERROR -> error(message!!, data?.let { transform.invoke(it) })
+            Status.LOADING -> loading(data?.let { transform.invoke(it) })
+        }
+    }
 }

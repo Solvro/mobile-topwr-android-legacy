@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.databinding.ScienceClubsItemBinding
+import com.solvro.topwr.features.scienceclub.domain.model.ScienceClub
 
 class ScienceClubsAdapter(
     private val onClick: (ScienceClub) -> Unit

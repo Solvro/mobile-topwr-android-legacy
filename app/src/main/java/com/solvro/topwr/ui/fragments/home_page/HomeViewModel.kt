@@ -5,8 +5,9 @@ import com.solvro.topwr.data.model.date.Date
 import com.solvro.topwr.data.model.endDate.EndDate
 import com.solvro.topwr.data.model.endDate.Weekday
 import com.solvro.topwr.data.model.maps.Building
-import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.data.repository.MainRepository
+import com.solvro.topwr.features.scienceclub.domain.ScienceClubRepository
+import com.solvro.topwr.features.scienceclub.domain.model.ScienceClub
 import com.solvro.topwr.utils.AcademicDayMapper
 import com.solvro.topwr.utils.Constants
 import com.solvro.topwr.utils.Resource
@@ -19,7 +20,10 @@ import org.threeten.bp.temporal.ChronoUnit
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val repository: MainRepository) : ViewModel() {
+class HomeViewModel @Inject constructor(
+    private val repository: MainRepository,
+    private val scienceClubRepo: ScienceClubRepository
+) : ViewModel() {
 
     /* LiveData */
     val departments = repository.getDepartments()
@@ -88,7 +92,7 @@ class HomeViewModel @Inject constructor(private val repository: MainRepository) 
             null
         )
         viewModelScope.launch {
-            val response = repository.getScienceClubs()
+            val response = scienceClubRepo.getScienceClubs()
             if (response.status == Resource.Status.SUCCESS) {
                 scienceClubsLiveData.postValue(response)
             }
