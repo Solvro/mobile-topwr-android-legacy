@@ -2,7 +2,7 @@ package com.solvro.topwr.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-import com.solvro.topwr.utils.Resource
+import com.solvro.topwr.core.api.Resource
 import com.solvro.topwr.data.local.DataStoreSource
 import com.solvro.topwr.data.model.aboutUs.AboutUs
 import com.solvro.topwr.data.model.departments.Departments
@@ -31,16 +31,16 @@ class MainRepository @Inject constructor(
     )
     fun getDepartments(): LiveData<Resource<List<Departments>>> =
         liveData {
-            emit(Resource.loading(null))
+            emit(Resource.Loading(null))
             emit(remoteDataSource.getDepartments())
         }
 
     suspend fun getDepartment(departmentNumber: Int): Resource<Departments?> {
         val resource = remoteDataSource.getDepartment(departmentNumber)
-        return when (resource.status) {
-            Resource.Status.ERROR -> Resource.error(resource.message!!)
-            Resource.Status.SUCCESS -> Resource.success(resource.data?.firstOrNull())
-            Resource.Status.LOADING -> Resource.loading()
+        return when (resource) {
+            is Resource.Error -> Resource.Error(resource.message)
+            is Resource.Success -> Resource.Success(resource.data.firstOrNull())
+            is Resource.Loading -> Resource.Loading()
         }
     }
 
@@ -50,7 +50,7 @@ class MainRepository @Inject constructor(
 
     fun getNotices(): LiveData<Resource<List<Notices>>> =
         liveData {
-            emit(Resource.loading(null))
+            emit(Resource.Loading(null))
             emit(remoteDataSource.getNotices())
         }
 

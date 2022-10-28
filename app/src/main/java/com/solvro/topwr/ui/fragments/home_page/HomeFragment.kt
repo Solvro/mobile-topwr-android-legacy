@@ -14,13 +14,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionInflater
 import com.solvro.topwr.R
+import com.solvro.topwr.core.api.Resource
 import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.data.model.notices.Notices
 import com.solvro.topwr.databinding.HomeFragmentBinding
 import com.solvro.topwr.features.scienceclub.domain.model.ScienceClub
 import com.solvro.topwr.ui.MainActivity
 import com.solvro.topwr.utils.AcademicDayMapper
-import com.solvro.topwr.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import koleton.api.hideSkeleton
 import koleton.api.loadSkeleton
@@ -134,7 +134,7 @@ class HomeFragment : Fragment() {
 
             departments.observe(viewLifecycleOwner) {
                 binding.departmentsRecyclerView.apply {
-                    if (it.status == Resource.Status.LOADING) {
+                    if (it is Resource.Loading) {
                         loadSkeleton(R.layout.skeleton_departments_home_item)
                     } else {
                         hideSkeleton()
@@ -147,7 +147,7 @@ class HomeFragment : Fragment() {
 
             buildings.observe(viewLifecycleOwner) { buildings ->
                 binding.buildingsRecyclerView.apply {
-                    if (buildings.status == Resource.Status.LOADING) {
+                    if (buildings is Resource.Loading) {
                         loadSkeleton(R.layout.skeleton_buildings_item)
                     } else {
                         hideSkeleton()
@@ -158,7 +158,7 @@ class HomeFragment : Fragment() {
 
             notices.observe(viewLifecycleOwner) {
                 binding.whatsUpRecyclerView.apply {
-                    if (it.status == Resource.Status.LOADING) {
+                    if (it is Resource.Loading) {
                         loadSkeleton(R.layout.skeleton_whats_up_item)
                     } else {
                         hideSkeleton()
@@ -169,7 +169,7 @@ class HomeFragment : Fragment() {
 
             scienceClubs.observe(viewLifecycleOwner) {
                 binding.scienceClubsHomeRecyclerView.apply {
-                    if (it.status == Resource.Status.LOADING) {
+                    if (it is Resource.Loading) {
                         loadSkeleton(R.layout.skeleton_science_clubs_item)
                     } else {
                         hideSkeleton()

@@ -1,8 +1,8 @@
 package com.solvro.topwr.data.remote.pagingsource
 
+import com.solvro.topwr.core.api.Resource
 import com.solvro.topwr.core.api.model.scienceclub.ScienceClubRemote
 import com.solvro.topwr.data.remote.RemoteDataSource
-import com.solvro.topwr.utils.Resource
 
 class ScienceClubPagingSource(
     private val remoteDataSource: RemoteDataSource
@@ -16,7 +16,7 @@ class ScienceClubPagingSource(
             startIndex = startIndex,
             limit = resultPerPage
         )
-        return if (response.status == Resource.Status.ERROR)
+        return if (response is Resource.Error)
             null
         else response.data
     }

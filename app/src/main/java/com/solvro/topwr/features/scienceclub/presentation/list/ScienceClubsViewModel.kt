@@ -7,10 +7,10 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.filter
+import com.solvro.topwr.core.api.Resource
 import com.solvro.topwr.features.scienceclub.domain.ScienceClubRepository
 import com.solvro.topwr.features.scienceclub.domain.model.ScienceClub
 import com.solvro.topwr.utils.Constants
-import com.solvro.topwr.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -85,10 +85,10 @@ class ScienceClubsViewModel @Inject constructor(
     private fun getScienceClubTags() {
         viewModelScope.launch {
             val result = repository.getScienceClubTags()
-            if (result.status == Resource.Status.SUCCESS) {
-                _scienceClubTags.postValue(result.data?.map {
-                    it.name ?: ""
-                }?.sorted() ?: listOf())
+            if (result is Resource.Success) {
+                _scienceClubTags.postValue(result.data.map {
+                    it.name
+                }.sorted())
             }
         }
     }

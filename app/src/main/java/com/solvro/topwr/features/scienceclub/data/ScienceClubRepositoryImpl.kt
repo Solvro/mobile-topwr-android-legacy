@@ -2,7 +2,7 @@ package com.solvro.topwr.features.scienceclub.data
 
 import androidx.paging.PagingData
 import androidx.paging.map
-import com.solvro.topwr.utils.Resource
+import com.solvro.topwr.core.api.Resource
 import com.solvro.topwr.data.remote.RemoteDataSource
 import com.solvro.topwr.features.scienceclub.domain.ScienceClubRepository
 import com.solvro.topwr.features.scienceclub.domain.model.ScienceClub
