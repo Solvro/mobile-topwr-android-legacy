@@ -22,7 +22,9 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(private val repository: MainRepository) : ViewModel() {
 
     /* LiveData */
-    val departments = repository.getDepartments()
+    val departments = repository.getDepartments().map {
+        Resource(it.status, it.data?.map { departmentsRemote -> departmentsRemote.toDomain() }, it.message)
+    }
     val notices = repository.getNotices()
 
     private val _buildings by lazy {

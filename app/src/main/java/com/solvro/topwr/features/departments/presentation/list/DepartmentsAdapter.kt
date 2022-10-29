@@ -11,12 +11,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.solvro.topwr.core.api.model.departments.DepartmentsRemote
 import com.solvro.topwr.databinding.ItemDepartmentBinding
+import com.solvro.topwr.features.departments.domain.model.Departments
 
 class DepartmentsAdapter(
-    diffCallback: DiffUtil.ItemCallback<DepartmentsRemote>,
-    private val onItemClick: (DepartmentsRemote) -> Unit
+    diffCallback: DiffUtil.ItemCallback<Departments>,
+    private val onItemClick: (Departments) -> Unit
 ) :
-    PagingDataAdapter<DepartmentsRemote, DepartmentsAdapter.ViewHolder>(diffCallback) {
+    PagingDataAdapter<Departments, DepartmentsAdapter.ViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
         ItemDepartmentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -31,7 +32,7 @@ class DepartmentsAdapter(
 
     inner class ViewHolder(private val binding: ItemDepartmentBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: DepartmentsRemote) {
+        fun bind(item: Departments) {
             val gradientDrawable = GradientDrawable(
                 GradientDrawable.Orientation.BL_TR,
                 intArrayOf(
@@ -59,12 +60,12 @@ class DepartmentsAdapter(
     }
 }
 
-object DepartmentComparator : DiffUtil.ItemCallback<DepartmentsRemote>() {
-    override fun areItemsTheSame(oldItem: DepartmentsRemote, newItem: DepartmentsRemote): Boolean {
+object DepartmentComparator : DiffUtil.ItemCallback<Departments>() {
+    override fun areItemsTheSame(oldItem: Departments, newItem: Departments): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: DepartmentsRemote, newItem: DepartmentsRemote): Boolean {
+    override fun areContentsTheSame(oldItem: Departments, newItem: Departments): Boolean {
         return oldItem == newItem
     }
 }

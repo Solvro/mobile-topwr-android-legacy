@@ -107,7 +107,7 @@
         <argument
             android:name="department_info"
             android:defaultValue="@null"
-            app:argType="com.solvro.topwr.data.model.departments.Departments"
+            app:argType="com.solvro.topwr.features.departments.domain.model.Departments"
             app:nullable="true" />
         <argument
             android:name="prevFragment"

@@ -19,6 +19,7 @@ import com.solvro.topwr.utils.visible
 import com.solvro.topwr.utils.withLoadStateAdapters
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import com.solvro.topwr.features.departments.domain.model.Departments
 
 @AndroidEntryPoint
 class DepartmentsFragment : Fragment() {
@@ -89,7 +90,7 @@ class DepartmentsFragment : Fragment() {
 
     private fun setObservers() {
         with(viewModel) {
-            departmentsRemote.observe(viewLifecycleOwner) {
+            departments.observe(viewLifecycleOwner) {
                 binding.departmentListSwipeLayout.isRefreshing = false
                 lifecycleScope.launch { departmentsAdapter.submitData(it) }
             }
