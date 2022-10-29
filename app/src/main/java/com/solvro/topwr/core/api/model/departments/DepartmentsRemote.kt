@@ -1,22 +1,21 @@
-package com.solvro.topwr.data.model.departments
+package com.solvro.topwr.core.api.model.departments
 
-import android.os.Parcel
 import android.os.Parcelable
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 
 @Parcelize
-class Departments(
+class DepartmentsRemote(
     val addres: String?,
     val code: String?,
-    private val colorValue: Color?,
+    private val colorValue: ColorRemote?,
     val created_at: String?,
     val description: String?,
     val displayOrder: Int?,
-    val fieldsOfStudy: List<FieldsOfStudy>?,
+    val fieldsOfStudy: List<FieldsOfStudyRemote>?,
     val id: Int?,
-    val infoSection: List<InfoSection>?,
+    val infoSection: List<InfoSectionRemote>?,
     val latitude: Double?,
     val locale: String?,
     val localizations: @RawValue List<Any>?,
@@ -30,6 +29,6 @@ class Departments(
 ) : Parcelable {
 
     @IgnoredOnParcel
-    val color: Color? = colorValue
-        get() = field ?: Color(Color.PLACEHOLDER_COLOR, Color.PLACEHOLDER_COLOR, id)
+    val colorRemote: ColorRemote? = colorValue
+        get() = field ?: ColorRemote(ColorRemote.PLACEHOLDER_COLOR, ColorRemote.PLACEHOLDER_COLOR, id)
 }

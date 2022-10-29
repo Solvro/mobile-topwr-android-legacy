@@ -1,11 +1,11 @@
-package com.solvro.topwr.data.model.departments
+package com.solvro.topwr.core.api.model.departments
 
 import android.os.Parcelable
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-class Color(
+class ColorRemote(
     private val gradientFirstValue: String?,
     private val gradientSecondValue: String?,
     val id: Int?

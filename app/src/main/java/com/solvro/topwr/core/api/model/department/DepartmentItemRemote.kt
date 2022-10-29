@@ -1,6 +1,6 @@
-package com.solvro.topwr.data.model.department
+package com.solvro.topwr.core.api.model.department
 
-data class DepartmentItem(
+data class DepartmentItemRemote(
     val id: String,
     val name: String,
     val code: String,

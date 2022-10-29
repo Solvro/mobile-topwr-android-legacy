@@ -1,13 +1,12 @@
-package com.solvro.topwr.data.model.departments
+package com.solvro.topwr.core.api.model.departments
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
-import java.io.Serializable
 
 @Parcelize
-data class Info(
-    val icon: Icon?,
+data class InfoRemote(
+    val icon: IconRemote?,
     val id: Int?,
     val type: @RawValue Any?,
     val value: String?,

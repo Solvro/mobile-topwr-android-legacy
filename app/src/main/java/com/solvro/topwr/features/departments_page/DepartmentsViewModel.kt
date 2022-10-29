@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.filter
-import com.solvro.topwr.data.model.departments.Departments
+import com.solvro.topwr.core.api.model.departments.DepartmentsRemote
 import com.solvro.topwr.features.departments_page.domain.use_case.GetDepartments_UseCase
 import com.solvro.topwr.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,8 +24,8 @@ class DepartmentsViewModel @Inject constructor(
     private var lastTextFilter: String = ""
     private var departmentsJob: Job? = null
 
-    private val _departments by lazy { MutableLiveData<PagingData<Departments>>() }
-    val departments: LiveData<PagingData<Departments>> by lazy { _departments }
+    private val _departmentsRemote by lazy { MutableLiveData<PagingData<DepartmentsRemote>>() }
+    val departmentsRemote: LiveData<PagingData<DepartmentsRemote>> by lazy { _departmentsRemote }
 
     init {
         getDepartments()
@@ -43,7 +43,7 @@ class DepartmentsViewModel @Inject constructor(
                         else (it.name?.contains(lastTextFilter) ?: false)
                                 || it.code?.lowercase()?.contains(lastTextFilter) ?: false
                     }
-                    _departments.postValue(filteredData)
+                    _departmentsRemote.postValue(filteredData)
                 }
         }
     }

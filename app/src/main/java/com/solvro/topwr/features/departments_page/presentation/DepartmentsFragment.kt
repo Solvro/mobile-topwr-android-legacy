@@ -90,7 +90,7 @@ class DepartmentsFragment : Fragment() {
 
     private fun setObservers() {
         with(viewModel) {
-            departments.observe(viewLifecycleOwner) {
+            departmentsRemote.observe(viewLifecycleOwner) {
                 binding.departmentListSwipeLayout.isRefreshing = false
                 lifecycleScope.launch { departmentsAdapter.submitData(it) }
             }

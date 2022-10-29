@@ -1,10 +1,10 @@
-package com.solvro.topwr.data.model.departments
+package com.solvro.topwr.core.api.model.departments
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class FieldsOfStudy(
+data class FieldsOfStudyRemote(
     val id: Int?,
     val name: String?
 ) : Parcelable

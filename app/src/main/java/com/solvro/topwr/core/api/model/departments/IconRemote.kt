@@ -1,4 +1,4 @@
-package com.solvro.topwr.data.model.departments
+package com.solvro.topwr.core.api.model.departments
 
 import android.os.Parcelable
 import com.solvro.topwr.data.model.common.ProviderMetadata
@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 
 @Parcelize
-data class Icon(
+data class IconRemote(
     val alternativeText: String?,
     val caption: String?,
     val created_at: String?,

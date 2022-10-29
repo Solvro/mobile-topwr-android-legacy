@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 
 import androidx.recyclerview.widget.RecyclerView
-import com.solvro.topwr.data.model.departments.FieldsOfStudy
+import com.solvro.topwr.core.api.model.departments.FieldsOfStudyRemote
 import com.solvro.topwr.databinding.FieldOfStudyItemBinding
 
 class FieldsOfStudyAdapter(
-    private val fieldOfStudy: MutableList<FieldsOfStudy>
+    private val fieldOfStudy: MutableList<FieldsOfStudyRemote>
 ) : RecyclerView.Adapter<FieldsOfStudyAdapter.ViewHolder>() {
 
     inner class ViewHolder(binding: FieldOfStudyItemBinding) :
@@ -36,7 +36,7 @@ class FieldsOfStudyAdapter(
 
     override fun getItemCount(): Int = fieldOfStudy.size
 
-    fun updateList(newList: List<FieldsOfStudy>){
+    fun updateList(newList: List<FieldsOfStudyRemote>){
         fieldOfStudy.clear()
         fieldOfStudy.addAll(newList)
         notifyDataSetChanged()

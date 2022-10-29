@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.solvro.topwr.data.local.DataStoreSource
 import com.solvro.topwr.data.model.aboutUs.AboutUs
-import com.solvro.topwr.data.model.departments.Departments
+import com.solvro.topwr.core.api.model.departments.DepartmentsRemote
 import com.solvro.topwr.data.model.endDate.EndDate
 import com.solvro.topwr.data.model.endDate.WeekDayException
 import com.solvro.topwr.data.model.info.Info
@@ -30,13 +30,13 @@ class MainRepository @Inject constructor(
         "Use paged departments flow with getDepartmentsPaged() method",
         replaceWith = ReplaceWith("getDepartmentsPaged()")
     )
-    fun getDepartments(): LiveData<Resource<List<Departments>>> =
+    fun getDepartments(): LiveData<Resource<List<DepartmentsRemote>>> =
         liveData {
             emit(Resource.loading(null))
             emit(remoteDataSource.getDepartments())
         }
 
-    suspend fun getDepartment(departmentNumber: Int): Resource<Departments?> {
+    suspend fun getDepartment(departmentNumber: Int): Resource<DepartmentsRemote?> {
         val resource = remoteDataSource.getDepartment(departmentNumber)
         return when (resource.status) {
             Resource.Status.ERROR -> Resource.error(resource.message!!)

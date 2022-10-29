@@ -1,4 +1,4 @@
-package com.solvro.topwr.data.model.departments
+package com.solvro.topwr.core.api.model.departments
 
 import android.os.Parcelable
 import com.solvro.topwr.data.model.common.Formats

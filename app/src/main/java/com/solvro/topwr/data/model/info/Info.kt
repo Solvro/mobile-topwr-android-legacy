@@ -2,7 +2,7 @@ package com.solvro.topwr.data.model.info
 
 import android.os.Parcelable
 import com.solvro.topwr.data.model.common.Photo
-import com.solvro.topwr.data.model.departments.InfoSection
+import com.solvro.topwr.core.api.model.departments.InfoSectionRemote
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 
@@ -11,7 +11,7 @@ data class Info(
     val created_at: String?,
     val description: String?,
     val id: Int?,
-    val infoSection: @RawValue List<InfoSection>?,
+    val infoSectionRemote: @RawValue List<InfoSectionRemote>?,
     val locale: String?,
     val localizations: @RawValue List<Localization>?,
     val photo: Photo?,

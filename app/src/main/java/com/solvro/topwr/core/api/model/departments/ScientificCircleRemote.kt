@@ -1,14 +1,14 @@
-package com.solvro.topwr.data.model.departments
+package com.solvro.topwr.core.api.model.departments
 
 import com.solvro.topwr.data.model.common.Photo
 
-data class ScientificCircle(
-    val Contact: List<Contact>?,
+data class ScientificCircleRemote(
+    val Contact: List<ContactRemote>?,
     val Description: String?,
     val Name: String?,
     val Photo: Photo?,
-    val SocialMedia: List<SocialMedia>?,
-    val Tag: List<Tag>?,
+    val SocialMedia: List<SocialMediaRemote>?,
+    val Tag: List<TagRemote>?,
     val created_at: String?,
     val department: Int?,
     val id: Int?,

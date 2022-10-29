@@ -24,8 +24,8 @@
 -keep class com.solvro.topwr.data.model.aboutUs.* { *; }
 -keep class com.solvro.topwr.data.model.building.* { *; }
 -keep class com.solvro.topwr.data.model.common.* { *; }
--keep class com.solvro.topwr.data.model.department.* { *; }
--keep class com.solvro.topwr.data.model.departments.* { *; }
+-keep class com.solvro.topwr.core.api.model.department.* { *; }
+-keep class com.solvro.topwr.core.api.model.departments.* { *; }
 -keep class com.solvro.topwr.data.model.endDate.* { *; }
 -keep class com.solvro.topwr.data.model.date.* { *; }
 -keep class com.solvro.topwr.data.model.info.* { *; }

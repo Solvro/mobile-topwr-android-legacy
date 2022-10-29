@@ -103,7 +103,7 @@ class DepartmentsDetailsFragment : Fragment() {
                 }.also { backToMainDepartmentBtn.text = it }
             }
 
-            viewModel.departments.observe(viewLifecycleOwner) {
+            viewModel.departmentsRemote.observe(viewLifecycleOwner) {
                 if (it != null) {
                     departmentName.text = it.name
                     departmentPosition.text =
@@ -114,8 +114,8 @@ class DepartmentsDetailsFragment : Fragment() {
                     Glide.with(binding.root.context)
                         .load(it.logo?.url)
                         .into(departmentDetailFragmentLogo)
-                    val gradientFirst = Color.parseColor(it.color?.gradientFirst)
-                    val gradientSecond = Color.parseColor(it.color?.gradientSecond)
+                    val gradientFirst = Color.parseColor(it.colorRemote?.gradientFirst)
+                    val gradientSecond = Color.parseColor(it.colorRemote?.gradientSecond)
                     val gradient = GradientDrawable(
                         GradientDrawable.Orientation.LEFT_RIGHT,
                         intArrayOf(gradientSecond, gradientFirst)
@@ -169,7 +169,7 @@ class DepartmentsDetailsFragment : Fragment() {
 
         mapFragment.getMapAsync {
             map = it
-            viewModel.departments.observe(viewLifecycleOwner) { departments ->
+            viewModel.departmentsRemote.observe(viewLifecycleOwner) { departments ->
                 val position = LatLng(departments?.latitude!!, departments?.longitude!!)
 
                 map?.moveCamera(
@@ -194,7 +194,7 @@ class DepartmentsDetailsFragment : Fragment() {
     }
 
     private fun setupPhoneNumbers() {
-        viewModel.departments.observe(viewLifecycleOwner) { departments ->
+        viewModel.departmentsRemote.observe(viewLifecycleOwner) { departments ->
             infoAdapter.addData(departments?.infoSection?.firstOrNull()?.info ?: listOf())
             binding.contactPhoneRecyclerView.apply {
                 adapter = infoAdapter
@@ -206,7 +206,7 @@ class DepartmentsDetailsFragment : Fragment() {
     private fun setupFieldsOfStudy() {
         fieldsOfStudyAdapter = FieldsOfStudyAdapter(mutableListOf())
 
-        viewModel.departments.observe(viewLifecycleOwner) {
+        viewModel.departmentsRemote.observe(viewLifecycleOwner) {
             it?.fieldsOfStudy?.let { fieldsOfStudy ->
                 fieldsOfStudyAdapter.updateList(fieldsOfStudy)
             }
