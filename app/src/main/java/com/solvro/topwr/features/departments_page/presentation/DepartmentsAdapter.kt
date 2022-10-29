@@ -1,4 +1,4 @@
-package com.solvro.topwr.ui.fragments.departments_page.presentation
+package com.solvro.topwr.features.departments_page.presentation
 
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable

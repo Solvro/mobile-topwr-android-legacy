@@ -1,6 +1,5 @@
-package com.solvro.topwr.ui.fragments.departments_page.domain.repository
+package com.solvro.topwr.features.departments_page.domain.repository
 
-import androidx.lifecycle.LiveData
 import androidx.paging.PagingData
 import com.solvro.topwr.data.model.departments.Departments
 import com.solvro.topwr.utils.Resource

@@ -1,9 +1,8 @@
-package com.solvro.topwr.ui.fragments.departments_details_page.domain.use_case
+package com.solvro.topwr.features.departments_details_page.domain.use_case
 
-import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagingData
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
-import com.solvro.topwr.ui.fragments.departments_details_page.domain.repository.DepartmentDetailsRepository
+import com.solvro.topwr.features.departments_details_page.domain.repository.DepartmentDetailsRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

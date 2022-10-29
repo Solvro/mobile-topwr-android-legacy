@@ -1,8 +1,8 @@
-package com.solvro.topwr.ui.fragments.departments_page.domain.use_case
+package com.solvro.topwr.features.departments_page.domain.use_case
 
 import androidx.paging.PagingData
 import com.solvro.topwr.data.model.departments.Departments
-import com.solvro.topwr.ui.fragments.departments_page.domain.repository.DepartmentRepository
+import com.solvro.topwr.features.departments_page.domain.repository.DepartmentRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

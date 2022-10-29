@@ -1,10 +1,9 @@
-package com.solvro.topwr.ui.fragments.departments_page.di
+package com.solvro.topwr.features.departments_page.di
 
-import com.solvro.topwr.data.local.DataStoreSource
 import com.solvro.topwr.data.remote.RemoteDataSource
-import com.solvro.topwr.ui.fragments.departments_page.data.repository.DepartmentRepositoryImpl
-import com.solvro.topwr.ui.fragments.departments_page.domain.repository.DepartmentRepository
-import com.solvro.topwr.ui.fragments.departments_page.domain.use_case.GetDepartments_UseCase
+import com.solvro.topwr.features.departments_page.data.repository.DepartmentRepositoryImpl
+import com.solvro.topwr.features.departments_page.domain.repository.DepartmentRepository
+import com.solvro.topwr.features.departments_page.domain.use_case.GetDepartments_UseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

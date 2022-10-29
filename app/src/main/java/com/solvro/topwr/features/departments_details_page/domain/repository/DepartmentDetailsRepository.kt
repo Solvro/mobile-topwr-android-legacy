@@ -1,4 +1,4 @@
-package com.solvro.topwr.ui.fragments.departments_details_page.domain.repository
+package com.solvro.topwr.features.departments_details_page.domain.repository
 
 import androidx.paging.PagingData
 import com.solvro.topwr.data.model.scienceClub.ScienceClub

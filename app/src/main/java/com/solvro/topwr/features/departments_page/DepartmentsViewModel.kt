@@ -1,4 +1,4 @@
-package com.solvro.topwr.ui.fragments.departments_page
+package com.solvro.topwr.features.departments_page
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,8 +8,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.filter
 import com.solvro.topwr.data.model.departments.Departments
-import com.solvro.topwr.data.repository.MainRepository
-import com.solvro.topwr.ui.fragments.departments_page.domain.use_case.GetDepartments_UseCase
+import com.solvro.topwr.features.departments_page.domain.use_case.GetDepartments_UseCase
 import com.solvro.topwr.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*

@@ -1,12 +1,9 @@
-package com.solvro.topwr.ui.fragments.departments_page.data.repository
+package com.solvro.topwr.features.departments_page.data.repository
 
-import androidx.paging.PagingData
-import com.solvro.topwr.data.local.DataStoreSource
 import com.solvro.topwr.data.model.departments.Departments
 import com.solvro.topwr.data.remote.RemoteDataSource
-import com.solvro.topwr.ui.fragments.departments_page.domain.repository.DepartmentRepository
+import com.solvro.topwr.features.departments_page.domain.repository.DepartmentRepository
 import com.solvro.topwr.utils.Resource
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class DepartmentRepositoryImpl @Inject constructor(
