@@ -1,4 +1,4 @@
-package com.solvro.topwr.features.departments_details_page.presentation
+package com.solvro.topwr.features.departments.presentation.details
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

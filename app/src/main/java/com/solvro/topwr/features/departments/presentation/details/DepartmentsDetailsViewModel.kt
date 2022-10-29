@@ -1,4 +1,4 @@
-package com.solvro.topwr.features.departments_details_page
+package com.solvro.topwr.features.departments.presentation.details
 
 import androidx.lifecycle.*
 import androidx.paging.PagingData
@@ -6,7 +6,7 @@ import androidx.paging.cachedIn
 import androidx.paging.filter
 import com.solvro.topwr.core.api.model.departments.DepartmentsRemote
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
-import com.solvro.topwr.features.departments_details_page.domain.use_case.GetScienceClubs_UseCase
+import com.solvro.topwr.features.departments.domain.use_case.GetScienceClubs_UseCase
 import com.solvro.topwr.ui.fragments.home_page.HomeFragment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job

@@ -1,4 +1,4 @@
-package com.solvro.topwr.features.departments_details_page.presentation
+package com.solvro.topwr.features.departments.presentation.details
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -29,8 +29,7 @@ import com.solvro.topwr.databinding.DepartmentsDetailsFragmentBinding
 import com.solvro.topwr.ui.adapters.DefaultLoadStateAdapter
 import com.solvro.topwr.ui.adapters.FieldsOfStudyAdapter
 import com.solvro.topwr.ui.adapters.ScienceClubBigAdapter
-import com.solvro.topwr.features.departments_details_page.DepartmentsDetailsViewModel
-import com.solvro.topwr.features.departments_page.presentation.DepartmentsFragment
+import com.solvro.topwr.features.departments.presentation.list.DepartmentsFragment
 import com.solvro.topwr.ui.fragments.home_page.HomeFragment
 import com.solvro.topwr.ui.fragments.science_clubs_page.ScienceClubComparator
 import com.solvro.topwr.ui.fragments.science_clubs_page.ScienceClubsFragment

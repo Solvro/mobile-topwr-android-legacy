@@ -1,4 +1,4 @@
-package com.solvro.topwr.features.departments_page.presentation
+package com.solvro.topwr.features.departments.presentation.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.solvro.topwr.R
 import com.solvro.topwr.databinding.DepartmentsFragmentBinding
 import com.solvro.topwr.ui.adapters.DefaultLoadStateAdapter
-import com.solvro.topwr.features.departments_page.DepartmentsViewModel
 import com.solvro.topwr.utils.gone
 import com.solvro.topwr.utils.visible
 import com.solvro.topwr.utils.withLoadStateAdapters
@@ -31,7 +30,7 @@ class DepartmentsFragment : Fragment() {
     private lateinit var binding: DepartmentsFragmentBinding
     private val viewModel: DepartmentsViewModel by viewModels()
     private var departmentsAdapter = DepartmentsAdapter(DepartmentComparator) {
-        val action = DepartmentsFragmentDirections.actionDepartmentsFragmentToDepartmentsDetailsFragment(
+        val action = com.solvro.topwr.features.departments.presentation.list.DepartmentsFragmentDirections.actionDepartmentsFragmentToDepartmentsDetailsFragment(
                 getString(R.string.departments)
             )
         action.departmentInfo = it
