@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.solvro.topwr.data.model.aboutUs.AboutUs
 import com.solvro.topwr.data.model.info.Info
 import com.solvro.topwr.data.repository.MainRepository
-import com.solvro.topwr.utils.Resource
+import com.solvro.topwr.core.api.model.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

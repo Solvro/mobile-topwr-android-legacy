@@ -14,7 +14,7 @@ import com.solvro.topwr.data.model.tag.TagRemote
 import com.solvro.topwr.data.remote.pagingsource.DepartmentPagingSource
 import com.solvro.topwr.data.remote.pagingsource.ScienceClubPagingSource
 import com.solvro.topwr.utils.Constants
-import com.solvro.topwr.utils.Resource
+import com.solvro.topwr.core.api.model.Resource
 import javax.inject.Inject
 
 class RemoteDataSource @Inject constructor(

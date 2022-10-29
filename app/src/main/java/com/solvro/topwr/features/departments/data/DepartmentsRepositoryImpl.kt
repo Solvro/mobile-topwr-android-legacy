@@ -4,7 +4,7 @@ import com.solvro.topwr.core.api.model.departments.DepartmentsRemote
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.data.remote.RemoteDataSource
 import com.solvro.topwr.features.departments.domain.DepartmentsRepository
-import com.solvro.topwr.utils.Resource
+import com.solvro.topwr.core.api.model.Resource
 import javax.inject.Inject
 
 class DepartmentsRepositoryImpl @Inject constructor(

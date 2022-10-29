@@ -2,7 +2,7 @@ package com.solvro.topwr.data.remote.pagingsource
 
 import com.solvro.topwr.core.api.model.departments.DepartmentsRemote
 import com.solvro.topwr.data.remote.RemoteDataSource
-import com.solvro.topwr.utils.Resource
+import com.solvro.topwr.core.api.model.Resource
 
 class DepartmentPagingSource(
     private val remoteDataSource: RemoteDataSource

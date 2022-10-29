@@ -1,4 +1,4 @@
-package com.solvro.topwr.utils
+package com.solvro.topwr.core.api.model
 
 /**
  * Wrapper for data to handle it in a convenient way
