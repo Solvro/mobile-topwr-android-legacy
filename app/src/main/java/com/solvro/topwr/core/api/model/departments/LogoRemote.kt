@@ -3,11 +3,12 @@ package com.solvro.topwr.core.api.model.departments
 import android.os.Parcelable
 import com.solvro.topwr.data.model.common.Formats
 import com.solvro.topwr.data.model.common.ProviderMetadata
+import com.solvro.topwr.features.departments.domain.model.Logo
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 
 @Parcelize
-data class Logo(
+data class LogoRemote(
     val alternativeText: String?,
     val caption: String?,
     val created_at: String?,
@@ -25,4 +26,8 @@ data class Logo(
     val updated_at: String?,
     val url: String?,
     val width: Int?
-) : Parcelable
+) : Parcelable {
+    fun toDomain() = Logo(
+        alternativeText, caption, height, id, url, width
+    )
+}

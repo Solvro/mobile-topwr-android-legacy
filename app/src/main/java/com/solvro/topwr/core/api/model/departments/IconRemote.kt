@@ -2,6 +2,7 @@ package com.solvro.topwr.core.api.model.departments
 
 import android.os.Parcelable
 import com.solvro.topwr.data.model.common.ProviderMetadata
+import com.solvro.topwr.features.departments.domain.model.Icon
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 
@@ -24,4 +25,8 @@ data class IconRemote(
     val updated_at: String?,
     val url: String?,
     val width: Int?
-) : Parcelable
+) : Parcelable {
+    fun toDomain(): Icon = Icon(
+       alternativeText, height, id, name, size, url, width
+    )
+}

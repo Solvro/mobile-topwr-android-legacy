@@ -1,6 +1,7 @@
 package com.solvro.topwr.core.api.model.departments
 
 import android.os.Parcelable
+import com.solvro.topwr.features.departments.domain.model.Departments
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
@@ -19,7 +20,7 @@ class DepartmentsRemote(
     val latitude: Double?,
     val locale: String?,
     val localizations: @RawValue List<Any>?,
-    val logo: Logo?,
+    val logo: LogoRemote?,
     val longitude: Double?,
     val name: String?,
     val published_at: String?,
@@ -27,6 +28,21 @@ class DepartmentsRemote(
     val updated_at: String?,
     val website: String?
 ) : Parcelable {
+
+    fun toDomain() = Departments(
+        addres,
+        code,
+        colorValue?.toDomain(),
+        description,
+        displayOrder,
+        fieldsOfStudy?.map { it.toDomain() },
+        id,
+        infoSection?.map { it.toDomain() },
+        latitude,
+        logo?.toDomain(),
+        longitude,
+        name
+    )
 
     @IgnoredOnParcel
     val colorRemote: ColorRemote? = colorValue
