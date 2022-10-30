@@ -4,8 +4,8 @@ import androidx.lifecycle.*
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.filter
-import com.solvro.topwr.core.api.model.departments.DepartmentsRemote
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
+import com.solvro.topwr.features.departments.domain.model.Departments
 import com.solvro.topwr.features.departments.domain.use_case.GetScienceClubs_UseCase
 import com.solvro.topwr.ui.fragments.home_page.HomeFragment
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,7 +29,7 @@ class DepartmentsDetailsViewModel @Inject constructor(
     }
     val scienceClubs: LiveData<PagingData<ScienceClub>> by lazy { _scienceClubs }
 
-    val departmentsRemote: LiveData<DepartmentsRemote?> = savedStateHandle.getLiveData("department_info", null)
+    val departments: LiveData<Departments?> = savedStateHandle.getLiveData("department_info", null)
     val prevFragment: LiveData<String> =
         savedStateHandle.getLiveData("prevFragment", HomeFragment::class.java.name)
 
@@ -43,7 +43,7 @@ class DepartmentsDetailsViewModel @Inject constructor(
                 .cachedIn(viewModelScope)
                 .collectLatest { scienceClubsPagedData ->
                     val filteredData = scienceClubsPagedData.filter {
-                        (it.department == departmentsRemote.value?.displayOrder)
+                        (it.department == departments.value?.displayOrder)
                     }
                     scienceClubsLiveData.postValue(filteredData)
                 }

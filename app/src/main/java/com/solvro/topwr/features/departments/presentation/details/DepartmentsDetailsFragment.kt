@@ -102,7 +102,7 @@ class DepartmentsDetailsFragment : Fragment() {
                 }.also { backToMainDepartmentBtn.text = it }
             }
 
-            viewModel.departmentsRemote.observe(viewLifecycleOwner) {
+            viewModel.departments.observe(viewLifecycleOwner) {
                 if (it != null) {
                     departmentName.text = it.name
                     departmentPosition.text =
@@ -168,7 +168,7 @@ class DepartmentsDetailsFragment : Fragment() {
 
         mapFragment.getMapAsync {
             map = it
-            viewModel.departmentsRemote.observe(viewLifecycleOwner) { departments ->
+            viewModel.departments.observe(viewLifecycleOwner) { departments ->
                 val position = LatLng(departments?.latitude!!, departments?.longitude!!)
 
                 map?.moveCamera(
@@ -193,7 +193,7 @@ class DepartmentsDetailsFragment : Fragment() {
     }
 
     private fun setupPhoneNumbers() {
-        viewModel.departmentsRemote.observe(viewLifecycleOwner) { departments ->
+        viewModel.departments.observe(viewLifecycleOwner) { departments ->
             infoAdapter.addData(departments?.infoSection?.firstOrNull()?.info ?: listOf())
             binding.contactPhoneRecyclerView.apply {
                 adapter = infoAdapter
@@ -205,7 +205,7 @@ class DepartmentsDetailsFragment : Fragment() {
     private fun setupFieldsOfStudy() {
         fieldsOfStudyAdapter = FieldsOfStudyAdapter(mutableListOf())
 
-        viewModel.departmentsRemote.observe(viewLifecycleOwner) {
+        viewModel.departments.observe(viewLifecycleOwner) {
             it?.fieldsOfStudy?.let { fieldsOfStudy ->
                 fieldsOfStudyAdapter.updateList(fieldsOfStudy)
             }

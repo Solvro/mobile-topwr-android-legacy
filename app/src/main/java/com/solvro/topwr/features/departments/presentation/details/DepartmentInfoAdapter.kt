@@ -7,16 +7,17 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.solvro.topwr.core.api.model.departments.InfoRemote
 import com.solvro.topwr.databinding.ItemInfoBinding
+import com.solvro.topwr.features.departments.domain.model.Info
 
 class DepartmentInfoAdapter(
     private val onPhoneNumberClick: (String) -> Unit
 ) : RecyclerView.Adapter<DepartmentInfoAdapter.ViewHolder>() {
 
-    private val data = mutableListOf<InfoRemote>()
+    private val data = mutableListOf<Info>()
 
     inner class ViewHolder(private val binding: ItemInfoBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(info: InfoRemote) {
+        fun bind(info: Info) {
             with(binding) {
                 Glide.with(infoIcon)
                     .load(info.icon?.url)
@@ -40,7 +41,7 @@ class DepartmentInfoAdapter(
 
     override fun getItemCount(): Int = data.count()
 
-    fun addData(newData: List<InfoRemote>) {
+    fun addData(newData: List<Info>) {
         if (data.isNotEmpty())
             data.clear()
         data.addAll(newData)
