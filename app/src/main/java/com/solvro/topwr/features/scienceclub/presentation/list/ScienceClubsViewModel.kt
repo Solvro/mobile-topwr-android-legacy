@@ -5,26 +5,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import androidx.paging.cachedIn
-import androidx.paging.filter
 import com.solvro.topwr.core.api.Resource
-import com.solvro.topwr.features.scienceclub.domain.ScienceClubRepository
 import com.solvro.topwr.features.scienceclub.domain.model.ScienceClub
-import com.solvro.topwr.utils.Constants
+import com.solvro.topwr.features.scienceclub.domain.usecase.GetAllScienceClubsParams
+import com.solvro.topwr.features.scienceclub.domain.usecase.GetAllScienceClubsUseCase
+import com.solvro.topwr.features.scienceclub.domain.usecase.GetScienceClubTagsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.cancellable
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ScienceClubsViewModel @Inject constructor(
-    private val repository: ScienceClubRepository
+    private val getScienceClubTagsUseCase: GetScienceClubTagsUseCase,
+    private val getAllScienceClubsUseCase: GetAllScienceClubsUseCase
 ) : ViewModel() {
-
-    private var scienceClubJob: Job? = null
 
     private var lastTextFilter: String = ""
 
@@ -62,33 +55,21 @@ class ScienceClubsViewModel @Inject constructor(
     }
 
     private fun getScienceClubs(tagFilter: String? = null, textFilter: String = "") {
-        scienceClubJob?.cancel()
-        scienceClubJob = getAllScienceClubs(tagFilter, textFilter)
+        getAllScienceClubsUseCase(
+            GetAllScienceClubsParams(tagFilter, textFilter),
+            scope = viewModelScope
+        ) {
+            _scienceClubs.postValue(it)
+        }
     }
 
-    private fun getAllScienceClubs(tagFilter: String? = null, textFilter: String) =
-        viewModelScope.launch {
-            delay(Constants.DEFAULT_DEBOUNCE_TIME_MS)
-            repository.getScienceClubsPaged()
-                .cancellable()
-                .cachedIn(viewModelScope)
-                .collectLatest {
-                    val filteredData = it.filter { scienceClub ->
-                        if (tagFilter == null) true else scienceClub.isTaggedAs(tagFilter)
-                    }.filter { scienceClub ->
-                        scienceClub.name.lowercase().contains(textFilter.lowercase())
-                    }
-                    _scienceClubs.postValue(filteredData)
-                }
-        }
-
     private fun getScienceClubTags() {
-        viewModelScope.launch {
-            val result = repository.getScienceClubTags()
+        getScienceClubTagsUseCase(
+            Unit,
+            scope = viewModelScope
+        ) { result ->
             if (result is Resource.Success) {
-                _scienceClubTags.postValue(result.data.map {
-                    it.name
-                }.sorted())
+                _scienceClubTags.postValue(result.data)
             }
         }
     }
