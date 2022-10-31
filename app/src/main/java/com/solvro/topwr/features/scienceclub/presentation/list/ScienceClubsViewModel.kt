@@ -76,7 +76,7 @@ class ScienceClubsViewModel @Inject constructor(
                     val filteredData = it.filter { scienceClub ->
                         if (tagFilter == null) true else scienceClub.isTaggedAs(tagFilter)
                     }.filter { scienceClub ->
-                        scienceClub.name?.lowercase()?.contains(textFilter.lowercase()) ?: false
+                        scienceClub.name.lowercase().contains(textFilter.lowercase())
                     }
                     _scienceClubs.postValue(filteredData)
                 }

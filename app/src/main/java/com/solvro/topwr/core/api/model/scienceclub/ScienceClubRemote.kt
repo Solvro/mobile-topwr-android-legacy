@@ -11,7 +11,7 @@ import kotlinx.parcelize.RawValue
 data class ScienceClubRemote(
     @Json(name = "backgroundPhoto") val backgroundPhoto: BackgroundPhotoRemote?,
     @Json(name = "created_at") val created_at: String?,
-    @Json(name = "department") val departmentNumber: Int?,
+    @Json(name = "department") val department: Int?,
     @Json(name = "description") val description: String,
     @Json(name = "id") val id: Int,
     @Json(name = "infoSection") val infoSection: List<InfoSectionRemote>?,
@@ -25,7 +25,7 @@ data class ScienceClubRemote(
 ) : Parcelable {
     fun toDomain() = ScienceClub(
         backgroundPhoto = backgroundPhoto?.toDomain(),
-        departmentNumber = departmentNumber,
+        departmentNumber = department,
         description = description,
         id = id,
         infoSection = infoSection?.map { it.toDomain() },
