@@ -5,8 +5,8 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.filter
 import com.solvro.topwr.data.model.departments.Departments
-import com.solvro.topwr.data.model.scienceClub.ScienceClub
-import com.solvro.topwr.data.repository.MainRepository
+import com.solvro.topwr.features.scienceclub.domain.ScienceClubRepository
+import com.solvro.topwr.features.scienceclub.domain.model.ScienceClub
 import com.solvro.topwr.ui.fragments.home_page.HomeFragment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DepartmentsDetailsViewModel @Inject constructor(
-    private val repository: MainRepository,
+    private val repository: ScienceClubRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -43,7 +43,7 @@ class DepartmentsDetailsViewModel @Inject constructor(
                 .cachedIn(viewModelScope)
                 .collectLatest { scienceClubsPagedData ->
                     val filteredData = scienceClubsPagedData.filter {
-                        (it.department == departments.value?.displayOrder)
+                        (it.departmentNumber == departments.value?.displayOrder)
                     }
                     scienceClubsLiveData.postValue(filteredData)
                 }

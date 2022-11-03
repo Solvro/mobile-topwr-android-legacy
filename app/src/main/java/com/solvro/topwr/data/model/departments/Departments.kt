@@ -1,6 +1,5 @@
 package com.solvro.topwr.data.model.departments
 
-import android.os.Parcel
 import android.os.Parcelable
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize

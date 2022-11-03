@@ -1,15 +1,16 @@
 package com.solvro.topwr.ui.fragments.home_page
 
 import androidx.lifecycle.*
+import com.solvro.topwr.core.api.Resource
 import com.solvro.topwr.data.model.date.Date
 import com.solvro.topwr.data.model.endDate.EndDate
 import com.solvro.topwr.data.model.endDate.Weekday
 import com.solvro.topwr.data.model.maps.Building
-import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.data.repository.MainRepository
+import com.solvro.topwr.features.scienceclub.domain.ScienceClubRepository
+import com.solvro.topwr.features.scienceclub.domain.model.ScienceClub
 import com.solvro.topwr.utils.AcademicDayMapper
 import com.solvro.topwr.utils.Constants
-import com.solvro.topwr.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
@@ -19,7 +20,10 @@ import org.threeten.bp.temporal.ChronoUnit
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val repository: MainRepository) : ViewModel() {
+class HomeViewModel @Inject constructor(
+    private val repository: MainRepository,
+    private val scienceClubRepo: ScienceClubRepository
+) : ViewModel() {
 
     /* LiveData */
     val departments = repository.getDepartments()
@@ -41,7 +45,7 @@ class HomeViewModel @Inject constructor(private val repository: MainRepository) 
     val endDate: LiveData<String> = Transformations.switchMap(_endDate) { dateObj ->
         var daysString = "0"
         if (dateObj.data?.endDate != null) {
-            daysString = (calculateDaysToEndDate(dateObj.data) ?: "0")
+            daysString = (calculateDaysToEndDate(dateObj.data!!) ?: "0")
                 .padStart(3, '0')
         }
         liveData<String> { emit(daysString) }
@@ -49,7 +53,7 @@ class HomeViewModel @Inject constructor(private val repository: MainRepository) 
 
     private val _dateWeek = repository.getWeekDayException()
     val dateWeek: LiveData<Date?> = Transformations.switchMap(_dateWeek) { exceptionObj ->
-        if (exceptionObj.status == Resource.Status.ERROR) {
+        if (exceptionObj is Resource.Error) {
             liveData { emit(null) }
         } else {
             val dateFormatter = DateTimeFormatter.ofPattern(Constants.DEFAULT_DATE_PATTERN)
@@ -82,21 +86,17 @@ class HomeViewModel @Inject constructor(private val repository: MainRepository) 
 
 
     private fun getScienceClubs(scienceClubsLiveData: MutableLiveData<Resource<List<ScienceClub>>>) {
-        scienceClubsLiveData.value = Resource(
-            status = Resource.Status.LOADING,
-            null,
-            null
-        )
+        scienceClubsLiveData.value = Resource.Loading()
         viewModelScope.launch {
-            val response = repository.getScienceClubs()
-            if (response.status == Resource.Status.SUCCESS) {
+            val response = scienceClubRepo.getScienceClubs()
+            if (response is Resource.Success) {
                 scienceClubsLiveData.postValue(response)
             }
         }
     }
 
     private fun getBuildings(buildingsLiveData: MutableLiveData<Resource<List<Building>>>) {
-        buildingsLiveData.postValue(Resource.loading())
+        buildingsLiveData.postValue(Resource.Loading())
         viewModelScope.launch {
             val buildingsResource = repository.getBuildings()
             buildingsLiveData.postValue(buildingsResource)

@@ -25,11 +25,11 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.solvro.topwr.R
+import com.solvro.topwr.core.api.Resource
 import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.databinding.MapFragmentBinding
 import com.solvro.topwr.utils.Constants
 import com.solvro.topwr.utils.DrawableToBitmapDescriptorConverter
-import com.solvro.topwr.utils.Resource
 import com.solvro.topwr.utils.toPx
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -99,11 +99,11 @@ class MapFragment : Fragment() {
     private fun setObservers() {
         viewModel.apply {
             buildings.observe(viewLifecycleOwner) {
-                setBottomSheetLoadingView(it.status == Resource.Status.LOADING)
-                when (it.status) {
-                    Resource.Status.SUCCESS -> it.data?.let { data -> adapter.addItems(data) }
+                setBottomSheetLoadingView(it is Resource.Loading)
+                when (it) {
+                    is Resource.Success -> it.data?.let { data -> adapter.addItems(data) }
 
-                    Resource.Status.ERROR -> Toast.makeText(
+                    is Resource.Error -> Toast.makeText(
                         requireContext(),
                         requireContext().getString(R.string.data_error),
                         Toast.LENGTH_LONG

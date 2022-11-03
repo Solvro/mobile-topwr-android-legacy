@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:elevation="0dp"
-    tools:context=".ui.fragments.science_clubs_page.ScienceClubsFragment">
+    tools:context=".features.scienceclub.presentation.list.ScienceClubsFragment">
 
     <TextView
         android:id="@+id/scienceClubsTitle"

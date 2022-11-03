@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.databinding.ScienceClubsItemBinding
+import com.solvro.topwr.features.scienceclub.domain.model.ScienceClub
 
 class ScienceClubBigAdapter(
     diffCallback: DiffUtil.ItemCallback<ScienceClub>,
