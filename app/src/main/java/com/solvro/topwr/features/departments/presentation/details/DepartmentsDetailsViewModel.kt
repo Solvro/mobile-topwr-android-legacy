@@ -6,7 +6,7 @@ import androidx.paging.cachedIn
 import androidx.paging.filter
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.features.departments.domain.model.Departments
-import com.solvro.topwr.features.departments.domain.use_case.GetScienceClubs_UseCase
+import com.solvro.topwr.features.departments.domain.use_case.GetScienceClubsUseCase
 import com.solvro.topwr.ui.fragments.home_page.HomeFragment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DepartmentsDetailsViewModel @Inject constructor(
-    private val getScienceClubsUseCase: GetScienceClubs_UseCase,
+    private val getScienceClubsUseCase: GetScienceClubsUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 

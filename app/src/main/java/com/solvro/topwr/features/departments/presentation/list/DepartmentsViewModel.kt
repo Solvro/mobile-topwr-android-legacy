@@ -7,9 +7,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.filter
-import com.solvro.topwr.core.api.model.departments.DepartmentsRemote
 import com.solvro.topwr.features.departments.domain.model.Departments
-import com.solvro.topwr.features.departments.domain.use_case.GetDepartments_UseCase
+import com.solvro.topwr.features.departments.domain.use_case.GetDepartmentsUseCase
 import com.solvro.topwr.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
@@ -19,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DepartmentsViewModel @Inject constructor(
-    private val getDepartmentsUseCase: GetDepartments_UseCase
+    private val getDepartmentsUseCase: GetDepartmentsUseCase
 ) : ViewModel() {
 
     private var lastTextFilter: String = ""
