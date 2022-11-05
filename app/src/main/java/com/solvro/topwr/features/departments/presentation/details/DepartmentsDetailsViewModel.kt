@@ -38,8 +38,8 @@ class DepartmentsDetailsViewModel @Inject constructor(
         getScienceClubsUseCase(
             GetScienceClubsDetailsParams(departments.value?.displayOrder),
             scope = viewModelScope
-        ) {
-
+        ) { result ->
+            _scienceClubs.postValue(result)
         }
     }
 

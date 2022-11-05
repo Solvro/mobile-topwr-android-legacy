@@ -36,7 +36,7 @@ class DepartmentsViewModel @Inject constructor(
             GetDepartmentsParams(lastTextFilter.lowercase()),
             scope = viewModelScope
         ) { result ->
-
+            _departments.postValue(result)
         }
     }
 
