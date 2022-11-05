@@ -25,9 +25,9 @@ class GetDepartmentsUseCase @Inject constructor(
             .cancellable()
             .transform {
                 val filteredData = it.filter { department ->
-                    if (params.textFilter.lowercase() == "")    true
-                    else (department.name?.contains(params.textFilter.lowercase()) ?: false)
-                            || department.code?.lowercase()?.contains(params.textFilter.lowercase()) ?: false
+                    if (params.textFilter == "")    true
+                    else (department.name?.contains(params.textFilter) ?: false)
+                            || department.code?.lowercase()?.contains(params.textFilter) ?: false
                 }
                 emit(filteredData)
             }

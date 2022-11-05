@@ -6,6 +6,7 @@ import androidx.paging.cachedIn
 import androidx.paging.filter
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.features.departments.domain.model.Departments
+import com.solvro.topwr.features.departments.domain.use_case.GetScienceClubsDetailsParams
 import com.solvro.topwr.features.departments.domain.use_case.GetScienceClubsUseCase
 import com.solvro.topwr.ui.fragments.home_page.HomeFragment
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -33,20 +34,12 @@ class DepartmentsDetailsViewModel @Inject constructor(
     val prevFragment: LiveData<String> =
         savedStateHandle.getLiveData("prevFragment", HomeFragment::class.java.name)
 
-    private var scienceClubsJob: Job? = null
-
     private fun getScienceClubs(scienceClubsLiveData: MutableLiveData<PagingData<ScienceClub>>) {
-        scienceClubsJob?.cancel()
-        scienceClubsJob = viewModelScope.launch {
-            getScienceClubsUseCase()
-                .cancellable()
-                .cachedIn(viewModelScope)
-                .collectLatest { scienceClubsPagedData ->
-                    val filteredData = scienceClubsPagedData.filter {
-                        (it.department == departments.value?.displayOrder)
-                    }
-                    scienceClubsLiveData.postValue(filteredData)
-                }
+        getScienceClubsUseCase(
+            GetScienceClubsDetailsParams(departments.value?.displayOrder),
+            scope = viewModelScope
+        ) {
+
         }
     }
 
