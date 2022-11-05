@@ -6,7 +6,9 @@ import com.solvro.topwr.core.api.model.departments.DepartmentsRemote
 import com.solvro.topwr.core.base.FlowUseCase
 import com.solvro.topwr.features.departments.domain.DepartmentsRepository
 import com.solvro.topwr.features.departments.domain.model.Departments
+import com.solvro.topwr.utils.Constants
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.cancellable
 import kotlinx.coroutines.flow.filter
@@ -21,6 +23,7 @@ class GetDepartmentsUseCase @Inject constructor(
 
     override suspend fun action(params: GetDepartmentsParams): Flow<PagingData<Departments>> {
         getDepartmentsJob?.cancel()
+        delay(Constants.DEFAULT_DEBOUNCE_TIME_MS)
         return departmentsRepository.getDepartmentsPaged()
             .cancellable()
             .transform {
