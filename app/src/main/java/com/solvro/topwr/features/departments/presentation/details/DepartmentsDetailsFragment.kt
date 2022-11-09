@@ -113,8 +113,8 @@ class DepartmentsDetailsFragment : Fragment() {
                     Glide.with(binding.root.context)
                         .load(it.logo?.url)
                         .into(departmentDetailFragmentLogo)
-                    val gradientFirst = Color.parseColor(it.colorRemote?.gradientFirst)
-                    val gradientSecond = Color.parseColor(it.colorRemote?.gradientSecond)
+                    val gradientFirst = Color.parseColor(it.color?.gradientFirst)
+                    val gradientSecond = Color.parseColor(it.color?.gradientSecond)
                     val gradient = GradientDrawable(
                         GradientDrawable.Orientation.LEFT_RIGHT,
                         intArrayOf(gradientSecond, gradientFirst)
@@ -221,7 +221,7 @@ class DepartmentsDetailsFragment : Fragment() {
 
         binding.scienceClubListTextView.setOnClickListener {
             val action =
-                DepartmentsDetailsFragmentDirections.actionDepartmentsDetailsFragmentToScienceClubsFragment()
+                com.solvro.topwr.features.departments.presentation.details.DepartmentsDetailsFragmentDirections.actionDepartmentsDetailsFragmentToScienceClubsFragment()
             findNavController().navigate(action)
         }
 
@@ -234,7 +234,7 @@ class DepartmentsDetailsFragment : Fragment() {
 
     private fun navigateToScienceClub(scienceClub: ScienceClub) {
         val action =
-            DepartmentsDetailsFragmentDirections.actionDepartmentsDetailsFragmentToScienceClubsDetailsFragment(
+            com.solvro.topwr.features.departments.presentation.details.DepartmentsDetailsFragmentDirections.actionDepartmentsDetailsFragmentToScienceClubsDetailsFragment(
                 scienceClub
             )
         findNavController().navigate(action)

@@ -1,9 +1,7 @@
 package com.solvro.topwr.features.departments.domain
 
 import androidx.paging.PagingData
-import com.solvro.topwr.core.api.model.departments.DepartmentsRemote
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
-import com.solvro.topwr.data.model.tag.TagRemote
 import com.solvro.topwr.core.api.model.Resource
 import com.solvro.topwr.features.departments.domain.model.Departments
 import com.solvro.topwr.features.departments.domain.model.Tag

@@ -1,4 +1,4 @@
-package com.solvro.topwr.core.api.model.departments
+package com.solvro.topwr.core.api.model.department
 
 import android.os.Parcelable
 import com.solvro.topwr.features.departments.domain.model.Info

@@ -1,4 +1,4 @@
-package com.solvro.topwr.core.api.model.departments
+package com.solvro.topwr.core.api.model.department
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

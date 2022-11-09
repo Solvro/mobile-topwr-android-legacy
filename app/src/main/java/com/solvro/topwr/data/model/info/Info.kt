@@ -2,7 +2,7 @@ package com.solvro.topwr.data.model.info
 
 import android.os.Parcelable
 import com.solvro.topwr.data.model.common.Photo
-import com.solvro.topwr.core.api.model.departments.InfoSectionRemote
+import com.solvro.topwr.core.api.model.department.InfoSectionRemote
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 

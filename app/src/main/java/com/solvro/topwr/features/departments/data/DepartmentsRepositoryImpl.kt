@@ -1,8 +1,6 @@
 package com.solvro.topwr.features.departments.data
 
-import androidx.paging.PagingData
 import androidx.paging.map
-import com.solvro.topwr.core.api.model.departments.DepartmentsRemote
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.data.remote.RemoteDataSource
 import com.solvro.topwr.features.departments.domain.DepartmentsRepository

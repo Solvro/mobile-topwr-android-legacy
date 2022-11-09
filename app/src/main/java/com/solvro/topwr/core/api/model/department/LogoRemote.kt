@@ -1,18 +1,19 @@
-package com.solvro.topwr.core.api.model.departments
+package com.solvro.topwr.core.api.model.department
 
 import android.os.Parcelable
+import com.solvro.topwr.data.model.common.Formats
 import com.solvro.topwr.data.model.common.ProviderMetadata
-import com.solvro.topwr.features.departments.domain.model.Icon
+import com.solvro.topwr.features.departments.domain.model.Logo
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 
 @Parcelize
-data class IconRemote(
+data class LogoRemote(
     val alternativeText: String?,
     val caption: String?,
     val created_at: String?,
     val ext: String?,
-    val formats: @RawValue Any?,
+    val formats: Formats?,
     val hash: String?,
     val height: Int?,
     val id: Int?,
@@ -26,7 +27,7 @@ data class IconRemote(
     val url: String?,
     val width: Int?
 ) : Parcelable {
-    fun toDomain(): Icon = Icon(
-       alternativeText, height, id, name, size, url, width
+    fun toDomain() = Logo(
+        alternativeText, caption, height, id, url, width
     )
 }

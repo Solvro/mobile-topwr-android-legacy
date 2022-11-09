@@ -22,6 +22,6 @@ class Departments(
 ) : Parcelable {
 
     @IgnoredOnParcel
-    val colorRemote: Color? = colorValue
+    val color: Color? = colorValue
         get() = field ?: Color(Color.PLACEHOLDER_COLOR, Color.PLACEHOLDER_COLOR, id)
 }

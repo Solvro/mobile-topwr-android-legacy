@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.solvro.topwr.core.api.model.departments.InfoRemote
 import com.solvro.topwr.databinding.ItemInfoBinding
 import com.solvro.topwr.features.departments.domain.model.Info
 

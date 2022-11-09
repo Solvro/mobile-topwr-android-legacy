@@ -1,6 +1,6 @@
-package com.solvro.topwr.core.api.model.departments
+package com.solvro.topwr.core.api.model.department
 
-data class MediumRemote(
+data class SmallRemote(
     val ext: String?,
     val hash: String?,
     val height: Int?,

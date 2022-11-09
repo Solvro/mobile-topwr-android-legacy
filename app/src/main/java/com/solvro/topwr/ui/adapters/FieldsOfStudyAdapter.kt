@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 
 import androidx.recyclerview.widget.RecyclerView
-import com.solvro.topwr.core.api.model.departments.FieldsOfStudyRemote
 import com.solvro.topwr.databinding.FieldOfStudyItemBinding
 import com.solvro.topwr.features.departments.domain.model.FieldsOfStudy
 

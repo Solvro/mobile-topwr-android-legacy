@@ -1,4 +1,4 @@
-package com.solvro.topwr.core.api.model.departments
+package com.solvro.topwr.core.api.model.department
 
 data class ProviderMetadataRemote(
     val public_id: String?,
