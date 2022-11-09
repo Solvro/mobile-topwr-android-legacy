@@ -113,8 +113,8 @@ class DepartmentsDetailsFragment : Fragment() {
                     Glide.with(binding.root.context)
                         .load(it.logo?.url)
                         .into(departmentDetailFragmentLogo)
-                    val gradientFirst = Color.parseColor(it.color?.gradientFirst)
-                    val gradientSecond = Color.parseColor(it.color?.gradientSecond)
+                    val gradientFirst = Color.parseColor(it.color?.gradientFirstValue)
+                    val gradientSecond = Color.parseColor(it.color?.gradientSecondValue)
                     val gradient = GradientDrawable(
                         GradientDrawable.Orientation.LEFT_RIGHT,
                         intArrayOf(gradientSecond, gradientFirst)

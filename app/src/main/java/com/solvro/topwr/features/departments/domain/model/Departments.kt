@@ -9,7 +9,7 @@ import kotlinx.parcelize.RawValue
 class Departments(
     val addres: String?,
     val code: String?,
-    private val colorValue: Color?,
+    val color: Color,
     val description: String?,
     val displayOrder: Int?,
     val fieldsOfStudy: List<FieldsOfStudy>?,
@@ -19,9 +19,4 @@ class Departments(
     val logo: Logo?,
     val longitude: Double?,
     val name: String?,
-) : Parcelable {
-
-    @IgnoredOnParcel
-    val color: Color? = colorValue
-        get() = field ?: Color(Color.PLACEHOLDER_COLOR, Color.PLACEHOLDER_COLOR, id)
-}
+) : Parcelable

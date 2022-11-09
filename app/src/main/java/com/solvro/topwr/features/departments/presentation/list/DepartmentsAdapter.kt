@@ -35,8 +35,8 @@ class DepartmentsAdapter(
             val gradientDrawable = GradientDrawable(
                 GradientDrawable.Orientation.BL_TR,
                 intArrayOf(
-                    Color.parseColor(item.color?.gradientFirst!!),
-                    Color.parseColor(item.color?.gradientSecond!!)
+                    Color.parseColor(item.color?.gradientFirstValue!!),
+                    Color.parseColor(item.color?.gradientSecondValue!!)
                 )
             )
             with(binding) {

@@ -11,7 +11,7 @@ import kotlinx.parcelize.RawValue
 class DepartmentRemote(
     @Json(name = "addres") val addres: String?,
     @Json(name = "code") val code: String?,
-    @Json(name = "colorValue") private val colorValue: ColorRemote?,
+    @Json(name = "color") private val colorValue: ColorRemote?,
     @Json(name = "created_at") val created_at: String?,
     @Json(name = "description") val description: String?,
     @Json(name = "displayOrder") val displayOrder: Int?,
@@ -33,7 +33,7 @@ class DepartmentRemote(
     fun toDomain() = Departments(
         addres,
         code,
-        colorValue?.toDomain(),
+        colorRemote!!.toDomain(),
         description,
         displayOrder,
         fieldsOfStudy?.map { it.toDomain() },
@@ -47,5 +47,5 @@ class DepartmentRemote(
 
     @IgnoredOnParcel
     val colorRemote: ColorRemote? = colorValue
-        get() = field ?: ColorRemote(ColorRemote.PLACEHOLDER_COLOR, ColorRemote.PLACEHOLDER_COLOR, id)
+        get() = field ?: ColorRemote(id, ColorRemote.PLACEHOLDER_COLOR, ColorRemote.PLACEHOLDER_COLOR)
 }
