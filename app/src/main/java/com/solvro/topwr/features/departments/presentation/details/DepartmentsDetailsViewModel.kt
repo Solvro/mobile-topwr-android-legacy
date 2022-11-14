@@ -28,7 +28,7 @@ class DepartmentsDetailsViewModel @Inject constructor(
                 getScienceClubs(it)
             }
     }
-    val scienceClubs: LiveData<PagingData<ScienceClub>> by lazy { _scienceClubs }
+    val scienceClubs: LiveData<PagingData<ScienceClub>> by lazy { _scienceClubs.cachedIn(viewModelScope) }
 
     val departments: LiveData<Departments?> = savedStateHandle.getLiveData("department_info", null)
     val prevFragment: LiveData<String> =
