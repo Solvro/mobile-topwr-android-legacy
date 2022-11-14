@@ -9,25 +9,25 @@ import kotlinx.parcelize.RawValue
 
 @Parcelize
 class DepartmentRemote(
-    @Json(name = "addres") val addres: String?,
-    @Json(name = "code") val code: String?,
-    @Json(name = "color") private val colorValue: ColorRemote?,
-    @Json(name = "created_at") val created_at: String?,
-    @Json(name = "description") val description: String?,
-    @Json(name = "displayOrder") val displayOrder: Int?,
-    @Json(name = "fieldOfStudy") val fieldsOfStudy: List<FieldsOfStudyRemote>?,
-    @Json(name = "id") val id: Int?,
-    @Json(name = "infoSection") val infoSection: List<InfoSectionRemote>?,
-    @Json(name = "latitude") val latitude: Double?,
-    @Json(name = "locale") val locale: String?,
-    @Json(name = "localizations") val localizations: @RawValue List<Any>?,
-    @Json(name = "logo") val logo: LogoRemote?,
-    @Json(name = "longitude") val longitude: Double?,
-    @Json(name = "name") val name: String?,
-    @Json(name = "published_at") val published_at: String?,
-    @Json(name = "scientificCircles") val scientificCircles: List<Int>?,
-    @Json(name = "updated_at") val updated_at: String?,
-    @Json(name = "website") val website: String?
+    val addres: String?,
+    val code: String?,
+    private val colorValue: ColorRemote?,
+    val created_at: String?,
+    val description: String?,
+    val displayOrder: Int?,
+    val fieldsOfStudy: List<FieldsOfStudyRemote>?,
+    val id: Int?,
+    val infoSection: List<InfoSectionRemote>?,
+    val latitude: Double?,
+    val locale: String?,
+    val localizations: @RawValue List<Any>?,
+    val logo: LogoRemote?,
+    val longitude: Double?,
+    val name: String?,
+    val published_at: String?,
+    val scientificCircles: List<Int>?,
+    val updated_at: String?,
+    val website: String?
 ) : Parcelable {
 
     fun toDomain() = Departments(
@@ -47,5 +47,9 @@ class DepartmentRemote(
 
     @IgnoredOnParcel
     val colorRemote: ColorRemote? = colorValue
-        get() = field ?: ColorRemote(id, ColorRemote.PLACEHOLDER_COLOR, ColorRemote.PLACEHOLDER_COLOR)
+        get() = field ?: ColorRemote(
+            id,
+            ColorRemote.PLACEHOLDER_COLOR,
+            ColorRemote.PLACEHOLDER_COLOR
+        )
 }

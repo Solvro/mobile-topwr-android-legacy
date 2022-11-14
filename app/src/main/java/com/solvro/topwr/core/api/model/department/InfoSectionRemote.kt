@@ -8,10 +8,10 @@ import java.io.Serializable
 
 @Parcelize
 data class InfoSectionRemote(
-    @Json(name = "id") val id: Int?,
-    @Json(name = "info") val info: List<InfoRemote>?,
-    @Json(name = "name") val name: String?
-): Serializable, Parcelable {
+    val id: Int?,
+    val info: List<InfoRemote>?,
+    val name: String?
+) : Serializable, Parcelable {
     fun toDomain() = InfoSection(
         id, info?.map { it.toDomain() }, name
     )

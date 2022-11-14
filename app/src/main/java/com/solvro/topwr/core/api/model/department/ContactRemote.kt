@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ContactRemote(
-    @Json(name = "name") val Name: String?,
-    @Json(name = "number") val Number: String?,
-    @Json(name = "id") val id: Int?
+    val Name: String?,
+    val Number: String?,
+    val id: Int?
 ) : Parcelable

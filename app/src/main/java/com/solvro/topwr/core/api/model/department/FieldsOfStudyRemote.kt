@@ -7,8 +7,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class FieldsOfStudyRemote(
-    @Json(name = "id") val id: Int?,
-    @Json(name = "name") val name: String?
+    val id: Int?,
+    val name: String?
 ) : Parcelable {
     fun toDomain() = FieldsOfStudy(
         id, name
