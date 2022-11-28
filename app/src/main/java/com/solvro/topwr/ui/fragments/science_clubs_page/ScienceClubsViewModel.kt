@@ -10,7 +10,7 @@ import androidx.paging.filter
 import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.data.repository.MainRepository
 import com.solvro.topwr.utils.Constants
-import com.solvro.topwr.utils.Resource
+import com.solvro.topwr.core.api.model.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay

@@ -29,7 +29,7 @@ import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.databinding.MapFragmentBinding
 import com.solvro.topwr.utils.Constants
 import com.solvro.topwr.utils.DrawableToBitmapDescriptorConverter
-import com.solvro.topwr.utils.Resource
+import com.solvro.topwr.core.api.model.Resource
 import com.solvro.topwr.utils.toPx
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
