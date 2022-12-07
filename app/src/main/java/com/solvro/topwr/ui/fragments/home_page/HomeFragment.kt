@@ -20,7 +20,7 @@ import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.databinding.HomeFragmentBinding
 import com.solvro.topwr.ui.MainActivity
 import com.solvro.topwr.utils.AcademicDayMapper
-import com.solvro.topwr.utils.Resource
+import com.solvro.topwr.core.api.model.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import koleton.api.hideSkeleton
 import koleton.api.loadSkeleton

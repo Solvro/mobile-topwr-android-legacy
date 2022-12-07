@@ -9,7 +9,7 @@ import com.solvro.topwr.data.model.scienceClub.ScienceClub
 import com.solvro.topwr.data.repository.MainRepository
 import com.solvro.topwr.utils.AcademicDayMapper
 import com.solvro.topwr.utils.Constants
-import com.solvro.topwr.utils.Resource
+import com.solvro.topwr.core.api.model.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
@@ -22,7 +22,9 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(private val repository: MainRepository) : ViewModel() {
 
     /* LiveData */
-    val departments = repository.getDepartments()
+    val departments = repository.getDepartments().map {
+        Resource(it.status, it.data?.map { departmentsRemote -> departmentsRemote.toDomain() }, it.message)
+    }
     val notices = repository.getNotices()
 
     private val _buildings by lazy {
