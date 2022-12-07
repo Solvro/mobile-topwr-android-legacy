@@ -1,7 +1,7 @@
 package com.solvro.topwr.ui.fragments.home_page
 
 import androidx.lifecycle.*
-import com.solvro.topwr.core.api.Resource
+import com.solvro.topwr.core.domain.model.Resource
 import com.solvro.topwr.data.model.date.Date
 import com.solvro.topwr.data.model.endDate.EndDate
 import com.solvro.topwr.data.model.endDate.Weekday
@@ -83,7 +83,6 @@ class HomeViewModel @Inject constructor(
             )
         }
     }
-
 
     private fun getScienceClubs(scienceClubsLiveData: MutableLiveData<Resource<List<ScienceClub>>>) {
         scienceClubsLiveData.value = Resource.Loading()

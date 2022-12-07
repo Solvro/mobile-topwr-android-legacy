@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 
 import androidx.recyclerview.widget.RecyclerView
-import com.solvro.topwr.data.model.departments.FieldsOfStudy
 import com.solvro.topwr.databinding.FieldOfStudyItemBinding
+import com.solvro.topwr.features.departments.domain.model.FieldsOfStudy
 
 class FieldsOfStudyAdapter(
     private val fieldOfStudy: MutableList<FieldsOfStudy>

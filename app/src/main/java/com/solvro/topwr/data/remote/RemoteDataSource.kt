@@ -5,7 +5,7 @@ import androidx.paging.PagingConfig
 import com.solvro.topwr.core.api.model.scienceclub.ScienceClubRemote
 import com.solvro.topwr.core.api.model.scienceclub.TagRemote
 import com.solvro.topwr.data.model.aboutUs.AboutUs
-import com.solvro.topwr.data.model.departments.Departments
+import com.solvro.topwr.core.api.model.department.DepartmentRemote
 import com.solvro.topwr.data.model.endDate.EndDate
 import com.solvro.topwr.data.model.endDate.WeekDayException
 import com.solvro.topwr.data.model.info.Info
@@ -14,7 +14,7 @@ import com.solvro.topwr.data.model.notices.Notices
 import com.solvro.topwr.data.remote.pagingsource.DepartmentPagingSource
 import com.solvro.topwr.data.remote.pagingsource.ScienceClubPagingSource
 import com.solvro.topwr.utils.Constants
-import com.solvro.topwr.core.api.Resource
+import com.solvro.topwr.core.domain.model.Resource
 import javax.inject.Inject
 
 class RemoteDataSource @Inject constructor(
@@ -29,7 +29,7 @@ class RemoteDataSource @Inject constructor(
     suspend fun getDepartments(
         startIndex: Int = 0,
         limit: Int = 20
-    ): Resource<List<Departments>> =
+    ): Resource<List<DepartmentRemote>> =
         getResult {
             service.getDepartments(
                 startIndex = startIndex,

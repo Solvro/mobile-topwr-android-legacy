@@ -60,7 +60,7 @@
     </fragment>
     <fragment
         android:id="@+id/departmentsFragment"
-        android:name="com.solvro.topwr.ui.fragments.departments_page.DepartmentsFragment"
+        android:name="com.solvro.topwr.features.departments.presentation.list.DepartmentsFragment"
         android:label="departments_fragment"
         tools:layout="@layout/departments_fragment">
         <action
@@ -101,13 +101,13 @@
 
     <fragment
         android:id="@+id/departmentsDetailsFragment"
-        android:name="com.solvro.topwr.ui.fragments.departments_details_page.DepartmentsDetailsFragment"
+        android:name="com.solvro.topwr.features.departments.presentation.details.DepartmentsDetailsFragment"
         android:label="departments_details_fragment"
         tools:layout="@layout/departments_details_fragment">
         <argument
             android:name="department_info"
             android:defaultValue="@null"
-            app:argType="com.solvro.topwr.data.model.departments.Departments"
+            app:argType="com.solvro.topwr.features.departments.domain.model.Department"
             app:nullable="true" />
         <argument
             android:name="prevFragment"

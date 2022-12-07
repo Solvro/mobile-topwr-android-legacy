@@ -1,6 +1,6 @@
 package com.solvro.topwr.data.remote.pagingsource
 
-import com.solvro.topwr.core.api.Resource
+import com.solvro.topwr.core.domain.model.Resource
 import com.solvro.topwr.core.api.model.scienceclub.ScienceClubRemote
 import com.solvro.topwr.data.remote.RemoteDataSource
 

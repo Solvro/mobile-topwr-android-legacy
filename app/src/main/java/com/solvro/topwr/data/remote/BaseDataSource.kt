@@ -1,7 +1,7 @@
 package com.solvro.topwr.data.remote
 
 import android.util.Log
-import com.solvro.topwr.core.api.Resource
+import com.solvro.topwr.core.domain.model.Resource
 import retrofit2.Response
 
 /**

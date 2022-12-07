@@ -1,7 +1,7 @@
 package com.solvro.topwr.ui.fragments.map_page
 
 import androidx.lifecycle.*
-import com.solvro.topwr.core.api.Resource
+import com.solvro.topwr.core.domain.model.Resource
 import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.data.repository.MainRepository
 import com.solvro.topwr.utils.Event

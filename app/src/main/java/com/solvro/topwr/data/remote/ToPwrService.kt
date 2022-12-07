@@ -3,7 +3,7 @@ package com.solvro.topwr.data.remote
 import com.solvro.topwr.core.api.model.scienceclub.ScienceClubRemote
 import com.solvro.topwr.core.api.model.scienceclub.TagRemote
 import com.solvro.topwr.data.model.aboutUs.AboutUs
-import com.solvro.topwr.data.model.departments.Departments
+import com.solvro.topwr.core.api.model.department.DepartmentRemote
 import com.solvro.topwr.data.model.endDate.EndDate
 import com.solvro.topwr.data.model.endDate.WeekDayException
 import com.solvro.topwr.data.model.info.Info
@@ -31,7 +31,7 @@ interface ToPwrService {
         @Query("_start") startIndex: Int,
         @Query("_limit") limit: Int,
         @Query("_sort") sortPropertyName: String = "displayOrder"
-    ): Response<List<Departments>>
+    ): Response<List<DepartmentRemote>>
 
     @GET("departments/count")
     suspend fun getDepartmentsCount(): Response<Int>
@@ -39,7 +39,7 @@ interface ToPwrService {
     @GET("departments")
     suspend fun getDepartment(
         @Query("displayOrder") departmentNumber: Int
-    ): Response<List<Departments>>
+    ): Response<List<DepartmentRemote>>
 
     @GET("scientific-circles")
     suspend fun getScientificCircles(

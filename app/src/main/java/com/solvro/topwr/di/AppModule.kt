@@ -10,6 +10,7 @@ import com.solvro.topwr.data.remote.RemoteDataSource
 import com.solvro.topwr.data.remote.ToPwrService
 import com.solvro.topwr.data.repository.MainRepository
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -44,7 +45,8 @@ object AppModule {
         .build()
 
     @Provides
-    fun provideMoshi(): Moshi = Moshi.Builder().build()
+    fun provideMoshi(): Moshi = Moshi.Builder()
+        .add(KotlinJsonAdapterFactory()).build()
 
     @Provides
     fun provideOkHttpClient(): OkHttpClient {

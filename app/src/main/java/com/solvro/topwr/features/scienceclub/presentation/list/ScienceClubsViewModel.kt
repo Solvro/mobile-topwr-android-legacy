@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import com.solvro.topwr.core.api.Resource
+import com.solvro.topwr.core.domain.model.Resource
 import com.solvro.topwr.features.scienceclub.domain.model.ScienceClub
 import com.solvro.topwr.features.scienceclub.domain.usecase.GetAllScienceClubsParams
 import com.solvro.topwr.features.scienceclub.domain.usecase.GetAllScienceClubsUseCase

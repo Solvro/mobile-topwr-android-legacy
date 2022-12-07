@@ -1,6 +1,6 @@
 package com.solvro.topwr.features.scienceclub.domain.usecase
 
-import com.solvro.topwr.core.api.Resource
+import com.solvro.topwr.core.domain.model.Resource
 import com.solvro.topwr.core.base.BaseUseCase
 import com.solvro.topwr.features.scienceclub.domain.ScienceClubRepository
 import javax.inject.Inject

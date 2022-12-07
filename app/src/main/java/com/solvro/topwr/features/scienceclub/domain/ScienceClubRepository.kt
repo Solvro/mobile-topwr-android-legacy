@@ -2,7 +2,7 @@ package com.solvro.topwr.features.scienceclub.domain
 
 import androidx.paging.PagingData
 import com.solvro.topwr.features.scienceclub.domain.model.ScienceClub
-import com.solvro.topwr.core.api.Resource
+import com.solvro.topwr.core.domain.model.Resource
 import com.solvro.topwr.features.scienceclub.domain.model.Tag
 import kotlinx.coroutines.flow.Flow
 
