@@ -5,16 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import androidx.paging.cachedIn
-import androidx.paging.filter
-import com.solvro.topwr.features.departments.domain.model.Departments
+import com.solvro.topwr.features.departments.domain.model.Department
 import com.solvro.topwr.features.departments.domain.use_case.GetDepartmentsParams
 import com.solvro.topwr.features.departments.domain.use_case.GetDepartmentsUseCase
 import com.solvro.topwr.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.cancellable
-import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,8 +20,8 @@ class DepartmentsViewModel @Inject constructor(
 
     private var lastTextFilter: String = ""
 
-    private val _departments by lazy { MutableLiveData<PagingData<Departments>>() }
-    val departments: LiveData<PagingData<Departments>> by lazy { _departments }
+    private val _departments by lazy { MutableLiveData<PagingData<Department>>() }
+    val departments: LiveData<PagingData<Department>> by lazy { _departments }
 
     init {
         getDepartments()

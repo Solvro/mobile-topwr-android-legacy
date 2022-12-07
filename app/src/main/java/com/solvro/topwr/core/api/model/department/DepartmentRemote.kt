@@ -1,7 +1,7 @@
 package com.solvro.topwr.core.api.model.department
 
 import android.os.Parcelable
-import com.solvro.topwr.features.departments.domain.model.Departments
+import com.solvro.topwr.features.departments.domain.model.Department
 import com.squareup.moshi.Json
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
@@ -30,7 +30,7 @@ class DepartmentRemote(
     @Json(name = "website") val website: String?
 ) : Parcelable {
 
-    fun toDomain() = Departments(
+    fun toDomain() = Department(
         addres,
         code,
         colorRemote!!.toDomain(),

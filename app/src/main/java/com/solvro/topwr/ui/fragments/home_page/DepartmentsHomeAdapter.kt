@@ -7,18 +7,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.solvro.topwr.databinding.DepartmentsHomeItemBinding
-import com.solvro.topwr.features.departments.domain.model.Departments
+import com.solvro.topwr.features.departments.domain.model.Department
 
 
 class DepartmentsHomeAdapter(
-    private val onClick: (Departments) -> Unit
+    private val onClick: (Department) -> Unit
 ) : RecyclerView.Adapter<DepartmentsHomeAdapter.DepartmentsViewHolder>() {
 
-    private val departments = mutableListOf<Departments>()
+    private val departments = mutableListOf<Department>()
 
     inner class DepartmentsViewHolder(private val binding: DepartmentsHomeItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(department: Departments) {
+        fun bind(department: Department) {
             println("Kolor cały ${department.color}")
             println("Kolor ${department.color.gradientFirstValue}")
             println("Kolor ${department.color.gradientSecondValue}")
@@ -66,7 +66,7 @@ class DepartmentsHomeAdapter(
 
     override fun getItemCount(): Int = departments.size
 
-    fun setData(departments: List<Departments>) {
+    fun setData(departments: List<Department>) {
         this.departments.apply {
             clear()
             addAll(departments)

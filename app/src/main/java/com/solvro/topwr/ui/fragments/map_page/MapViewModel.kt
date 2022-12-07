@@ -1,10 +1,10 @@
 package com.solvro.topwr.ui.fragments.map_page
 
 import androidx.lifecycle.*
+import com.solvro.topwr.core.domain.model.Resource
 import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.data.repository.MainRepository
 import com.solvro.topwr.utils.Event
-import com.solvro.topwr.core.api.model.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -48,27 +48,26 @@ class MapViewModel @Inject constructor(
 
     fun setTextFilter(filter: String) {
         textFilter = filter.lowercase().trim()
-        _buildings.postValue(Resource.success(allBuildingsCached.filter {
+        _buildings.postValue(Resource.Success(allBuildingsCached.filter {
             it.name?.lowercase()?.contains(filter) ?: false
         }))
     }
 
     private fun getBuildings(buildingsLiveData: MutableLiveData<Resource<List<Building>>>) {
-        buildingsLiveData.postValue(Resource.loading())
+        buildingsLiveData.postValue(Resource.Loading())
         viewModelScope.launch {
-            val buildingsResource = repository.getBuildings()
-            when (buildingsResource.status) {
-                Resource.Status.SUCCESS -> {
-                    buildingsResource.data?.let {
+            when (val buildingsResource = repository.getBuildings()) {
+                is Resource.Success -> {
+                    buildingsResource.data.let {
                         if (allBuildingsCached.isNotEmpty()) allBuildingsCached.clear()
                         allBuildingsCached.addAll(buildingsResource.data)
                         setTextFilter(textFilter)
                     }
                 }
-                Resource.Status.ERROR -> {
+                is Resource.Error -> {
                     _buildings.postValue(buildingsResource)
                 }
-                Resource.Status.LOADING -> {}
+                is Resource.Loading -> {}
             }
         }
     }

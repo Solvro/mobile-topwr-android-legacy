@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.solvro.topwr.core.domain.model.Resource
 import com.solvro.topwr.data.model.aboutUs.AboutUs
 import com.solvro.topwr.data.model.info.Info
 import com.solvro.topwr.data.repository.MainRepository
-import com.solvro.topwr.core.api.model.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -48,16 +48,16 @@ class FaqViewModel @Inject constructor(private val repository: MainRepository) :
     }
 
     private fun handleAboutUsResponse(response: Resource<AboutUs>) {
-        when (response.status) {
-            Resource.Status.SUCCESS -> {
-                response.data?.let {
+        when (response) {
+            is Resource.Success -> {
+                response.data.let {
                     _about_us.postValue(it)
                 }
             }
-            Resource.Status.ERROR -> {
+            is Resource.Error -> {
                 //TODO()
             }
-            Resource.Status.LOADING -> {
+            is Resource.Loading -> {
                 //TODO()
             }
         }

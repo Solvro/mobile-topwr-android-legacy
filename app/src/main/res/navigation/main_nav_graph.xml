@@ -73,7 +73,7 @@
     </fragment>
     <fragment
         android:id="@+id/scienceClubsFragment"
-        android:name="com.solvro.topwr.ui.fragments.science_clubs_page.ScienceClubsFragment"
+        android:name="com.solvro.topwr.features.scienceclub.presentation.list.ScienceClubsFragment"
         android:label="science_clubs_fragment"
         tools:layout="@layout/science_clubs_fragment">
         <action
@@ -107,7 +107,7 @@
         <argument
             android:name="department_info"
             android:defaultValue="@null"
-            app:argType="com.solvro.topwr.features.departments.domain.model.Departments"
+            app:argType="com.solvro.topwr.features.departments.domain.model.Department"
             app:nullable="true" />
         <argument
             android:name="prevFragment"
@@ -126,12 +126,12 @@
     </fragment>
     <fragment
         android:id="@+id/scienceClubsDetailsFragment"
-        android:name="com.solvro.topwr.ui.fragments.science_clubs_details.ScienceClubsDetailsFragment"
+        android:name="com.solvro.topwr.features.scienceclub.presentation.details.ScienceClubsDetailsFragment"
         android:label="science_clubs_details_fragment"
         tools:layout="@layout/science_clubs_details_fragment">
         <argument
             android:name="science_club"
-            app:argType="com.solvro.topwr.data.model.scienceClub.ScienceClub" />
+            app:argType="com.solvro.topwr.features.scienceclub.domain.model.ScienceClub" />
     </fragment>
     <fragment
         android:id="@+id/whatsUpFragment"

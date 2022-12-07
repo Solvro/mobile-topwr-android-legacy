@@ -4,7 +4,7 @@ import androidx.paging.PagingData
 import androidx.paging.filter
 import com.solvro.topwr.core.base.FlowUseCase
 import com.solvro.topwr.features.departments.domain.DepartmentsRepository
-import com.solvro.topwr.features.departments.domain.model.Departments
+import com.solvro.topwr.features.departments.domain.model.Department
 import com.solvro.topwr.utils.Constants
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -15,11 +15,11 @@ import javax.inject.Inject
 
 class GetDepartmentsUseCase @Inject constructor(
     private val departmentsRepository: DepartmentsRepository
-) : FlowUseCase<GetDepartmentsParams, PagingData<Departments>>() {
+) : FlowUseCase<GetDepartmentsParams, PagingData<Department>>() {
 
     private var getDepartmentsJob: Job? = null
 
-    override suspend fun action(params: GetDepartmentsParams): Flow<PagingData<Departments>> {
+    override suspend fun action(params: GetDepartmentsParams): Flow<PagingData<Department>> {
         getDepartmentsJob?.cancel()
         delay(Constants.DEFAULT_DEBOUNCE_TIME_MS)
         return departmentsRepository.getDepartmentsPaged()

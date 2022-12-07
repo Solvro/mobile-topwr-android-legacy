@@ -1,7 +1,7 @@
 package com.solvro.topwr.data.remote
 
 import android.util.Log
-import com.solvro.topwr.core.api.model.Resource
+import com.solvro.topwr.core.domain.model.Resource
 import retrofit2.Response
 
 /**
@@ -23,9 +23,9 @@ abstract class BaseDataSource {
                 val body = response.body()
                 if (body != null) {
                     Log.d("BaseDataSource", response.body().toString())
-                    return Resource.success(body)
+                    return Resource.Success(body)
                 }
-            }else  Log.d("BaseDataSource", "Else")
+            } else Log.d("BaseDataSource", "Else")
 
             return error(" ${response.code()} ${response.message()}")
         } catch (e: Exception) {
@@ -34,7 +34,7 @@ abstract class BaseDataSource {
     }
 
     private fun <T> error(message: String): Resource<T> {
-        return Resource.error("Network call has failed for a following reason: $message")
+        return Resource.Error("Network call has failed for a following reason: $message")
     }
 
 }

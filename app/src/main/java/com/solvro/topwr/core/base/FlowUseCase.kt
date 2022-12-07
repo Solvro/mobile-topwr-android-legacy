@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-abstract class FlowUseCase <Params, ResultType> {
+abstract class FlowUseCase<Params, ResultType> {
     abstract suspend fun action(params: Params): Flow<ResultType>
 
     operator fun invoke(
