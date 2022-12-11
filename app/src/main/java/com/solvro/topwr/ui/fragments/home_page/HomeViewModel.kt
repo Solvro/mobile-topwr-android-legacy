@@ -5,8 +5,8 @@ import com.solvro.topwr.core.domain.model.Resource
 import com.solvro.topwr.data.model.date.Date
 import com.solvro.topwr.data.model.endDate.EndDate
 import com.solvro.topwr.data.model.endDate.Weekday
-import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.data.repository.MainRepository
+import com.solvro.topwr.features.map.domain.model.Building
 import com.solvro.topwr.features.scienceclub.domain.ScienceClubRepository
 import com.solvro.topwr.features.scienceclub.domain.model.ScienceClub
 import com.solvro.topwr.utils.AcademicDayMapper

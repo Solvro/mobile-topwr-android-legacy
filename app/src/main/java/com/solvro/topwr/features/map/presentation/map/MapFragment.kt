@@ -1,4 +1,4 @@
-package com.solvro.topwr.ui.fragments.map_page
+package com.solvro.topwr.features.map.presentation.map
 
 import android.content.Intent
 import android.net.Uri
@@ -26,8 +26,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.solvro.topwr.R
 import com.solvro.topwr.core.domain.model.Resource
-import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.databinding.MapFragmentBinding
+import com.solvro.topwr.features.map.domain.model.Building
 import com.solvro.topwr.utils.Constants
 import com.solvro.topwr.utils.DrawableToBitmapDescriptorConverter
 import com.solvro.topwr.utils.toPx

@@ -1,4 +1,4 @@
-package com.solvro.topwr.ui.fragments.map_page
+package com.solvro.topwr.features.map.presentation.map
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.solvro.topwr.R
-import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.databinding.ItemBuildingBinding
+import com.solvro.topwr.features.map.domain.model.Building
 
 data class BuildingItemList(
     val building: Building,
@@ -62,11 +62,11 @@ class BuildingsAdapter(
                             R.color.white
                         ) else context.getColor(R.color.text_black2)
                     )
-                    text = building.addres
+                    text = building.address
                 }
 
                 Glide.with(binding.root.context)
-                    .load(building.photo?.url)
+                    .load(building.photo_url)
                     .placeholder(R.drawable.placeholder)
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(buildingImageView)
@@ -140,7 +140,7 @@ class BuildingsAdapter(
                 text
             ) ?: false || it.building.name?.lowercase()?.contains(
                 text
-            ) ?: false || it.building.addres?.lowercase()?.contains(
+            ) ?: false || it.building.address?.lowercase()?.contains(
                 text
             ) ?: false
         }

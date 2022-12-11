@@ -9,10 +9,10 @@ import com.solvro.topwr.data.model.aboutUs.AboutUs
 import com.solvro.topwr.data.model.endDate.EndDate
 import com.solvro.topwr.data.model.endDate.WeekDayException
 import com.solvro.topwr.data.model.info.Info
-import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.data.model.notices.Notices
 import com.solvro.topwr.data.remote.RemoteDataSource
 import com.solvro.topwr.features.departments.domain.model.Department
+import com.solvro.topwr.features.map.domain.model.Building
 import javax.inject.Inject
 
 class MainRepository @Inject constructor(
@@ -52,6 +52,7 @@ class MainRepository @Inject constructor(
     fun getDepartmentsPaged() = remoteDataSource.getPagedDepartments()
 
     suspend fun getBuildings(): Resource<List<Building>> = remoteDataSource.getBuildings()
+        .map { listOfBuildings -> listOfBuildings.map { building -> building.toDomain() } }
 
     fun getNotices(): LiveData<Resource<List<Notices>>> =
         liveData {

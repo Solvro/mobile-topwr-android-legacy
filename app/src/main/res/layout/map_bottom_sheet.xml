@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.solvro.topwr.ui.fragments.map_page.MapViewModel" />
+            type="com.solvro.topwr.features.map.presentation.map.MapViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

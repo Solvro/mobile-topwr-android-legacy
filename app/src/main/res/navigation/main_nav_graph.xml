@@ -49,13 +49,13 @@
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
-        android:name="com.solvro.topwr.ui.fragments.map_page.MapFragment"
+        android:name="com.solvro.topwr.features.map.presentation.map.MapFragment"
         android:label="map_fragment"
         tools:layout="@layout/map_fragment">
         <argument
             android:name="buildingToShow"
             android:defaultValue="@null"
-            app:argType="com.solvro.topwr.data.model.maps.Building"
+            app:argType="com.solvro.topwr.features.map.domain.model.Building"
             app:nullable="true" />
     </fragment>
     <fragment

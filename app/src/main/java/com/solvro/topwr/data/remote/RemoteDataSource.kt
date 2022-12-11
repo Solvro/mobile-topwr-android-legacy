@@ -6,10 +6,10 @@ import com.solvro.topwr.core.api.model.scienceclub.ScienceClubRemote
 import com.solvro.topwr.core.api.model.scienceclub.TagRemote
 import com.solvro.topwr.data.model.aboutUs.AboutUs
 import com.solvro.topwr.core.api.model.department.DepartmentRemote
+import com.solvro.topwr.core.api.model.maps.BuildingRemote
 import com.solvro.topwr.data.model.endDate.EndDate
 import com.solvro.topwr.data.model.endDate.WeekDayException
 import com.solvro.topwr.data.model.info.Info
-import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.data.model.notices.Notices
 import com.solvro.topwr.data.remote.pagingsource.DepartmentPagingSource
 import com.solvro.topwr.data.remote.pagingsource.ScienceClubPagingSource
@@ -78,7 +78,7 @@ class RemoteDataSource @Inject constructor(
     suspend fun getScienceClubTags(): Resource<List<TagRemote>> =
         getResult { service.getScientificCirclesTags() }
 
-    suspend fun getBuildings(): Resource<List<Building>> = getResult { service.getMaps() }
+    suspend fun getBuildings(): Resource<List<BuildingRemote>> = getResult { service.getMaps() }
 
     suspend fun getNotices(): Resource<List<Notices>> = getResult { service.getNotices() }
 

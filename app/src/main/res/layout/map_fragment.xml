@@ -7,13 +7,13 @@
 
         <variable
             name="viewModel"
-            type="com.solvro.topwr.ui.fragments.map_page.MapViewModel" />
+            type="com.solvro.topwr.features.map.presentation.map.MapViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.fragments.map_page.MapFragment">
+        tools:context=".features.map.presentation.map.MapFragment">
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/map"

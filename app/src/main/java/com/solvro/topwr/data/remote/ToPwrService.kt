@@ -4,10 +4,10 @@ import com.solvro.topwr.core.api.model.scienceclub.ScienceClubRemote
 import com.solvro.topwr.core.api.model.scienceclub.TagRemote
 import com.solvro.topwr.data.model.aboutUs.AboutUs
 import com.solvro.topwr.core.api.model.department.DepartmentRemote
+import com.solvro.topwr.core.api.model.maps.BuildingRemote
 import com.solvro.topwr.data.model.endDate.EndDate
 import com.solvro.topwr.data.model.endDate.WeekDayException
 import com.solvro.topwr.data.model.info.Info
-import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.data.model.notices.Notices
 import retrofit2.Response
 import retrofit2.http.GET
@@ -54,7 +54,7 @@ interface ToPwrService {
     suspend fun getScientificCirclesTags(): Response<List<TagRemote>>
 
     @GET("maps")
-    suspend fun getMaps(): Response<List<Building>>
+    suspend fun getMaps(): Response<List<BuildingRemote>>
 
     @GET("notices")
     suspend fun getNotices(): Response<List<Notices>>

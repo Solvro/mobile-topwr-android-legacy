@@ -1,9 +1,11 @@
-package com.solvro.topwr.ui.fragments.map_page
+package com.solvro.topwr.features.map.presentation.map
 
 import androidx.lifecycle.*
 import com.solvro.topwr.core.domain.model.Resource
-import com.solvro.topwr.data.model.maps.Building
-import com.solvro.topwr.data.repository.MainRepository
+import com.solvro.topwr.features.map.domain.model.Building
+import com.solvro.topwr.features.map.domain.usecase.AddIdToBuildingsSearchHistoryUseCase
+import com.solvro.topwr.features.map.domain.usecase.GetBuildingUseCase
+import com.solvro.topwr.features.map.domain.usecase.GetBuildingsSearchHistoryUseCase
 import com.solvro.topwr.utils.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -11,7 +13,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MapViewModel @Inject constructor(
-    private val repository: MainRepository,
+    private val getBuildingUseCase: GetBuildingUseCase,
+    private val getBuildingsSearchHistoryUseCase: GetBuildingsSearchHistoryUseCase,
+    private val addIdToBuildingsSearchHistoryUseCase: AddIdToBuildingsSearchHistoryUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -26,13 +30,16 @@ class MapViewModel @Inject constructor(
     private val _selectedBuilding = MutableLiveData<Event<Building?>>(Event(null))
     val selectedBuilding: LiveData<Event<Building?>> get() = _selectedBuilding
 
-    private val _searchHistory = MutableLiveData(repository.getBuildingsSearchHistory())
+    private val _searchHistory: MutableLiveData<List<Int>> = MutableLiveData()
     val searchHistory: LiveData<List<Int>> get() = _searchHistory
 
     private var textFilter = ""
 
     init {
         _selectedBuilding.value = Event(savedStateHandle.get<Building>("buildingToShow"))
+        getBuildingsSearchHistoryUseCase(params = null, scope = viewModelScope){
+            _searchHistory.postValue(it)
+        }
     }
 
     fun selectBuilding(building: Building) {
@@ -40,10 +47,12 @@ class MapViewModel @Inject constructor(
             if (building != selectedBuilding.value?.peekContent()) Event(building) else Event(null)
         _selectedBuilding.postValue(event)
         building.id?.let {
-            repository.addIdToBuildingsSearchHistory(it)
+            addIdToBuildingsSearchHistoryUseCase(it, viewModelScope) {}
         }
         //refresh search history
-        _searchHistory.postValue(repository.getBuildingsSearchHistory())
+        getBuildingsSearchHistoryUseCase(params = null, scope = viewModelScope) {
+            _searchHistory.postValue(it)
+        }
     }
 
     fun setTextFilter(filter: String) {
@@ -56,18 +65,21 @@ class MapViewModel @Inject constructor(
     private fun getBuildings(buildingsLiveData: MutableLiveData<Resource<List<Building>>>) {
         buildingsLiveData.postValue(Resource.Loading())
         viewModelScope.launch {
-            when (val buildingsResource = repository.getBuildings()) {
-                is Resource.Success -> {
-                    buildingsResource.data.let {
-                        if (allBuildingsCached.isNotEmpty()) allBuildingsCached.clear()
-                        allBuildingsCached.addAll(buildingsResource.data)
-                        setTextFilter(textFilter)
+            getBuildingUseCase(null, viewModelScope) { buildingsResource ->
+                when(buildingsResource) {
+                    is Resource.Success -> {
+                        buildingsResource.data.let {
+                            if (allBuildingsCached.isNotEmpty()) allBuildingsCached.clear()
+                            allBuildingsCached.addAll(buildingsResource.data)
+                            setTextFilter(textFilter)
+                        }
                     }
+                    is Resource.Error -> {
+                        _buildings.postValue(buildingsResource)
+                    }
+                    is Resource.Loading -> {}
                 }
-                is Resource.Error -> {
-                    _buildings.postValue(buildingsResource)
-                }
-                is Resource.Loading -> {}
+
             }
         }
     }

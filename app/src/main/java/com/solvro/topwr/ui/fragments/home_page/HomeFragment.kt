@@ -15,9 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionInflater
 import com.solvro.topwr.R
 import com.solvro.topwr.core.domain.model.Resource
-import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.data.model.notices.Notices
 import com.solvro.topwr.databinding.HomeFragmentBinding
+import com.solvro.topwr.features.map.domain.model.Building
 import com.solvro.topwr.features.scienceclub.domain.model.ScienceClub
 import com.solvro.topwr.ui.MainActivity
 import com.solvro.topwr.utils.AcademicDayMapper
