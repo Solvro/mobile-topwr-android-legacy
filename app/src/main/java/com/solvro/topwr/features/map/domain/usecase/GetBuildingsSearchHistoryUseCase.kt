@@ -6,9 +6,9 @@ import javax.inject.Inject
 
 class GetBuildingsSearchHistoryUseCase @Inject constructor(
     private val mapsRepository: MapsRepository
-) : BaseUseCase<Unit?, List<Int>>() {
+) : BaseUseCase<Unit, List<Int>>() {
 
-    override suspend fun action(params: Unit?): List<Int> {
+    override suspend fun action(params: Unit): List<Int> {
         return mapsRepository.getBuildingsSearchHistory()
     }
 }

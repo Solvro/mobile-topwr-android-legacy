@@ -8,9 +8,9 @@ import javax.inject.Inject
 
 class GetBuildingUseCase @Inject constructor(
     private val mapsRepository: MapsRepository
-) : BaseUseCase<Unit?, Resource<List<Building>>>() {
+) : BaseUseCase<Unit, Resource<List<Building>>>() {
 
-    override suspend fun action(params: Unit?): Resource<List<Building>> {
+    override suspend fun action(params: Unit): Resource<List<Building>> {
         return mapsRepository.getBuildings()
     }
 }

@@ -66,7 +66,7 @@ class BuildingsAdapter(
                 }
 
                 Glide.with(binding.root.context)
-                    .load(building.photo_url)
+                    .load(building.photoUrl)
                     .placeholder(R.drawable.placeholder)
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(buildingImageView)

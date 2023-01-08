@@ -37,7 +37,7 @@ class MapViewModel @Inject constructor(
 
     init {
         _selectedBuilding.value = Event(savedStateHandle.get<Building>("buildingToShow"))
-        getBuildingsSearchHistoryUseCase(params = null, scope = viewModelScope){
+        getBuildingsSearchHistoryUseCase(params = Unit, scope = viewModelScope){
             _searchHistory.postValue(it)
         }
     }
@@ -50,7 +50,7 @@ class MapViewModel @Inject constructor(
             addIdToBuildingsSearchHistoryUseCase(it, viewModelScope) {}
         }
         //refresh search history
-        getBuildingsSearchHistoryUseCase(params = null, scope = viewModelScope) {
+        getBuildingsSearchHistoryUseCase(params = Unit, scope = viewModelScope) {
             _searchHistory.postValue(it)
         }
     }
@@ -65,7 +65,7 @@ class MapViewModel @Inject constructor(
     private fun getBuildings(buildingsLiveData: MutableLiveData<Resource<List<Building>>>) {
         buildingsLiveData.postValue(Resource.Loading())
         viewModelScope.launch {
-            getBuildingUseCase(null, viewModelScope) { buildingsResource ->
+            getBuildingUseCase(Unit, viewModelScope) { buildingsResource ->
                 when(buildingsResource) {
                     is Resource.Success -> {
                         buildingsResource.data.let {
