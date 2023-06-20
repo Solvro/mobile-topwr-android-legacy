@@ -86,7 +86,7 @@
     </fragment>
     <fragment
         android:id="@+id/faqFragment"
-        android:name="com.solvro.topwr.ui.fragments.faq_page.FaqFragment"
+        android:name="com.solvro.topwr.features.faq.presentation.list.FaqFragment"
         android:label="faq_fragment"
         tools:layout="@layout/faq_fragment">
         <action
@@ -144,20 +144,20 @@
     </fragment>
     <fragment
         android:id="@+id/faqDetailsFragment"
-        android:name="com.solvro.topwr.ui.fragments.faq_details.FaqDetailsFragment"
+        android:name="com.solvro.topwr.features.faq.presentation.details.FaqDetailsFragment"
         android:label="faq_details_fragment"
         tools:layout="@layout/faq_details_fragment">
         <argument
             android:name="info"
-            app:argType="com.solvro.topwr.data.model.info.Info" />
+            app:argType="com.solvro.topwr.features.faq.domain.model.Info" />
     </fragment>
     <fragment
         android:id="@+id/aboutUsFragment"
-        android:name="com.solvro.topwr.ui.fragments.about_us_page.AboutUsFragment"
+        android:name="com.solvro.topwr.features.faq.presentation.details.AboutUsFragment"
         android:label="AboutUsFragment"
         tools:layout="@layout/about_us_fragment">
         <argument
             android:name="aboutUs"
-            app:argType="com.solvro.topwr.data.model.aboutUs.AboutUs" />
+            app:argType="com.solvro.topwr.features.faq.domain.model.AboutUs" />
     </fragment>
 </navigation>

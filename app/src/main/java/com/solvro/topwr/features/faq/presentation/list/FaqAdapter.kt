@@ -1,4 +1,4 @@
-package com.solvro.topwr.ui.fragments.faq_page
+package com.solvro.topwr.features.faq.presentation.list
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -11,7 +11,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.solvro.topwr.R
-import com.solvro.topwr.data.model.info.Info
+import com.solvro.topwr.features.faq.domain.model.Info
 import com.solvro.topwr.databinding.FaqItemBinding
 
 class FaqAdapter(

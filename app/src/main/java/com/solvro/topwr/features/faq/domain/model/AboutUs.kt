@@ -1,4 +1,4 @@
-package com.solvro.topwr.data.model.aboutUs
+package com.solvro.topwr.features.faq.domain.model
 
 import android.os.Parcelable
 import com.solvro.topwr.data.model.common.Photo

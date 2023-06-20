@@ -1,19 +1,19 @@
-package com.solvro.topwr.ui.fragments.faq_page
+package com.solvro.topwr.features.faq.presentation.list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.solvro.topwr.core.domain.model.Resource
-import com.solvro.topwr.data.model.aboutUs.AboutUs
-import com.solvro.topwr.data.model.info.Info
-import com.solvro.topwr.data.repository.MainRepository
+import com.solvro.topwr.features.faq.domain.model.AboutUs
+import com.solvro.topwr.features.faq.domain.model.Info
+import com.solvro.topwr.features.faq.data.FaqRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class FaqViewModel @Inject constructor(private val repository: MainRepository) : ViewModel() {
+class FaqViewModel @Inject constructor(private val repository: FaqRepositoryImpl) : ViewModel() {
 
     private var textFilter = ""
 

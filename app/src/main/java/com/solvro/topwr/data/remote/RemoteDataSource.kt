@@ -4,11 +4,11 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.solvro.topwr.core.api.model.scienceclub.ScienceClubRemote
 import com.solvro.topwr.core.api.model.scienceclub.TagRemote
-import com.solvro.topwr.data.model.aboutUs.AboutUs
+import com.solvro.topwr.features.faq.domain.model.AboutUs
 import com.solvro.topwr.core.api.model.department.DepartmentRemote
 import com.solvro.topwr.data.model.endDate.EndDate
 import com.solvro.topwr.data.model.endDate.WeekDayException
-import com.solvro.topwr.data.model.info.Info
+import com.solvro.topwr.features.faq.domain.model.Info
 import com.solvro.topwr.data.model.maps.Building
 import com.solvro.topwr.data.model.notices.Notices
 import com.solvro.topwr.data.remote.pagingsource.DepartmentPagingSource

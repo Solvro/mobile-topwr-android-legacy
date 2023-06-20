@@ -1,4 +1,4 @@
-package com.solvro.topwr.ui.fragments.faq_page
+package com.solvro.topwr.features.faq.presentation.list
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,8 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.solvro.topwr.R
-import com.solvro.topwr.data.model.aboutUs.AboutUs
-import com.solvro.topwr.data.model.info.Info
+import com.solvro.topwr.features.faq.domain.model.AboutUs
 import com.solvro.topwr.databinding.AboutUsItemBinding
 
 class AboutUsAdapter(

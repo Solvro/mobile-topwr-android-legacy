@@ -1,9 +1,9 @@
-package com.solvro.topwr.ui.fragments.faq_details
+package com.solvro.topwr.features.faq.presentation.details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.solvro.topwr.data.model.info.Info
+import com.solvro.topwr.features.faq.domain.model.Info
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

@@ -1,4 +1,4 @@
-package com.solvro.topwr.ui.fragments.faq_page
+package com.solvro.topwr.features.faq.presentation.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionInflater
 import com.solvro.topwr.BuildConfig
 import com.solvro.topwr.R
-import com.solvro.topwr.data.model.aboutUs.AboutUs
-import com.solvro.topwr.data.model.info.Info
+import com.solvro.topwr.features.faq.domain.model.AboutUs
+import com.solvro.topwr.features.faq.domain.model.Info
 import com.solvro.topwr.databinding.FaqFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FaqFragment : Fragment() {
-
+    private lateinit var binding: FaqFragmentBinding
     private val viewModel: FaqViewModel by viewModels()
     private val faqAdapter = FaqAdapter { info, imageView ->
         navigateToDetails(info, imageView)
@@ -34,7 +34,7 @@ class FaqFragment : Fragment() {
     private val aboutUsAdapter = AboutUsAdapter { aboutUs, imageView ->
         navigateToAboutUs(aboutUs, imageView)
     }
-    private lateinit var binding: FaqFragmentBinding
+
     private var searchViewJob: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -102,7 +102,10 @@ class FaqFragment : Fragment() {
             )
         ).build()
 
-        val action = FaqFragmentDirections.actionFaqFragmentToFaqDetailsFragment(info)
+        val action =
+            com.solvro.topwr.features.faq.presentation.list.FaqFragmentDirections.actionFaqFragmentToFaqDetailsFragment(
+                info
+            )
         findNavController().navigate(action, extras)
     }
 
@@ -113,14 +116,17 @@ class FaqFragment : Fragment() {
             )
         ).build()
 
-        val action = FaqFragmentDirections.actionFaqFragmentToAboutUsFragment(aboutUs)
+        val action =
+            com.solvro.topwr.features.faq.presentation.list.FaqFragmentDirections.actionFaqFragmentToAboutUsFragment(
+                aboutUs
+            )
         findNavController().navigate(action, extras)
     }
 
     private fun setupSharedTransition() {
-        sharedElementEnterTransition = TransitionInflater.from(context!!)
+        sharedElementEnterTransition = TransitionInflater.from(requireContext())
             .inflateTransition(R.transition.move)
-        sharedElementReturnTransition = TransitionInflater.from(context!!)
+        sharedElementReturnTransition = TransitionInflater.from(requireContext())
             .inflateTransition(R.transition.move)
     }
 

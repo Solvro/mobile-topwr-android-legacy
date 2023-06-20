@@ -1,4 +1,4 @@
-package com.solvro.topwr.features.departments.domain.use_case
+package com.solvro.topwr.features.departments.domain.model.use_case
 
 import androidx.paging.PagingData
 import androidx.paging.filter

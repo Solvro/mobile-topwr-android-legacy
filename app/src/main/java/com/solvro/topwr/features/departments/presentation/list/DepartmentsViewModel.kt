@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import com.solvro.topwr.features.departments.domain.model.Department
-import com.solvro.topwr.features.departments.domain.use_case.GetDepartmentsParams
-import com.solvro.topwr.features.departments.domain.use_case.GetDepartmentsUseCase
+import com.solvro.topwr.features.departments.domain.model.use_case.GetDepartmentsParams
+import com.solvro.topwr.features.departments.domain.model.use_case.GetDepartmentsUseCase
 import com.solvro.topwr.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
