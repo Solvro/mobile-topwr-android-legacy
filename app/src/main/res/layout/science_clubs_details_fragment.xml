@@ -55,7 +55,7 @@
                         android:id="@+id/scienceClubDetailFragmentLogo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
+                        android:layout_margin="8dp"
                         tools:ignore="ContentDescription" />
 
                 </com.google.android.material.card.MaterialCardView>

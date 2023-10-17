@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 abstract class FlowUseCase<Params, ResultType> {
-    abstract suspend fun action(params: Params): Flow<ResultType>
+    abstract suspend fun action(params: Params, scope: CoroutineScope): Flow<ResultType>
 
     operator fun invoke(
         params: Params,
@@ -17,7 +17,7 @@ abstract class FlowUseCase<Params, ResultType> {
         onResult: (ResultType) -> Unit
     ) {
         scope.launch(dispatcher) {
-            action(params).collectLatest {
+            action(params, scope).collectLatest {
                 onResult(it)
             }
         }

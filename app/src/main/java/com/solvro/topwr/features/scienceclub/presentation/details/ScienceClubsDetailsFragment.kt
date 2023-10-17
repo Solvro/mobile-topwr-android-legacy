@@ -12,8 +12,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.transition.Transition
 import androidx.transition.TransitionInflater
+import androidx.transition.TransitionListenerAdapter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.solvro.topwr.R
 import com.solvro.topwr.databinding.ScienceClubsDetailsFragmentBinding
 import com.solvro.topwr.features.scienceclub.domain.model.ScienceClub
@@ -70,9 +74,10 @@ class ScienceClubsDetailsFragment : Fragment() {
     private fun setupSharedElementTransition() {
         binding.apply {
             scienceClubName.transitionName = "science_club_name"
-            scienceClubDetailFragmentLogo.transitionName = "science_club_logo"
+            scienceClubDetailFragmentLogoCard.transitionName = "science_club_logo"
             sharedElementEnterTransition = TransitionInflater.from(requireContext())
                 .inflateTransition(R.transition.move)
+
             sharedElementReturnTransition = TransitionInflater.from(requireContext())
                 .inflateTransition(R.transition.move)
         }
@@ -88,7 +93,6 @@ class ScienceClubsDetailsFragment : Fragment() {
                 .into(scienceClubBackgroundImage)
             Glide.with(requireContext())
                 .load(scienceClub.photo?.url)
-                .circleCrop()
                 .into(scienceClubDetailFragmentLogo)
         }
     }

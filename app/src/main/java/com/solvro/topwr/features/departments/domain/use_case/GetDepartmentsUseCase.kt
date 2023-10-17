@@ -1,11 +1,13 @@
 package com.solvro.topwr.features.departments.domain.use_case
 
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import androidx.paging.filter
 import com.solvro.topwr.core.base.FlowUseCase
 import com.solvro.topwr.features.departments.domain.DepartmentsRepository
 import com.solvro.topwr.features.departments.domain.model.Department
 import com.solvro.topwr.utils.Constants
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -19,11 +21,12 @@ class GetDepartmentsUseCase @Inject constructor(
 
     private var getDepartmentsJob: Job? = null
 
-    override suspend fun action(params: GetDepartmentsParams): Flow<PagingData<Department>> {
+    override suspend fun action(params: GetDepartmentsParams, scope: CoroutineScope): Flow<PagingData<Department>> {
         getDepartmentsJob?.cancel()
         delay(Constants.DEFAULT_DEBOUNCE_TIME_MS)
         return departmentsRepository.getDepartmentsPaged()
             .cancellable()
+            .cachedIn(scope)
             .transform {
                 val filteredData = it.filter { department ->
                     if (params.textFilter == "")    true

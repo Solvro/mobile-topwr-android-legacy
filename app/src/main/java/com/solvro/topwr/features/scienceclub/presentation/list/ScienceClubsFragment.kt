@@ -8,9 +8,11 @@ import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import androidx.paging.cachedIn
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionInflater
 import com.solvro.topwr.R
@@ -89,7 +91,8 @@ ScienceClubsFragment : Fragment() {
             selectedCategory.observe(viewLifecycleOwner) {
                 categoriesAdapter.selectCategory(it ?: getString(R.string.all_tag_name))
             }
-            scienceClubs.observe(viewLifecycleOwner) {
+            scienceClubs
+                .observe(viewLifecycleOwner) {
                 binding.scienceClubRefreshLayout.isRefreshing = false
                 lifecycleScope.launch { scienceClubsAdapter.submitData(it) }
             }
