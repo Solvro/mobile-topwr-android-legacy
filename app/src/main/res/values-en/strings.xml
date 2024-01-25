@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ToPWr</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="departments">Departments</string>
+    <string name="empty"/>
+    <string name="search_hint">Search...</string>
+    <string name="home_screen_greeting">Hi, nice to see you</string>
+    <string name="days">days</string>
+    <string name="until_exam">until exam session starts</string>
+    <string name="recently_searched">Recently searched</string>
+    <string name="buildings">Buildings</string>
+    <string name="map_button"><![CDATA[Map >]]></string>
+    <string name="list"><![CDATA[List >]]></string>
+    <string name="whats_up">What\'s up</string>
+    <string name="faq">Guide</string>
+    <string name="science_clubs">Science Clubs</string>
+    <string name="building_name">Building %1$s</string>
+    <string name="data_error">Error loading data</string>
+    <string name="Monday">Monday</string>
+    <string name="Tuesday">Tuesday</string>
+    <string name="Wednesday">Wednesday</string>
+    <string name="Thursday">Thursday</string>
+    <string name="Friday">Friday</string>
+    <string name="Saturday">Saturday</string>
+    <string name="Sunday">Sunday</string>
+    <string name="Even">on Even</string>
+    <string name="Even_f">on Even</string>
+    <string name="Odd">on Odd</string>
+    <string name="Odd_f">on Odd</string>
+    <string name="read_more">Read more</string>
+    <string name="main_page">Main Page</string>
+    <string name="deanery">Dean\'s Office:</string>
+    <string name="courses_of_study">Courses of Study</string>
+    <string name="department_position">Wroclaw University of Science and Technology\n%1$s</string>
+    <string name="department_detail_building">Building %1$s </string>
+    <string name="clear">Clear</string>
+    <string name="empty_results">No results.</string>
+    <string name="loading_error">Try again.</string>
+    <string name="retry">Retry</string>
+    <string name="see_more">Read more</string>
+    <string name="item_image">Item image</string>
+    <string name="science_club_about">About Us</string>
+    <string name="science_club_contacts">Contact</string>
+    <string name="unknown_department">No data available for the department</string>
+
+    <string name="about_us_title">About Us!</string>
+    <string name="about_us_content">Meet the creators who collaborated to build this application!</string>
+    <string name="version">Version %s (%s)</string>
+    <string name="all_tag_name">All</string>
+    <string name="unknown_day">on this beautiful day!</string>
+    <string name="navigate_me">Navigate me!</string>
+    <string name="cant_navigate_to_browser">Unable to navigate to the browser.</string>
+</resources>
